@@ -45,6 +45,7 @@
 [Pp]rojectSettings/PlayerSettings.asset
 [Pp]rojectSettings/NetworkManager.asset
 [Pp]rojectSettings/EditorBuildSettings.asset
+[Uu]erSettings/
 
 *.pidb.meta
 *.pdb.meta
