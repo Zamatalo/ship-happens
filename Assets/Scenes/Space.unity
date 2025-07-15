@@ -688,25 +688,12 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 5
   jumpForce: 5
-  RotationSpeed: 1
-  SpeedChangeRate: 10
-  JumpHeight: 1.2
-  Gravity: -15
-  SprintSpeed: 6
-  JumpTimeout: 0.1
-  FallTimeout: 0.15
   characterObj: {fileID: 1205691206}
   handsObj: {fileID: 1451246333}
+  itemObj: {fileID: 0}
   isGrounded: 0
-  GroundedOffset: -0.02
-  GroundedRadius: 0.51
-  GroundLayers:
-    serializedVersion: 2
-    m_Bits: 65
   animator: {fileID: 1205691215}
-  CinemachineCameraTarget: {fileID: 1304784753}
-  BottomClamp: -89
-  TopClamp: 89
+  foot: {fileID: 0}
 --- !u!95 &1205691215
 Animator:
   serializedVersion: 7

@@ -27,6 +27,8 @@ namespace Loot {
 			float randomY = Random.Range(-1f, 1f) * _rotSpeed;
 			float randomZ = Random.Range(-1f, 1f) * _rotSpeed;
 			_rb.angularVelocity = new Vector3(randomX, randomY, randomZ);
+			
+			Destroy(gameObject, 60);
 		}
 	}
 }
