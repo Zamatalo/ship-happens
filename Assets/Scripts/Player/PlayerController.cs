@@ -4,22 +4,21 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player {
-    public class PlayerController : NetworkBehaviour {
-        public float moveSpeed = 5f;
-        public float jumpForce = 5f;
-        private InputSystem_Actions _playerInputActions;
-        private Vector2 moveInput;
-        private Rigidbody rb;
-        public GameObject characterObj;
-        public GameObject handsObj;
-        public GameObject itemObj;
-        private bool isGrounded;
-        private bool isMoving;
-        public Animator animator;
-        private Inventory.Inventory _inventory;
-        private Inventory.Slot _slot;
-        public Transform foot;
+public class PlayerController : NetworkBehaviour {
+    public float moveSpeed = 5f;
+    public float jumpForce = 5f;
+    private InputSystem_Actions _playerInputActions;
+    private Vector2 moveInput;
+    private Rigidbody rb;
+    public GameObject characterObj;
+    public GameObject handsObj;
+    public GameObject itemObj;
+    public bool isGrounded;
+    private bool isMoving;
+    public Animator animator;
+    private Inventory.Inventory _inventory;
+    private Inventory.Slot _slot;
+    public Transform foot;
    
         private void Awake() {
             _playerInputActions = new InputSystem_Actions();
