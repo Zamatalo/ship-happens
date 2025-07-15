@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -12,6 +13,7 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		private InputSystem_Actions _ia;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -25,6 +27,11 @@ namespace StarterAssets
 		
 
 		private static bool m_FocusActionsSetUp;
+
+		private void Awake()
+		{
+			_ia = new  InputSystem_Actions();
+		}
 
 		private void Start()
 		{
@@ -50,7 +57,30 @@ namespace StarterAssets
 			m_FocusActionsSetUp = false;
 		}
 
+		private void OnEnable()
+		{
+			_ia.Enable();
+			_ia.Player.Sprint.performed += OnSprintStart;
+			_ia.Player.Sprint.canceled += OnSprintEnd;
+		}
 
+		private void OnDisable()
+		{
+			_ia.Player.Sprint.performed -= OnSprintStart;
+			_ia.Player.Sprint.canceled -= OnSprintEnd;
+			_ia.Disable();
+		}
+		
+		private void OnSprintStart(InputAction.CallbackContext _)
+		{
+			sprint = true;
+		}
+
+		private void OnSprintEnd(InputAction.CallbackContext _)
+		{
+			sprint = false;
+		}
+		
 #if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)
 		{
@@ -82,10 +112,10 @@ namespace StarterAssets
 			JumpInput(value.isPressed);
 		}
 
-		public void OnSprint(InputValue value)
-		{
-			SprintInput(value.isPressed);
-		}
+		// public void OnSprint(InputValue value)
+		// {
+		// 	SprintInput(value.isPressed);
+		// }
 #endif
 
 
