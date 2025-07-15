@@ -10,9 +10,10 @@ public class PlayerController : NetworkBehaviour {
     private Rigidbody rb;
     public GameObject characterObj;
     public GameObject handsObj;
-    private bool isGrounded;
+    public bool isGrounded;
     private bool isMoving;
     public Animator animator;
+    public Transform foot;
    
     private void Awake()
     {
@@ -74,9 +75,12 @@ public class PlayerController : NetworkBehaviour {
 
     private void FixedUpdate()
     {
-        //if (IsOwner)
+        
+        if (IsOwner)
         {
-            Vector3 inputDir = new Vector3(moveInput.x, 0f, moveInput.y);
+            isGrounded = Physics.Raycast(foot.position, Vector3.down, 0.1f);
+            
+            var inputDir = new Vector3(moveInput.x, 0f, moveInput.y);
 
             Vector3 movement = (transform.rotation) * inputDir;
             movement *= moveSpeed * Time.fixedDeltaTime;
@@ -88,22 +92,6 @@ public class PlayerController : NetworkBehaviour {
             animator.SetFloat("verticalSpeed", rb.linearVelocity.y);
             animator.SetBool("isGrounded", isGrounded);
             animator.SetBool("isMoving", isMoving);
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
         }
     }
 }
