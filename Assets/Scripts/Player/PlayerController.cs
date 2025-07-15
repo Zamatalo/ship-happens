@@ -175,10 +175,17 @@ public class PlayerController : NetworkBehaviour
 
     private void Update()
     {
+        //if (!IsOwner) return;
+
         JumpAndGravity();
         GroundedCheck();
         Move();
-        if (_input.jump) Debug.Log("Jump pressed!");
+        //if (_input.jump) Debug.Log("Jump pressed!");
+        isMoving = _input.move.magnitude > 0.01f;
+        animator.SetFloat("moveX", _input.move.x);
+        animator.SetFloat("moveZ", _input.move.y);
+        animator.SetBool("isGrounded", isGrounded);
+        animator.SetBool("isMoving", isMoving);
     }
     private void LateUpdate()
     {
@@ -285,6 +292,8 @@ public class PlayerController : NetworkBehaviour
             {
                 // the square root of H * -2 * G = how much velocity needed to reach desired height
                 verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                animator.SetTrigger("Jump");
+
             }
 
             // jump timeout
