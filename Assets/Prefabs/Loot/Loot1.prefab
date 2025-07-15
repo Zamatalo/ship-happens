@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2635390982527823537}
   - component: {fileID: 3835362121978674526}
   - component: {fileID: 659001063718834370}
-  - component: {fileID: 3510885322605063576}
   - component: {fileID: 8901533556933701590}
   - component: {fileID: 8290677473871958822}
+  - component: {fileID: 3510885322605063576}
   m_Layer: 0
   m_Name: Loot1
   m_TagString: Untagged
@@ -139,18 +139,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3510885322605063576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5071198960803153579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80519c56fb4c1f841b62dd442a8566d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8901533556933701590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,3 +202,16 @@ MonoBehaviour:
   UseRigidBodyForMotion: 1
   AutoUpdateKinematicState: 0
   AutoSetKinematicOnDespawn: 0
+--- !u!114 &3510885322605063576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5071198960803153579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80519c56fb4c1f841b62dd442a8566d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 10
