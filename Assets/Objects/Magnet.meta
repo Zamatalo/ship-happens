@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Prefabs/Item.meta
-guid: 27a61f3de3cc5cb428b096053347b23e
-========
-guid: 836335538438f4b918d264ef5695de23
->>>>>>>> origin/dev:Assets/Objects/Magnet.meta
+guid: 9fcc0392450e44fbb8fb93943eed73f5
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
