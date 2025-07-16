@@ -965,7 +965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 5
-  jumpForce: 5
+  jumpForce: 2
   characterObj: {fileID: 469696503118072618}
   handsObj: {fileID: 2141693620793550440}
   itemObj: {fileID: 2672976068617319290}
