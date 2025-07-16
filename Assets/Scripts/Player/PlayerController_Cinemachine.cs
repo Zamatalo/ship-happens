@@ -24,8 +24,8 @@ public class PlayerController_Cinemachine : NetworkBehaviour
     private CharacterController controller;
     //private Vector2 moveInput;
     //private Rigidbody rb;
-    public GameObject characterObj;
-    public GameObject handsObj;
+    // public GameObject characterObj;
+    // public GameObject handsObj;
     private StarterAssetsInputs _input;
 
     private PlayerInput playerInput;
@@ -78,109 +78,25 @@ public class PlayerController_Cinemachine : NetworkBehaviour
         }
     }
 
+
     private void Start()
     {
-        //rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         _input = GetComponent<StarterAssetsInputs>();
-
-        if (IsLocalPlayer)
-        {
-            characterObj.SetActive(false);
-            handsObj.SetActive(true);
-        }
-        else
-        {
-            characterObj.SetActive(true);
-            handsObj.SetActive(false);
-        }
+        
         // reset our timeouts on start
         jumpTimeoutDelta = JumpTimeout;
         fallTimeoutDelta = FallTimeout;
     }
-
-    // private void OnEnable()
-    // {
-    //     _playerInputActions.Player.Enable();
-    //     _playerInputActions.Player.Move.performed += OnMove;
-    //     _playerInputActions.Player.Move.canceled += OnMove;
-    //     _playerInputActions.Player.Jump.performed += OnJump;
-    // }
-
-    // private void OnDisable()
-    // {
-    //     _playerInputActions.Player.Jump.performed -= OnJump;
-    //     _playerInputActions.Player.Move.canceled -= OnMove;
-    //     _playerInputActions.Player.Move.performed -= OnMove;
-    //     _playerInputActions.Player.Disable();
-    // }
-
-    // private void OnMove(InputAction.CallbackContext context)
-    // {
-    //   //  if (!IsOwner) { return;}
-    //     moveInput = context.ReadValue<Vector2>();
-    // }
-
-    // private void OnJump(InputAction.CallbackContext context)
-    // {
-    //     //if (!IsOwner) { return;}
-    //     if (isGrounded)
-    //     {
-    //         Jump();
-    //     }
-    // }
-
-    // private void Jump()
-    // {
-    //     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    //     animator.SetTrigger("Jump");
-    // }
-
-    // private void FixedUpdate()
-    // {
-    //     //if (IsOwner)
-    //     {
-    //         Vector3 inputDir = new Vector3(moveInput.x, 0f, moveInput.y);
-
-    //         Vector3 movement = (transform.rotation) * inputDir;
-    //         movement *= moveSpeed * Time.fixedDeltaTime;
-    //         rb.MovePosition(rb.position + movement);
-
-    //         isMoving = moveInput.sqrMagnitude > 0.01f;
-    //         animator.SetFloat("moveX", moveInput.x);
-    //         animator.SetFloat("moveZ", moveInput.y);
-    //         animator.SetFloat("verticalSpeed", rb.linearVelocity.y);
-    //         animator.SetBool("isGrounded", isGrounded);
-    //         animator.SetBool("isMoving", isMoving);
-    //     }
-    // }
-
-    // private void OnCollisionEnter(Collision collision)
-    // {
-    //     if (collision.gameObject.CompareTag("Ground"))
-    //     {
-    //         isGrounded = true;
-    //     }
-    // }
-
-    // private void OnCollisionExit(Collision collision)
-    // {
-    //     if (collision.gameObject.CompareTag("Ground"))
-    //     {
-    //         isGrounded = false;
-    //     }
-    // }
-
+    
     private void Update()
     {
-        //if (!IsOwner) return;
-
         JumpAndGravity();
         GroundedCheck();
         Move();
-        //if (_input.jump) Debug.Log("Jump pressed!");
+     
         isMoving = _input.move.magnitude > 0.01f;
         animator.SetFloat("moveX", _input.move.x);
         animator.SetFloat("moveZ", _input.move.y);
