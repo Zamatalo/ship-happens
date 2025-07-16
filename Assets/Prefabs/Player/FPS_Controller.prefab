@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &1299916074328513549
 GameObject:
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 127364165
+  GlobalObjectIdHash: 885492914
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -315,8 +315,6 @@ MonoBehaviour:
   SprintSpeed: 6
   JumpTimeout: 0.1
   FallTimeout: 0.15
-  characterObj: {fileID: 4217025752399280405}
-  handsObj: {fileID: 1299916074328513549}
   isGrounded: 1
   GroundedOffset: -0.14
   GroundedRadius: 0.5
