@@ -604,6 +604,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3901613659739042740}
     - target: {fileID: 3971044671282309702, guid: 152097b62ad44425a8a9752c293b1e31, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 8668388866673138438}
+    - target: {fileID: 3971044671282309702, guid: 152097b62ad44425a8a9752c293b1e31, type: 3}
+      propertyPath: minDist
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3971044671282309702, guid: 152097b62ad44425a8a9752c293b1e31, type: 3}
       propertyPath: playerObj
       value: 
       objectReference: {fileID: 8668388866673138438}

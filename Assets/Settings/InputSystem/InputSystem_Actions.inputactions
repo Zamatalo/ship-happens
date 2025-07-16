@@ -1138,6 +1138,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Magnet",
+            "id": "6e4e42f5-f23b-4b08-9b63-60b5f2abd387",
+            "actions": [
+                {
+                    "name": "Pull",
+                    "type": "Button",
+                    "id": "180a3ca0-529a-43c5-8f46-63a235161e4b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "06ec1f60-b166-4739-a5c0-4d3f9855c263",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pull",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
