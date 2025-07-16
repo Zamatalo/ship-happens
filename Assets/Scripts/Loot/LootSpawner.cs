@@ -1,4 +1,5 @@
 using System.Collections;
+using Player;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -26,43 +27,35 @@ namespace Loot {
 
 		IEnumerator SpawnLootCoroutine() {
 			while (true) {
-				// Check if the NetworkManager is listening
 				if (NetworkManager.Singleton.IsListening) {
 					SpawnLoot();
+					yield return new WaitForSeconds(spawnInterval);
+				} else {
+					yield return new WaitForSeconds(1);
 				}
-				yield return
-					new WaitForSeconds(
-						spawnInterval); // Wait for the specified interval before spawning again
 			}
 		}
 
 		void SpawnLoot() {
-			int numberOfLootsToSpawn =
-				Random.Range(minLoot, maxLoot); // Random number between 1 and 20
+			foreach (var player in FindObjectsByType<PlayerController>(FindObjectsSortMode.None)) {
+				var numberOfLootsToSpawn =
+					Random.Range(minLoot, maxLoot);
 
-			for (int i = 0; i < numberOfLootsToSpawn; i++) {
-				Vector3 spawnPosition = new Vector3(
-					Random.Range(minX, maxX),
-					Random.Range(minY, maxY),
-					Random.Range(minZ, maxZ)
-				);
+				for (var i = 0; i < numberOfLootsToSpawn; i++) {
+					var spawnPosition = new Vector3(
+						player.transform.position.x + Random.Range(minX, maxX),
+						player.transform.position.y + Random.Range(minY, maxY),
+						player.transform.position.z + Random.Range(minZ, maxZ)
+					);
 
-				float randomX = Random.Range(0, 360);
-				float randomY = Random.Range(0, 360);
-				float randomZ = Random.Range(0, 360);
+					float randomX = Random.Range(0, 360);
+					float randomY = Random.Range(0, 360);
+					float randomZ = Random.Range(0, 360);
 
-				GameObject lootInstance = Instantiate(lootPrefab, spawnPosition,
-					Quaternion.Euler(randomX, randomY, randomZ));
-				var loot = lootInstance.GetComponent<Loot>();
-				loot.Init(minVelX, maxVelX, minVelZ, maxVelZ, rotSpeed);
-
-				// Get the NetworkObject component
-				NetworkObject networkObject = lootInstance.GetComponent<NetworkObject>();
-				if (networkObject != null) {
-					// Spawn the object over the network
-					networkObject.Spawn();
-				} else {
-					Debug.LogError("NetworkObject component is missing on the loot prefab.");
+					var inst = Instantiate(lootPrefab, spawnPosition,
+						Quaternion.Euler(randomX, randomY, randomZ));
+					var loot = inst.GetComponent<Loot>();
+					loot.Init(minVelX, maxVelX, minVelZ, maxVelZ, rotSpeed);
 				}
 			}
 		}
