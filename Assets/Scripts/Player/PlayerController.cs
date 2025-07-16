@@ -1,5 +1,5 @@
 using System;
-using Inventory;
+using Player.Inventory;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,8 +14,8 @@ namespace Player {
 		public bool isGrounded;
 		public Animator animator;
 		public Transform foot;
-		private Inventory.Inventory _inventory;
 		private InputSystem_Actions _playerInputActions;
+		private PlayerInventory _playerInventory;
 		private Slot _slot;
 		private bool isMoving;
 		private Vector2 moveInput;
@@ -26,9 +26,6 @@ namespace Player {
 		}
 
 		private void Start() {
-			_inventory = FindAnyObjectByType<Inventory.Inventory>();
-			_inventory.AddSlotChangeListener(OnSlotChange);
-
 			rb = GetComponent<Rigidbody>();
 			animator = GetComponent<Animator>();
 			if (IsLocalPlayer) {
@@ -76,10 +73,10 @@ namespace Player {
 		private void OnSlotChange(Slot slot) {
 			_slot = slot;
 			switch (_slot.kind) {
-				case Slot.SlotKind.NONE:
+				case Slot.SlotKind.None:
 					itemObj.SetActive(false);
 					break;
-				case Slot.SlotKind.HOOK:
+				case Slot.SlotKind.Magnet:
 					itemObj.SetActive(true);
 					break;
 				default:

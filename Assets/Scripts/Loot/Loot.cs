@@ -1,7 +1,9 @@
+using Player.Inventory;
 using UnityEngine;
 
 namespace Loot {
 	public class Loot : MonoBehaviour {
+		public Slot.SlotKind kind;
 		public int amount;
 		private float _maxVelX; // Maximum speed of falling
 		private float _maxVelZ; // Maximum speed of falling

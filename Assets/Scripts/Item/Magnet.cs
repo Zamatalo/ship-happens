@@ -1,4 +1,4 @@
-﻿using Player;
+﻿using Player.Inventory;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,7 +10,7 @@ namespace Item {
 		public float maxDist = 100f;
 		public float minDist = 1f;
 		private InputSystem_Actions _ia;
-		private PlayerInventory _inventory;
+		private PlayerInventory _playerInventory;
 		private bool _pulling;
 
 		private void Awake() {
@@ -18,7 +18,7 @@ namespace Item {
 		}
 
 		private void Start() {
-			_inventory = player.GetComponent<PlayerInventory>();
+			_playerInventory = player.GetComponent<PlayerInventory>();
 		}
 
 		private void FixedUpdate() {
@@ -57,8 +57,7 @@ namespace Item {
 
 			if (Vector3.Distance(loot.transform.position, origin.position) > minDist) return;
 
-			_inventory.AddMetal(loot.amount);
-			Destroy(hit.collider.gameObject);
+			if (_playerInventory.Collect(loot.kind, loot.amount)) Destroy(hit.collider.gameObject);
 		}
 	}
 }
