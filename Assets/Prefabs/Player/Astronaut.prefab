@@ -2461,6 +2461,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 6c8d32e51d3b44840aefdf0122d15b0a, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 6afd93f605654e348bd5a37df7a1e486, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1483648144744032606, guid: 6c8d32e51d3b44840aefdf0122d15b0a, type: 3}
