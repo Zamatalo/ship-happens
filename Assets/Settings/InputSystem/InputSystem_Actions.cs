@@ -113,7 +113,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""6c2ab1b8-8984-453a-af3d-a3c78ae1679a"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1252,6 +1252,54 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Harpoon"",
+            ""id"": ""0f590244-5ed9-4294-9cb7-122cca166565"",
+            ""actions"": [
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""8dfb8797-53cb-45d4-ac80-357614706969"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""0b1c7200-8141-4fff-bab8-6bc7e9e0d069"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""35ee79b5-d1b0-4b3e-a1ad-c2dbc2140de1"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""323b37f1-d1a6-48ee-9f7d-5ccada53fec0"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1352,6 +1400,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         // Magnet
         m_Magnet = asset.FindActionMap("Magnet", throwIfNotFound: true);
         m_Magnet_Pull = m_Magnet.FindAction("Pull", throwIfNotFound: true);
+        // Harpoon
+        m_Harpoon = asset.FindActionMap("Harpoon", throwIfNotFound: true);
+        m_Harpoon_Shoot = m_Harpoon.FindAction("Shoot", throwIfNotFound: true);
+        m_Harpoon_Cancel = m_Harpoon.FindAction("Cancel", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1360,6 +1412,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputSystem_Actions.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Inventory.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Inventory.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Magnet.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Magnet.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Harpoon.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Harpoon.Disable() has not been called.");
     }
 
     /// <summary>
@@ -2068,6 +2121,113 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="MagnetActions" /> instance referencing this action map.
     /// </summary>
     public MagnetActions @Magnet => new MagnetActions(this);
+
+    // Harpoon
+    private readonly InputActionMap m_Harpoon;
+    private List<IHarpoonActions> m_HarpoonActionsCallbackInterfaces = new List<IHarpoonActions>();
+    private readonly InputAction m_Harpoon_Shoot;
+    private readonly InputAction m_Harpoon_Cancel;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Harpoon".
+    /// </summary>
+    public struct HarpoonActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public HarpoonActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Harpoon/Shoot".
+        /// </summary>
+        public InputAction @Shoot => m_Wrapper.m_Harpoon_Shoot;
+        /// <summary>
+        /// Provides access to the underlying input action "Harpoon/Cancel".
+        /// </summary>
+        public InputAction @Cancel => m_Wrapper.m_Harpoon_Cancel;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Harpoon; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="HarpoonActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(HarpoonActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="HarpoonActions" />
+        public void AddCallbacks(IHarpoonActions instance)
+        {
+            if (instance == null || m_Wrapper.m_HarpoonActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_HarpoonActionsCallbackInterfaces.Add(instance);
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="HarpoonActions" />
+        private void UnregisterCallbacks(IHarpoonActions instance)
+        {
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="HarpoonActions.UnregisterCallbacks(IHarpoonActions)" />.
+        /// </summary>
+        /// <seealso cref="HarpoonActions.UnregisterCallbacks(IHarpoonActions)" />
+        public void RemoveCallbacks(IHarpoonActions instance)
+        {
+            if (m_Wrapper.m_HarpoonActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="HarpoonActions.AddCallbacks(IHarpoonActions)" />
+        /// <seealso cref="HarpoonActions.RemoveCallbacks(IHarpoonActions)" />
+        /// <seealso cref="HarpoonActions.UnregisterCallbacks(IHarpoonActions)" />
+        public void SetCallbacks(IHarpoonActions instance)
+        {
+            foreach (var item in m_Wrapper.m_HarpoonActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_HarpoonActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="HarpoonActions" /> instance referencing this action map.
+    /// </summary>
+    public HarpoonActions @Harpoon => new HarpoonActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -2353,5 +2513,27 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPull(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Harpoon" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="HarpoonActions.AddCallbacks(IHarpoonActions)" />
+    /// <seealso cref="HarpoonActions.RemoveCallbacks(IHarpoonActions)" />
+    public interface IHarpoonActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShoot(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Cancel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCancel(InputAction.CallbackContext context);
     }
 }
