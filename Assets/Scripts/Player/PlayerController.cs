@@ -1,5 +1,4 @@
 using System;
-using Player.Inventory;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,12 +14,10 @@ namespace Player {
 		public Animator animator;
 		public Transform foot;
 		private InputSystem_Actions _playerInputActions;
-		private PlayerInventoryHotbar _playerInventoryHotbar;
-		private InventoryItem _slot;
 		private bool isMoving;
 		private Vector2 moveInput;
 		private Rigidbody rb;
-
+		
 		private void Awake() {
 			_playerInputActions = new InputSystem_Actions();
 		}

@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Inventory/inventorySlots/test/InvSlot/InventorySlot.uss?fileID=7433441132597879392&amp;guid=175255d8f07ea21489cc060d84f41ef2&amp;type=3#InventorySlot" />
+    <ui:VisualElement name="slot" class="slot" style="background-image: resource(&apos;UI/Assets/1. Free Hologram Interface Wenrexa(1)/1. Free Hologram Interface Wenrexa/Card X1/Card X1&apos;); -unity-background-image-tint-color: rgb(154, 205, 50); justify-content: center; align-content: auto; max-width: 64px; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; background-color: rgba(85, 85, 85, 0); background-repeat: no-repeat no-repeat; cursor: resource(&apos;Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px&apos;); margin-top: 2%; margin-right: 2%; margin-bottom: 2%; margin-left: 2%;">
+        <ui:Image name="icon" style="-unity-background-image-tint-color: rgba(255, 255, 255, 0.9); cursor: resource(&apos;Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px&apos;);" />
+        <ui:Label name="quantity" style="cursor: resource(&apos;Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px&apos;);" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -44,9 +44,7 @@ public class PlayerController_Cinemachine : NetworkBehaviour
     private float cinemachineTargetPitch;
     public GameObject CinemachineCameraTarget;
     private GameObject mainCamera;
-    [Tooltip("How far in degrees can you move the camera up")]
     public float BottomClamp = -90.0f;
-    [Tooltip("How far in degrees can you move the camera down")]
     public float TopClamp = 90.0f;
 
     //---------------UTIL---------------
@@ -57,18 +55,7 @@ public class PlayerController_Cinemachine : NetworkBehaviour
     private float rotationVelocity;
     private float verticalVelocity;
     private float speed;
-
-    private bool IsCurrentDeviceMouse
-    {
-        get
-        {
-#if ENABLE_INPUT_SYSTEM
-            return playerInput.currentControlScheme == "KeyboardMouse";
-#else
-				return false;
-#endif
-        }
-    }
+    
 
     private void Awake()
     {
@@ -90,7 +77,7 @@ public class PlayerController_Cinemachine : NetworkBehaviour
         jumpTimeoutDelta = JumpTimeout;
         fallTimeoutDelta = FallTimeout;
     }
-    
+
     private void Update()
     {
         JumpAndGravity();
@@ -102,6 +89,18 @@ public class PlayerController_Cinemachine : NetworkBehaviour
         animator.SetFloat("moveZ", _input.move.y);
         animator.SetBool("isGrounded", isGrounded);
         animator.SetBool("isMoving", isMoving);
+        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (NetworkManager.Singleton.LocalClient.PlayerObject.TryGetComponent<PlayerInventory>(out var inventory))
+            {
+                Debug.Log("Trying to add to player inventory");
+                inventory.AddItemServerRpc("Poison", 1);
+                inventory.AddItemServerRpc("Metal", 1);
+                inventory.AddItemServerRpc("Harpoon", 1);
+                inventory.AddItemServerRpc("Magnet", 1);
+            }
+        }
     }
     private void LateUpdate()
     {
@@ -119,7 +118,7 @@ public class PlayerController_Cinemachine : NetworkBehaviour
         if (_input.look.sqrMagnitude >= _threshold)
         {
             //Don't multiply mouse input by Time.deltaTime
-            float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+            float deltaTimeMultiplier = Time.deltaTime;
 
             cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
             rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
