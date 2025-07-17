@@ -15,8 +15,8 @@ namespace Player {
 		public Animator animator;
 		public Transform foot;
 		private InputSystem_Actions _playerInputActions;
-		private PlayerInventory _playerInventory;
-		private Slot _slot;
+		private PlayerInventoryHotbar _playerInventoryHotbar;
+		private InventoryItem _slot;
 		private bool isMoving;
 		private Vector2 moveInput;
 		private Rigidbody rb;
@@ -69,19 +69,19 @@ namespace Player {
 			_playerInputActions.Player.Disable();
 		}
 
-		private void OnSlotChange(Slot slot) {
-			_slot = slot;
-			switch (_slot.kind) {
-				case Slot.SlotKind.None:
-					itemObj.SetActive(false);
-					break;
-				case Slot.SlotKind.Magnet:
-					itemObj.SetActive(true);
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
-		}
+		// private void OnSlotChange(InventoryItem slot) {
+		// 	_slot = slot;
+		// 	switch (_slot.Kind) {
+		// 		case ItemEnums.None:
+		// 			itemObj.SetActive(false);
+		// 			break;
+		// 		case Slot.SlotKind.Magnet:
+		// 			itemObj.SetActive(true);
+		// 			break;
+		// 		default:
+		// 			throw new ArgumentOutOfRangeException();
+		// 	}
+		// }
 
 		private void OnMove(InputAction.CallbackContext context) {
 			//  if (!IsOwner) { return;}

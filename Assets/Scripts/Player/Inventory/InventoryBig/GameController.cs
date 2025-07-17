@@ -8,8 +8,9 @@ public class ItemDetails
 {
     public string Name;
     public string id;
-    public Sprite Icon;
+    public Sprite sprite;
     public bool CanDrop;
+    public bool isStackable;
 }
 
 public enum InventoryChangeType
@@ -22,7 +23,8 @@ public enum ItemEnums{
     None,
     Magnet,
     Harpoon,
-    Metal
+    Metal,
+    GravityGun
 }
 
 public delegate void OnInventoryChangedDelegate(string[] itemid, InventoryChangeType change);
@@ -53,38 +55,43 @@ public class GameController : MonoBehaviour
         {
             Name = "Magnet",
             id = "0",
-            Icon = IconSprites.FirstOrDefault(x => x.name.Equals("Magnet")),
-            CanDrop = true
+            sprite = IconSprites.FirstOrDefault(x => x.name.Equals("Magnet")),
+            CanDrop = true,
+            isStackable = false
         });
 
         m_ItemDatabase.Add("1", new ItemDetails()
         {
             Name = "Harpoon",
             id = "1",
-            Icon = IconSprites.FirstOrDefault(x => x.name.Equals("Harpoon")),
-            CanDrop = true
+            sprite = IconSprites.FirstOrDefault(x => x.name.Equals("Harpoon")),
+            CanDrop = true,
+            isStackable = false
         });
 
         m_ItemDatabase.Add("2", new ItemDetails()
         {
             Name = "Metal",
             id = "2",
-            Icon = IconSprites.FirstOrDefault(x => x.name.Equals("Metal")),
-            CanDrop = true
+            sprite = IconSprites.FirstOrDefault(x => x.name.Equals("Metal")),
+            CanDrop = true,
+            isStackable = true
         });
         m_ItemDatabase.Add("3", new ItemDetails()
         {
             Name = "Poison",
             id = "3",
-            Icon = IconSprites.FirstOrDefault(x => x.name.Equals("poison")),
-            CanDrop = true
+            sprite = IconSprites.FirstOrDefault(x => x.name.Equals("poison")),
+            CanDrop = true,
+            isStackable = true
         });
-        m_ItemDatabase.Add("3", new ItemDetails()
+        m_ItemDatabase.Add("4", new ItemDetails()
         {
             Name = "GravityGun",
             id = "4",
-            Icon = IconSprites.FirstOrDefault(x => x.name.Equals("Gravity_Gun")),
-            CanDrop = true
+            sprite = IconSprites.FirstOrDefault(x => x.name.Equals("gravity_gun")),
+            CanDrop = true,
+            isStackable = false
         });
     }
     

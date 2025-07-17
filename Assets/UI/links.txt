@@ -1,2 +1,0 @@
-https://game-icons.net/ ---Game icons
-https://www.whatupgames.com/blog/create-a-runtime-inventory-ui-with-ui-toolkit -- guide for inventory

@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class InventoryUIController : MonoBehaviour
 {
-    public List<InventorySlot> InventoryItems = new List<InventorySlot>();
+    public List<InventoryItem> InventoryItems = new List<InventoryItem>();
 
     private VisualElement m_Root;
     private VisualElement m_SlotContainer;
@@ -13,12 +13,12 @@ public class InventoryUIController : MonoBehaviour
     private void Awake()
     {
         m_Root = GetComponent<UIDocument>().rootVisualElement;
-        m_SlotContainer = m_Root.Query("SlotContainer").First();
+        m_SlotContainer = m_Root.Query("SlotContainer");
 
         
         for (int i = 0; i < 48; i++)
         {
-            InventorySlot item = new InventorySlot();
+            InventoryItem item = new InventoryItem();
 
             InventoryItems.Add(item);
             m_SlotContainer.Add(item);
