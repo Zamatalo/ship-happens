@@ -16,6 +16,8 @@ namespace Player {
 		}
 
 		private void Update() {
+			if (!_building) return;
+
 			if (!Physics.Raycast(new Ray(cameraTransform.position, cameraTransform.forward),
 				    out var hit)) {
 				_preview.SetActive(false);
@@ -51,9 +53,14 @@ namespace Player {
 
 			Instantiate(planePrefab, _preview.transform.position, _preview.transform.rotation);
 			Destroy(_preview);
+
+			_building = false;
 		}
 
 		private void OnCancel(InputAction.CallbackContext _) {
+			if (!_building) return;
+
+			Destroy(_preview);
 			_building = false;
 		}
 	}
