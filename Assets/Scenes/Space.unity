@@ -94,7 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 51964fb395cfce64b975fa9a11efbb27, type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 4d25c4472fb469348bd2c63dc777d489, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 1b771488abbb5fb4c9ee2f3f7b657f17, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -313,7 +313,7 @@ Transform:
   m_GameObject: {fileID: 281556389}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -789,15 +789,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6575626276680213419, guid: d5b98061bbbd94e42a1150ca553a009a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -60
+      value: -598
       objectReference: {fileID: 0}
     - target: {fileID: 6575626276680213419, guid: d5b98061bbbd94e42a1150ca553a009a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -75
+      value: -233
       objectReference: {fileID: 0}
     - target: {fileID: 6575626276680213419, guid: d5b98061bbbd94e42a1150ca553a009a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1104.9999
+      value: -395
       objectReference: {fileID: 0}
     - target: {fileID: 6575626276680213419, guid: d5b98061bbbd94e42a1150ca553a009a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3249,7 +3249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.26606238, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.6862745, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3283,7 +3283,7 @@ MonoBehaviour:
   playMenu: {fileID: 352449581994007174}
   exitMenu: {fileID: 352803724512670220}
   extrasMenu: {fileID: 0}
-  theme: 2
+  theme: 0
   themeController: {fileID: 11400000, guid: e00c7d2bc58a2424b8dc09ecdafdb067, type: 2}
   mainCanvas: {fileID: 353375068253797840}
   PanelControls: {fileID: 0}
@@ -3415,7 +3415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.26606238, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.6862745, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3504,7 +3504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.26606238, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.6862745, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

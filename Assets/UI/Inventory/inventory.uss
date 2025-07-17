@@ -1,0 +1,27 @@
+
+
+.slotContainer {
+    width: auto;
+    height: auto;
+    min-width: 64px;
+    min-height: 64px;
+    max-width: 64px;
+    max-height: 64px;
+    margin: 5px;
+    border-left-color: rgb(48, 48, 48);
+    border-right-color: rgb(48, 48, 48);
+    border-top-color: rgb(48, 48, 48);
+    border-bottom-color: rgb(48, 48, 48);
+    background-color: rgb(9, 19, 21);
+    background-image: url('/Assets/UI/Inventory/Cell01.png');
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+/*.slotIcon {*/
+/*    padding: 15px;*/
+/*    flex-shrink: 0;*/
+/*    flex-grow: 1;*/
+/*}*/

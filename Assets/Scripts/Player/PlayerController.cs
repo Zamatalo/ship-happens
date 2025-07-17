@@ -50,7 +50,6 @@ namespace Player {
 				isMoving = moveInput.sqrMagnitude > 0.01f;
 				animator.SetFloat("moveX", moveInput.x);
 				animator.SetFloat("moveZ", moveInput.y);
-				animator.SetFloat("verticalSpeed", rb.linearVelocity.y);
 				animator.SetBool("isGrounded", isGrounded);
 				animator.SetBool("isMoving", isMoving);
 			}

@@ -7,8 +7,8 @@ namespace Player.Inventory {
 	public class PlayerInventory : MonoBehaviour {
 		public delegate void OnSlotChange(Slot slot);
 		public List<GameObject> slots;
-		public Color activeColor;
-		public Color inactiveColor;
+		public Sprite activeSprite;
+		public Sprite inactiveSprite;
 		private readonly List<OnSlotChange> _fns = new();
 		private readonly List<Slot> _slots = new();
 		private byte _activeSlotIndex;

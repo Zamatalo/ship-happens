@@ -1,57 +1,50 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Player.Inventory {
-	public class Slot : MonoBehaviour {
-		public enum SlotKind {
-			None,
-			Magnet,
-			Harpoon,
-			Metal
-		}
+    public class Slot : MonoBehaviour {
+        
 
-		public TMP_Text amountText;
-		public Image image;
-		public Material magnetSprite;
-		public Material harpoonSprite;
-		public Material metalSprite;
-		public SlotKind kind;
-		public int amount;
+        private TMP_Text _amountText;
+        public SlotKind Kind { get; private set; } = SlotKind.None;
+        public int Amount { get; private set; } = 0;
 
-		private void Update() {
-			switch (kind) {
-				case SlotKind.None:
-					image.material = null;
-					image.enabled = false;
-					break;
-				case SlotKind.Magnet:
-					image.enabled = true;
-					image.material = magnetSprite;
-					break;
-				case SlotKind.Harpoon:
-					image.enabled = true;
-					image.material = harpoonSprite;
-					break;
-				case SlotKind.Metal:
-					image.enabled = true;
-					image.material = metalSprite;
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
-			amountText.text = $"{amount}";
-		}
+        public void SetSlot(SlotKind kind, int initialAmount = 1) {
+            Kind = kind;
+            Amount = initialAmount;
+            UpdateAmountText();
+        }
 
-		public bool Stackable() {
-			return kind switch {
-				SlotKind.None => false,
-				SlotKind.Magnet => false,
-				SlotKind.Harpoon => false,
-				SlotKind.Metal => true,
-				_ => throw new ArgumentOutOfRangeException()
-			};
-		}
-	}
+        public void AddAmount(int value) {
+            Amount += value;
+            UpdateAmountText();
+        }
+
+        public void SetAmount(int value) {
+            Amount = value;
+            UpdateAmountText();
+        }
+
+        private void UpdateAmountText() {
+            if (_amountText != null) {
+                _amountText.text = Amount.ToString();
+            }
+        }
+
+        public bool IsStackable() {
+            return Kind switch {
+                SlotKind.GravityGun => false,
+                SlotKind.Metal => false,
+                _ => true
+            };
+        }
+    }
+}
+public enum SlotKind {
+    None,
+    Magnet,
+    Harpoon,
+    Metal,
+    GravityGun
 }
