@@ -1234,6 +1234,74 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "BuildKit",
+            "id": "beac6b17-31e7-4b0a-a7b0-056d0f602101",
+            "actions": [
+                {
+                    "name": "Start",
+                    "type": "Button",
+                    "id": "9f40741a-0c96-430f-89c0-20da944991dd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Place",
+                    "type": "Button",
+                    "id": "ddf61a3d-5713-48d7-b711-f1cdbd5f33b4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "8806ddc6-6947-4770-a77d-3ab13a4bdc40",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "28106cc4-1dd3-404d-8d54-9cf52a149d43",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "10241d76-0484-44b2-98cf-939dd15c8452",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2f6e91d0-6551-4a4a-9504-44f137974fd9",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Place",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
