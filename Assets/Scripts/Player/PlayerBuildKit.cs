@@ -9,7 +9,7 @@ namespace Player {
 		private bool _building;
 		private InputSystem_Actions _ia;
 		private GameObject _preview;
-		private Vector3 _rot;
+		private Vector3 _rot = new(90f, 0, 0); // Adjusted to plane rotation, think its Vector3.zero
 
 		private void Awake() {
 			_ia = new InputSystem_Actions();
@@ -19,7 +19,10 @@ namespace Player {
 			if (!_building) return;
 
 			if (!Physics.Raycast(new Ray(cameraTransform.position, cameraTransform.forward),
-				    out var hit)) {
+				    out var hit,
+				    Mathf.Infinity,
+				    LayerMask.GetMask("BuildingBlock")
+			    )) {
 				_preview.SetActive(false);
 				return;
 			}
@@ -34,16 +37,22 @@ namespace Player {
 			_ia.BuildKit.Start.performed += OnStart;
 			_ia.BuildKit.Place.performed += OnPlace;
 			_ia.BuildKit.Cancel.performed += OnCancel;
+			_ia.BuildKit.RotateLeft.performed += OnRotateLeft;
+			_ia.BuildKit.RotateForward.performed += OnRotateForward;
 		}
 
 		private void OnDisable() {
 			_ia.BuildKit.Start.performed -= OnStart;
 			_ia.BuildKit.Place.performed -= OnPlace;
 			_ia.BuildKit.Cancel.performed -= OnCancel;
+			_ia.BuildKit.RotateLeft.performed -= OnRotateLeft;
+			_ia.BuildKit.RotateForward.performed -= OnRotateForward;
 			_ia.Disable();
 		}
 
 		private void OnStart(InputAction.CallbackContext _) {
+			if (_building) return;
+
 			_building = true;
 			_preview = Instantiate(planePreviewPrefab);
 		}
@@ -62,6 +71,16 @@ namespace Player {
 
 			Destroy(_preview);
 			_building = false;
+		}
+
+		private void OnRotateLeft(InputAction.CallbackContext _) {
+			if (!_building || !_preview.activeSelf) return;
+			_rot += Vector3.up * 90f;
+		}
+
+		private void OnRotateForward(InputAction.CallbackContext _) {
+			if (!_building || !_preview.activeSelf) return;
+			_rot += Vector3.left * 90f;
 		}
 	}
 }

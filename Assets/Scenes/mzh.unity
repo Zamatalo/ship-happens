@@ -965,7 +965,7 @@ GameObject:
   - component: {fileID: 711896572}
   - component: {fileID: 711896571}
   - component: {fileID: 711896570}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube.1956_Texture_Atlas1_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1074,7 +1074,7 @@ GameObject:
   - component: {fileID: 955054605}
   - component: {fileID: 955054604}
   - component: {fileID: 955054603}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube.1956_Texture_Atlas1_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1304,7 +1304,7 @@ GameObject:
   - component: {fileID: 1005389383}
   - component: {fileID: 1005389382}
   - component: {fileID: 1005389381}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube.1956_Texture_Atlas1_0 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1615,7 +1615,7 @@ GameObject:
   - component: {fileID: 1546259508}
   - component: {fileID: 1546259507}
   - component: {fileID: 1546259506}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube.1956_Texture_Atlas1_0 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

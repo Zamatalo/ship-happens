@@ -15,7 +15,7 @@ namespace Item {
 		}
 
 		private void FixedUpdate() {
-			if (_pulling) Pull();
+			if (_pulling && !ReferenceEquals(_origin, null)) Pull();
 		}
 
 		private void OnEnable() {
