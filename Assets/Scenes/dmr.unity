@@ -2036,7 +2036,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 2119139760}
-    PlayerPrefab: {fileID: 8668388866673138438, guid: 232c166d3067c2d4c8e4127b9873864d, type: 3}
+    PlayerPrefab: {fileID: 8668388866673138438, guid: 9e2c30c75d0123c439a63beed967a792, type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: aa0d97ef6a57ac14dac45a9c2d428bdf, type: 2}
@@ -2144,9 +2144,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 479038911100711422, guid: 4a4e8f222c87bdd47a15776f8356a4de, type: 3}
+      propertyPath: m_Volume
+      value: 0.561
+      objectReference: {fileID: 0}
+    - target: {fileID: 479038911100711422, guid: 4a4e8f222c87bdd47a15776f8356a4de, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 6f4bf10c8c75de84db6727ce86685904, type: 3}
+    - target: {fileID: 479038911100711422, guid: 4a4e8f222c87bdd47a15776f8356a4de, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6f4bf10c8c75de84db6727ce86685904, type: 3}
     - target: {fileID: 2265017462605375343, guid: 4a4e8f222c87bdd47a15776f8356a4de, type: 3}
       propertyPath: m_Name
       value: Background music
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265017462605375343, guid: 4a4e8f222c87bdd47a15776f8356a4de, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7461022053060625927, guid: 4a4e8f222c87bdd47a15776f8356a4de, type: 3}
       propertyPath: m_LocalPosition.x

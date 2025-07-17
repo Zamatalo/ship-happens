@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Item {
 	public class HarpoonGun : MonoBehaviour {
+        public AudioSource shootSound;
 		public GameObject harpoonObj;
 		public Transform origin;
 		public Transform notActualOrigin;
@@ -53,6 +54,7 @@ namespace Item {
 			_currentHarpoon = inst.GetComponent<Harpoon>();
 			_currentHarpoon.Init(origin.forward, shootForce);
 
+            shootSound.Play();
 			harpoonObj.SetActive(false);
 		}
 	}

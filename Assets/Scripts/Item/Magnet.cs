@@ -11,6 +11,7 @@ namespace Item {
 		private Transform _origin;
 		private PlayerInventory _playerInventory;
 		private bool _pulling;
+		public AudioSource magnetSound;
 
 		private void Awake() {
 			_ia = new InputSystem_Actions();
@@ -39,9 +40,11 @@ namespace Item {
 
 		private void OnPullStart(InputAction.CallbackContext _) {
 			_pulling = true;
+			magnetSound.Play();
 		}
 
 		private void OnPullEnd(InputAction.CallbackContext _) {
+			magnetSound.Stop();
 			_pulling = false;
 		}
 
@@ -56,7 +59,7 @@ namespace Item {
 			);
 
 			if (Vector3.Distance(loot.transform.position, _origin.position) > minDist) return;
-
+			
 			if (_playerInventory.Collect(loot.kind, loot.amount)) Destroy(hit.collider.gameObject);
 		}
 	}
