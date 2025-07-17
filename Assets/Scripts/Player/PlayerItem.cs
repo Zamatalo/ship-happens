@@ -7,7 +7,7 @@ namespace Player {
 	public class PlayerItem : MonoBehaviour {
 		public GameObject playerObject;
 		public GameObject magnetPrefab;
-		public GameObject harpoonPrefab;
+		public GameObject harpoonGunPrefab;
 		public GameObject metalPrefab;
 		public Transform cameraTransform;
 		private GameObject _current;
@@ -28,8 +28,9 @@ namespace Player {
 					_current = Instantiate(magnetPrefab, transform);
 					_current.GetComponent<Magnet>().Init(playerObject, cameraTransform);
 					break;
-				case Slot.SlotKind.Harpoon:
-					_current = Instantiate(harpoonPrefab, transform);
+				case Slot.SlotKind.HarpoonGun:
+					_current = Instantiate(harpoonGunPrefab, transform);
+					_current.GetComponent<HarpoonGun>().Init(cameraTransform);
 					break;
 				case Slot.SlotKind.Metal:
 					_current = Instantiate(metalPrefab, transform);

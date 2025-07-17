@@ -8,14 +8,14 @@ namespace Player.Inventory {
 		public enum SlotKind {
 			None,
 			Magnet,
-			Harpoon,
+			HarpoonGun,
 			Metal
 		}
 
 		public TMP_Text amountText;
 		public Image image;
 		public Material magnetSprite;
-		public Material harpoonSprite;
+		public Material harpoonGunSprite;
 		public Material metalSprite;
 		public SlotKind kind;
 		public int amount;
@@ -30,9 +30,9 @@ namespace Player.Inventory {
 					image.enabled = true;
 					image.material = magnetSprite;
 					break;
-				case SlotKind.Harpoon:
+				case SlotKind.HarpoonGun:
 					image.enabled = true;
-					image.material = harpoonSprite;
+					image.material = harpoonGunSprite;
 					break;
 				case SlotKind.Metal:
 					image.enabled = true;
@@ -48,7 +48,7 @@ namespace Player.Inventory {
 			return kind switch {
 				SlotKind.None => false,
 				SlotKind.Magnet => false,
-				SlotKind.Harpoon => false,
+				SlotKind.HarpoonGun => false,
 				SlotKind.Metal => true,
 				_ => throw new ArgumentOutOfRangeException()
 			};

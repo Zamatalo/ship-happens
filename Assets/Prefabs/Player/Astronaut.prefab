@@ -744,7 +744,7 @@ MonoBehaviour:
   amountText: {fileID: 2910759691158854393}
   image: {fileID: 1574280425297106935}
   magnetSprite: {fileID: 2100000, guid: f1bc45e01665a45499d91bb8b87b106f, type: 2}
-  harpoonSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
+  harpoonGunSprite: {fileID: 0}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
   kind: 0
   amount: 0
@@ -1022,7 +1022,7 @@ MonoBehaviour:
   amountText: {fileID: 7616398122925627947}
   image: {fileID: 3631607728120328275}
   magnetSprite: {fileID: 2100000, guid: f1bc45e01665a45499d91bb8b87b106f, type: 2}
-  harpoonSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
+  harpoonGunSprite: {fileID: 0}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
   kind: 1
   amount: 1
@@ -1164,7 +1164,7 @@ MonoBehaviour:
   amountText: {fileID: 6520779280896532474}
   image: {fileID: 1393475635112621412}
   magnetSprite: {fileID: 2100000, guid: f1bc45e01665a45499d91bb8b87b106f, type: 2}
-  harpoonSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
+  harpoonGunSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
   kind: 2
   amount: 1
@@ -2019,7 +2019,7 @@ MonoBehaviour:
   amountText: {fileID: 1947311495669441587}
   image: {fileID: 475925928070845777}
   magnetSprite: {fileID: 2100000, guid: f1bc45e01665a45499d91bb8b87b106f, type: 2}
-  harpoonSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
+  harpoonGunSprite: {fileID: 0}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
   kind: 0
   amount: 0
@@ -2161,7 +2161,7 @@ MonoBehaviour:
   amountText: {fileID: 2789052251167483024}
   image: {fileID: 3575856804597001789}
   magnetSprite: {fileID: 2100000, guid: f1bc45e01665a45499d91bb8b87b106f, type: 2}
-  harpoonSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
+  harpoonGunSprite: {fileID: 0}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
   kind: 0
   amount: 0
@@ -2211,7 +2211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerObject: {fileID: 8668388866673138438}
   magnetPrefab: {fileID: 5446213650436569997, guid: 152097b62ad44425a8a9752c293b1e31, type: 3}
-  harpoonPrefab: {fileID: 5066644381653921950, guid: 2d8862ad04aa0470faa5e41152ddd7b7, type: 3}
+  harpoonGunPrefab: {fileID: 5066644381653921950, guid: 2d8862ad04aa0470faa5e41152ddd7b7, type: 3}
   metalPrefab: {fileID: 4020595950540665146, guid: 334fe159435eec24cbb49000d1e5cfb9, type: 3}
   cameraTransform: {fileID: 3901613659739042740}
 --- !u!1 &8873479547735884601
