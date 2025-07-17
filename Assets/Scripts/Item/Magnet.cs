@@ -4,21 +4,16 @@ using UnityEngine.InputSystem;
 
 namespace Item {
 	public class Magnet : MonoBehaviour {
-		public GameObject player;
-		public Transform origin;
 		public float pullSpeed = 10f;
 		public float maxDist = 100f;
 		public float minDist = 1f;
 		private InputSystem_Actions _ia;
+		private Transform _origin;
 		private PlayerInventory _playerInventory;
 		private bool _pulling;
 
 		private void Awake() {
 			_ia = new InputSystem_Actions();
-		}
-
-		private void Start() {
-			_playerInventory = player.GetComponent<PlayerInventory>();
 		}
 
 		private void FixedUpdate() {
@@ -37,6 +32,11 @@ namespace Item {
 			_ia.Disable();
 		}
 
+		public void Init(GameObject player, Transform origin) {
+			_playerInventory = player.GetComponent<PlayerInventory>();
+			_origin = origin;
+		}
+
 		private void OnPullStart(InputAction.CallbackContext _) {
 			_pulling = true;
 		}
@@ -46,16 +46,16 @@ namespace Item {
 		}
 
 		private void Pull() {
-			if (!Physics.Raycast(origin.position, origin.forward, out var hit, maxDist)) return;
+			if (!Physics.Raycast(_origin.position, _origin.forward, out var hit, maxDist)) return;
 			if (!hit.collider.TryGetComponent(out Loot.Loot loot)) return;
 
 			loot.transform.position = Vector3.MoveTowards(
 				loot.transform.position,
-				origin.position,
+				_origin.position,
 				pullSpeed * Time.fixedDeltaTime
 			);
 
-			if (Vector3.Distance(loot.transform.position, origin.position) > minDist) return;
+			if (Vector3.Distance(loot.transform.position, _origin.position) > minDist) return;
 
 			if (_playerInventory.Collect(loot.kind, loot.amount)) Destroy(hit.collider.gameObject);
 		}
