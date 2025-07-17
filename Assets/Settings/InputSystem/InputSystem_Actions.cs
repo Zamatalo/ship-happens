@@ -1274,6 +1274,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pull"",
+                    ""type"": ""Button"",
+                    ""id"": ""f05059e7-f913-4663-aa88-b853b41567a5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1296,6 +1305,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""34b78c67-d5d3-48d6-8e2d-fb4f2e7b8ca0"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pull"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1404,6 +1424,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Harpoon = asset.FindActionMap("Harpoon", throwIfNotFound: true);
         m_Harpoon_Shoot = m_Harpoon.FindAction("Shoot", throwIfNotFound: true);
         m_Harpoon_Cancel = m_Harpoon.FindAction("Cancel", throwIfNotFound: true);
+        m_Harpoon_Pull = m_Harpoon.FindAction("Pull", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -2127,6 +2148,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private List<IHarpoonActions> m_HarpoonActionsCallbackInterfaces = new List<IHarpoonActions>();
     private readonly InputAction m_Harpoon_Shoot;
     private readonly InputAction m_Harpoon_Cancel;
+    private readonly InputAction m_Harpoon_Pull;
     /// <summary>
     /// Provides access to input actions defined in input action map "Harpoon".
     /// </summary>
@@ -2146,6 +2168,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Harpoon/Cancel".
         /// </summary>
         public InputAction @Cancel => m_Wrapper.m_Harpoon_Cancel;
+        /// <summary>
+        /// Provides access to the underlying input action "Harpoon/Pull".
+        /// </summary>
+        public InputAction @Pull => m_Wrapper.m_Harpoon_Pull;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -2178,6 +2204,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
+            @Pull.started += instance.OnPull;
+            @Pull.performed += instance.OnPull;
+            @Pull.canceled += instance.OnPull;
         }
 
         /// <summary>
@@ -2195,6 +2224,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
+            @Pull.started -= instance.OnPull;
+            @Pull.performed -= instance.OnPull;
+            @Pull.canceled -= instance.OnPull;
         }
 
         /// <summary>
@@ -2535,5 +2567,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCancel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pull" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPull(InputAction.CallbackContext context);
     }
 }

@@ -26,7 +26,7 @@ namespace Player {
 					break;
 				case Slot.SlotKind.Magnet:
 					_current = Instantiate(magnetPrefab, transform);
-					_current.GetComponent<Magnet>().Init(playerObject, cameraTransform);
+					_current.GetComponent<Magnet>().Init(cameraTransform);
 					break;
 				case Slot.SlotKind.HarpoonGun:
 					_current = Instantiate(harpoonGunPrefab, transform);

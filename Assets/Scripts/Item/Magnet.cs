@@ -1,17 +1,14 @@
-﻿using Player.Inventory;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Item {
 	public class Magnet : MonoBehaviour {
 		public float pullSpeed = 10f;
 		public float maxDist = 100f;
-		public float minDist = 1f;
+		public AudioSource magnetSound;
 		private InputSystem_Actions _ia;
 		private Transform _origin;
-		private PlayerInventory _playerInventory;
 		private bool _pulling;
-		public AudioSource magnetSound;
 
 		private void Awake() {
 			_ia = new InputSystem_Actions();
@@ -33,8 +30,7 @@ namespace Item {
 			_ia.Disable();
 		}
 
-		public void Init(GameObject player, Transform origin) {
-			_playerInventory = player.GetComponent<PlayerInventory>();
+		public void Init(Transform origin) {
 			_origin = origin;
 		}
 
@@ -57,10 +53,6 @@ namespace Item {
 				_origin.position,
 				pullSpeed * Time.fixedDeltaTime
 			);
-
-			if (Vector3.Distance(loot.transform.position, _origin.position) > minDist) return;
-			
-			if (_playerInventory.Collect(loot.kind, loot.amount)) Destroy(hit.collider.gameObject);
 		}
 	}
 }

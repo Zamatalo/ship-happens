@@ -1,37 +1,56 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Projectile {
 	public class Harpoon : MonoBehaviour {
-		public float trailDuration = 0.1f;
-		private readonly List<Vector3> _positions = new();
+		public float pullSpeed;
+		public bool hit;
 		private Vector3 _dir;
 		private float _force;
 		private LineRenderer _lr;
+		private Transform _origin;
 		private Rigidbody _rb;
-		private float _timeSinceStart;
 
 		private void Start() {
 			_rb = GetComponent<Rigidbody>();
 			_lr = GetComponent<LineRenderer>();
 
 			_rb.AddForce(_dir * _force);
-			_positions.Add(transform.position);
 		}
 
-		private void FixedUpdate() {
-			_timeSinceStart += Time.fixedDeltaTime;
-			_positions.Add(transform.position);
-
-			if (_timeSinceStart > trailDuration) _positions.RemoveAt(0);
-
-			_lr.positionCount = _positions.Count;
-			for (var i = 0; i < _positions.Count; i++) _lr.SetPosition(i, _positions[i]);
+		private void Update() {
+			_lr.SetPosition(0, _origin.position);
+			_lr.SetPosition(1, transform.position);
 		}
 
-		public void Init(Vector3 dir, float force) {
+		private void OnTriggerEnter(Collider other) {
+			if (!other.TryGetComponent(out Loot.Loot loot)) return;
+
+			_rb.constraints = RigidbodyConstraints.FreezeAll;
+			transform.SetParent(other.transform);
+			hit = true;
+		}
+
+		public void Init(Transform origin, Vector3 dir, float force) {
+			_origin = origin;
 			_dir = dir;
 			_force = force;
+		}
+
+		public void Pull() {
+			if (hit) {
+				transform.parent.position = Vector3.MoveTowards(
+					transform.parent.position,
+					_origin.position,
+					pullSpeed * Time.fixedDeltaTime
+				);
+				return;
+			}
+
+			transform.position = Vector3.MoveTowards(
+				transform.position,
+				_origin.position,
+				pullSpeed * Time.fixedDeltaTime
+			);
 		}
 	}
 }
