@@ -3,11 +3,13 @@ using UnityEngine.InputSystem;
 
 namespace Player {
 	public class PlayerBuildKit : MonoBehaviour {
+		public GameObject planePrefab;
 		public GameObject planePreviewPrefab;
 		public Transform cameraTransform;
 		private bool _building;
 		private InputSystem_Actions _ia;
 		private GameObject _preview;
+		private Vector3 _rot;
 
 		private void Awake() {
 			_ia = new InputSystem_Actions();
@@ -15,10 +17,14 @@ namespace Player {
 
 		private void Update() {
 			if (!Physics.Raycast(new Ray(cameraTransform.position, cameraTransform.forward),
-				    out var hit)) return;
+				    out var hit)) {
+				_preview.SetActive(false);
+				return;
+			}
 
+			_preview.SetActive(true);
 			_preview.transform.position = hit.point;
-			_preview.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+			_preview.transform.rotation = Quaternion.Euler(_rot);
 		}
 
 		private void OnEnable() {
@@ -41,6 +47,10 @@ namespace Player {
 		}
 
 		private void OnPlace(InputAction.CallbackContext _) {
+			if (!_building || !_preview.activeSelf) return;
+
+			Instantiate(planePrefab, _preview.transform.position, _preview.transform.rotation);
+			Destroy(_preview);
 		}
 
 		private void OnCancel(InputAction.CallbackContext _) {
