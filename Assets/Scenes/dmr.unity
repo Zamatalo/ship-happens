@@ -2183,7 +2183,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf1eae0b793bfd4c9adb0e67c978732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootPrefab: {fileID: 5071198960803153579, guid: 6c8a5c31dfa175b41b82676287385c02, type: 3}
+  lootPrefabs:
+  - {fileID: 5071198960803153579, guid: 6c8a5c31dfa175b41b82676287385c02, type: 3}
+  - {fileID: 2848843408540317521, guid: 95182647816aae945ac4279c712a0ca5, type: 3}
   spawnInterval: 5
   minX: -100
   maxX: 100
