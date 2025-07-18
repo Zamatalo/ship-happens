@@ -1,0 +1,28 @@
+:root {
+}
+
+.hotbarContainer {
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.hotbar-slot {
+    flex-grow: 1;
+    width: 64px;
+    height: 64px;
+    max-width: 64px;
+    max-height: 64px;
+    margin: 0 1% 1% 0;
+    background-image: resource('UI/Inventory/inventorySlots/ItemDisable');
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
+}
+
+.hotbar-slot.selected {
+    background-image: resource('UI/Inventory/inventorySlots/ItemEnable');
+    height: 100px;
+    width: 100px;
+}

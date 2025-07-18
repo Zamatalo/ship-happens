@@ -7,7 +7,7 @@ public class PlayerInventory : NetworkBehaviour
 {
     public List<InventorySlot> inventory = new();
 
-    public NetworkVariable<FixedString512Bytes> inventoryJson = new NetworkVariable<FixedString512Bytes>();
+    public NetworkVariable<FixedString512Bytes> inventoryJson = new();
 
     [ServerRpc]
     public void AddItemServerRpc(string itemName, int amount)
@@ -42,7 +42,7 @@ public class PlayerInventory : NetworkBehaviour
 
     private void OnInventoryUpdated(FixedString512Bytes oldVal, FixedString512Bytes newVal)
     {
-        string jsonString = newVal.ToString(); // Можно сделать более надёжно, если нужно
+        string jsonString = newVal.ToString(); 
         var wrapper = JsonUtility.FromJson<InventoryWrapper>(jsonString);
         inventory = wrapper.slots;
         InventoryUI.Instance?.Refresh(inventory);
