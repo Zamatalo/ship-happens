@@ -113,7 +113,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""6c2ab1b8-8984-453a-af3d-a3c78ae1679a"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -122,7 +122,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""852140f2-7766-474d-8707-702459ba45f3"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
@@ -1224,6 +1224,238 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Magnet"",
+            ""id"": ""6e4e42f5-f23b-4b08-9b63-60b5f2abd387"",
+            ""actions"": [
+                {
+                    ""name"": ""Pull"",
+                    ""type"": ""Button"",
+                    ""id"": ""180a3ca0-529a-43c5-8f46-63a235161e4b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""06ec1f60-b166-4739-a5c0-4d3f9855c263"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pull"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Harpoon"",
+            ""id"": ""0f590244-5ed9-4294-9cb7-122cca166565"",
+            ""actions"": [
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""8dfb8797-53cb-45d4-ac80-357614706969"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""0b1c7200-8141-4fff-bab8-6bc7e9e0d069"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pull"",
+                    ""type"": ""Button"",
+                    ""id"": ""f05059e7-f913-4663-aa88-b853b41567a5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""35ee79b5-d1b0-4b3e-a1ad-c2dbc2140de1"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""323b37f1-d1a6-48ee-9f7d-5ccada53fec0"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""34b78c67-d5d3-48d6-8e2d-fb4f2e7b8ca0"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pull"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""BuildKit"",
+            ""id"": ""beac6b17-31e7-4b0a-a7b0-056d0f602101"",
+            ""actions"": [
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""9f40741a-0c96-430f-89c0-20da944991dd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Place"",
+                    ""type"": ""Button"",
+                    ""id"": ""ddf61a3d-5713-48d7-b711-f1cdbd5f33b4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""8806ddc6-6947-4770-a77d-3ab13a4bdc40"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""c8d5b01c-d935-43c5-9bdb-0076ea6947eb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateForward"",
+                    ""type"": ""Button"",
+                    ""id"": ""c11eff78-8f93-4819-b3c4-a395ca1ef34a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""28106cc4-1dd3-404d-8d54-9cf52a149d43"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""10241d76-0484-44b2-98cf-939dd15c8452"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2f6e91d0-6551-4a4a-9504-44f137974fd9"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Place"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e124d773-60d5-4db9-8f30-a349744a69be"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e902df9-950a-4139-947a-1fa51390afe5"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateForward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Jetpack"",
+            ""id"": ""9c9d6d20-69c0-43bd-93d2-47688f4ff734"",
+            ""actions"": [
+                {
+                    ""name"": ""Use"",
+                    ""type"": ""Button"",
+                    ""id"": ""dd903283-9513-4c62-a334-00ce0b1a3a38"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""72d2030e-7914-4656-842b-f60dd2cc05e7"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1321,6 +1553,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Inventory__5 = m_Inventory.FindAction("5", throwIfNotFound: true);
         m_Inventory_IterMouse = m_Inventory.FindAction("IterMouse", throwIfNotFound: true);
         m_Inventory_IterKeyboard = m_Inventory.FindAction("IterKeyboard", throwIfNotFound: true);
+        // Magnet
+        m_Magnet = asset.FindActionMap("Magnet", throwIfNotFound: true);
+        m_Magnet_Pull = m_Magnet.FindAction("Pull", throwIfNotFound: true);
+        // Harpoon
+        m_Harpoon = asset.FindActionMap("Harpoon", throwIfNotFound: true);
+        m_Harpoon_Shoot = m_Harpoon.FindAction("Shoot", throwIfNotFound: true);
+        m_Harpoon_Cancel = m_Harpoon.FindAction("Cancel", throwIfNotFound: true);
+        m_Harpoon_Pull = m_Harpoon.FindAction("Pull", throwIfNotFound: true);
+        // BuildKit
+        m_BuildKit = asset.FindActionMap("BuildKit", throwIfNotFound: true);
+        m_BuildKit_Start = m_BuildKit.FindAction("Start", throwIfNotFound: true);
+        m_BuildKit_Place = m_BuildKit.FindAction("Place", throwIfNotFound: true);
+        m_BuildKit_Cancel = m_BuildKit.FindAction("Cancel", throwIfNotFound: true);
+        m_BuildKit_RotateLeft = m_BuildKit.FindAction("RotateLeft", throwIfNotFound: true);
+        m_BuildKit_RotateForward = m_BuildKit.FindAction("RotateForward", throwIfNotFound: true);
+        // Jetpack
+        m_Jetpack = asset.FindActionMap("Jetpack", throwIfNotFound: true);
+        m_Jetpack_Use = m_Jetpack.FindAction("Use", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1328,6 +1578,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputSystem_Actions.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Inventory.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Inventory.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Magnet.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Magnet.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Harpoon.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Harpoon.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_BuildKit.enabled, "This will cause a leak and performance issues, InputSystem_Actions.BuildKit.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Jetpack.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Jetpack.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1940,6 +2194,456 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="InventoryActions" /> instance referencing this action map.
     /// </summary>
     public InventoryActions @Inventory => new InventoryActions(this);
+
+    // Magnet
+    private readonly InputActionMap m_Magnet;
+    private List<IMagnetActions> m_MagnetActionsCallbackInterfaces = new List<IMagnetActions>();
+    private readonly InputAction m_Magnet_Pull;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Magnet".
+    /// </summary>
+    public struct MagnetActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public MagnetActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Magnet/Pull".
+        /// </summary>
+        public InputAction @Pull => m_Wrapper.m_Magnet_Pull;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Magnet; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="MagnetActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(MagnetActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="MagnetActions" />
+        public void AddCallbacks(IMagnetActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MagnetActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MagnetActionsCallbackInterfaces.Add(instance);
+            @Pull.started += instance.OnPull;
+            @Pull.performed += instance.OnPull;
+            @Pull.canceled += instance.OnPull;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="MagnetActions" />
+        private void UnregisterCallbacks(IMagnetActions instance)
+        {
+            @Pull.started -= instance.OnPull;
+            @Pull.performed -= instance.OnPull;
+            @Pull.canceled -= instance.OnPull;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="MagnetActions.UnregisterCallbacks(IMagnetActions)" />.
+        /// </summary>
+        /// <seealso cref="MagnetActions.UnregisterCallbacks(IMagnetActions)" />
+        public void RemoveCallbacks(IMagnetActions instance)
+        {
+            if (m_Wrapper.m_MagnetActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="MagnetActions.AddCallbacks(IMagnetActions)" />
+        /// <seealso cref="MagnetActions.RemoveCallbacks(IMagnetActions)" />
+        /// <seealso cref="MagnetActions.UnregisterCallbacks(IMagnetActions)" />
+        public void SetCallbacks(IMagnetActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MagnetActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MagnetActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="MagnetActions" /> instance referencing this action map.
+    /// </summary>
+    public MagnetActions @Magnet => new MagnetActions(this);
+
+    // Harpoon
+    private readonly InputActionMap m_Harpoon;
+    private List<IHarpoonActions> m_HarpoonActionsCallbackInterfaces = new List<IHarpoonActions>();
+    private readonly InputAction m_Harpoon_Shoot;
+    private readonly InputAction m_Harpoon_Cancel;
+    private readonly InputAction m_Harpoon_Pull;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Harpoon".
+    /// </summary>
+    public struct HarpoonActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public HarpoonActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Harpoon/Shoot".
+        /// </summary>
+        public InputAction @Shoot => m_Wrapper.m_Harpoon_Shoot;
+        /// <summary>
+        /// Provides access to the underlying input action "Harpoon/Cancel".
+        /// </summary>
+        public InputAction @Cancel => m_Wrapper.m_Harpoon_Cancel;
+        /// <summary>
+        /// Provides access to the underlying input action "Harpoon/Pull".
+        /// </summary>
+        public InputAction @Pull => m_Wrapper.m_Harpoon_Pull;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Harpoon; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="HarpoonActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(HarpoonActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="HarpoonActions" />
+        public void AddCallbacks(IHarpoonActions instance)
+        {
+            if (instance == null || m_Wrapper.m_HarpoonActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_HarpoonActionsCallbackInterfaces.Add(instance);
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
+            @Pull.started += instance.OnPull;
+            @Pull.performed += instance.OnPull;
+            @Pull.canceled += instance.OnPull;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="HarpoonActions" />
+        private void UnregisterCallbacks(IHarpoonActions instance)
+        {
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
+            @Pull.started -= instance.OnPull;
+            @Pull.performed -= instance.OnPull;
+            @Pull.canceled -= instance.OnPull;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="HarpoonActions.UnregisterCallbacks(IHarpoonActions)" />.
+        /// </summary>
+        /// <seealso cref="HarpoonActions.UnregisterCallbacks(IHarpoonActions)" />
+        public void RemoveCallbacks(IHarpoonActions instance)
+        {
+            if (m_Wrapper.m_HarpoonActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="HarpoonActions.AddCallbacks(IHarpoonActions)" />
+        /// <seealso cref="HarpoonActions.RemoveCallbacks(IHarpoonActions)" />
+        /// <seealso cref="HarpoonActions.UnregisterCallbacks(IHarpoonActions)" />
+        public void SetCallbacks(IHarpoonActions instance)
+        {
+            foreach (var item in m_Wrapper.m_HarpoonActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_HarpoonActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="HarpoonActions" /> instance referencing this action map.
+    /// </summary>
+    public HarpoonActions @Harpoon => new HarpoonActions(this);
+
+    // BuildKit
+    private readonly InputActionMap m_BuildKit;
+    private List<IBuildKitActions> m_BuildKitActionsCallbackInterfaces = new List<IBuildKitActions>();
+    private readonly InputAction m_BuildKit_Start;
+    private readonly InputAction m_BuildKit_Place;
+    private readonly InputAction m_BuildKit_Cancel;
+    private readonly InputAction m_BuildKit_RotateLeft;
+    private readonly InputAction m_BuildKit_RotateForward;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "BuildKit".
+    /// </summary>
+    public struct BuildKitActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public BuildKitActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "BuildKit/Start".
+        /// </summary>
+        public InputAction @Start => m_Wrapper.m_BuildKit_Start;
+        /// <summary>
+        /// Provides access to the underlying input action "BuildKit/Place".
+        /// </summary>
+        public InputAction @Place => m_Wrapper.m_BuildKit_Place;
+        /// <summary>
+        /// Provides access to the underlying input action "BuildKit/Cancel".
+        /// </summary>
+        public InputAction @Cancel => m_Wrapper.m_BuildKit_Cancel;
+        /// <summary>
+        /// Provides access to the underlying input action "BuildKit/RotateLeft".
+        /// </summary>
+        public InputAction @RotateLeft => m_Wrapper.m_BuildKit_RotateLeft;
+        /// <summary>
+        /// Provides access to the underlying input action "BuildKit/RotateForward".
+        /// </summary>
+        public InputAction @RotateForward => m_Wrapper.m_BuildKit_RotateForward;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_BuildKit; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="BuildKitActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(BuildKitActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="BuildKitActions" />
+        public void AddCallbacks(IBuildKitActions instance)
+        {
+            if (instance == null || m_Wrapper.m_BuildKitActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BuildKitActionsCallbackInterfaces.Add(instance);
+            @Start.started += instance.OnStart;
+            @Start.performed += instance.OnStart;
+            @Start.canceled += instance.OnStart;
+            @Place.started += instance.OnPlace;
+            @Place.performed += instance.OnPlace;
+            @Place.canceled += instance.OnPlace;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
+            @RotateLeft.started += instance.OnRotateLeft;
+            @RotateLeft.performed += instance.OnRotateLeft;
+            @RotateLeft.canceled += instance.OnRotateLeft;
+            @RotateForward.started += instance.OnRotateForward;
+            @RotateForward.performed += instance.OnRotateForward;
+            @RotateForward.canceled += instance.OnRotateForward;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="BuildKitActions" />
+        private void UnregisterCallbacks(IBuildKitActions instance)
+        {
+            @Start.started -= instance.OnStart;
+            @Start.performed -= instance.OnStart;
+            @Start.canceled -= instance.OnStart;
+            @Place.started -= instance.OnPlace;
+            @Place.performed -= instance.OnPlace;
+            @Place.canceled -= instance.OnPlace;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
+            @RotateLeft.started -= instance.OnRotateLeft;
+            @RotateLeft.performed -= instance.OnRotateLeft;
+            @RotateLeft.canceled -= instance.OnRotateLeft;
+            @RotateForward.started -= instance.OnRotateForward;
+            @RotateForward.performed -= instance.OnRotateForward;
+            @RotateForward.canceled -= instance.OnRotateForward;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="BuildKitActions.UnregisterCallbacks(IBuildKitActions)" />.
+        /// </summary>
+        /// <seealso cref="BuildKitActions.UnregisterCallbacks(IBuildKitActions)" />
+        public void RemoveCallbacks(IBuildKitActions instance)
+        {
+            if (m_Wrapper.m_BuildKitActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="BuildKitActions.AddCallbacks(IBuildKitActions)" />
+        /// <seealso cref="BuildKitActions.RemoveCallbacks(IBuildKitActions)" />
+        /// <seealso cref="BuildKitActions.UnregisterCallbacks(IBuildKitActions)" />
+        public void SetCallbacks(IBuildKitActions instance)
+        {
+            foreach (var item in m_Wrapper.m_BuildKitActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_BuildKitActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="BuildKitActions" /> instance referencing this action map.
+    /// </summary>
+    public BuildKitActions @BuildKit => new BuildKitActions(this);
+
+    // Jetpack
+    private readonly InputActionMap m_Jetpack;
+    private List<IJetpackActions> m_JetpackActionsCallbackInterfaces = new List<IJetpackActions>();
+    private readonly InputAction m_Jetpack_Use;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Jetpack".
+    /// </summary>
+    public struct JetpackActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public JetpackActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Jetpack/Use".
+        /// </summary>
+        public InputAction @Use => m_Wrapper.m_Jetpack_Use;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Jetpack; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="JetpackActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(JetpackActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="JetpackActions" />
+        public void AddCallbacks(IJetpackActions instance)
+        {
+            if (instance == null || m_Wrapper.m_JetpackActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_JetpackActionsCallbackInterfaces.Add(instance);
+            @Use.started += instance.OnUse;
+            @Use.performed += instance.OnUse;
+            @Use.canceled += instance.OnUse;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="JetpackActions" />
+        private void UnregisterCallbacks(IJetpackActions instance)
+        {
+            @Use.started -= instance.OnUse;
+            @Use.performed -= instance.OnUse;
+            @Use.canceled -= instance.OnUse;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="JetpackActions.UnregisterCallbacks(IJetpackActions)" />.
+        /// </summary>
+        /// <seealso cref="JetpackActions.UnregisterCallbacks(IJetpackActions)" />
+        public void RemoveCallbacks(IJetpackActions instance)
+        {
+            if (m_Wrapper.m_JetpackActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="JetpackActions.AddCallbacks(IJetpackActions)" />
+        /// <seealso cref="JetpackActions.RemoveCallbacks(IJetpackActions)" />
+        /// <seealso cref="JetpackActions.UnregisterCallbacks(IJetpackActions)" />
+        public void SetCallbacks(IJetpackActions instance)
+        {
+            foreach (var item in m_Wrapper.m_JetpackActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_JetpackActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="JetpackActions" /> instance referencing this action map.
+    /// </summary>
+    public JetpackActions @Jetpack => new JetpackActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -2210,5 +2914,107 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnIterKeyboard(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Magnet" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="MagnetActions.AddCallbacks(IMagnetActions)" />
+    /// <seealso cref="MagnetActions.RemoveCallbacks(IMagnetActions)" />
+    public interface IMagnetActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Pull" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPull(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Harpoon" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="HarpoonActions.AddCallbacks(IHarpoonActions)" />
+    /// <seealso cref="HarpoonActions.RemoveCallbacks(IHarpoonActions)" />
+    public interface IHarpoonActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShoot(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Cancel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCancel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pull" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPull(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "BuildKit" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="BuildKitActions.AddCallbacks(IBuildKitActions)" />
+    /// <seealso cref="BuildKitActions.RemoveCallbacks(IBuildKitActions)" />
+    public interface IBuildKitActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Start" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnStart(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Place" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPlace(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Cancel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCancel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RotateLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotateLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RotateForward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotateForward(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Jetpack" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="JetpackActions.AddCallbacks(IJetpackActions)" />
+    /// <seealso cref="JetpackActions.RemoveCallbacks(IJetpackActions)" />
+    public interface IJetpackActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Use" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUse(InputAction.CallbackContext context);
     }
 }

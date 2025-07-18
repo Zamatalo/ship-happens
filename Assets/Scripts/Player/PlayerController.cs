@@ -1,97 +1,86 @@
+using Player.Inventory;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : NetworkBehaviour {
-    public float moveSpeed = 5f;
-    public float jumpForce = 5f;
-    private InputSystem_Actions _playerInputActions;
-    private Vector2 moveInput;
-    private Rigidbody rb;
-    public GameObject characterObj;
-    public GameObject handsObj;
-    public bool isGrounded;
-    private bool isMoving;
-    public Animator animator;
-    public Transform foot;
-   
-    private void Awake()
-    {
-        _playerInputActions = new InputSystem_Actions();
-    }
+namespace Player {
+	public class PlayerController : NetworkBehaviour {
+		public float moveSpeed = 5f;
+		public float jumpForce = 5f;
+		public GameObject characterObj;
+		public GameObject handsObj;
+		public bool isGrounded;
+		public Animator animator;
+		public Transform foot;
+		private bool _isMoving;
+		private Vector2 _moveInput;
+		private InputSystem_Actions _playerInputActions;
+		private PlayerInventory _playerInventory;
+		private Rigidbody _rb;
+		private Slot _slot;
 
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-        if (IsLocalPlayer)
-        {
-            characterObj.SetActive(false);
-            handsObj.SetActive(true);
-        }
-        else
-        {
-            characterObj.SetActive(true);
-            handsObj.SetActive(false);
-        }
-    }
+		private void Awake() {
+			_playerInputActions = new InputSystem_Actions();
+		}
 
-    private void OnEnable()
-    {
-        _playerInputActions.Player.Enable();
-        _playerInputActions.Player.Move.performed += OnMove;
-        _playerInputActions.Player.Move.canceled += OnMove;
-        _playerInputActions.Player.Jump.performed += OnJump;
-    }
+		private void Start() {
+			_rb = GetComponent<Rigidbody>();
+			animator = GetComponent<Animator>();
+			if (IsLocalPlayer) {
+				characterObj.SetActive(false);
+				handsObj.SetActive(true);
+			} else {
+				characterObj.SetActive(true);
+				handsObj.SetActive(false);
+			}
+		}
 
-    private void OnDisable()
-    {
-        _playerInputActions.Player.Jump.performed -= OnJump;
-        _playerInputActions.Player.Move.canceled -= OnMove;
-        _playerInputActions.Player.Move.performed -= OnMove;
-        _playerInputActions.Player.Disable();
-    }
+		private void FixedUpdate() {
+			if (IsOwner) {
+				isGrounded = Physics.Raycast(foot.position, transform.up * -1f, 0.1f);
 
-    private void OnMove(InputAction.CallbackContext context)
-    {
-      //  if (!IsOwner) { return;}
-        moveInput = context.ReadValue<Vector2>();
-    }
+				var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
 
-    private void OnJump(InputAction.CallbackContext context)
-    {
-        //if (!IsOwner) { return;}
-        if (isGrounded)
-        {
-            Jump();
-        }
-    }
+				var movement = transform.rotation * inputDir;
+				movement *= moveSpeed * Time.fixedDeltaTime;
+				_rb.MovePosition(_rb.position + movement);
 
-    private void Jump()
-    {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        animator.SetTrigger("Jump");
-    }
+				_isMoving = _moveInput.sqrMagnitude > 0.01f;
+				animator.SetFloat("moveX", _moveInput.x);
+				animator.SetFloat("moveZ", _moveInput.y);
+				animator.SetFloat("verticalSpeed", _rb.linearVelocity.y);
+				animator.SetBool("isGrounded", isGrounded);
+				animator.SetBool("isMoving", _isMoving);
+			}
+		}
 
-    private void FixedUpdate()
-    {
-        
-        if (IsOwner)
-        {
-            isGrounded = Physics.Raycast(foot.position, Vector3.down, 0.1f);
-            
-            var inputDir = new Vector3(moveInput.x, 0f, moveInput.y);
+		private void OnEnable() {
+			_playerInputActions.Player.Enable();
+			_playerInputActions.Player.Move.performed += OnMove;
+			_playerInputActions.Player.Move.canceled += OnMove;
+			_playerInputActions.Player.Jump.performed += OnJump;
+		}
 
-            Vector3 movement = (transform.rotation) * inputDir;
-            movement *= moveSpeed * Time.fixedDeltaTime;
-            rb.MovePosition(rb.position + movement);
+		private void OnDisable() {
+			_playerInputActions.Player.Jump.performed -= OnJump;
+			_playerInputActions.Player.Move.canceled -= OnMove;
+			_playerInputActions.Player.Move.performed -= OnMove;
+			_playerInputActions.Player.Disable();
+		}
 
-            isMoving = moveInput.sqrMagnitude > 0.01f;
-            animator.SetFloat("moveX", moveInput.x);
-            animator.SetFloat("moveZ", moveInput.y);
-            animator.SetFloat("verticalSpeed", rb.linearVelocity.y);
-            animator.SetBool("isGrounded", isGrounded);
-            animator.SetBool("isMoving", isMoving);
-        }
-    }
+		private void OnMove(InputAction.CallbackContext context) {
+			if (!IsOwner) return;
+			_moveInput = context.ReadValue<Vector2>();
+		}
+
+		private void OnJump(InputAction.CallbackContext context) {
+			if (!IsOwner) return;
+			if (isGrounded) Jump();
+		}
+
+		private void Jump() {
+			_rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+			animator.SetTrigger("Jump");
+		}
+	}
 }
