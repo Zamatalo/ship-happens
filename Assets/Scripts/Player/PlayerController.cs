@@ -79,7 +79,7 @@ namespace Player {
 		}
 
 		private void Jump() {
-			_rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+			_rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 			animator.SetTrigger("Jump");
 		}
 	}

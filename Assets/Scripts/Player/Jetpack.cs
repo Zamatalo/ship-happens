@@ -45,7 +45,7 @@ namespace Player
         {
             if (_isFlying)
             {
-                _playerRb.AddForce(Vector3.up * jetpackForce, ForceMode.Acceleration);
+                _playerRb.AddForce(_playerRb.transform.up * jetpackForce, ForceMode.Acceleration);
             }
         }
     }
