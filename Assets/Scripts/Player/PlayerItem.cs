@@ -11,6 +11,8 @@ namespace Player {
 		public GameObject jetpackPrefab;
 		public GameObject metalPrefab;
 		public GameObject woodPrefab;
+		public GameObject ediblePrefab;
+		public GameObject potablePrefab;
 		public Transform cameraTransform;
 		private GameObject _current;
 		private PlayerInventory _inventory;
@@ -43,6 +45,12 @@ namespace Player {
 					break;
 				case Slot.SlotKind.Wood:
 					_current = Instantiate(woodPrefab, transform);
+					break;
+				case Slot.SlotKind.Edible:
+					_current = Instantiate(ediblePrefab, transform);
+					break;
+				case Slot.SlotKind.Potable:
+					_current = Instantiate(potablePrefab, transform);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

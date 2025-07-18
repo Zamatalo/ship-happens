@@ -1258,6 +1258,8 @@ MonoBehaviour:
   jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
   woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
+  edibleSprite: {fileID: 2100000, guid: 12cca06b816e83a4297ee7be51967f34, type: 2}
+  potableSprite: {fileID: 2100000, guid: 578ddd8706022454f876e95d23e88b5c, type: 2}
   kind: 3
   amount: 1
 --- !u!1 &3855885226503645740
@@ -1574,6 +1576,8 @@ MonoBehaviour:
   jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
   woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
+  edibleSprite: {fileID: 2100000, guid: 12cca06b816e83a4297ee7be51967f34, type: 2}
+  potableSprite: {fileID: 2100000, guid: 578ddd8706022454f876e95d23e88b5c, type: 2}
   kind: 1
   amount: 1
 --- !u!1 &4281869966089494208
@@ -1718,6 +1722,8 @@ MonoBehaviour:
   jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
   woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
+  edibleSprite: {fileID: 2100000, guid: 12cca06b816e83a4297ee7be51967f34, type: 2}
+  potableSprite: {fileID: 2100000, guid: 578ddd8706022454f876e95d23e88b5c, type: 2}
   kind: 2
   amount: 1
 --- !u!1 &4925872772999275943
@@ -3042,6 +3048,8 @@ MonoBehaviour:
   jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
   woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
+  edibleSprite: {fileID: 2100000, guid: 12cca06b816e83a4297ee7be51967f34, type: 2}
+  potableSprite: {fileID: 2100000, guid: 578ddd8706022454f876e95d23e88b5c, type: 2}
   kind: 0
   amount: 0
 --- !u!1 &7746218308239532846
@@ -3186,6 +3194,8 @@ MonoBehaviour:
   jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
   woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
+  edibleSprite: {fileID: 2100000, guid: 12cca06b816e83a4297ee7be51967f34, type: 2}
+  potableSprite: {fileID: 2100000, guid: 578ddd8706022454f876e95d23e88b5c, type: 2}
   kind: 0
   amount: 0
 --- !u!1 &7775060575359214951
@@ -3238,6 +3248,8 @@ MonoBehaviour:
   jetpackPrefab: {fileID: 5205783018273025614, guid: 3bc56c8bae2a94f4183dc996a50e33a3, type: 3}
   metalPrefab: {fileID: 4020595950540665146, guid: 334fe159435eec24cbb49000d1e5cfb9, type: 3}
   woodPrefab: {fileID: 4020595950540665146, guid: 4f0907e61657b9141b861b28213a4c68, type: 3}
+  ediblePrefab: {fileID: 4020595950540665146, guid: 5268018b2823fa347bd2eae80cdb2d5b, type: 3}
+  potablePrefab: {fileID: 4020595950540665146, guid: 555f4cb7750a08045818c0c6f8ee3ae9, type: 3}
   cameraTransform: {fileID: 3901613659739042740}
 --- !u!1 &7884923751079189419
 GameObject:
