@@ -1713,7 +1713,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2129709577}
+  - {fileID: 2057290767}
   - {fileID: 523094427}
   - {fileID: 407907739}
   m_Father: {fileID: 0}
@@ -2201,6 +2201,68 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+--- !u!1001 &2057290766
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1332068261}
+    m_Modifications:
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5671974169129976796, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_Name
+      value: LootSpawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b16f724c5e4f89040938102345705b50, type: 3}
+--- !u!4 &2057290767 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+  m_PrefabInstance: {fileID: 2057290766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2119139759
 GameObject:
   m_ObjectHideFlags: 0
@@ -2304,65 +2366,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2129709575
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2129709577}
-  - component: {fileID: 2129709576}
-  m_Layer: 0
-  m_Name: LootSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2129709576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2129709575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daf1eae0b793bfd4c9adb0e67c978732, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lootPrefabs: []
-  spawnInterval: 5
-  minX: -100
-  maxX: 100
-  minY: -100
-  maxY: 100
-  minZ: -100
-  maxZ: 100
-  minVelX: -3
-  maxVelX: 3
-  minVelZ: -3
-  maxVelZ: 3
-  rotSpeed: 10
-  minLoot: 10
-  maxLoot: 30
---- !u!4 &2129709577
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2129709575}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1332068261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
