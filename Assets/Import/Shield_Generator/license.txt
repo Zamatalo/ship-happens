@@ -1,0 +1,11 @@
+Model Information:
+* title:	Shield Generator
+* source:	https://sketchfab.com/3d-models/shield-generator-69bde44d6abe41f58240687a5f25a441
+* author:	anthwolf (https://sketchfab.com/anthmurphy)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Shield Generator" (https://sketchfab.com/3d-models/shield-generator-69bde44d6abe41f58240687a5f25a441) by anthwolf (https://sketchfab.com/anthmurphy) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
