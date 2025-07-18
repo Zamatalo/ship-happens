@@ -10,6 +10,7 @@ namespace Player {
 		public GameObject harpoonGunPrefab;
 		public GameObject jetpackPrefab;
 		public GameObject metalPrefab;
+		public GameObject woodPrefab;
 		public Transform cameraTransform;
 		private GameObject _current;
 		private PlayerInventory _inventory;
@@ -39,6 +40,9 @@ namespace Player {
 					break;
 				case Slot.SlotKind.Metal:
 					_current = Instantiate(metalPrefab, transform);
+					break;
+				case Slot.SlotKind.Wood:
+					_current = Instantiate(woodPrefab, transform);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

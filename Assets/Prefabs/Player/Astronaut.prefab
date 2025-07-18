@@ -1257,6 +1257,7 @@ MonoBehaviour:
   harpoonGunSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
   jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
+  woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
   kind: 3
   amount: 1
 --- !u!1 &3855885226503645740
@@ -1572,6 +1573,7 @@ MonoBehaviour:
   harpoonGunSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
   jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
+  woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
   kind: 1
   amount: 1
 --- !u!1 &4281869966089494208
@@ -1715,6 +1717,7 @@ MonoBehaviour:
   harpoonGunSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
   jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
+  woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
   kind: 2
   amount: 1
 --- !u!1 &4925872772999275943
@@ -3038,6 +3041,7 @@ MonoBehaviour:
   harpoonGunSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
   jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
+  woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
   kind: 0
   amount: 0
 --- !u!1 &7746218308239532846
@@ -3181,6 +3185,7 @@ MonoBehaviour:
   harpoonGunSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
   jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
+  woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
   kind: 0
   amount: 0
 --- !u!1 &7775060575359214951
@@ -3230,8 +3235,9 @@ MonoBehaviour:
   playerObject: {fileID: 8668388866673138438}
   magnetPrefab: {fileID: 5446213650436569997, guid: 152097b62ad44425a8a9752c293b1e31, type: 3}
   harpoonGunPrefab: {fileID: 5066644381653921950, guid: 2d8862ad04aa0470faa5e41152ddd7b7, type: 3}
-  jetpackPrefab: {fileID: 4020595950540665146, guid: 3bc56c8bae2a94f4183dc996a50e33a3, type: 3}
+  jetpackPrefab: {fileID: 5205783018273025614, guid: 3bc56c8bae2a94f4183dc996a50e33a3, type: 3}
   metalPrefab: {fileID: 4020595950540665146, guid: 334fe159435eec24cbb49000d1e5cfb9, type: 3}
+  woodPrefab: {fileID: 4020595950540665146, guid: 4f0907e61657b9141b861b28213a4c68, type: 3}
   cameraTransform: {fileID: 3901613659739042740}
 --- !u!1 &7884923751079189419
 GameObject:
@@ -4095,4 +4101,4 @@ MonoBehaviour:
   thirstDecreaseSpeed: 0.4
   maxOxygen: 100
   oxygen: 0
-  oxygenDecreaseSpeed: 5
+  oxygenDecreaseSpeed: 3

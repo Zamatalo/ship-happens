@@ -10,7 +10,8 @@ namespace Player.Inventory {
 			Magnet,
 			HarpoonGun,
 			Jetpack,
-			Metal
+			Metal,
+			Wood
 		}
 
 		public TMP_Text amountText;
@@ -19,6 +20,7 @@ namespace Player.Inventory {
 		public Material harpoonGunSprite;
 		public Material jetpackSprite;
 		public Material metalSprite;
+		public Material woodSprite;
 		public SlotKind kind;
 		public int amount;
 
@@ -44,6 +46,10 @@ namespace Player.Inventory {
 					image.enabled = true;
 					image.material = metalSprite;
 					break;
+				case SlotKind.Wood:
+					image.enabled = true;
+					image.material = woodSprite;
+					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
@@ -57,6 +63,7 @@ namespace Player.Inventory {
 				SlotKind.HarpoonGun => false,
 				SlotKind.Jetpack => false,
 				SlotKind.Metal => true,
+				SlotKind.Wood => true,
 				_ => throw new ArgumentOutOfRangeException()
 			};
 		}

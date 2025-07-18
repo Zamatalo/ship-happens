@@ -22,9 +22,9 @@ namespace Player {
 		}
 
 		private void FixedUpdate() {
-			hunger -= hungerDecreaseSpeed * Time.fixedDeltaTime;
-			thirst -= thirstDecreaseSpeed * Time.fixedDeltaTime;
-			oxygen -= oxygenDecreaseSpeed * Time.fixedDeltaTime;
+			hunger = Mathf.Max(0, hunger - hungerDecreaseSpeed * Time.fixedDeltaTime);
+			thirst = Mathf.Max(0, thirst - thirstDecreaseSpeed * Time.fixedDeltaTime);
+			oxygen = Mathf.Max(0, oxygen - oxygenDecreaseSpeed * Time.fixedDeltaTime);
 		}
 	}
 }

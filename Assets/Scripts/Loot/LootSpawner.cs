@@ -1,11 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
 using Player;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Loot {
 	public class LootSpawner : MonoBehaviour {
-		public GameObject lootPrefab; // Assign your loot prefab in the Inspector
+		public List<GameObject> lootPrefabs; // Assign multiple loot prefabs in the Inspector
+		// Assign your loot prefab in the Inspector
 		public float spawnInterval = 5f; // Time in seconds between spawns
 		public float minX; // Width of the area to spawn loot
 		public float maxX; // Depth of the area to spawn loot
@@ -52,8 +54,12 @@ namespace Loot {
 					float randomY = Random.Range(0, 360);
 					float randomZ = Random.Range(0, 360);
 
-					var inst = Instantiate(lootPrefab, spawnPosition,
+					var randomIndex = Random.Range(0, lootPrefabs.Count);
+					var selectedLootPrefab = lootPrefabs[randomIndex];
+
+					var inst = Instantiate(selectedLootPrefab, spawnPosition,
 						Quaternion.Euler(randomX, randomY, randomZ));
+
 					var loot = inst.GetComponent<Loot>();
 					loot.Init(minVelX, maxVelX, minVelZ, maxVelZ, rotSpeed);
 				}
