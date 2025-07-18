@@ -37,7 +37,7 @@ namespace Player {
 
 		private void FixedUpdate() {
 			if (IsOwner) {
-				isGrounded = Physics.Raycast(foot.position, Vector3.down, 0.1f);
+				isGrounded = Physics.Raycast(foot.position, transform.up * -1f, 0.1f);
 
 				var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
 
