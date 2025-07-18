@@ -17,12 +17,12 @@
     max-width: 64px;
     max-height: 64px;
     margin: 0 1% 1% 0;
-    background-image: resource('UI/Inventory/inventorySlots/ItemDisable');
+    background-image: resource('UI/Inventory/ItemDisable');
     cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
 }
 
 .hotbar-slot.selected {
-    background-image: resource('UI/Inventory/inventorySlots/ItemEnable');
+    background-image: resource('UI/Inventory/ItemEnable');
     height: 100px;
     width: 100px;
 }

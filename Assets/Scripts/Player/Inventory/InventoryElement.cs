@@ -1,65 +1,98 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 [UxmlElement]
 public partial class InventoryElement : VisualElement
 {
-    public VisualElement _background;
-    public Image _icon;
-    public Label _quantity;
-    public string itemName { get; private set; }
+    [UxmlAttribute]
+    public InventoryElementType ElementType
+    {
+        get => _elementType;
+        set
+        {
+            if (_elementType != value)
+            {
+                _elementType = value;
+                ApplyElementType();
+            }
+        }
+    }
+    private InventoryElementType _elementType = InventoryElementType.Inventory;
+
+    public Image Icon;
+    public Label Quantity;
+    public string ItemName { get; private set; }
     public Sprite Sprite { get; private set; }
-    
+
     public InventoryElement()
     {
-        _icon = new Image();
-        _icon.AddToClassList("slotIcon");
-        Add(_icon);
-
-        _quantity = new Label();
-        _quantity.AddToClassList("slotQuantity");
-        Add(_quantity);
-        
-        
-        AddToClassList("inventoryElement");
-        AddToClassList("slotBackground");
-        AddToClassList("slotBackground2");
+        CreateIconAndQuantity();
+        ApplyElementType();
     }
-    
+
+    private void ApplyElementType()
+    {
+        ClearClassList();  // очищаем все предыдущие классы
+
+        switch (ElementType)
+        {
+            case InventoryElementType.Inventory:
+                AddToClassList("inventoryElement");
+                AddToClassList("slotBackground");
+                AddToClassList("slotBackground2");
+                break;
+            case InventoryElementType.Hotbar:
+                AddToClassList("hotbar-slot");
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void CreateIconAndQuantity()
+    {
+        Icon = new Image();
+        Icon.AddToClassList("slotIcon");
+        Add(Icon);
+
+        Quantity = new Label();
+        Quantity.AddToClassList("slotQuantity");
+        Add(Quantity);
+    }
+
     public void SetItem(InventoryItem item, Sprite sprite)
     {
-        
-        
-        if (item.itemName != null && sprite != null)
+        if (item.itemName == null || sprite == null || sprite.texture == null)
         {
-            _icon.image = sprite.texture;
-            itemName = item.itemName;
-            Sprite = sprite;
-            _icon.style.display = DisplayStyle.Flex;
+            ClearItem();
+            return;
         }
-        else
-        {
-            _icon.image = null;
-            itemName = null;
-            Sprite = null;
-            _icon.style.display = DisplayStyle.None;
-        }
-        
-        _quantity.text = item.quantity >=1 
-            ? item.quantity.ToString()
-            : "";
-        _quantity.style.display = string.IsNullOrEmpty(_quantity.text) 
-            ? DisplayStyle.None 
+
+        Icon.image = sprite.texture;
+        ItemName = item.itemName;
+        Sprite = sprite;
+        Icon.style.display = DisplayStyle.Flex;
+
+        Quantity.text = item.quantity >= 1 ? item.quantity.ToString() : "";
+        Quantity.style.display = string.IsNullOrEmpty(Quantity.text)
+            ? DisplayStyle.None
             : DisplayStyle.Flex;
     }
 
     public void ClearItem()
     {
-        _icon.image = null;
-        itemName = null;
+        Icon.image = null;
+        ItemName = null;
         Sprite = null;
-        _icon.style.display = DisplayStyle.None;
-        _quantity.text = "";
-        _quantity.style.display = DisplayStyle.None;
+        Icon.style.display = DisplayStyle.None;
+        Quantity.text = "";
+        Quantity.style.display = DisplayStyle.None;
     }
+}
+
+public enum InventoryElementType
+{
+    Inventory,
+    Hotbar
 }

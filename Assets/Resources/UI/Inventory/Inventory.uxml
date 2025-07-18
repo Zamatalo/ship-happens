@@ -1,9 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="True">
     <Style src="project://database/Assets/Resources/UI/Inventory/Inventory.uss?fileID=7433441132597879392&amp;guid=c8715e41f604c344dab4c9e4819d0327&amp;type=3#Inventory" />
-    <ui:VisualElement name="inventory-root" class="inventory-root" style="background-image: resource(&apos;UI/Assets/1. Free Hologram Interface Wenrexa(1)/1. Free Hologram Interface Wenrexa/Card X3/Card X6&apos;); -unity-background-image-tint-color: rgba(255, 255, 255, 0.85); width: 50%; flex-grow: 1; margin-top: 10%; margin-right: 0%; margin-bottom: 0%; margin-left: 25%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgba(8, 31, 33, 0); cursor: resource(&apos;Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px&apos;); flex-direction: column; flex-wrap: nowrap; min-width: auto; height: 50%; flex-shrink: 0; align-items: center; justify-content: center; align-self: flex-start; align-content: center;">
+    <ui:VisualElement name="inventory-root" class="inventory-root" style="background-image: resource(&apos;UI/Assets/1. Free Hologram Interface Wenrexa(1)/1. Free Hologram Interface Wenrexa/Card X3/Card X6&apos;); -unity-background-image-tint-color: rgba(255, 255, 255, 0.85); width: 50%; flex-grow: 2; margin-top: 10%; margin-right: 0%; margin-bottom: 0%; margin-left: 25%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgba(8, 31, 33, 0); cursor: resource(&apos;Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px&apos;); flex-direction: column; flex-wrap: nowrap; min-width: auto; height: 50%; flex-shrink: 1; align-items: flex-end; justify-content: space-around; align-self: stretch; align-content: stretch; max-width: 50%; max-height: 50%;">
         <ui:Label text="Inventory" enabled="false" picking-mode="Ignore" class="inventory-title" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&quot;); -unity-font-style: bold; font-size: 24px; margin-top: 5%; margin-right: 5%; margin-bottom: 5%; margin-left: 5%; align-items: center; justify-content: flex-end; align-self: center; color: rgb(40, 216, 193); -unity-text-align: lower-center; white-space: pre;" />
         <ui:VisualElement name="slotsContainer" class="slotsContainer" style="flex-direction: row; flex-wrap: wrap; width: 97%; height: 61%; padding-top: 0%; padding-right: 0%; padding-bottom: 0%; padding-left: 5%; align-items: flex-start; justify-content: center; align-self: center; flex-grow: 1; -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&quot;); align-content: center;">
-            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" element-type="Inventory" />
             <InventoryElement name="InventoryElement" />
             <InventoryElement name="InventoryElement" />
             <InventoryElement name="InventoryElement" />
@@ -28,8 +28,13 @@
             <InventoryElement name="InventoryElement" />
             <InventoryElement name="InventoryElement" />
         </ui:VisualElement>
-        <ui:VisualElement name="GhostIcon" style="flex-grow: 1; overflow: visible; visibility: visible; position: absolute; width: 65px; height: 64px; top: -189px; left: -478px; min-width: 64px; min-height: 64px; max-height: 64px; max-width: 64px; background-image: none;" />
     </ui:VisualElement>
-    <ui:VisualElement style="flex-grow: 1; height: 20%;" />
-    <ui:VisualElement name="hotbarContainer" class="hotbarContainer" style="cursor: initial; width: 100%; height: 0%; flex-grow: 1; flex-shrink: 1;" />
+    <ui:VisualElement name="hotbarContainer" class="hotbarContainer" style="cursor: initial; width: 100%; height: 0%; flex-grow: 2; flex-shrink: 0; justify-content: center; bottom: 1%; align-content: center; align-self: flex-end; align-items: flex-end;">
+        <InventoryElement element-type="Hotbar" enabled="true" />
+        <InventoryElement element-type="Hotbar" />
+        <InventoryElement element-type="Hotbar" />
+        <InventoryElement element-type="Hotbar" />
+        <InventoryElement element-type="Hotbar" />
+    </ui:VisualElement>
+    <ui:VisualElement name="GhostIcon" style="flex-grow: 1; overflow: visible; visibility: visible; position: absolute; width: 64px; height: 64px; top: auto; left: auto; min-width: 64px; min-height: 64px; max-height: 64px; max-width: 64px; background-image: none; right: auto; bottom: auto;" />
 </ui:UXML>
