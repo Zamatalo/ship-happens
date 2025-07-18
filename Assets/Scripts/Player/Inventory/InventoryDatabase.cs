@@ -9,10 +9,10 @@ public class InventoryDatabase : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        populateItems();
+        PopulateItems();
     }
 
-    private void populateItems()
+    private void PopulateItems()
     {
         items = new List<ItemData>(Resources.LoadAll<ItemData>("Items"));
         Debug.Log($"Loaded {items.Count} items into InventoryDatabase.");

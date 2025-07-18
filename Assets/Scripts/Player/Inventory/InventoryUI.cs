@@ -1,113 +1,138 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class InventoryUI : MonoBehaviour
 {
     public static InventoryUI Instance;
 
-    public VisualTreeAsset slotTemplate;
+    private VisualElement root;
     private VisualElement slotsContainer;
-    private VisualElement hotbarContainer;
-    private List<VisualElement> hotbarSlots = new();
-    private int selectedHotbarIndex = -1;
-    private bool _isDragging = false;
+    private VisualElement ghostIcon;
+
+    private List<InventoryElement> slots = new List<InventoryElement>();
+
+    private bool isDragging = false;
+    private InventoryElement dragSource = null;
 
     private void Awake()
     {
-        Instance = this;
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        slotsContainer = root.Q<VisualElement>("slots-container");
-        hotbarContainer = root.Q<VisualElement>("hotbarContainer");
-
-        // Clear existing slots and create new ones
-        hotbarContainer.Clear();
-        hotbarSlots.Clear();
-
-        for (int i = 0; i < 5; i++)
+        if (Instance != null && Instance != this)
         {
-            var slotHotbar = new VisualElement();
-            slotHotbar.AddToClassList("hotbar-slot");
-            
-            int index = i;
-            slotHotbar.RegisterCallback<PointerDownEvent>(_ => SelectHotbarSlot(index));
-            hotbarContainer.Add(slotHotbar);
-            hotbarSlots.Add(slotHotbar);
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+        var uiDocument = GetComponent<UIDocument>();
+        root = uiDocument.rootVisualElement;
+
+        slotsContainer = root.Q<VisualElement>("slotsContainer");
+        ghostIcon = root.Q<VisualElement>("GhostIcon");
+
+        ghostIcon.style.position = Position.Absolute;
+        ghostIcon.style.display = DisplayStyle.None;
+
+        InitializeSlots();
+        RegisterEvents();
+    }
+
+    private void InitializeSlots()
+    {
+        slots.Clear();
+        slots = slotsContainer.Query<InventoryElement>().ToList();
+
+        foreach (var slot in slots)
+        {
+            slot.RegisterCallback<PointerDownEvent>(OnPointerDown);
         }
     }
 
-    private void Update()
+    private void RegisterEvents()
     {
-        if (hotbarSlots.Count == 0)
+        root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
+        root.RegisterCallback<PointerUpEvent>(OnPointerUp);
+    }
+
+    private void OnPointerDown(PointerDownEvent evt)
+    {
+        if (isDragging)
             return;
 
-        for (int i = 1; i <= hotbarSlots.Count; i++)
+        var target = evt.target as VisualElement;
+
+        while (target != null && !(target is InventoryElement))
+            target = target.parent;
+
+        if (target is InventoryElement slot && !string.IsNullOrEmpty(slot.itemName))
         {
-            if (Input.GetKeyDown(KeyCode.Alpha0 + i))
-            {
-                SelectHotbarSlot(i - 1);
-            }
+            Debug.Log($"Start dragging item {slot.itemName}");
+            dragSource = slot;
+            isDragging = true;
+
+            ghostIcon.style.backgroundImage = new StyleBackground(slot.Sprite);
+            ghostIcon.style.display = DisplayStyle.Flex;
+            UpdateGhostIconPosition(evt.position);
+            evt.StopPropagation();
         }
     }
 
-    public void Refresh(List<InventorySlot> slots)
+    private void OnPointerMove(PointerMoveEvent evt)
     {
-        slotsContainer.Clear();
-
-        foreach (var slotData in slots)
-        {   
-            var slot = slotTemplate.CloneTree();
-            var icon = slot.Q<Image>("icon");
-            var quantity = slot.Q<Label>("quantity");
-
-            var item = InventoryDatabase.Instance.GetItemByName(slotData.itemName);
-            if (item != null) // Added null check
-            {
-                icon.sprite = item.icon;
-                quantity.text = slotData.quantity.ToString();
-                MakeDraggable(slot, icon.sprite);
-            }
-            slotsContainer.Add(slot);
-        }
+        if (!isDragging) return;
+        UpdateGhostIconPosition(evt.position);
     }
 
-    private void SelectHotbarSlot(int index)
+    private void UpdateGhostIconPosition(Vector2 screenPosition)
     {
-        if (selectedHotbarIndex >= 0 && selectedHotbarIndex < hotbarSlots.Count)
-            hotbarSlots[selectedHotbarIndex].RemoveFromClassList("selected");
-
-        selectedHotbarIndex = index;
-        if (selectedHotbarIndex >= 0 && selectedHotbarIndex < hotbarSlots.Count)
-            hotbarSlots[selectedHotbarIndex].AddToClassList("selected");
-
-        Debug.Log($"Selected hotbar slot: {index}");
+        Vector2 localPos = root.WorldToLocal(screenPosition);
+        ghostIcon.style.left = localPos.x - ghostIcon.layout.width / 2;
+        ghostIcon.style.top = localPos.y - ghostIcon.layout.height / 2;
     }
 
-    private void MakeDraggable(VisualElement element, Sprite sprite)
+    private void OnPointerUp(PointerUpEvent evt)
     {
-        Vector2 startMousePos = Vector2.zero;
-        Vector2 startElementPos = Vector2.zero;
-        
-        element.RegisterCallback<PointerDownEvent>(evt =>
-        {
-            startMousePos = evt.position;
-            startElementPos = new Vector2(element.resolvedStyle.left, element.resolvedStyle.top);
-            _isDragging = true;
-        });
+        if (!isDragging) return;
 
-        element.RegisterCallback<PointerMoveEvent>(evt =>
+        var slotUnderCursor = slots.FirstOrDefault(s => s.worldBound.Contains(evt.position));
+
+        if (slotUnderCursor != null && dragSource != null)
         {
-            if (!_isDragging) return;
+            Debug.Log($"Dropped item {dragSource.itemName} to slot");
+            var tempName = slotUnderCursor.itemName;
+            var tempQty = slotUnderCursor._quantity;
+            var tempSprite = slotUnderCursor.Sprite;
             
-            var delta = (Vector2)evt.position - startMousePos;
-            element.style.left = startElementPos.x + delta.x;
-            element.style.top = startElementPos.y + delta.y;
-            element.style.position = Position.Absolute;
-        });
-
-        element.RegisterCallback<PointerUpEvent>(evt =>
+            
+            slotUnderCursor.SetItem(new InventoryItem(dragSource.itemName,1), dragSource.Sprite);
+            dragSource.SetItem(new InventoryItem("as", 1),InventoryDatabase.Instance.GetItemByName("Magnet").icon);
+        }
+        else
         {
-            _isDragging = false;
-        });
+            Debug.Log("Dropped outside slots, returning item back");
+        }
+
+        ghostIcon.style.display = DisplayStyle.None;
+        isDragging = false;
+        dragSource = null;
+    }
+
+    public void RefreshInventory(List<InventoryItem> items)
+    {
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (i < items.Count)
+            {
+                var item = items[i];
+                var sprite = InventoryDatabase.Instance.GetItemByName(item.itemName).icon;
+                slots[i].SetItem(new InventoryItem(item.itemName, item.quantity), sprite);
+            }
+            else
+            {
+                slots[i].ClearItem();
+            }
+        }
     }
 }
