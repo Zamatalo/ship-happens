@@ -1,13 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.InputSystem;
 
 public class InventoryUI : MonoBehaviour
 {
     public static InventoryUI Instance;
-
     private VisualElement root;
     private VisualElement slotsContainer;
     private VisualElement ghostIcon;
@@ -31,30 +30,30 @@ public class InventoryUI : MonoBehaviour
 
         slotsContainer = root.Q<VisualElement>("slotsContainer");
         ghostIcon = root.Q<VisualElement>("GhostIcon");
-
+        ghostIcon.style.width = 64;
+        ghostIcon.style.height = 64;
         ghostIcon.style.position = Position.Absolute;
         ghostIcon.style.display = DisplayStyle.None;
 
+        
+        
         InitializeSlots();
-        RegisterEvents();
+        root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
+        root.RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
     private void InitializeSlots()
     {
         slots.Clear();
-        slots = slotsContainer.Query<InventoryElement>().ToList();
+        slots = slotsContainer.Query<InventoryElement>()
+            .ToList();
 
         foreach (var slot in slots)
         {
             slot.RegisterCallback<PointerDownEvent>(OnPointerDown);
         }
     }
-
-    private void RegisterEvents()
-    {
-        root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
-        root.RegisterCallback<PointerUpEvent>(OnPointerUp);
-    }
+    
 
     private void OnPointerDown(PointerDownEvent evt)
     {
@@ -63,20 +62,19 @@ public class InventoryUI : MonoBehaviour
 
         var target = evt.target as VisualElement;
 
-        while (target != null && !(target is InventoryElement))
+        while (target != null && target is not InventoryElement)
             target = target.parent;
 
-        if (target is InventoryElement slot && !string.IsNullOrEmpty(slot.itemName))
-        {
-            Debug.Log($"Start dragging item {slot.itemName}");
-            dragSource = slot;
-            isDragging = true;
+        if (target is not InventoryElement slot || string.IsNullOrEmpty(slot.itemName)) return;
+        
+        Debug.Log($"Start dragging item {slot.itemName}");
+        dragSource = slot;
+        isDragging = true;
 
-            ghostIcon.style.backgroundImage = new StyleBackground(slot.Sprite);
-            ghostIcon.style.display = DisplayStyle.Flex;
-            UpdateGhostIconPosition(evt.position);
-            evt.StopPropagation();
-        }
+        ghostIcon.style.backgroundImage = new StyleBackground(slot.Sprite);
+        ghostIcon.style.display = DisplayStyle.Flex;
+        UpdateGhostIconPosition(evt.position);
+        evt.StopPropagation();
     }
 
     private void OnPointerMove(PointerMoveEvent evt)
@@ -87,10 +85,15 @@ public class InventoryUI : MonoBehaviour
 
     private void UpdateGhostIconPosition(Vector2 screenPosition)
     {
-        Vector2 localPos = root.WorldToLocal(screenPosition);
-        ghostIcon.style.left = localPos.x - ghostIcon.layout.width / 2;
-        ghostIcon.style.top = localPos.y - ghostIcon.layout.height / 2;
+        var localPos = root.WorldToLocal(screenPosition);
+    
+        var offsetX = ghostIcon.resolvedStyle.width / 2;
+        var offsetY = ghostIcon.resolvedStyle.height / 2;
+    
+        ghostIcon.style.left = localPos.x - offsetX;
+        ghostIcon.style.top = localPos.y - offsetY;
     }
+
 
     private void OnPointerUp(PointerUpEvent evt)
     {
@@ -101,13 +104,19 @@ public class InventoryUI : MonoBehaviour
         if (slotUnderCursor != null && dragSource != null)
         {
             Debug.Log($"Dropped item {dragSource.itemName} to slot");
-            var tempName = slotUnderCursor.itemName;
-            var tempQty = slotUnderCursor._quantity;
+            var tempName = string.IsNullOrEmpty(slotUnderCursor.itemName)
+                ? string.Empty
+                : slotUnderCursor.itemName;
+            
+            var tempQty = string.IsNullOrEmpty(slotUnderCursor._quantity.text)
+                ? 0
+                : int.Parse(slotUnderCursor._quantity.text);
+                
             var tempSprite = slotUnderCursor.Sprite;
             
             
-            slotUnderCursor.SetItem(new InventoryItem(dragSource.itemName,1), dragSource.Sprite);
-            dragSource.SetItem(new InventoryItem("as", 1),InventoryDatabase.Instance.GetItemByName("Magnet").icon);
+            slotUnderCursor.SetItem(new InventoryItem(dragSource.itemName,int.Parse(dragSource._quantity.text)), dragSource.Sprite);
+            dragSource.SetItem(new InventoryItem(tempName,tempQty),tempSprite);
         }
         else
         {

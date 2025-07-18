@@ -19,7 +19,7 @@ public struct InventoryItem : INetworkSerializable
         ;
         if (quantity <= 0)
         {
-            quantity = 1;
+           // quantity = 1;
             Debug.Log("quant must be positive");
             //throw new ArgumentException("Quantity must be positive");
 

@@ -7,8 +7,8 @@ using UnityEngine;
 public class PlayerInventory : NetworkBehaviour
 {
     public List<InventoryItem> inventory = new();
-    public event Action<InventoryItem> OnItemAdded;
-    public event Action<InventoryItem> OnItemRemoved;
+   // public event Action<InventoryItem> OnItemAdded;
+  //  public event Action<InventoryItem> OnItemRemoved;
     public NetworkVariable<FixedString512Bytes> inventoryJson = new();
 
     [ServerRpc]
@@ -32,28 +32,28 @@ public class PlayerInventory : NetworkBehaviour
         SyncInventory();
     }
         
-    [ServerRpc]
-    public void RemoveItemServerRpc(string itemName, int amount)
-    {
-        var index = inventory.FindIndex(s => s.itemName == itemName);
-        if (index >= 0)
-        {
-            var slot = inventory[index];
-            slot.quantity -= amount;
-            
-            if (slot.quantity <= 0)
-            {
-                inventory.RemoveAt(index);
-                OnItemRemoved?.Invoke(slot);
-            }
-            else
-            {
-                inventory[index] = slot;
-            }
-            
-            SyncInventory();
-        }
-    }
+    // [ServerRpc]
+    // public void RemoveItemServerRpc(string itemName, int amount)
+    // {
+    //     var index = inventory.FindIndex(s => s.itemName == itemName);
+    //     if (index >= 0)
+    //     {
+    //         var slot = inventory[index];
+    //         slot.quantity -= amount;
+    //         
+    //         if (slot.quantity <= 0)
+    //         {
+    //             inventory.RemoveAt(index);
+    //             OnItemRemoved?.Invoke(slot);
+    //         }
+    //         else
+    //         {
+    //             inventory[index] = slot;
+    //         }
+    //         
+    //         SyncInventory();
+    //     }
+    // }
 
     private void SyncInventory()
     {
