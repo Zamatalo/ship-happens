@@ -8,6 +8,7 @@ namespace Player {
 		public GameObject playerObject;
 		public GameObject magnetPrefab;
 		public GameObject harpoonGunPrefab;
+		public GameObject jetpackPrefab;
 		public GameObject metalPrefab;
 		public Transform cameraTransform;
 		private GameObject _current;
@@ -31,6 +32,10 @@ namespace Player {
 				case Slot.SlotKind.HarpoonGun:
 					_current = Instantiate(harpoonGunPrefab, transform);
 					_current.GetComponent<HarpoonGun>().Init(cameraTransform);
+					break;
+				case Slot.SlotKind.Jetpack:
+					_current = Instantiate(jetpackPrefab, transform);
+					_current.GetComponent<Jetpack>().Init(playerObject.GetComponent<Rigidbody>());
 					break;
 				case Slot.SlotKind.Metal:
 					_current = Instantiate(metalPrefab, transform);

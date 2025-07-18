@@ -1342,6 +1342,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Jetpack",
+            "id": "9c9d6d20-69c0-43bd-93d2-47688f4ff734",
+            "actions": [
+                {
+                    "name": "Use",
+                    "type": "Button",
+                    "id": "dd903283-9513-4c62-a334-00ce0b1a3a38",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "72d2030e-7914-4656-842b-f60dd2cc05e7",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
