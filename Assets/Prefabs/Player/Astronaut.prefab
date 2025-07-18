@@ -4091,4 +4091,4 @@ MonoBehaviour:
   thirstDecreaseSpeed: 0.4
   maxOxygen: 100
   oxygen: 0
-  oxygenDecreaseSpeed: 5
+  oxygenDecreaseSpeed: 3
