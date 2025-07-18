@@ -1370,6 +1370,62 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Edible",
+            "id": "a76536a2-ea53-42f2-8752-0e808305c799",
+            "actions": [
+                {
+                    "name": "Eat",
+                    "type": "Button",
+                    "id": "be818815-5afe-4793-9d1f-1b1042165a9e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e1080000-6755-4201-8b05-8709dfa8a913",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Eat",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Potable",
+            "id": "014971e9-92a7-46d9-9454-82d28cd40d86",
+            "actions": [
+                {
+                    "name": "Drink",
+                    "type": "Button",
+                    "id": "b6137ebf-93e1-4c10-b5bf-d8efa68ac411",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a7ab047d-3fc8-4517-8330-b9f508be1444",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drink",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

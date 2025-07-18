@@ -1456,6 +1456,62 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Edible"",
+            ""id"": ""a76536a2-ea53-42f2-8752-0e808305c799"",
+            ""actions"": [
+                {
+                    ""name"": ""Eat"",
+                    ""type"": ""Button"",
+                    ""id"": ""be818815-5afe-4793-9d1f-1b1042165a9e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e1080000-6755-4201-8b05-8709dfa8a913"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Eat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Potable"",
+            ""id"": ""014971e9-92a7-46d9-9454-82d28cd40d86"",
+            ""actions"": [
+                {
+                    ""name"": ""Drink"",
+                    ""type"": ""Button"",
+                    ""id"": ""b6137ebf-93e1-4c10-b5bf-d8efa68ac411"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a7ab047d-3fc8-4517-8330-b9f508be1444"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drink"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1571,6 +1627,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         // Jetpack
         m_Jetpack = asset.FindActionMap("Jetpack", throwIfNotFound: true);
         m_Jetpack_Use = m_Jetpack.FindAction("Use", throwIfNotFound: true);
+        // Edible
+        m_Edible = asset.FindActionMap("Edible", throwIfNotFound: true);
+        m_Edible_Eat = m_Edible.FindAction("Eat", throwIfNotFound: true);
+        // Potable
+        m_Potable = asset.FindActionMap("Potable", throwIfNotFound: true);
+        m_Potable_Drink = m_Potable.FindAction("Drink", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1582,6 +1644,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_Harpoon.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Harpoon.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_BuildKit.enabled, "This will cause a leak and performance issues, InputSystem_Actions.BuildKit.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Jetpack.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Jetpack.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Edible.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Edible.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Potable.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Potable.Disable() has not been called.");
     }
 
     /// <summary>
@@ -2644,6 +2708,198 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="JetpackActions" /> instance referencing this action map.
     /// </summary>
     public JetpackActions @Jetpack => new JetpackActions(this);
+
+    // Edible
+    private readonly InputActionMap m_Edible;
+    private List<IEdibleActions> m_EdibleActionsCallbackInterfaces = new List<IEdibleActions>();
+    private readonly InputAction m_Edible_Eat;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Edible".
+    /// </summary>
+    public struct EdibleActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public EdibleActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Edible/Eat".
+        /// </summary>
+        public InputAction @Eat => m_Wrapper.m_Edible_Eat;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Edible; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="EdibleActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(EdibleActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="EdibleActions" />
+        public void AddCallbacks(IEdibleActions instance)
+        {
+            if (instance == null || m_Wrapper.m_EdibleActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_EdibleActionsCallbackInterfaces.Add(instance);
+            @Eat.started += instance.OnEat;
+            @Eat.performed += instance.OnEat;
+            @Eat.canceled += instance.OnEat;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="EdibleActions" />
+        private void UnregisterCallbacks(IEdibleActions instance)
+        {
+            @Eat.started -= instance.OnEat;
+            @Eat.performed -= instance.OnEat;
+            @Eat.canceled -= instance.OnEat;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="EdibleActions.UnregisterCallbacks(IEdibleActions)" />.
+        /// </summary>
+        /// <seealso cref="EdibleActions.UnregisterCallbacks(IEdibleActions)" />
+        public void RemoveCallbacks(IEdibleActions instance)
+        {
+            if (m_Wrapper.m_EdibleActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="EdibleActions.AddCallbacks(IEdibleActions)" />
+        /// <seealso cref="EdibleActions.RemoveCallbacks(IEdibleActions)" />
+        /// <seealso cref="EdibleActions.UnregisterCallbacks(IEdibleActions)" />
+        public void SetCallbacks(IEdibleActions instance)
+        {
+            foreach (var item in m_Wrapper.m_EdibleActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_EdibleActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="EdibleActions" /> instance referencing this action map.
+    /// </summary>
+    public EdibleActions @Edible => new EdibleActions(this);
+
+    // Potable
+    private readonly InputActionMap m_Potable;
+    private List<IPotableActions> m_PotableActionsCallbackInterfaces = new List<IPotableActions>();
+    private readonly InputAction m_Potable_Drink;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Potable".
+    /// </summary>
+    public struct PotableActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public PotableActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Potable/Drink".
+        /// </summary>
+        public InputAction @Drink => m_Wrapper.m_Potable_Drink;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Potable; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="PotableActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(PotableActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="PotableActions" />
+        public void AddCallbacks(IPotableActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PotableActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PotableActionsCallbackInterfaces.Add(instance);
+            @Drink.started += instance.OnDrink;
+            @Drink.performed += instance.OnDrink;
+            @Drink.canceled += instance.OnDrink;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="PotableActions" />
+        private void UnregisterCallbacks(IPotableActions instance)
+        {
+            @Drink.started -= instance.OnDrink;
+            @Drink.performed -= instance.OnDrink;
+            @Drink.canceled -= instance.OnDrink;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PotableActions.UnregisterCallbacks(IPotableActions)" />.
+        /// </summary>
+        /// <seealso cref="PotableActions.UnregisterCallbacks(IPotableActions)" />
+        public void RemoveCallbacks(IPotableActions instance)
+        {
+            if (m_Wrapper.m_PotableActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="PotableActions.AddCallbacks(IPotableActions)" />
+        /// <seealso cref="PotableActions.RemoveCallbacks(IPotableActions)" />
+        /// <seealso cref="PotableActions.UnregisterCallbacks(IPotableActions)" />
+        public void SetCallbacks(IPotableActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PotableActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PotableActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="PotableActions" /> instance referencing this action map.
+    /// </summary>
+    public PotableActions @Potable => new PotableActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -3016,5 +3272,35 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnUse(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Edible" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="EdibleActions.AddCallbacks(IEdibleActions)" />
+    /// <seealso cref="EdibleActions.RemoveCallbacks(IEdibleActions)" />
+    public interface IEdibleActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Eat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEat(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Potable" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="PotableActions.AddCallbacks(IPotableActions)" />
+    /// <seealso cref="PotableActions.RemoveCallbacks(IPotableActions)" />
+    public interface IPotableActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Drink" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDrink(InputAction.CallbackContext context);
     }
 }

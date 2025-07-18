@@ -48,9 +48,13 @@ namespace Player {
 					break;
 				case Slot.SlotKind.Edible:
 					_current = Instantiate(ediblePrefab, transform);
+					_current.GetComponent<Edible>().Init(playerObject.GetComponent<PlayerNeeds>(),
+						slot.amount);
 					break;
 				case Slot.SlotKind.Potable:
 					_current = Instantiate(potablePrefab, transform);
+					_current.GetComponent<Potable>().Init(playerObject.GetComponent<PlayerNeeds>(),
+						slot.amount);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
