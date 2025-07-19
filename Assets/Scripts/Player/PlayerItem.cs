@@ -10,7 +10,7 @@ namespace Player {
 		public GameObject harpoonGunPrefab;
 		public GameObject jetpackPrefab;
 		public GameObject metalPrefab;
-		public GameObject woodPrefab;
+		public GameObject planksPrefab;
 		public GameObject ediblePrefab;
 		public GameObject potablePrefab;
 		public Transform cameraTransform;
@@ -43,19 +43,25 @@ namespace Player {
 				case Slot.SlotKind.Metal:
 					_current = Instantiate(metalPrefab, transform);
 					break;
-				case Slot.SlotKind.Wood:
-					_current = Instantiate(woodPrefab, transform);
+				case Slot.SlotKind.Planks:
+					_current = Instantiate(planksPrefab, transform);
 					break;
-				case Slot.SlotKind.Edible:
+				case Slot.SlotKind.Edible: {
+					var needs = playerObject.GetComponent<PlayerNeeds>();
+					var inventory = playerObject.GetComponent<PlayerInventory>();
+
 					_current = Instantiate(ediblePrefab, transform);
-					_current.GetComponent<Edible>().Init(playerObject.GetComponent<PlayerNeeds>(),
-						slot.amount);
+					_current.GetComponent<Edible>().Init(needs, inventory, slot);
 					break;
-				case Slot.SlotKind.Potable:
+				}
+				case Slot.SlotKind.Potable: {
+					var needs = playerObject.GetComponent<PlayerNeeds>();
+					var inventory = playerObject.GetComponent<PlayerInventory>();
+
 					_current = Instantiate(potablePrefab, transform);
-					_current.GetComponent<Potable>().Init(playerObject.GetComponent<PlayerNeeds>(),
-						slot.amount);
+					_current.GetComponent<Potable>().Init(needs, inventory, slot);
 					break;
+				}
 				default:
 					throw new ArgumentOutOfRangeException();
 			}

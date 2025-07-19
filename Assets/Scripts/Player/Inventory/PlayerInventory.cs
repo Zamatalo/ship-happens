@@ -11,11 +11,11 @@ namespace Player.Inventory {
 		public Color inactiveColor;
 		private readonly List<OnSlotChange> _fns = new();
 		private readonly List<Slot> _slots = new();
-		private byte _activeSlotIndex;
-		private InputSystem_Actions _inputActions;
+		private byte _i;
+		private InputSystem_Actions _ia;
 
 		private void Awake() {
-			_inputActions = new InputSystem_Actions();
+			_ia = new InputSystem_Actions();
 		}
 
 		private void Start() {
@@ -23,29 +23,29 @@ namespace Player.Inventory {
 				slot.GetComponent<Image>().color = inactiveColor;
 				_slots.Add(slot.GetComponent<Slot>());
 			}
-			slots[_activeSlotIndex].GetComponent<Image>().color = activeColor;
+			slots[_i].GetComponent<Image>().color = activeColor;
 		}
 
 		private void OnEnable() {
-			_inputActions.Enable();
-			_inputActions.Inventory._1.performed += _1;
-			_inputActions.Inventory._2.performed += _2;
-			_inputActions.Inventory._3.performed += _3;
-			_inputActions.Inventory._4.performed += _4;
-			_inputActions.Inventory._5.performed += _5;
-			_inputActions.Inventory.IterMouse.performed += IterMouse;
-			_inputActions.Inventory.IterKeyboard.performed += IterKeyboard;
+			_ia.Enable();
+			_ia.Inventory._1.performed += _1;
+			_ia.Inventory._2.performed += _2;
+			_ia.Inventory._3.performed += _3;
+			_ia.Inventory._4.performed += _4;
+			_ia.Inventory._5.performed += _5;
+			_ia.Inventory.IterMouse.performed += IterMouse;
+			_ia.Inventory.IterKeyboard.performed += IterKeyboard;
 		}
 
 		private void OnDisable() {
-			_inputActions.Inventory._1.performed -= _1;
-			_inputActions.Inventory._2.performed -= _2;
-			_inputActions.Inventory._3.performed -= _3;
-			_inputActions.Inventory._4.performed -= _4;
-			_inputActions.Inventory._5.performed -= _5;
-			_inputActions.Inventory.IterMouse.performed -= IterMouse;
-			_inputActions.Inventory.IterKeyboard.performed -= IterKeyboard;
-			_inputActions.Disable();
+			_ia.Inventory._1.performed -= _1;
+			_ia.Inventory._2.performed -= _2;
+			_ia.Inventory._3.performed -= _3;
+			_ia.Inventory._4.performed -= _4;
+			_ia.Inventory._5.performed -= _5;
+			_ia.Inventory.IterMouse.performed -= IterMouse;
+			_ia.Inventory.IterKeyboard.performed -= IterKeyboard;
+			_ia.Disable();
 		}
 
 		public void AddSlotChangeListener(OnSlotChange fn) {
@@ -67,11 +67,11 @@ namespace Player.Inventory {
 		}
 
 		private void PrevSlot() {
-			OnActiveSlotChange((byte)((_activeSlotIndex - 1 + slots.Count) % slots.Count));
+			OnActiveSlotChange((byte)((_i - 1 + slots.Count) % slots.Count));
 		}
 
 		private void NextSlot() {
-			OnActiveSlotChange((byte)((_activeSlotIndex + 1) % slots.Count));
+			OnActiveSlotChange((byte)((_i + 1) % slots.Count));
 		}
 
 		private void _1(InputAction.CallbackContext _) {
@@ -95,11 +95,11 @@ namespace Player.Inventory {
 		}
 
 		private void OnActiveSlotChange(byte index) {
-			slots[_activeSlotIndex].GetComponent<Image>().color = inactiveColor;
-			_activeSlotIndex = index;
-			slots[_activeSlotIndex].GetComponent<Image>().color = activeColor;
+			slots[_i].GetComponent<Image>().color = inactiveColor;
+			_i = index;
+			slots[_i].GetComponent<Image>().color = activeColor;
 
-			foreach (var fn in _fns) fn.Invoke(_slots[_activeSlotIndex]);
+			foreach (var fn in _fns) fn.Invoke(_slots[_i]);
 		}
 
 		public bool Collect(Slot.SlotKind slotKind, int amount) {
@@ -117,6 +117,14 @@ namespace Player.Inventory {
 			}
 
 			return false;
+		}
+
+		public void Consume(int amount) {
+			_slots[_i].amount = Mathf.Max(0, _slots[_i].amount - amount);
+			if (_slots[_i].amount > 0) return;
+
+			_slots[_i].kind = Slot.SlotKind.None;
+			OnActiveSlotChange(_i);
 		}
 	}
 }

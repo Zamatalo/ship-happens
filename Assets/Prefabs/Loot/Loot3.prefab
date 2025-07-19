@@ -52,6 +52,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loot3
       objectReference: {fileID: 0}
+    - target: {fileID: 5054734415202140727, guid: 49c0d9764a9b8814ea263e2f9729c5ee, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054734415202140727, guid: 49c0d9764a9b8814ea263e2f9729c5ee, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054734415202140727, guid: 49c0d9764a9b8814ea263e2f9729c5ee, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054734415202140727, guid: 49c0d9764a9b8814ea263e2f9729c5ee, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6039579471140193, guid: 49c0d9764a9b8814ea263e2f9729c5ee, type: 3}
@@ -125,8 +141,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.168381, y: 1, z: 1.4095088}
+  m_Center: {x: 0.023014873, y: 0, z: 0.028576493}
 --- !u!114 &9064777577997252718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,4 +219,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kind: 7
-  amount: 9
+  amount: 2

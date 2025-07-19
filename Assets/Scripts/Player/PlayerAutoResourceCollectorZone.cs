@@ -13,8 +13,7 @@ namespace Player {
 		private void OnTriggerEnter(Collider other) {
 			if (!other.gameObject.TryGetComponent(out Loot.Loot loot)) return;
 
-			_inventory.Collect(loot.kind, loot.amount);
-			Destroy(loot.gameObject);
+			if (_inventory.Collect(loot.kind, loot.amount)) Destroy(loot.gameObject);
 		}
 	}
 }
