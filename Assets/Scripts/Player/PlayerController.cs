@@ -26,6 +26,7 @@ namespace Player {
 		private void Start() {
 			_rb = GetComponent<Rigidbody>();
 			animator = GetComponent<Animator>();
+			
 			if (IsLocalPlayer) {
 				characterObj.SetActive(false);
 				handsObj.SetActive(true);
@@ -48,7 +49,6 @@ namespace Player {
 				_isMoving = _moveInput.sqrMagnitude > 0.01f;
 				animator.SetFloat("moveX", _moveInput.x);
 				animator.SetFloat("moveZ", _moveInput.y);
-				animator.SetFloat("verticalSpeed", _rb.linearVelocity.y);
 				animator.SetBool("isGrounded", isGrounded);
 				animator.SetBool("isMoving", _isMoving);
 			}

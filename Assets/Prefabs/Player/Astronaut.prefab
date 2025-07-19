@@ -1128,7 +1128,7 @@ GameObject:
   - component: {fileID: 8987950540904999867}
   - component: {fileID: 7323124180828639647}
   - component: {fileID: 3759844625824379401}
-  - component: {fileID: 2782021593804883203}
+  - component: {fileID: 1030812673928234758}
   m_Layer: 5
   m_Name: 3
   m_TagString: Untagged
@@ -1239,7 +1239,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2782021593804883203
+--- !u!114 &1030812673928234758
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1248,18 +1248,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3837891337657566042}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b277b371d8d67114da391275b202cd83, type: 3}
+  m_Script: {fileID: 11500000, guid: 19b6ec9970f26f64c9acbf6b748c5a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   amountText: {fileID: 2910759691158854393}
   image: {fileID: 1574280425297106935}
-  magnetSprite: {fileID: 2100000, guid: f1bc45e01665a45499d91bb8b87b106f, type: 2}
-  harpoonGunSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
+  magnetSprite: {fileID: 0}
+  harpoonGunSprite: {fileID: 0}
   jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
-  metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
-  woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
-  edibleSprite: {fileID: 2100000, guid: 12cca06b816e83a4297ee7be51967f34, type: 2}
-  potableSprite: {fileID: 2100000, guid: 578ddd8706022454f876e95d23e88b5c, type: 2}
+  metalSprite: {fileID: 0}
+  woodSprite: {fileID: 0}
+  edibleSprite: {fileID: 0}
+  potableSprite: {fileID: 0}
   kind: 3
   amount: 1
 --- !u!1 &3855885226503645740
@@ -1446,7 +1446,7 @@ GameObject:
   - component: {fileID: 6800607250041397779}
   - component: {fileID: 5548797853688925376}
   - component: {fileID: 2147111966118367781}
-  - component: {fileID: 6263999690098595478}
+  - component: {fileID: 6888845564349803491}
   m_Layer: 5
   m_Name: 1
   m_TagString: Untagged
@@ -1556,8 +1556,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5548797853688925376}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &6263999690098595478
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6888845564349803491
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1566,18 +1578,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3942743416141076909}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b277b371d8d67114da391275b202cd83, type: 3}
+  m_Script: {fileID: 11500000, guid: 19b6ec9970f26f64c9acbf6b748c5a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   amountText: {fileID: 7616398122925627947}
   image: {fileID: 3631607728120328275}
   magnetSprite: {fileID: 2100000, guid: f1bc45e01665a45499d91bb8b87b106f, type: 2}
-  harpoonGunSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
-  jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
-  metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
-  woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
-  edibleSprite: {fileID: 2100000, guid: 12cca06b816e83a4297ee7be51967f34, type: 2}
-  potableSprite: {fileID: 2100000, guid: 578ddd8706022454f876e95d23e88b5c, type: 2}
+  harpoonGunSprite: {fileID: 0}
+  jetpackSprite: {fileID: 0}
+  metalSprite: {fileID: 0}
+  woodSprite: {fileID: 0}
+  edibleSprite: {fileID: 0}
+  potableSprite: {fileID: 0}
   kind: 1
   amount: 1
 --- !u!1 &4281869966089494208
@@ -1592,7 +1604,7 @@ GameObject:
   - component: {fileID: 2938330301997206417}
   - component: {fileID: 6629285243543107463}
   - component: {fileID: 2929902612721160096}
-  - component: {fileID: 1008288284223978221}
+  - component: {fileID: 4140885401308281249}
   m_Layer: 5
   m_Name: 2
   m_TagString: Untagged
@@ -1703,7 +1715,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1008288284223978221
+--- !u!114 &4140885401308281249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1712,18 +1724,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4281869966089494208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b277b371d8d67114da391275b202cd83, type: 3}
+  m_Script: {fileID: 11500000, guid: 19b6ec9970f26f64c9acbf6b748c5a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   amountText: {fileID: 6520779280896532474}
   image: {fileID: 1393475635112621412}
-  magnetSprite: {fileID: 2100000, guid: f1bc45e01665a45499d91bb8b87b106f, type: 2}
+  magnetSprite: {fileID: 0}
   harpoonGunSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
-  jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
-  metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
-  woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
-  edibleSprite: {fileID: 2100000, guid: 12cca06b816e83a4297ee7be51967f34, type: 2}
-  potableSprite: {fileID: 2100000, guid: 578ddd8706022454f876e95d23e88b5c, type: 2}
+  jetpackSprite: {fileID: 0}
+  metalSprite: {fileID: 0}
+  woodSprite: {fileID: 0}
+  edibleSprite: {fileID: 0}
+  potableSprite: {fileID: 0}
   kind: 2
   amount: 1
 --- !u!1 &4925872772999275943
@@ -2918,7 +2930,7 @@ GameObject:
   - component: {fileID: 2833764784944920894}
   - component: {fileID: 1617209863450018707}
   - component: {fileID: 6172908577136193255}
-  - component: {fileID: 2781136995933119687}
+  - component: {fileID: 6152452542003369792}
   m_Layer: 5
   m_Name: 5
   m_TagString: Untagged
@@ -3029,7 +3041,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2781136995933119687
+--- !u!114 &6152452542003369792
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3038,20 +3050,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7414245470303674221}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b277b371d8d67114da391275b202cd83, type: 3}
+  m_Script: {fileID: 11500000, guid: 19b6ec9970f26f64c9acbf6b748c5a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   amountText: {fileID: 1947311495669441587}
   image: {fileID: 475925928070845777}
-  magnetSprite: {fileID: 2100000, guid: f1bc45e01665a45499d91bb8b87b106f, type: 2}
-  harpoonGunSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
-  jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
-  metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
+  magnetSprite: {fileID: 0}
+  harpoonGunSprite: {fileID: 0}
+  jetpackSprite: {fileID: 0}
+  metalSprite: {fileID: 0}
   woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
-  edibleSprite: {fileID: 2100000, guid: 12cca06b816e83a4297ee7be51967f34, type: 2}
-  potableSprite: {fileID: 2100000, guid: 578ddd8706022454f876e95d23e88b5c, type: 2}
-  kind: 0
-  amount: 0
+  edibleSprite: {fileID: 0}
+  potableSprite: {fileID: 0}
+  kind: 5
+  amount: 1
 --- !u!1 &7746218308239532846
 GameObject:
   m_ObjectHideFlags: 0
@@ -3064,7 +3076,7 @@ GameObject:
   - component: {fileID: 8279283584898962991}
   - component: {fileID: 9084403450947391482}
   - component: {fileID: 8057296705274521106}
-  - component: {fileID: 1398461275054455318}
+  - component: {fileID: 7753575247975264667}
   m_Layer: 5
   m_Name: 4
   m_TagString: Untagged
@@ -3175,7 +3187,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1398461275054455318
+--- !u!114 &7753575247975264667
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3184,20 +3196,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7746218308239532846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b277b371d8d67114da391275b202cd83, type: 3}
+  m_Script: {fileID: 11500000, guid: 19b6ec9970f26f64c9acbf6b748c5a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   amountText: {fileID: 2789052251167483024}
   image: {fileID: 3575856804597001789}
-  magnetSprite: {fileID: 2100000, guid: f1bc45e01665a45499d91bb8b87b106f, type: 2}
-  harpoonGunSprite: {fileID: 2100000, guid: d323595abaa12c745bf4020a2dc7b6ea, type: 2}
-  jetpackSprite: {fileID: 2100000, guid: b4b0d54808f73724e958918f9f03e241, type: 2}
+  magnetSprite: {fileID: 0}
+  harpoonGunSprite: {fileID: 0}
+  jetpackSprite: {fileID: 0}
   metalSprite: {fileID: 2100000, guid: 6e07b1a49025fdb4eaef0f2acf478b58, type: 2}
-  woodSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
-  edibleSprite: {fileID: 2100000, guid: 12cca06b816e83a4297ee7be51967f34, type: 2}
-  potableSprite: {fileID: 2100000, guid: 578ddd8706022454f876e95d23e88b5c, type: 2}
-  kind: 0
-  amount: 0
+  woodSprite: {fileID: 0}
+  edibleSprite: {fileID: 0}
+  potableSprite: {fileID: 0}
+  kind: 4
+  amount: 1
 --- !u!1 &7775060575359214951
 GameObject:
   m_ObjectHideFlags: 0
@@ -3875,7 +3887,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 6afd93f605654e348bd5a37df7a1e486, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 1
@@ -4098,7 +4110,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8668388866673138438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab73fb7baadce6643bc96a300762fcfb, type: 3}
+  m_Script: {fileID: 11500000, guid: fbdfc82a7a6a402d854c15b80ae0c457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slots:
@@ -4107,8 +4119,8 @@ MonoBehaviour:
   - {fileID: 3837891337657566042}
   - {fileID: 7746218308239532846}
   - {fileID: 7414245470303674221}
-  activeColor: {r: 1, g: 1, b: 1, a: 0.39215687}
-  inactiveColor: {r: 1, g: 1, b: 1, a: 0.19607843}
+  activeColor: {r: 0, g: 0, b: 0, a: 0}
+  inactiveColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &4810618207401140205
 MonoBehaviour:
   m_ObjectHideFlags: 0

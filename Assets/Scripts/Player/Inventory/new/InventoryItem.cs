@@ -1,7 +1,9 @@
 using System;
 using Unity.Netcode;
 using UnityEngine;
-
+/*
+ 
+ */
 [Serializable]
 public struct InventoryItem : INetworkSerializable, IEquatable<InventoryItem>
 {

@@ -411,7 +411,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 260285039}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1112,7 +1112,7 @@ GameObject:
   - component: {fileID: 711896572}
   - component: {fileID: 711896571}
   - component: {fileID: 711896570}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Cube.1956_Texture_Atlas1_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1221,7 +1221,7 @@ GameObject:
   - component: {fileID: 955054605}
   - component: {fileID: 955054604}
   - component: {fileID: 955054603}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Cube.1956_Texture_Atlas1_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1451,7 +1451,7 @@ GameObject:
   - component: {fileID: 1005389383}
   - component: {fileID: 1005389382}
   - component: {fileID: 1005389381}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Cube.1956_Texture_Atlas1_0 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1762,7 +1762,7 @@ GameObject:
   - component: {fileID: 1546259508}
   - component: {fileID: 1546259507}
   - component: {fileID: 1546259506}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Cube.1956_Texture_Atlas1_0 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2132,6 +2132,14 @@ PrefabInstance:
       propertyPath: gravityRadius
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 301282223363765429, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 887253488787344988, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 887253488787344988, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: m_TagString
       value: Ground
@@ -2153,8 +2161,16 @@ PrefabInstance:
       value: Asteroid
       objectReference: {fileID: 0}
     - target: {fileID: 1612357131148437541, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612357131148437541, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: m_TagString
       value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 3506243196133355040, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7828225898324934826, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: m_LocalPosition.x

@@ -1,7 +1,9 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UIElements;
-
+/*
+ * UI ELEMENT
+ */
 [UxmlElement]
 public partial class InventoryElement : VisualElement
 {

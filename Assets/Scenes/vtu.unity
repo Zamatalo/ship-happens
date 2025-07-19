@@ -612,7 +612,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 481347651}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle (1)
   m_TagString: Ship
   m_Icon: {fileID: 0}
@@ -687,7 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf1eae0b793bfd4c9adb0e67c978732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootPrefab: {fileID: 5071198960803153579, guid: 6c8a5c31dfa175b41b82676287385c02, type: 3}
+  lootPrefabs: []
   spawnInterval: 5
   minX: -100
   maxX: 100
@@ -1168,7 +1168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 874245167}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle (1)
   m_TagString: Ship
   m_Icon: {fileID: 0}
@@ -1265,7 +1265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 992224937}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle (1)
   m_TagString: Ship
   m_Icon: {fileID: 0}
@@ -1414,9 +1414,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1041027417}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle
-  m_TagString: Ship
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2509,7 +2509,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2127394879}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shuttle (1)
   m_TagString: Ship
   m_Icon: {fileID: 0}

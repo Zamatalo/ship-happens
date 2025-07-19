@@ -92,7 +92,7 @@ public class PlayerController_Cinemachine : NetworkBehaviour
         
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (NetworkManager.Singleton.LocalClient.PlayerObject.TryGetComponent<PlayerInventory>(out var inventory))
+            if (NetworkManager.Singleton.LocalClient.PlayerObject.TryGetComponent<PlayerInventoryNew>(out var inventory))
             {
                 Debug.Log("Trying to add to player inventory");
                 inventory.AddItemServerRpc("Poison", 1);
