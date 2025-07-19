@@ -5,58 +5,35 @@
 
 #if UNITY_EDITOR
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using SimpleJSON;
 using System.IO;
+using SimpleJSON;
+using UnityEditor;
+using UnityEngine;
+using UnityGLTF;
 
-namespace Sketchfab
-{
-	public class SketchfabModelWindow : EditorWindow
-	{
+namespace Sketchfab_For_Unity.Scripts.AssetBrowser {
+	public class SketchfabModelWindow : EditorWindow {
+		private bool _addToCurrentScene;
 		SketchfabModel _currentModel;
-		SketchfabUI _ui;
-		SketchfabBrowser _window;
-
-		string _prefabName;
 		string _importDirectory;
-		bool _addToCurrentScene;
+		private byte[] _lastArchive;
 		SketchfabRequest _modelRequest;
 
-		bool show = false;
-		byte[] _lastArchive;
+		private string _prefabName;
 
 		Vector2 _scrollView = new Vector2();
+		private SketchfabUI _ui;
+		private SketchfabBrowser _window;
 
-		static void Init()
-		{
-			SketchfabModelWindow window = (SketchfabModelWindow)EditorWindow.GetWindow(typeof(SketchfabModelWindow));
-			window.titleContent.text = "Model";
-			window.Show();
+		private bool show;
+
+		private void OnDestroy() {
+			if (_window != null)
+				_window.closeModelPage();
 		}
 
-		public void displayModelPage(SketchfabModel model, SketchfabBrowser browser)
-		{
-			_window = browser;
-			if(_currentModel == null || model.uid != _currentModel.uid)
-			{
-				_currentModel = model;
-				_prefabName = GLTFUtils.cleanName(_currentModel.name).Replace(" ", "_");
-				_importDirectory = Application.dataPath + "/Import/" + _prefabName.Replace(" ", "_");
-			}
-			else
-			{
-				_currentModel = model;
-			}
-
-			_ui = SketchfabPlugin.getUI();
-			show = true;
-		}
-
-		private void OnGUI()
-		{
-			if (_currentModel != null && show)
-			{
+		private void OnGUI() {
+			if (_currentModel != null && show) {
 				_scrollView = GUILayout.BeginScrollView(_scrollView);
 				SketchfabModel model = _currentModel;
 
@@ -83,10 +60,12 @@ namespace Sketchfab
 						// View on Sketchfab
 						GUILayout.BeginHorizontal();
 						GUILayout.FlexibleSpace();
-						GUIContent viewSkfb = new GUIContent("View on Sketchfab", _ui.SKETCHFAB_ICON);
-						if (GUILayout.Button(viewSkfb, GUILayout.Height(24), GUILayout.Width(140)))
-						{
-							Application.OpenURL(SketchfabPlugin.Urls.modelUrl + "/" + _currentModel.uid);
+						var viewSkfb =
+							new GUIContent("View on Sketchfab", _ui.SKETCHFAB_ICON);
+						if (GUILayout.Button(viewSkfb, GUILayout.Height(24),
+							    GUILayout.Width(140))) {
+							Application.OpenURL(SketchfabPlugin.Urls.modelUrl + "/" +
+							                    _currentModel.uid);
 						}
 						GUILayout.FlexibleSpace();
 						GUILayout.EndHorizontal();
@@ -113,7 +92,6 @@ namespace Sketchfab
 				}
 				GUILayout.EndHorizontal();
 
-
 				// Model info title
 				GUILayout.BeginHorizontal();
 				{
@@ -128,8 +106,7 @@ namespace Sketchfab
 				{
 					GUILayout.BeginVertical();
 					{
-						if (model.licenseJson != null && model.licenseJson["label"] != null)
-						{
+						if (model.licenseJson != null && model.licenseJson["label"] != null) {
 							GUILayout.BeginHorizontal();
 							{
 								GUILayout.BeginVertical();
@@ -144,7 +121,8 @@ namespace Sketchfab
 								// License detail
 								GUILayout.BeginHorizontal();
 								GUILayout.FlexibleSpace();
-								GUILayout.Label(model.formattedLicenseRequirements, EditorStyles.miniLabel);
+								GUILayout.Label(model.formattedLicenseRequirements,
+									EditorStyles.miniLabel);
 								GUILayout.FlexibleSpace();
 								GUILayout.EndHorizontal();
 
@@ -154,15 +132,10 @@ namespace Sketchfab
 								GUILayout.FlexibleSpace();
 							}
 							GUILayout.EndHorizontal();
-						}
-
-						else if (model.vertexCount != 0)
-						{
+						} else if (model.vertexCount != 0) {
 							_ui.displayContent("Personal");
 							_ui.displaySubContent("You own this model");
-						}
-						else
-						{
+						} else {
 							_ui.displaySubContent("Fetching license data");
 						}
 					}
@@ -172,8 +145,10 @@ namespace Sketchfab
 
 					GUILayout.BeginVertical();
 					{
-						_ui.displayModelStats(" Vertex count", " " + Utils.humanifySize(model.vertexCount));
-						_ui.displayModelStats(" Face count", " " + Utils.humanifySize(model.faceCount));
+						_ui.displayModelStats(" Vertex count",
+							" " + Utils.humanifySize(model.vertexCount));
+						_ui.displayModelStats(" Face count",
+							" " + Utils.humanifySize(model.faceCount));
 						if (model.hasAnimation != "")
 							_ui.displayModelStats(" Animation", model.hasAnimation);
 
@@ -188,53 +163,66 @@ namespace Sketchfab
 			}
 		}
 
-		void onChangImportDirectoryClick()
-		{
-			string newImportDir = EditorUtility.OpenFolderPanel("Choose import directory", Application.dataPath, "");
-			if (GLTFUtils.isFolderInProjectDirectory(newImportDir))
-			{
-				_importDirectory = newImportDir;
+		private static void Init() {
+			var window =
+				(SketchfabModelWindow)GetWindow(typeof(SketchfabModelWindow));
+			window.titleContent.text = "Model";
+			window.Show();
+		}
+
+		public void displayModelPage(SketchfabModel model, SketchfabBrowser browser) {
+			_window = browser;
+			if (_currentModel == null || model.uid != _currentModel.uid) {
+				_currentModel = model;
+				_prefabName = GLTFUtils.cleanName(_currentModel.name).Replace(" ", "_");
+				_importDirectory =
+					Application.dataPath + "/Import/" + _prefabName.Replace(" ", "_");
+			} else {
+				_currentModel = model;
 			}
-			else if (newImportDir != "")
-			{
-				EditorUtility.DisplayDialog("Error", "Please select a path within your current Unity project (with Assets/)", "Ok");
+
+			_ui = SketchfabPlugin.getUI();
+			show = true;
+		}
+
+		private void onChangImportDirectoryClick() {
+			var newImportDir =
+				EditorUtility.OpenFolderPanel("Choose import directory", Application.dataPath, "");
+			if (GLTFUtils.isFolderInProjectDirectory(newImportDir)) {
+				_importDirectory = newImportDir;
+			} else if (newImportDir != "") {
+				EditorUtility.DisplayDialog("Error",
+					"Please select a path within your current Unity project (with Assets/)", "Ok");
 			}
 		}
 
-		void onImportModelClick()
-		{
-			if (!assetAlreadyExists() || EditorUtility.DisplayDialog("Override asset", "The asset " + _prefabName + " already exists in project. Do you want to override it ?", "Override", "Cancel"))
-			{
+		private void onImportModelClick() {
+			if (!assetAlreadyExists() || EditorUtility.DisplayDialog("Override asset",
+				    "The asset " + _prefabName +
+				    " already exists in project. Do you want to override it ?", "Override",
+				    "Cancel")) {
 				// Reuse if still valid
-				if (_currentModel.tempDownloadUrl.Length > 0 && EditorApplication.timeSinceStartup - _currentModel.downloadRequestTime < _currentModel.urlValidityDuration)
-				{
+				if (_currentModel.tempDownloadUrl.Length > 0 &&
+				    EditorApplication.timeSinceStartup - _currentModel.downloadRequestTime <
+				    _currentModel.urlValidityDuration) {
 					requestArchive(_currentModel.tempDownloadUrl);
-				}
-				else
-				{
+				} else {
 					fetchGLTFModel(_currentModel.uid, OnArchiveUpdate, _window._logger.getHeader());
 				}
 			}
 		}
 
-		void displayImportButton(bool isUserLoggedIn, bool modelIsAvailable)
-		{
+		private void displayImportButton(bool isUserLoggedIn, bool modelIsAvailable) {
 			string buttonText;
-			if (!isUserLoggedIn)
-			{
+			if (!isUserLoggedIn) {
 				buttonText = "You need to log in to download models";
 				GUI.enabled = false;
-			}
-			else if (modelIsAvailable)
-			{
+			} else if (modelIsAvailable) {
 				buttonText = "Download model";
-				if (_currentModel.archiveSize > 0)
-				{
+				if (_currentModel.archiveSize > 0) {
 					buttonText += " (" + Utils.humanifyFileSize(_currentModel.archiveSize) + ")";
 				}
-			}
-			else
-			{
+			} else {
 				buttonText = "Model not yet available";
 			}
 
@@ -243,8 +231,8 @@ namespace Sketchfab
 			GUILayout.FlexibleSpace();
 
 			string htmlCaption = "<color=" + Color.white + ">" + buttonText + "</color>";
-			if (GUILayout.Button(htmlCaption, _ui.getSketchfabBigButton(), GUILayout.Height(64), GUILayout.Width(450)))
-			{
+			if (GUILayout.Button(htmlCaption, _ui.getSketchfabBigButton(), GUILayout.Height(64),
+				    GUILayout.Width(450))) {
 				onImportModelClick();
 			}
 
@@ -254,8 +242,7 @@ namespace Sketchfab
 			GUI.enabled = true;
 		}
 
-		void displayImportSettings()
-		{
+		private void displayImportSettings() {
 			bool modelIsAvailable = _currentModel.isModelAvailable;
 			bool isUserLoggedIn = _window._logger.isUserLogged();
 			GUI.enabled = modelIsAvailable;
@@ -272,10 +259,10 @@ namespace Sketchfab
 				// Import directory in project
 				GUILayout.BeginHorizontal();
 				{
-					_ui.displayModelStats("Import into      ", GLTFUtils.getPathProjectFromAbsolute(_importDirectory));
+					_ui.displayModelStats("Import into      ",
+						GLTFUtils.getPathProjectFromAbsolute(_importDirectory));
 					GUILayout.FlexibleSpace();
-					if (GUILayout.Button("Change", GUILayout.Width(80), GUILayout.Height(18)))
-					{
+					if (GUILayout.Button("Change", GUILayout.Width(80), GUILayout.Height(18))) {
 						onChangImportDirectoryClick();
 					}
 				}
@@ -307,7 +294,8 @@ namespace Sketchfab
 				GUILayout.BeginHorizontal();
 				{
 					GUILayout.FlexibleSpace();
-					_addToCurrentScene = GUILayout.Toggle(_addToCurrentScene, "Instanciate prefab into current scene");
+					_addToCurrentScene = GUILayout.Toggle(_addToCurrentScene,
+						"Instanciate prefab into current scene");
 					GUILayout.FlexibleSpace();
 				}
 				GUILayout.EndHorizontal();
@@ -318,27 +306,24 @@ namespace Sketchfab
 			GUILayout.EndVertical();
 		}
 
-		private bool assetAlreadyExists()
-		{
+		private bool assetAlreadyExists() {
 			string prefabPath = _importDirectory + "/" + _prefabName + ".prefab";
 			return File.Exists(prefabPath);
 		}
 
-		private void OnArchiveUpdate()
-		{
+		private void OnArchiveUpdate() {
 			EditorUtility.ClearProgressBar();
 			string _unzipDirectory = Application.temporaryCachePath + "/unzip";
 			_window._browserManager.setImportProgressCallback(UpdateProgress);
 			_window._browserManager.setImportFinishCallback(OnFinishImport);
-			_window._browserManager.importArchive(_lastArchive, _unzipDirectory, _importDirectory, _prefabName, _addToCurrentScene);
+			_window._browserManager.importArchive(_lastArchive, _unzipDirectory, _importDirectory,
+				_prefabName, _addToCurrentScene);
 		}
 
-		private void handleDownloadCallback(float current)
-		{
-			if(EditorUtility.DisplayCancelableProgressBar("Download", "Downloading model archive ", (float)current))
-			{
-				if(_modelRequest != null)
-				{
+		private void handleDownloadCallback(float current) {
+			if (EditorUtility.DisplayCancelableProgressBar("Download", "Downloading model archive ",
+				    current)) {
+				if (_modelRequest != null) {
 					_window._browserManager._api.dropRequest(ref _modelRequest);
 					_modelRequest = null;
 				}
@@ -346,96 +331,84 @@ namespace Sketchfab
 			}
 		}
 
-		private void clearProgress()
-		{
+		private void clearProgress() {
 			EditorUtility.ClearProgressBar();
 		}
 
-		private void OnFinishImport()
-		{
+		private void OnFinishImport() {
 			EditorUtility.ClearProgressBar();
-			EditorUtility.DisplayDialog("Import successful", "Model \n" + _currentModel.name + " by " + _currentModel.author + " has been successfully imported", "OK");
+			EditorUtility.DisplayDialog("Import successful",
+				"Model \n" + _currentModel.name + " by " + _currentModel.author +
+				" has been successfully imported", "OK");
 		}
 
-		public void fetchGLTFModel(string uid, RefreshCallback fetchedCallback, Dictionary<string, string> headers)
-		{
+		public void fetchGLTFModel(string uid, RefreshCallback fetchedCallback,
+			Dictionary<string, string> headers) {
 			string url = SketchfabPlugin.Urls.modelEndPoint + "/" + uid + "/download";
 			_modelRequest = new SketchfabRequest(url, headers);
 			_modelRequest.setCallback(handleDownloadAPIResponse);
 			_window._browserManager._api.registerRequest(_modelRequest);
 		}
 
-		void handleArchive(byte[] data)
-		{
+		private void handleArchive(byte[] data) {
 			_lastArchive = data;
 			OnArchiveUpdate();
 		}
 
 
-		void handleDownloadAPIResponse(string response)
-		{
+		private void handleDownloadAPIResponse(string response) {
 			JSONNode responseJson = Utils.JSONParse(response);
-			if(responseJson["gltf"] != null)
-			{
+			if (responseJson["gltf"] != null) {
 				_currentModel.tempDownloadUrl = responseJson["gltf"]["url"];
 				_currentModel.urlValidityDuration = responseJson["gltf"]["expires"].AsInt;
 				_currentModel.downloadRequestTime = EditorApplication.timeSinceStartup;
 				requestArchive(_currentModel.tempDownloadUrl);
-			}
-			else
-			{
+			} else {
 				Debug.Log("Unexpected Error: Model archive is not available");
 			}
 			this.Repaint();
 		}
 
-		void requestArchive(string modelUrl)
-		{
+		private void requestArchive(string modelUrl) {
 			SketchfabRequest request = new SketchfabRequest(_currentModel.tempDownloadUrl);
 			request.setCallback(handleArchive);
 			request.setProgressCallback(handleDownloadCallback);
 			SketchfabPlugin.getAPI().registerRequest(request);
 		}
 
-		public void UpdateProgress(UnityGLTF.GLTFEditorImporter.IMPORT_STEP step, int current, int total)
-		{
+		public void UpdateProgress(GLTFEditorImporter.IMPORT_STEP step, int current, int total) {
 			string element = "";
-			switch (step)
-			{
-				case UnityGLTF.GLTFEditorImporter.IMPORT_STEP.BUFFER:
+			switch (step) {
+				case GLTFEditorImporter.IMPORT_STEP.BUFFER:
 					element = "Buffer";
 					break;
-				case UnityGLTF.GLTFEditorImporter.IMPORT_STEP.IMAGE:
+				case GLTFEditorImporter.IMPORT_STEP.IMAGE:
 					element = "Image";
 					break;
-				case UnityGLTF.GLTFEditorImporter.IMPORT_STEP.TEXTURE:
+				case GLTFEditorImporter.IMPORT_STEP.TEXTURE:
 					element = "Texture";
 					break;
-				case UnityGLTF.GLTFEditorImporter.IMPORT_STEP.MATERIAL:
+				case GLTFEditorImporter.IMPORT_STEP.MATERIAL:
 					element = "Material";
 					break;
-				case UnityGLTF.GLTFEditorImporter.IMPORT_STEP.MESH:
+				case GLTFEditorImporter.IMPORT_STEP.MESH:
 					element = "Mesh";
 					break;
-				case UnityGLTF.GLTFEditorImporter.IMPORT_STEP.NODE:
+				case GLTFEditorImporter.IMPORT_STEP.NODE:
 					element = "Node";
 					break;
-				case UnityGLTF.GLTFEditorImporter.IMPORT_STEP.ANIMATION:
+				case GLTFEditorImporter.IMPORT_STEP.ANIMATION:
 					element = "Animation";
 					break;
-				case UnityGLTF.GLTFEditorImporter.IMPORT_STEP.SKIN:
+				case GLTFEditorImporter.IMPORT_STEP.SKIN:
 					element = "Skin";
 					break;
 			}
 
-			EditorUtility.DisplayProgressBar("Importing glTF", "Importing " + element + " (" + current + " / " + total + ")", (float)current / (float)total);
+			EditorUtility.DisplayProgressBar("Importing glTF",
+				"Importing " + element + " (" + current + " / " + total + ")",
+				current / (float)total);
 			this.Repaint();
-		}
-
-		private void OnDestroy()
-		{
-			if(_window != null)
-				_window.closeModelPage();
 		}
 	}
 }

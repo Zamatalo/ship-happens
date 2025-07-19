@@ -1,11 +1,10 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
+using UnityEngine;
 
-namespace SlimUI{
+namespace SlimUI.Editor {
 	public class SlimUIWindow : EditorWindow {
-
 		[MenuItem("Window/SlimUI/Online Documentation")]
-		public static void ShowWindow(){
+		public static void ShowWindow() {
 			Application.OpenURL("https://www.slimui.com/documentation");
 		}
 	}

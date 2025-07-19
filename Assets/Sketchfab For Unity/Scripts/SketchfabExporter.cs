@@ -2,97 +2,67 @@
  * Copyright(c) 2017-2018 Sketchfab Inc.
  * License: https://github.com/sketchfab/UnityGLTF/blob/master/LICENSE
  */
+
 #if UNITY_EDITOR
-using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
 using System.IO;
-using System;
+using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityGLTF;
-using SimpleJSON;
+using UnityEngine;
 using UnityEngine.Networking;
+using UnityGLTF;
 
-namespace Sketchfab
-{
-	public class SketchfabExporter : EditorWindow
-	{
-		[MenuItem("Sketchfab/Publish to Sketchfab")]
-		static void Init()
-		{
-			SketchfabExporter window = (SketchfabExporter)EditorWindow.GetWindow(typeof(SketchfabExporter));
-			window.titleContent.image = Resources.Load<Texture>("icon");
-			window.titleContent.image.filterMode = FilterMode.Bilinear;
-			window.titleContent.text = "Exporter";
-			window.Show();
-		}
-
+namespace Sketchfab_For_Unity.Scripts {
+	public class SketchfabExporter : EditorWindow {
 		// Sketchfab elements
 		SketchfabAPI _api;
 		SketchfabLogger _logger;
+		private Vector2 _scrollView;
 		SketchfabUI _ui;
 		SketchfabRequest _uploadRequest;
+
+		// Export paths
+		private string exportPath;
 
 		// Upload params and options
 		private bool opt_exportAnimation = true;
 		private bool opt_exportSelection = false;
-		private string param_name = "";
-		private string param_description = "";
-		private string param_tags = "";
 		private bool param_autopublish = true;
-		private bool param_private = false;
+		private string param_description = "";
+		private string param_name = "";
 		private string param_password = "";
-
-		// Export paths
-		private string exportPath;
-		private string zipPath;
+		private bool param_private;
+		private string param_tags = "";
 
 		// Exporter UI: dynamic elements
 		private string status = "";
-		Vector2 _scrollView = new Vector2();
+		private string zipPath;
 
-		void Awake()
-		{
+		private void Awake() {
 			zipPath = Application.temporaryCachePath + "/" + "Unity2Skfb.zip";
 			exportPath = Application.temporaryCachePath + "/" + "Unity2Skfb.gltf";
 		}
 
-		void OnEnable()
-		{
+		private void Update() {
+			SketchfabPlugin.Update();
+		}
+
+		private void OnEnable() {
 			// Pre-fill model name with scene name if empty
-			if (param_name.Length == 0)
-			{
+			if (param_name.Length == 0) {
 				param_name = EditorSceneManager.GetActiveScene().name;
 			}
 		}
 
-		private void checkValidity()
-		{
-			if (_ui == null)
-			{
-				_ui = SketchfabPlugin.getUI();
-			}
-			if (_api == null)
-			{
-				_api = SketchfabPlugin.getAPI();
-			}
-			if (_logger == null)
-			{
-				_logger = SketchfabPlugin.getLogger();
-			}
-		}
-
-		private void Update()
-		{
-			SketchfabPlugin.Update();
+		private void OnDestroy() {
+			if (File.Exists(zipPath))
+				File.Delete(zipPath);
 		}
 
 		//UI
-		void OnGUI()
-		{
+		private void OnGUI() {
 			checkValidity();
-			if (_ui == null || !_ui._isInitialized)
-			{
+			if (_ui == null || !_ui._isInitialized) {
 				GUILayout.Label("Initializing ui...");
 				return;
 			}
@@ -116,14 +86,10 @@ namespace Sketchfab
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
 
-			if (GUILayout.Button(status, GUILayout.Width(250), GUILayout.Height(40)))
-			{
-				if (!enable)
-				{
+			if (GUILayout.Button(status, GUILayout.Width(250), GUILayout.Height(40))) {
+				if (!enable) {
 					EditorUtility.DisplayDialog("Error", status, "Ok");
-				}
-				else
-				{
+				} else {
 					proceedToExportAndUpload();
 				}
 			}
@@ -136,64 +102,64 @@ namespace Sketchfab
 			SketchfabPlugin.displayFooter();
 		}
 
-		private bool updateExporterStatus()
-		{
+		[MenuItem("Sketchfab/Publish to Sketchfab")]
+		private static void Init() {
+			var window = (SketchfabExporter)GetWindow(typeof(SketchfabExporter));
+			window.titleContent.image = Resources.Load<Texture>("icon");
+			window.titleContent.image.filterMode = FilterMode.Bilinear;
+			window.titleContent.text = "Exporter";
+			window.Show();
+		}
+
+		private void checkValidity() {
+			if (_ui == null) _ui = SketchfabPlugin.getUI();
+			if (_api == null) _api = SketchfabPlugin.getAPI();
+			if (_logger == null) _logger = SketchfabPlugin.getLogger();
+		}
+
+		private bool updateExporterStatus() {
 			status = "";
 
-			if (!_logger.isUserLogged())
-			{
+			if (!_logger.isUserLogged()) {
 				status = "You need to be logged to upload";
 				return false;
 			}
 
-			if (param_name.Length > SketchfabPlugin.NAME_LIMIT)
-			{
+			if (param_name.Length > SketchfabPlugin.NAME_LIMIT) {
 				status = "Model name is too long";
 				return false;
 			}
 
-			if (param_name.Length == 0)
-			{
+			if (param_name.Length == 0) {
 				status = "Please give a name to your model";
 				return false;
 			}
 
-
-			if (param_description.Length > SketchfabPlugin.DESC_LIMIT)
-			{
+			if (param_description.Length > SketchfabPlugin.DESC_LIMIT) {
 				status = "Model description is too long";
 				return false;
 			}
 
-
-			if (param_tags.Length > SketchfabPlugin.TAGS_LIMIT)
-			{
+			if (param_tags.Length > SketchfabPlugin.TAGS_LIMIT) {
 				status = "Model tags are too long";
 				return false;
 			}
 
-			if (opt_exportSelection)
-			{
-				if (Selection.GetTransforms(SelectionMode.Deep).Length == 0)
-				{
+			if (opt_exportSelection) {
+				if (Selection.GetTransforms(SelectionMode.Deep).Length == 0) {
 					status = "No object selected to export";
 					return false;
-				}
-				else
-				{
+				} else {
 					status = "Upload selection to Sketchfab";
 				}
-			}
-			else
-			{
+			} else {
 				status = "Upload scene to Sketchfab";
 			}
 
 			return true;
 		}
 
-		private void showModelProperties()
-		{
+		private void showModelProperties() {
 			_scrollView = GUILayout.BeginScrollView(_scrollView);
 			// Model settings
 			GUILayout.Label("Model properties", EditorStyles.boldLabel);
@@ -201,59 +167,56 @@ namespace Sketchfab
 			// Model name
 			GUILayout.Label("Name");
 			param_name = EditorGUILayout.TextField(param_name);
-			GUILayout.Label("(" + param_name.Length + "/" + SketchfabPlugin.NAME_LIMIT + ")", EditorStyles.centeredGreyMiniLabel);
+			GUILayout.Label("(" + param_name.Length + "/" + SketchfabPlugin.NAME_LIMIT + ")",
+				EditorStyles.centeredGreyMiniLabel);
 
 			EditorStyles.textField.wordWrap = true;
 			GUILayout.Space(SketchfabPlugin.SPACE_SIZE);
 
 			GUILayout.Label("Description");
 			param_description = EditorGUILayout.TextArea(param_description);
-			GUILayout.Label("(" + param_description.Length + " / 1024)", EditorStyles.centeredGreyMiniLabel);
+			GUILayout.Label("(" + param_description.Length + " / 1024)",
+				EditorStyles.centeredGreyMiniLabel);
 			GUILayout.Space(SketchfabPlugin.SPACE_SIZE);
 			GUILayout.Label("Tags (separated by spaces)");
 			param_tags = EditorGUILayout.TextField(param_tags);
-			GUILayout.Label("'unity' and 'unity3D' added automatically (" + param_tags.Length + "/50)", EditorStyles.centeredGreyMiniLabel);
+			GUILayout.Label(
+				"'unity' and 'unity3D' added automatically (" + param_tags.Length + "/50)",
+				EditorStyles.centeredGreyMiniLabel);
 
 			showPrivate();
 
 			GUILayout.EndScrollView();
 		}
 
-		private void showPrivate()
-		{
-
-			if (!_logger.canPrivate())
-			{
-				if (_logger.isUserBasic())
-				{
+		private void showPrivate() {
+			if (!_logger.canPrivate()) {
+				if (_logger.isUserBasic()) {
 					GUILayout.BeginHorizontal();
 					GUILayout.BeginVertical();
 					GUILayout.FlexibleSpace();
-					GUIContent content = new GUIContent(" features", SketchfabUI.getPlanIcon("pro"));
+					var content =
+						new GUIContent(" features", SketchfabUI.getPlanIcon("pro"));
 					GUILayout.Label(content, EditorStyles.boldLabel, GUILayout.Height(12));
 					GUILayout.FlexibleSpace();
 					GUILayout.EndVertical();
 					GUILayout.BeginVertical();
 					GUILayout.FlexibleSpace();
-					if (GUILayout.Button("Upgrade your account", GUILayout.Height(18)))
-					{
+					if (GUILayout.Button("Upgrade your account", GUILayout.Height(18))) {
 						Application.OpenURL(SketchfabPlugin.Urls.plans);
 					}
 					GUILayout.FlexibleSpace();
 					GUILayout.EndVertical();
 					GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
-				}
-				else
-				{
-					if (GUILayout.Button("(You cannot set any other model to private (limit reached))", _ui.getSketchfabClickableLabel(), GUILayout.Height(20)))
-					{
+				} else {
+					if (GUILayout.Button(
+						    "(You cannot set any other model to private (limit reached))",
+						    _ui.getSketchfabClickableLabel(), GUILayout.Height(20))) {
 						Application.OpenURL(SketchfabPlugin.Urls.plans);
 					}
 				}
-			}
-			else
-			{
+			} else {
 				GUILayout.Label("Set the model to Private", EditorStyles.centeredGreyMiniLabel);
 			}
 
@@ -262,8 +225,8 @@ namespace Sketchfab
 			GUILayout.BeginHorizontal();
 			param_private = EditorGUILayout.Toggle("Private model", param_private);
 
-			if (GUILayout.Button("more info", _ui.getSketchfabClickableLabel(), GUILayout.Height(20)))
-			{
+			if (GUILayout.Button("more info", _ui.getSketchfabClickableLabel(),
+				    GUILayout.Height(20))) {
 				Application.OpenURL(SketchfabPlugin.Urls.privateInfo);
 			}
 
@@ -277,11 +240,11 @@ namespace Sketchfab
 			GUI.enabled = true;
 		}
 
-		private void showOptions()
-		{
+		private void showOptions() {
 			GUILayout.Label("Options", EditorStyles.boldLabel);
 			GUILayout.BeginHorizontal();
-			opt_exportAnimation = EditorGUILayout.Toggle("Export animation (beta)", opt_exportAnimation);
+			opt_exportAnimation =
+				EditorGUILayout.Toggle("Export animation (beta)", opt_exportAnimation);
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 			GUILayout.BeginHorizontal();
@@ -291,8 +254,8 @@ namespace Sketchfab
 
 			GUILayout.BeginHorizontal();
 			param_autopublish = EditorGUILayout.Toggle("Publish immediately ", param_autopublish);
-			if (GUILayout.Button("more info", _ui.getSketchfabClickableLabel(), GUILayout.Height(20)))
-			{
+			if (GUILayout.Button("more info", _ui.getSketchfabClickableLabel(),
+				    GUILayout.Height(20))) {
 				Application.OpenURL(SketchfabPlugin.Urls.latestRelease);
 			}
 			GUILayout.FlexibleSpace();
@@ -300,80 +263,77 @@ namespace Sketchfab
 		}
 
 		// Export
-		private void proceedToExportAndUpload()
-		{
-			if (System.IO.File.Exists(zipPath))
-			{
-				System.IO.File.Delete(zipPath);
+		private void proceedToExportAndUpload() {
+			if (File.Exists(zipPath)) {
+				File.Delete(zipPath);
 			}
 
 			// "Sketchfab Plugin (Unity " + Application.unityVersion + ")"
-			var exporter = new GLTFEditorExporter(opt_exportSelection ? GLTFUtils.getSelectedTransforms() : GLTFUtils.getSceneTransforms());
+			var exporter = new GLTFEditorExporter(opt_exportSelection
+				? GLTFUtils.getSelectedTransforms()
+				: GLTFUtils.getSceneTransforms());
 			exporter.setProgressCallback(OnExportProgress);
 			exporter.setExportFinishCallback(OnExportFinish);
 			exporter.enableAnimation(opt_exportAnimation);
-			exporter.SaveGLTFandBin(Path.GetDirectoryName(exportPath), Path.GetFileNameWithoutExtension(exportPath));
+			exporter.SaveGLTFandBin(Path.GetDirectoryName(exportPath),
+				Path.GetFileNameWithoutExtension(exportPath));
 
-			GLTFUtils.buildZip(exporter.getExportedFilesList(), Path.Combine(Path.GetDirectoryName(exportPath), "Unity2Skfb.zip"), true);
-			if (File.Exists(zipPath))
-			{
+			GLTFUtils.buildZip(exporter.getExportedFilesList(),
+				Path.Combine(Path.GetDirectoryName(exportPath), "Unity2Skfb.zip"), true);
+			if (File.Exists(zipPath)) {
 				bool shouldUpload = checkFileSize(zipPath);
 
-				if (!shouldUpload)
-				{
-					shouldUpload = EditorUtility.DisplayDialog("Error", "The export exceed the max file size allowed by your current account type", "Continue", "Cancel");
+				if (!shouldUpload) {
+					shouldUpload = EditorUtility.DisplayDialog("Error",
+						"The export exceed the max file size allowed by your current account type",
+						"Continue", "Cancel");
 				}
 
 				publishModel(zipPath);
-			}
-			else
-			{
+			} else {
 				Debug.Log("Zip file has not been generated. Aborting publish.");
 			}
 		}
 
-		private bool checkFileSize(string zipPath)
-		{
+		private bool checkFileSize(string zipPath) {
 			FileInfo file = new FileInfo(zipPath);
 			status = "Uploading " + file.Length / (1024.0f * 1024.0f);
 			return _logger.checkUserPlanFileSizeLimit(file.Length);
 		}
 
-		private void OnExportProgress(UnityGLTF.GLTFEditorExporter.EXPORT_STEP step, float current, float total)
-		{
+		private void OnExportProgress(GLTFEditorExporter.EXPORT_STEP step, float current,
+			float total) {
 			string element = "";
-			switch (step)
-			{
-				case UnityGLTF.GLTFEditorExporter.EXPORT_STEP.NODES:
+			switch (step) {
+				case GLTFEditorExporter.EXPORT_STEP.NODES:
 					element = "Node";
 					break;
-				case UnityGLTF.GLTFEditorExporter.EXPORT_STEP.ANIMATIONS:
+				case GLTFEditorExporter.EXPORT_STEP.ANIMATIONS:
 					element = "Image";
 					break;
-				case UnityGLTF.GLTFEditorExporter.EXPORT_STEP.SKINNING:
+				case GLTFEditorExporter.EXPORT_STEP.SKINNING:
 					element = "Skin";
 					break;
-				case UnityGLTF.GLTFEditorExporter.EXPORT_STEP.IMAGES:
+				case GLTFEditorExporter.EXPORT_STEP.IMAGES:
 					element = "Image";
 					break;
 			}
 
-			EditorUtility.DisplayProgressBar("Exporting Scene to glTF", "Exporting" + element + " (" + current + " / " + total + ")", (float)current / (float)total);
+			EditorUtility.DisplayProgressBar("Exporting Scene to glTF",
+				"Exporting" + element + " (" + current + " / " + total + ")",
+				current / total);
 			this.Repaint();
 		}
 
-		private void OnExportFinish()
-		{
+		private void OnExportFinish() {
 			EditorUtility.ClearProgressBar();
 		}
 
-		private void publishModel(string zipPath)
-		{
+		private void publishModel(string zipPath) {
 			byte[] data = File.ReadAllBytes(zipPath);
 			WWWForm postForm = new WWWForm();
 			Dictionary<string, string> parameters = buildParameterDictWWW();
-			foreach (string param in parameters.Keys)
-			{
+			foreach (var param in parameters.Keys) {
 				postForm.AddField(param, parameters[param]);
 			}
 
@@ -391,19 +351,18 @@ namespace Sketchfab
 			_uploadRequest = request;
 		}
 
-		private void onModelPublished(Dictionary<string, string> responseHeaders)
-		{
+		private void onModelPublished(Dictionary<string, string> responseHeaders) {
 			EditorUtility.ClearProgressBar();
-			string modeluid = responseHeaders["LOCATION"].Split('/')[responseHeaders["LOCATION"].Split('/').Length - 1];
+			var modeluid =
+				responseHeaders["LOCATION"].Split('/')[
+					responseHeaders["LOCATION"].Split('/').Length - 1];
 			Application.OpenURL(SketchfabPlugin.Urls.modelUrl + "/" + modeluid);
 		}
 
-		private void handleUploadCallback(float current)
-		{
-			if (EditorUtility.DisplayCancelableProgressBar("Uploading", "Uploading model to Sketchfab", current))
-			{
-				if (_uploadRequest != null)
-				{
+		private void handleUploadCallback(float current) {
+			if (EditorUtility.DisplayCancelableProgressBar("Uploading",
+				    "Uploading model to Sketchfab", current)) {
+				if (_uploadRequest != null) {
 					_api.dropRequest(ref _uploadRequest);
 					_uploadRequest = null;
 				}
@@ -411,14 +370,13 @@ namespace Sketchfab
 			}
 		}
 
-		private void handleUploadError()
-		{
+		private void handleUploadError() {
 			EditorUtility.ClearProgressBar();
-			EditorUtility.DisplayDialog("Upload Error", "An error occured when uploading the model:\n", "Ok");
+			EditorUtility.DisplayDialog("Upload Error",
+				"An error occured when uploading the model:\n", "Ok");
 		}
 
-		private Dictionary<string, string> buildParameterDictWWW()
-		{
+		private Dictionary<string, string> buildParameterDictWWW() {
 			Dictionary<string, string> parameters = new Dictionary<string, string>();
 			parameters["name"] = param_name;
 			parameters["description"] = param_description;
@@ -429,12 +387,6 @@ namespace Sketchfab
 				parameters["password"] = param_password;
 
 			return parameters;
-		}
-
-		void OnDestroy()
-		{
-			if (System.IO.File.Exists(zipPath))
-				System.IO.File.Delete(zipPath);
 		}
 	}
 }

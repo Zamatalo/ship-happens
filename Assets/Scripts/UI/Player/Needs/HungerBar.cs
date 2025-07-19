@@ -2,8 +2,8 @@ using Player;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.Player {
-	public class OxygenBar : MonoBehaviour {
+namespace UI.Player.Needs {
+	public class HungerBar : MonoBehaviour {
 		public GameObject playerObject;
 		private PlayerNeeds _playerNeeds;
 		private Slider _slider;
@@ -12,12 +12,12 @@ namespace UI.Player {
 			_playerNeeds = playerObject.GetComponent<PlayerNeeds>();
 			_slider = GetComponent<Slider>();
 
-			_slider.maxValue = _playerNeeds.maxOxygen;
-			_slider.value = _playerNeeds.oxygen;
+			_slider.maxValue = _playerNeeds.maxHunger;
+			_slider.value = _playerNeeds.hunger;
 		}
 
 		private void Update() {
-			_slider.value = _playerNeeds.oxygen;
+			_slider.value = _playerNeeds.hunger;
 		}
 	}
 }

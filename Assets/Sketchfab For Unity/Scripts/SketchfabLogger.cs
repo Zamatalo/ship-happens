@@ -1,38 +1,32 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
+using SimpleJSON;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEditor;
-using SimpleJSON;
 
-namespace Sketchfab
-{
-	public class SketchfabProfile
-	{
-		public string username;
-		public string displayName;
-		public string accountLabel;
-		public int maxUploadSize;
-		public Texture2D avatar = SketchfabPlugin.DEFAULT_AVATAR;
-		public bool hasAvatar = false;
-		public int _userCanPrivate = -1; // Can protect model = 1  // Cannot = 0
-		public Texture2D planIcon;
-
+namespace Sketchfab_For_Unity.Scripts {
+	public class SketchfabProfile {
 		public static int MAX_DISPLAY_NAME_LENGTH = 25;
+		public int _userCanPrivate = -1; // Can protect model = 1  // Cannot = 0
+		public string accountLabel;
+		public Texture2D avatar = SketchfabPlugin.DEFAULT_AVATAR;
+		public string displayName;
+		public bool hasAvatar = false;
+		public int maxUploadSize;
+		public Texture2D planIcon;
+		public string username;
 
-		public SketchfabProfile(string usrName, string usr, string planLb)
-		{
+		public SketchfabProfile(string usrName, string usr, string planLb) {
 			username = usrName;
 			// Format display name
 			string limitedDisplayName = usr;
-			if (usr.Length > MAX_DISPLAY_NAME_LENGTH)
-			{
+			if (usr.Length > MAX_DISPLAY_NAME_LENGTH) {
 				limitedDisplayName = usr.Substring(0, MAX_DISPLAY_NAME_LENGTH) + "...";
 			}
 			displayName = limitedDisplayName;
 
-			switch (planLb)
-			{
+			switch (planLb) {
 				case "plus":
 					maxUploadSize = 100 * 1024 * 1024;
 					accountLabel = "PLUS";
@@ -65,71 +59,60 @@ namespace Sketchfab
 			}
 		}
 
-		public void setAvatar(Texture2D img)
-		{
+		public void setAvatar(Texture2D img) {
 			avatar = img;
 			hasAvatar = true;
 		}
 
-		public bool isDisplayable()
-		{
+		public bool isDisplayable() {
 			return displayName != null;
 		}
 	}
 
-	public class SketchfabLogger
-	{
-		private string accessTokenKey = "skfb_access_token";
-		SketchfabProfile _current;
-		RefreshCallback _refresh;
-		public Vector2 UI_SIZE = new Vector2(120, 30);
-		public Vector2 AVATAR_SIZE = new Vector2(58, 58);
-
-		string username;
-		string password = "";
-		bool _isUserLogged = false;
-		bool _hasCheckedSession = false;
-
-		public enum LOGIN_STEP
-		{
+	public class SketchfabLogger {
+		public enum LOGIN_STEP {
 			GET_TOKEN,
 			CHECK_TOKEN,
 			USER_INFO
 		}
 
-		public SketchfabLogger(RefreshCallback callback = null)
-		{
+		SketchfabProfile _current;
+		private bool _hasCheckedSession;
+		private bool _isUserLogged;
+		RefreshCallback _refresh;
+		private readonly string accessTokenKey = "skfb_access_token";
+		public Vector2 AVATAR_SIZE = new(58, 58);
+		private string password = "";
+		public Vector2 UI_SIZE = new Vector2(120, 30);
+
+		string username;
+
+		public SketchfabLogger(RefreshCallback callback = null) {
 			_refresh = callback;
 			checkAccessTokenValidity();
-			if (username == null)
-			{
+			if (username == null) {
 				username = EditorPrefs.GetString("skfb_username", "");
 			}
 		}
 
-		public bool isUserLogged()
-		{
+		public bool isUserLogged() {
 			return _isUserLogged;
 		}
 
-		public bool canAccessOwnModels()
-		{
+		public bool canAccessOwnModels() {
 			return !isUserBasic();
 		}
 
-		public SketchfabProfile getCurrentSession()
-		{
+		public SketchfabProfile getCurrentSession() {
 			return _current;
 		}
 
-		public void showLoginUi()
-		{
-			GUILayout.BeginVertical(GUILayout.MinWidth(UI_SIZE.x), GUILayout.MinHeight(UI_SIZE.y), GUILayout.MaxHeight(68));
+		public void showLoginUi() {
+			GUILayout.BeginVertical(GUILayout.MinWidth(UI_SIZE.x), GUILayout.MinHeight(UI_SIZE.y),
+				GUILayout.MaxHeight(68));
 
-			if (_current == null)
-			{
-				if (_hasCheckedSession)
-				{
+			if (_current == null) {
+				if (_hasCheckedSession) {
 					//GUILayout.Label("You're not logged", EditorStyles.centeredGreyMiniLabel);
 					//GUILayout.Space(5);
 					GUILayout.BeginHorizontal(GUILayout.Width(200), GUILayout.Height(64));
@@ -138,25 +121,22 @@ namespace Sketchfab
 					username = GUILayout.TextField(username);
 					password = GUILayout.PasswordField(password, '*');
 
-					GUI.enabled = username != null && password != null && username.Length > 0 && password.Length > 0;
-					if (GUILayout.Button("Login", GUILayout.Width(216)))
-					{
+					GUI.enabled = username != null && password != null && username.Length > 0 &&
+					              password.Length > 0;
+					if (GUILayout.Button("Login", GUILayout.Width(216))) {
 						requestAccessToken(username, password);
 					}
 					GUILayout.EndVertical();
 					GUILayout.EndHorizontal();
 					GUI.enabled = true;
-				}
-				else
-				{
+				} else {
 					GUILayout.Label("Retrieving user data", EditorStyles.centeredGreyMiniLabel);
 				}
-			}
-			else if (_current.isDisplayable())
-			{
+			} else if (_current.isDisplayable()) {
 				//GUILayout.Label("Logged in as", EditorStyles.centeredGreyMiniLabel);
 				GUILayout.BeginHorizontal(GUILayout.Width(120));
-				GUILayout.Label(_current.avatar, GUILayout.Width(AVATAR_SIZE.x), GUILayout.Width(AVATAR_SIZE.y));
+				GUILayout.Label(_current.avatar, GUILayout.Width(AVATAR_SIZE.x),
+					GUILayout.Width(AVATAR_SIZE.y));
 				GUILayout.BeginVertical();
 				GUILayout.Label(_current.displayName);
 				GUILayout.BeginHorizontal();
@@ -168,8 +148,7 @@ namespace Sketchfab
 				GUILayout.BeginHorizontal();
 				GUILayout.Space(5);
 
-				if (GUILayout.Button("Logout", GUILayout.Height(18), GUILayout.Width(54)))
-				{
+				if (GUILayout.Button("Logout", GUILayout.Height(18), GUILayout.Width(54))) {
 					logout();
 					return;
 				}
@@ -182,68 +161,60 @@ namespace Sketchfab
 			GUILayout.EndVertical();
 		}
 
-		public void logout()
-		{
+		public void logout() {
 			EditorPrefs.DeleteKey(accessTokenKey);
 			_current = null;
 			_isUserLogged = false;
 			_hasCheckedSession = true;
 		}
 
-		public void requestAccessToken(string user_name, string user_password)
-		{
+		public void requestAccessToken(string user_name, string user_password) {
 			List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
 			formData.Add(new MultipartFormDataSection("username", user_name));
 			formData.Add(new MultipartFormDataSection("password", user_password));
 
-			SketchfabRequest tokenRequest = new SketchfabRequest(SketchfabPlugin.Urls.oauth, formData);
+			var tokenRequest =
+				new SketchfabRequest(SketchfabPlugin.Urls.oauth, formData);
 			tokenRequest.setCallback(handleGetToken);
 			tokenRequest.setFailedCallback(onLoginFailed);
 			SketchfabPlugin.getAPI().registerRequest(tokenRequest);
 		}
 
-		public void requestCanPrivate()
-		{
-			SketchfabRequest canPrivateRequest = new SketchfabRequest(SketchfabPlugin.Urls.userAccount, getHeader());
+		public void requestCanPrivate() {
+			var canPrivateRequest =
+				new SketchfabRequest(SketchfabPlugin.Urls.userAccount, getHeader());
 			canPrivateRequest.setCallback(onCanPrivate);
 			SketchfabPlugin.getAPI().registerRequest(canPrivateRequest);
 		}
 
-		private void handleGetToken(string response)
-		{
+		private void handleGetToken(string response) {
 			string access_token = parseAccessToken(response);
 			EditorPrefs.SetString("skfb_username", username);
 			if (access_token != null)
 				registerAccessToken(access_token);
 
-			if (_current == null)
-			{
+			if (_current == null) {
 				requestUserData();
 			}
 			// _refresh();
 		}
 
-		private string parseAccessToken(string text)
-		{
+		private string parseAccessToken(string text) {
 			JSONNode response = Utils.JSONParse(text);
-			if (response["access_token"] != null)
-			{
+			if (response["access_token"] != null) {
 				return response["access_token"];
 			}
 
 			return null;
 		}
 
-		private void registerAccessToken(string access_token)
-		{
+		private void registerAccessToken(string access_token) {
 			EditorPrefs.SetString(accessTokenKey, access_token);
 		}
 
-		public void requestAvatar(string url)
-		{
+		public void requestAvatar(string url) {
 			string access_token = EditorPrefs.GetString(accessTokenKey);
-			if (access_token == null || access_token.Length < 30)
-			{
+			if (access_token == null || access_token.Length < 30) {
 				Debug.Log("Access token is invalid or inexistant");
 				return;
 			}
@@ -255,20 +226,16 @@ namespace Sketchfab
 			SketchfabPlugin.getAPI().registerRequest(request);
 		}
 
-		public Dictionary<string, string> getHeader()
-		{
+		public Dictionary<string, string> getHeader() {
 			Dictionary<string, string> headers = new Dictionary<string, string>();
 			headers.Add("Authorization", "Bearer " + EditorPrefs.GetString(accessTokenKey));
 			return headers;
 		}
 
-		private string getAvatarUrl(JSONNode node)
-		{
+		private string getAvatarUrl(JSONNode node) {
 			JSONArray array = node["avatar"]["images"].AsArray;
-			foreach (JSONNode elt in array)
-			{
-				if (elt["width"].AsInt == 100)
-				{
+			foreach (JSONNode elt in array) {
+				if (elt["width"].AsInt == 100) {
 					return elt["url"];
 				}
 			}
@@ -277,10 +244,8 @@ namespace Sketchfab
 		}
 
 		// Callback for avatar
-		private void handleAvatar(byte[] responseData)
-		{
-			if (_current == null)
-			{
+		private void handleAvatar(byte[] responseData) {
+			if (_current == null) {
 				Debug.Log("Invalid call avatar");
 				return;
 			}
@@ -307,8 +272,7 @@ namespace Sketchfab
 				_refresh();
 		}
 
-		public void requestUserData()
-		{
+		public void requestUserData() {
 			Dictionary<string, string> headers = new Dictionary<string, string>();
 			headers.Add("Authorization", "Bearer " + EditorPrefs.GetString(accessTokenKey));
 			SketchfabRequest request = new SketchfabRequest(SketchfabPlugin.Urls.userMe, headers);
@@ -317,40 +281,36 @@ namespace Sketchfab
 			SketchfabPlugin.getAPI().registerRequest(request);
 		}
 
-		private void onLoginFailed(string res)
-		{
+		private void onLoginFailed(string res) {
 			JSONNode response = Utils.JSONParse(res);
-			EditorUtility.DisplayDialog("Login error", "Authentication failed: " + response["error_description"], "OK");
+			EditorUtility.DisplayDialog("Login error",
+				"Authentication failed: " + response["error_description"], "OK");
 			logout();
 		}
 
-		public void checkAccessTokenValidity()
-		{
+		public void checkAccessTokenValidity() {
 			string access_token = EditorPrefs.GetString(accessTokenKey);
-			if (access_token == null || access_token.Length < 30)
-			{
+			if (access_token == null || access_token.Length < 30) {
 				_hasCheckedSession = true;
 				return;
 			}
 			requestUserData();
 		}
 
-		private void handleUserData(string response)
-		{
+		private void handleUserData(string response) {
 			JSONNode userData = Utils.JSONParse(response);
-			_current = new SketchfabProfile(userData["username"], userData["displayName"], userData["account"]);
+			_current = new SketchfabProfile(userData["username"], userData["displayName"],
+				userData["account"]);
 			requestAvatar(getAvatarUrl(userData));
 			_isUserLogged = true;
 			_hasCheckedSession = true;
 		}
 
-		public bool canPrivate()
-		{
+		public bool canPrivate() {
 			return _current != null && _current._userCanPrivate == 1;
 		}
 
-		public bool checkUserPlanFileSizeLimit(long size)
-		{
+		public bool checkUserPlanFileSizeLimit(long size) {
 			if (_current == null)
 				return false;
 			if (_current.maxUploadSize > size)
@@ -359,16 +319,14 @@ namespace Sketchfab
 			return false;
 		}
 
-		public bool isUserBasic()
-		{
+		public bool isUserBasic() {
 			if (_current != null)
 				return _current.accountLabel == "BASIC" || _current.accountLabel == "PLUS";
 			else
 				return true;
 		}
 
-		private void onCanPrivate(string response)
-		{
+		private void onCanPrivate(string response) {
 			JSONNode planResponse = Utils.JSONParse(response);
 			_current._userCanPrivate = planResponse["canProtectModels"].AsBool ? 1 : 0;
 		}

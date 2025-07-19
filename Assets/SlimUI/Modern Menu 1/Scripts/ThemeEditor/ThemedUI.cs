@@ -1,22 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-namespace SlimUI.ModernMenu{
+namespace SlimUI.Modern_Menu_1.Scripts.ThemeEditor {
 	[ExecuteInEditMode()]
-	[System.Serializable]
+	[Serializable]
 	public class ThemedUI : MonoBehaviour {
-
 		public ThemedUIData themeController;
 
-		protected virtual void OnSkinUI(){
-
-		}
-
-		public virtual void Awake(){
+		public virtual void Awake() {
 			OnSkinUI();
 		}
 
-		public virtual void Update(){
+		public virtual void Update() {
 			OnSkinUI();
+		}
+
+		protected virtual void OnSkinUI() {
 		}
 	}
 }
