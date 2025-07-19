@@ -98,7 +98,8 @@ namespace Player {
 				_ => throw new ArgumentOutOfRangeException()
 			};
 
-			var force = transform.forward * itemDropForwardForce + transform.up * itemDropUpForce;
+			var force = cameraTransform.forward * itemDropForwardForce +
+			            cameraTransform.up * itemDropUpForce;
 			item.GetComponent<CollectableItem>().Init(slot.kind, slot.amount);
 			item.GetComponent<Rigidbody>().AddForce(force);
 		}
