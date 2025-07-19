@@ -1,0 +1,69 @@
+:root {
+}
+
+.hotbarContainer {
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.hotbar-slot {
+    flex-grow: 1;
+    width: 64px;
+    height: 64px;
+    max-width: 64px;
+    max-height: 64px;
+    margin: 0 1% 1% 0;
+    background-image: resource('UI/Inventory/ItemDisable');
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
+}
+
+.hotbar-slot.selected {
+    background-image: resource('UI/Inventory/ItemEnable');
+    height: 100px;
+    width: 100px;
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
+}
+
+.slotIcon {
+    flex-shrink: 0;
+    flex-grow: 1;
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
+}
+
+.inventoryElement {
+    width: 64px;
+    height: 64px;
+    margin: 2px;
+    border-left-color: rgb(48, 48, 48);
+    border-right-color: rgb(48, 48, 48);
+    border-top-color: rgb(48, 48, 48);
+    border-bottom-color: rgb(48, 48, 48);
+    background-color: rgb(9, 19, 21);
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
+}
+
+.slotBackground {
+    background-image: resource('UI/Assets/UIDifferentFree03Wenrexa/PNG/Cell01');
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
+}
+
+.slotBackground2 {
+    background-image: resource('Assets/Resources/UI/Inventory/frame.png');
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
+}
+
+.slotQuantity {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 12px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 2px 4px;
+    border-radius: 3px;
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
+}

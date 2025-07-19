@@ -1,122 +1,97 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Collections;
+using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
-namespace Player.Inventory {
-	public class PlayerInventory : MonoBehaviour {
-		public delegate void OnSlotChange(Slot slot);
-		public List<GameObject> slots;
-		public Color activeColor;
-		public Color inactiveColor;
-		private readonly List<OnSlotChange> _fns = new();
-		private readonly List<Slot> _slots = new();
-		private byte _activeSlotIndex;
-		private InputSystem_Actions _inputActions;
+public class PlayerInventory : NetworkBehaviour
+{
+    public List<InventoryItem> inventory = new();
+   // public event Action<InventoryItem> OnItemAdded;
+  //  public event Action<InventoryItem> OnItemRemoved;
+    public NetworkVariable<FixedString512Bytes> inventoryJson = new();
 
-		private void Awake() {
-			_inputActions = new InputSystem_Actions();
-		}
+    [ServerRpc]
+    public void AddItemServerRpc(string itemName, int amount)
+    {
+        if (string.IsNullOrEmpty(itemName) || amount <= 0) return;
+        
+        var index = inventory.FindIndex(s => s.itemName == itemName);
+        if (index >= 0)
+        {
+            var slot = inventory[index];
+            slot.quantity += amount;
+            inventory[index] = slot;
+        }
+        else
+        {
+            var a = new InventoryItem { itemName = itemName, quantity = amount};
+            inventory.Add(a);
+        }
 
-		private void Start() {
-			foreach (var slot in slots) {
-				slot.GetComponent<Image>().color = inactiveColor;
-				_slots.Add(slot.GetComponent<Slot>());
-			}
-			slots[_activeSlotIndex].GetComponent<Image>().color = activeColor;
-		}
+        SyncInventory();
+    }
+        
+    // [ServerRpc]
+    // public void RemoveItemServerRpc(string itemName, int amount)
+    // {
+    //     var index = inventory.FindIndex(s => s.itemName == itemName);
+    //     if (index >= 0)
+    //     {
+    //         var slot = inventory[index];
+    //         slot.quantity -= amount;
+    //         
+    //         if (slot.quantity <= 0)
+    //         {
+    //             inventory.RemoveAt(index);
+    //             OnItemRemoved?.Invoke(slot);
+    //         }
+    //         else
+    //         {
+    //             inventory[index] = slot;
+    //         }
+    //         
+    //         SyncInventory();
+    //     }
+    // }
 
-		private void OnEnable() {
-			_inputActions.Enable();
-			_inputActions.Inventory._1.performed += _1;
-			_inputActions.Inventory._2.performed += _2;
-			_inputActions.Inventory._3.performed += _3;
-			_inputActions.Inventory._4.performed += _4;
-			_inputActions.Inventory._5.performed += _5;
-			_inputActions.Inventory.IterMouse.performed += IterMouse;
-			_inputActions.Inventory.IterKeyboard.performed += IterKeyboard;
-		}
+// В PlayerInventory.cs
+    public void SyncInventory()
+    {
+        var itemsList = inventory.ToArray().Where(item => !item.IsEmpty).ToList();
+        InventoryUI.Instance.RefreshInventory(itemsList);
+    }
 
-		private void OnDisable() {
-			_inputActions.Inventory._1.performed -= _1;
-			_inputActions.Inventory._2.performed -= _2;
-			_inputActions.Inventory._3.performed -= _3;
-			_inputActions.Inventory._4.performed -= _4;
-			_inputActions.Inventory._5.performed -= _5;
-			_inputActions.Inventory.IterMouse.performed -= IterMouse;
-			_inputActions.Inventory.IterKeyboard.performed -= IterKeyboard;
-			_inputActions.Disable();
-		}
+    public override void OnNetworkSpawn()
+    {
+        if (IsOwner)
+            inventoryJson.OnValueChanged += OnInventoryUpdated;
+    }
+    
+    public override void OnNetworkDespawn()
+    {
+        if (IsOwner)
+            inventoryJson.OnValueChanged -= OnInventoryUpdated;
+    }
 
-		public void AddSlotChangeListener(OnSlotChange fn) {
-			_fns.Add(fn);
-		}
+    
 
-		private void IterMouse(InputAction.CallbackContext ctx) {
-			var dir = ctx.ReadValue<Vector2>();
-			if (dir.y > 0)
-				PrevSlot();
-			else if (dir.y < 0) NextSlot();
-		}
+    private void OnInventoryUpdated(FixedString512Bytes oldVal, FixedString512Bytes newVal)
+    {
+        string jsonString = newVal.ToString(); 
+        var wrapper = JsonUtility.FromJson<InventoryWrapper>(jsonString);
+        inventory = wrapper.slots;
+        
+        if (InventoryUI.Instance != null)
+        {
+            InventoryUI.Instance.RefreshInventory(inventory);
+        }
+    }
 
-		private void IterKeyboard(InputAction.CallbackContext ctx) {
-			if (Keyboard.current.shiftKey.isPressed)
-				PrevSlot();
-			else
-				NextSlot();
-		}
-
-		private void PrevSlot() {
-			OnActiveSlotChange((byte)((_activeSlotIndex - 1 + slots.Count) % slots.Count));
-		}
-
-		private void NextSlot() {
-			OnActiveSlotChange((byte)((_activeSlotIndex + 1) % slots.Count));
-		}
-
-		private void _1(InputAction.CallbackContext _) {
-			OnActiveSlotChange(0);
-		}
-
-		private void _2(InputAction.CallbackContext _) {
-			OnActiveSlotChange(1);
-		}
-
-		private void _3(InputAction.CallbackContext _) {
-			OnActiveSlotChange(2);
-		}
-
-		private void _4(InputAction.CallbackContext _) {
-			OnActiveSlotChange(3);
-		}
-
-		private void _5(InputAction.CallbackContext _) {
-			OnActiveSlotChange(4);
-		}
-
-		private void OnActiveSlotChange(byte index) {
-			slots[_activeSlotIndex].GetComponent<Image>().color = inactiveColor;
-			_activeSlotIndex = index;
-			slots[_activeSlotIndex].GetComponent<Image>().color = activeColor;
-
-			foreach (var fn in _fns) fn.Invoke(_slots[_activeSlotIndex]);
-		}
-
-		public bool Collect(Slot.SlotKind slotKind, int amount) {
-			foreach (var slot in _slots) {
-				if (slot.kind == Slot.SlotKind.None) {
-					slot.kind = slotKind;
-					slot.amount = amount;
-					return true;
-				}
-
-				if (slot.kind == slotKind && slot.Stackable()) {
-					slot.amount += amount;
-					return true;
-				}
-			}
-
-			return false;
-		}
-	}
+    [Serializable]
+    public class InventoryWrapper
+    {
+        public List<InventoryItem> slots;
+    }
 }
