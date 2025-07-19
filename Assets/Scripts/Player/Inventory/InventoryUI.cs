@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 public class InventoryUI : MonoBehaviour
 {
     public static InventoryUI Instance;
     private VisualElement root;
+    private VisualElement inventoryRoot;
     private VisualElement slotsContainer;
     private VisualElement hotbarContainer;
     private VisualElement ghostIcon;
@@ -16,8 +19,10 @@ public class InventoryUI : MonoBehaviour
     private InventoryElement selectedHotbarSlot;
     
     private bool isDragging;
-    private InventoryElement dragSource = null;
+    private InventoryElement dragSource;
     
+    private GameObject currentHeldItem;
+    public Transform handTransform;
     /*TEMP VALUES*/
     // private string tempItemName;
     // private int tempItemQuantity;
@@ -33,13 +38,18 @@ public class InventoryUI : MonoBehaviour
             return;
         }
         Instance = this;
-
+        
         var uiDocument = GetComponent<UIDocument>();
         root = uiDocument.rootVisualElement;
-
+        
         slotsContainer = root.Q<VisualElement>("slotsContainer");
         hotbarContainer = root.Q<VisualElement>("hotbarContainer");
+        inventoryRoot = root.Q<VisualElement>("inventory-root");
         ghostIcon = root.Q<VisualElement>("GhostIcon");
+        
+        inventoryRoot.style.display = DisplayStyle.None;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         
         InitializeSlots();
         root.RegisterCallback<PointerUpEvent>(OnPointerUp);
@@ -47,6 +57,11 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ToggleInventory();
+        }
+        
         if (isDragging)
         {
             UpdateGhostIconPosition(Input.mousePosition);
@@ -74,22 +89,21 @@ public class InventoryUI : MonoBehaviour
 
         selectedHotbarSlot = hotbarSlots[hotbarIndex];
         selectedHotbarSlot.AddToClassList("selected");
-
+        EquipItemFromSlot(selectedHotbarSlot);
         Debug.Log($"Selected hotbar slot {hotbarIndex + 1}: {selectedHotbarSlot.ItemName}");
     }
 
     private void InitializeSlots()
     {
         slots.Clear();
-        //adding normal slots
-        slots = slotsContainer.Query<InventoryElement>()
-            .ToList();
-        //adding hotbar slots
+        slots = slotsContainer.Query<InventoryElement>().ToList();
         slots.AddRange(hotbarContainer.Query<InventoryElement>().ToList());
-        
-        foreach (var slot in slots)
+    
+        Debug.Log($"Total slots initialized: {slots.Count}");
+        for (int i = 0; i < slots.Count; i++)
         {
-            slot.RegisterCallback<PointerDownEvent>(OnPointerDown);
+            Debug.Log($"Slot {i}: {slots[i].name}");
+            slots[i].RegisterCallback<PointerDownEvent>(OnPointerDown);
         }
     }
     
@@ -116,7 +130,7 @@ public class InventoryUI : MonoBehaviour
         dragSource = slot;
         isDragging = true;
         
-        ghostIcon.style.backgroundImage = new StyleBackground(slot.Sprite);
+        ghostIcon.style.backgroundImage = new StyleBackground(slot.inventoryItem.icon);
         ghostIcon.style.display = DisplayStyle.Flex;
         UpdateGhostIconPosition(evt.position);
         evt.StopPropagation();
@@ -127,21 +141,17 @@ public class InventoryUI : MonoBehaviour
         if (root.panel == null)
             return;
 
-        Vector2 screenPositionFlipped = new Vector2(
+        var screenPositionFlipped = new Vector2(
             screenPosition.x,
             Screen.height - screenPosition.y
         );
 
-        Vector2 panelPosition = RuntimePanelUtils.ScreenToPanel(root.panel, screenPositionFlipped);
-
+        var panelPosition = RuntimePanelUtils.ScreenToPanel(root.panel, screenPositionFlipped);
 
         Debug.Log($"ScreenPos: {screenPosition}, PanelPos: {panelPosition}");
-
-        var offsetX = ghostIcon.resolvedStyle.width / 2;
-        var offsetY = ghostIcon.resolvedStyle.height / 2;
-
-        ghostIcon.style.left = panelPosition.x - offsetX;
-        ghostIcon.style.top = panelPosition.y - offsetY;
+        
+        ghostIcon.style.left = panelPosition.x - 32f;
+        ghostIcon.style.top = panelPosition.y - 32f;
     }
     
     private void OnPointerUp(PointerUpEvent evt)
@@ -175,57 +185,77 @@ public class InventoryUI : MonoBehaviour
                 ? 0
                 : int.Parse(slotUnderCursor.Quantity.text);
             
-            var targetSprite = slotUnderCursor.Sprite;
+            slotUnderCursor.SetItem(
+                new InventoryItem(dragSource.ItemName,int.Parse(dragSource.Quantity.text))
+                );
 
-            slotUnderCursor.SetItem(new InventoryItem(dragSource.ItemName,int.Parse(dragSource.Quantity.text)), dragSource.Sprite);
-
-            dragSource.SetItem(new InventoryItem(targetName, targetQty), targetSprite);
+            dragSource.SetItem(new InventoryItem(targetName, targetQty));
         }
         ghostIcon.style.display = DisplayStyle.None;
         isDragging = false;
         dragSource = null;
-        
-        // if (slotUnderCursor != null && dragSource != null)
-        // {
-        //     Debug.Log($"Dropped item {dragSource.ItemName} to slot");
-        //     var tempName = string.IsNullOrEmpty(slotUnderCursor.ItemName)
-        //         ? string.Empty
-        //         : slotUnderCursor.ItemName;
-        //     
-        //     var tempQty = string.IsNullOrEmpty(slotUnderCursor.Quantity.text)
-        //         ? 0
-        //         : int.Parse(slotUnderCursor.Quantity.text);
-        //         
-        //     var tempSprite = slotUnderCursor.Sprite;
-        //     
-        //     
-        //     slotUnderCursor.SetItem(new InventoryItem(dragSource.ItemName,int.Parse(dragSource.Quantity.text)), dragSource.Sprite);
-        //     dragSource.SetItem(new InventoryItem(tempName,tempQty),tempSprite);
-        // }
-        // else
-        // {
-        //     Debug.Log("Dropped outside slots, returning item back");
-        // }
-        //
-        // ghostIcon.style.display = DisplayStyle.None;
-        // isDragging = false;
-        // dragSource = null;
     }
 
     public void RefreshInventory(List<InventoryItem> items)
     {
-        for (int i = 0; i < slots.Count; i++)
+        if (slots == null || slots.Count == 0 || items == null) return;
+
+        foreach (var t in slots)
         {
-            if (i < items.Count)
+            t.ClearItem();
+        }
+
+        for (int i = 0; i < items.Count && i < slots.Count; i++)
+        {
+            if (!items[i].IsEmpty)
             {
-                var item = items[i];
-                var sprite = InventoryDatabase.Instance.GetItemByName(item.itemName).icon;
-                slots[i].SetItem(new InventoryItem(item.itemName, item.quantity), sprite);
+                slots[i].SetItem(items[i]);
+                Debug.Log($"Added {items[i].itemName} to slot {i}");
             }
             else
             {
-                slots[i].ClearItem();
+                Debug.LogWarning($"Skipping empty item at index {i}");
             }
         }
     }
+    private void ToggleInventory()
+    {
+        if (inventoryRoot == null) return;
+
+        if (inventoryRoot.style.display == DisplayStyle.None)
+        {
+            inventoryRoot.style.display = DisplayStyle.Flex;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Debug.Log("Inventory opened");
+        }
+        else
+        {
+            inventoryRoot.style.display = DisplayStyle.None;
+            Cursor.lockState = CursorLockMode.Locked;
+            ghostIcon.style.display = DisplayStyle.None;
+            Cursor.visible = false;
+            Debug.Log("Inventory closed");
+        }
+    }
+    
+    private void EquipItemFromSlot(InventoryElement slot)
+    {
+        if (currentHeldItem)
+        {
+            Destroy(currentHeldItem);
+            currentHeldItem = null;
+        }
+
+        if (slot == null || !slot.inventoryItem|| slot.inventoryItem.itemName == null)
+            return;
+
+        currentHeldItem = Instantiate(
+            slot.inventoryItem.itemPrefab,
+            handTransform.position,
+            handTransform.rotation,
+            handTransform
+        );
+    }
+
 }

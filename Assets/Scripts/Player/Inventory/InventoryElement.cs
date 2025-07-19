@@ -19,11 +19,12 @@ public partial class InventoryElement : VisualElement
         }
     }
     private InventoryElementType _elementType = InventoryElementType.Inventory;
-
+    
     public Image Icon;
     public Label Quantity;
+    public ItemData inventoryItem;
     public string ItemName { get; private set; }
-    public Sprite Sprite { get; private set; }
+    
 
     public InventoryElement()
     {
@@ -61,22 +62,38 @@ public partial class InventoryElement : VisualElement
         Add(Quantity);
     }
 
-    public void SetItem(InventoryItem item, Sprite sprite)
+    public void SetItem(InventoryItem item)
     {
-        if (item.itemName == null || sprite == null || sprite.texture == null)
+        if (item.IsEmpty || string.IsNullOrEmpty(item.itemName) || item.quantity <= 0)
         {
+            Debug.LogWarning($"Trying to set invalid item: {(item.IsEmpty ? "NULL" : item.itemName)}");
             ClearItem();
             return;
         }
 
-        Icon.image = sprite.texture;
+        var itemData = InventoryDatabase.Instance.GetItemByName(item.itemName);
+        if (itemData == null)
+        {
+            Debug.LogError($"Item data not found for: {item.itemName}");
+            ClearItem();
+            return;
+        }
+
+        if (itemData.icon == null)
+        {
+            Debug.LogError($"No icon assigned for item: {item.itemName}");
+            ClearItem();
+            return;
+        }
+
+        inventoryItem = itemData;
+        Icon.image = itemData.icon.texture;
         ItemName = item.itemName;
-        Sprite = sprite;
         Icon.style.display = DisplayStyle.Flex;
 
         Quantity.text = item.quantity >= 1 ? item.quantity.ToString() : "";
-        Quantity.style.display = string.IsNullOrEmpty(Quantity.text)
-            ? DisplayStyle.None
+        Quantity.style.display = string.IsNullOrEmpty(Quantity.text) 
+            ? DisplayStyle.None 
             : DisplayStyle.Flex;
     }
 
@@ -84,7 +101,7 @@ public partial class InventoryElement : VisualElement
     {
         Icon.image = null;
         ItemName = null;
-        Sprite = null;
+        inventoryItem=null;
         Icon.style.display = DisplayStyle.None;
         Quantity.text = "";
         Quantity.style.display = DisplayStyle.None;

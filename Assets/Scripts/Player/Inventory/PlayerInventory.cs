@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -55,10 +56,11 @@ public class PlayerInventory : NetworkBehaviour
     //     }
     // }
 
-    private void SyncInventory()
+// В PlayerInventory.cs
+    public void SyncInventory()
     {
-        var wrapper = new InventoryWrapper { slots = inventory };
-        inventoryJson.Value = new FixedString512Bytes(JsonUtility.ToJson(wrapper));
+        var itemsList = inventory.ToArray().Where(item => !item.IsEmpty).ToList();
+        InventoryUI.Instance.RefreshInventory(itemsList);
     }
 
     public override void OnNetworkSpawn()

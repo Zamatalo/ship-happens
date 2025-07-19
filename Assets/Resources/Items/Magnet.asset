@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Magnet
   icon: {fileID: 21300000, guid: 5fa3c31133b8c6b48a0f8d648aa38c29, type: 3}
   maxStack: 1
+  itemPrefab: {fileID: 5446213650436569997, guid: 152097b62ad44425a8a9752c293b1e31, type: 3}

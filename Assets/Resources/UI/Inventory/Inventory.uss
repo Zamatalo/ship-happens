@@ -25,12 +25,15 @@
     background-image: resource('UI/Inventory/ItemEnable');
     height: 100px;
     width: 100px;
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
 }
 
 .slotIcon {
     flex-shrink: 0;
     flex-grow: 1;
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
 }
+
 .inventoryElement {
     width: 64px;
     height: 64px;
@@ -40,14 +43,17 @@
     border-top-color: rgb(48, 48, 48);
     border-bottom-color: rgb(48, 48, 48);
     background-color: rgb(9, 19, 21);
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
 }
 
 .slotBackground {
     background-image: resource('UI/Assets/UIDifferentFree03Wenrexa/PNG/Cell01');
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
 }
 
 .slotBackground2 {
     background-image: resource('Assets/Resources/UI/Inventory/frame.png');
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
 }
 
 .slotQuantity {
@@ -59,4 +65,5 @@
     background-color: rgba(0, 0, 0, 0.7);
     padding: 2px 4px;
     border-radius: 3px;
+    cursor: resource('Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px');
 }
