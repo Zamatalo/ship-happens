@@ -1368,9 +1368,18 @@
             "id": "9c9d6d20-69c0-43bd-93d2-47688f4ff734",
             "actions": [
                 {
-                    "name": "Use",
+                    "name": "BurnForward",
                     "type": "Button",
                     "id": "dd903283-9513-4c62-a334-00ce0b1a3a38",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BurnUp",
+                    "type": "Button",
+                    "id": "91ac3508-acf5-43e2-892c-c800fe574474",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1385,7 +1394,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Use",
+                    "action": "BurnForward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "00f86a3d-46ae-447c-a7a5-268e4b647e88",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BurnUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

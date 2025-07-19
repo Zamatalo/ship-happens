@@ -27,6 +27,7 @@ namespace Player.Inventory {
 		public Material potableSprite;
 		public SlotKind kind;
 		public int amount;
+		public float? JetpackFuel;
 
 		private void Update() {
 			switch (kind) {

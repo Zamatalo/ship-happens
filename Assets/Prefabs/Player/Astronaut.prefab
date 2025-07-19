@@ -4651,6 +4651,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 5
   jumpForce: 5
+  maxMag: 10
   characterObj: {fileID: 469696503118072618}
   handsObj: {fileID: 2141693620793550440}
   isGrounded: 0
@@ -4737,12 +4738,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 63.4
   health: 0
-  maxHunger: 100
+  maxHunger: 360
   hunger: 0
-  hungerDecreaseSpeed: 0.2
-  maxThirst: 100
+  hungerDecreaseSpeed: 1
+  maxThirst: 240
   thirst: 0
-  thirstDecreaseSpeed: 0.4
-  maxOxygen: 100
+  thirstDecreaseSpeed: 1
+  maxOxygen: 60
   oxygen: 0
-  oxygenDecreaseSpeed: 3
+  oxygenDecreaseSpeed: 1

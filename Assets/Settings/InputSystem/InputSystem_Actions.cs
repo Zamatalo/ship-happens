@@ -1454,9 +1454,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             ""id"": ""9c9d6d20-69c0-43bd-93d2-47688f4ff734"",
             ""actions"": [
                 {
-                    ""name"": ""Use"",
+                    ""name"": ""BurnForward"",
                     ""type"": ""Button"",
                     ""id"": ""dd903283-9513-4c62-a334-00ce0b1a3a38"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BurnUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""91ac3508-acf5-43e2-892c-c800fe574474"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1471,7 +1480,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Use"",
+                    ""action"": ""BurnForward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00f86a3d-46ae-447c-a7a5-268e4b647e88"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BurnUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1647,7 +1667,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_BuildKit_RotateForward = m_BuildKit.FindAction("RotateForward", throwIfNotFound: true);
         // Jetpack
         m_Jetpack = asset.FindActionMap("Jetpack", throwIfNotFound: true);
-        m_Jetpack_Use = m_Jetpack.FindAction("Use", throwIfNotFound: true);
+        m_Jetpack_BurnForward = m_Jetpack.FindAction("BurnForward", throwIfNotFound: true);
+        m_Jetpack_BurnUp = m_Jetpack.FindAction("BurnUp", throwIfNotFound: true);
         // Edible
         m_Edible = asset.FindActionMap("Edible", throwIfNotFound: true);
         m_Edible_Eat = m_Edible.FindAction("Eat", throwIfNotFound: true);
@@ -2648,7 +2669,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     // Jetpack
     private readonly InputActionMap m_Jetpack;
     private List<IJetpackActions> m_JetpackActionsCallbackInterfaces = new List<IJetpackActions>();
-    private readonly InputAction m_Jetpack_Use;
+    private readonly InputAction m_Jetpack_BurnForward;
+    private readonly InputAction m_Jetpack_BurnUp;
     /// <summary>
     /// Provides access to input actions defined in input action map "Jetpack".
     /// </summary>
@@ -2661,9 +2683,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public JetpackActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Jetpack/Use".
+        /// Provides access to the underlying input action "Jetpack/BurnForward".
         /// </summary>
-        public InputAction @Use => m_Wrapper.m_Jetpack_Use;
+        public InputAction @BurnForward => m_Wrapper.m_Jetpack_BurnForward;
+        /// <summary>
+        /// Provides access to the underlying input action "Jetpack/BurnUp".
+        /// </summary>
+        public InputAction @BurnUp => m_Wrapper.m_Jetpack_BurnUp;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -2690,9 +2716,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_JetpackActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_JetpackActionsCallbackInterfaces.Add(instance);
-            @Use.started += instance.OnUse;
-            @Use.performed += instance.OnUse;
-            @Use.canceled += instance.OnUse;
+            @BurnForward.started += instance.OnBurnForward;
+            @BurnForward.performed += instance.OnBurnForward;
+            @BurnForward.canceled += instance.OnBurnForward;
+            @BurnUp.started += instance.OnBurnUp;
+            @BurnUp.performed += instance.OnBurnUp;
+            @BurnUp.canceled += instance.OnBurnUp;
         }
 
         /// <summary>
@@ -2704,9 +2733,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="JetpackActions" />
         private void UnregisterCallbacks(IJetpackActions instance)
         {
-            @Use.started -= instance.OnUse;
-            @Use.performed -= instance.OnUse;
-            @Use.canceled -= instance.OnUse;
+            @BurnForward.started -= instance.OnBurnForward;
+            @BurnForward.performed -= instance.OnBurnForward;
+            @BurnForward.canceled -= instance.OnBurnForward;
+            @BurnUp.started -= instance.OnBurnUp;
+            @BurnUp.performed -= instance.OnBurnUp;
+            @BurnUp.canceled -= instance.OnBurnUp;
         }
 
         /// <summary>
@@ -3305,12 +3337,19 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     public interface IJetpackActions
     {
         /// <summary>
-        /// Method invoked when associated input action "Use" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "BurnForward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnUse(InputAction.CallbackContext context);
+        void OnBurnForward(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "BurnUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBurnUp(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Edible" which allows adding and removing callbacks.

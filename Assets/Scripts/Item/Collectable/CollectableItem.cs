@@ -7,6 +7,7 @@ namespace Item.Collectable {
 	public class CollectableItem : MonoBehaviour {
 		public GameObject collectZoneObject;
 		private int _amount;
+		private float? _jetpackFuel;
 		private Slot.SlotKind _kind;
 		private Rigidbody _rb;
 		private CollectableItemZone _zone;
@@ -17,9 +18,10 @@ namespace Item.Collectable {
 			StartCoroutine(AfterStart());
 		}
 
-		public void Init(Slot.SlotKind kind, int amount) {
+		public void Init(Slot.SlotKind kind, int amount, float? jetpackFuel) {
 			_kind = kind;
 			_amount = amount;
+			_jetpackFuel = jetpackFuel;
 		}
 
 		private IEnumerator AfterStart() {
@@ -30,7 +32,7 @@ namespace Item.Collectable {
 		}
 
 		private void OnZoneEnter(PlayerInventory inventory) {
-			if (inventory.Collect(_kind, _amount)) Destroy(gameObject);
+			if (inventory.Collect(_kind, _amount, _jetpackFuel)) Destroy(gameObject);
 		}
 	}
 }

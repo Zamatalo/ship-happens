@@ -48,8 +48,10 @@ namespace Player {
 					_current.GetComponent<HarpoonGun>().Init(cameraTransform);
 					break;
 				case Slot.SlotKind.Jetpack:
+					var rb = playerObject.GetComponent<Rigidbody>();
+
 					_current = Instantiate(jetpackPrefab, transform);
-					_current.GetComponent<Jetpack>().Init(playerObject.GetComponent<Rigidbody>());
+					_current.GetComponent<Jetpack>().Init(rb, cameraTransform, slot);
 					break;
 				case Slot.SlotKind.Metal:
 					_current = Instantiate(metalPrefab, transform);
@@ -100,7 +102,7 @@ namespace Player {
 
 			var force = cameraTransform.forward * itemDropForwardForce +
 			            cameraTransform.up * itemDropUpForce;
-			item.GetComponent<CollectableItem>().Init(slot.kind, slot.amount);
+			item.GetComponent<CollectableItem>().Init(slot.kind, slot.amount, slot.JetpackFuel);
 			item.GetComponent<Rigidbody>().AddForce(force);
 		}
 	}
