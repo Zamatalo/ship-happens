@@ -4736,14 +4736,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b10e441bc95e87428f0224518dd7af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 63.4
+  maxHealth: 100
   health: 0
   maxHunger: 360
   hunger: 0
-  hungerDecreaseSpeed: 1
   maxThirst: 240
   thirst: 0
-  thirstDecreaseSpeed: 1
   maxOxygen: 60
   oxygen: 0
-  oxygenDecreaseSpeed: 1

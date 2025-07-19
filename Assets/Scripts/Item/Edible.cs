@@ -33,7 +33,7 @@ namespace Item {
 		private void OnEat(InputAction.CallbackContext _) {
 			_inventory.Consume(1);
 
-			_needs.hunger = Mathf.Min(_needs.maxHunger, _needs.hunger + 20);
+			_needs.hunger = Mathf.Min(_needs.maxHunger, _needs.hunger + 70);
 		}
 	}
 }
