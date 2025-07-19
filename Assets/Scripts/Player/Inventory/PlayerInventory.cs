@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 namespace Player.Inventory {
 	public class PlayerInventory : MonoBehaviour {
+		public delegate void OnDropItem(Slot slot);
 		public delegate void OnSlotChange(Slot slot);
 		public List<GameObject> slots;
 		public Color activeColor;
 		public Color inactiveColor;
-		private readonly List<OnSlotChange> _fns = new();
+		private readonly List<OnDropItem> _dropItemListeners = new();
+		private readonly List<OnSlotChange> _slotChangeListeners = new();
 		private readonly List<Slot> _slots = new();
 		private byte _i;
 		private InputSystem_Actions _ia;
@@ -35,6 +37,7 @@ namespace Player.Inventory {
 			_ia.Inventory._5.performed += _5;
 			_ia.Inventory.IterMouse.performed += IterMouse;
 			_ia.Inventory.IterKeyboard.performed += IterKeyboard;
+			_ia.Inventory.DropItem.performed += DropItem;
 		}
 
 		private void OnDisable() {
@@ -45,11 +48,16 @@ namespace Player.Inventory {
 			_ia.Inventory._5.performed -= _5;
 			_ia.Inventory.IterMouse.performed -= IterMouse;
 			_ia.Inventory.IterKeyboard.performed -= IterKeyboard;
+			_ia.Inventory.DropItem.performed -= DropItem;
 			_ia.Disable();
 		}
 
 		public void AddSlotChangeListener(OnSlotChange fn) {
-			_fns.Add(fn);
+			_slotChangeListeners.Add(fn);
+		}
+
+		public void AddDropItemListener(OnDropItem fn) {
+			_dropItemListeners.Add(fn);
 		}
 
 		private void IterMouse(InputAction.CallbackContext ctx) {
@@ -64,6 +72,17 @@ namespace Player.Inventory {
 				PrevSlot();
 			else
 				NextSlot();
+		}
+
+		private void DropItem(InputAction.CallbackContext _) {
+			if (_slots[_i].kind == Slot.SlotKind.None) return;
+
+			foreach (var fn in _dropItemListeners) fn.Invoke(_slots[_i]);
+
+			_slots[_i].kind = Slot.SlotKind.None;
+			_slots[_i].amount = 0;
+
+			OnActiveSlotChange(_i);
 		}
 
 		private void PrevSlot() {
@@ -99,7 +118,7 @@ namespace Player.Inventory {
 			_i = index;
 			slots[_i].GetComponent<Image>().color = activeColor;
 
-			foreach (var fn in _fns) fn.Invoke(_slots[_i]);
+			foreach (var fn in _slotChangeListeners) fn.Invoke(_slots[_i]);
 		}
 
 		public bool Collect(Slot.SlotKind slotKind, int amount) {
