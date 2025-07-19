@@ -9,7 +9,7 @@ namespace Player {
 		private bool _building;
 		private InputSystem_Actions _ia;
 		private GameObject _preview;
-		private Vector3 _rot = new(90f, 0, 0); // Adjusted to plane rotation, think its Vector3.zero
+		private Vector3 _rot = Vector3.zero;
 
 		private void Awake() {
 			_ia = new InputSystem_Actions();

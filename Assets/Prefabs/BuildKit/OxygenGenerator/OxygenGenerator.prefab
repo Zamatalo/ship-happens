@@ -2205,6 +2205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 196680820435281108}
   - component: {fileID: 2718442866894245719}
+  - component: {fileID: -3627147474558411995}
   m_Layer: 0
   m_Name: OxygenGenerator
   m_TagString: Untagged
@@ -2253,6 +2254,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 9.050578, y: 9.352091, z: 8.816193}
   m_Center: {x: 0.11863783, y: 4.1760454, z: 0.012422502}
+--- !u!114 &-3627147474558411995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335793835899281491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02253c59abb33d346a714ee270fd32eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
 --- !u!1 &1364585147081553757
 GameObject:
   m_ObjectHideFlags: 0
