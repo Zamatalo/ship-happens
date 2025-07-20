@@ -247,7 +247,7 @@ MonoBehaviour:
   harpoonObj: {fileID: 459897691785594447}
   notActualOrigin: {fileID: 9084105664515899985}
   harpoonPrefab: {fileID: 5442275444050204734, guid: 567f15d54ba0f4bdcbb0d2466894dc5d, type: 3}
-  shootForce: 3000
+  shootForce: 4000
 --- !u!82 &6886059451642430148
 AudioSource:
   m_ObjectHideFlags: 0
@@ -258,7 +258,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1104d2f2c23354e478479c5608aff98c, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 1104d2f2c23354e478479c5608aff98c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.097

@@ -4,9 +4,9 @@ namespace Projectile {
 	public class Harpoon : MonoBehaviour {
 		public float pullSpeed;
 		public bool hit;
-		private Vector3 _dir;
 		private float _force;
 		private LineRenderer _lr;
+		private Transform _notActualOrigin;
 		private Transform _origin;
 		private Rigidbody _rb;
 
@@ -14,25 +14,26 @@ namespace Projectile {
 			_rb = GetComponent<Rigidbody>();
 			_lr = GetComponent<LineRenderer>();
 
-			_rb.AddForce(_dir * _force);
+			_rb.AddForce(_origin.forward * _force);
 		}
 
 		private void Update() {
-			_lr.SetPosition(0, _origin.position);
+			_lr.SetPosition(0, _notActualOrigin.position);
 			_lr.SetPosition(1, transform.position);
 		}
 
 		private void OnTriggerEnter(Collider other) {
-			if (!other.TryGetComponent(out Loot.Loot loot)) return;
+			if (!other.TryGetComponent(out Loot.Loot _)) return;
 
 			_rb.constraints = RigidbodyConstraints.FreezeAll;
 			transform.SetParent(other.transform);
+			transform.localPosition = Vector3.zero;
 			hit = true;
 		}
 
-		public void Init(Transform origin, Vector3 dir, float force) {
+		public void Init(Transform notActualOrigin, Transform origin, float force) {
+			_notActualOrigin = notActualOrigin;
 			_origin = origin;
-			_dir = dir;
 			_force = force;
 		}
 

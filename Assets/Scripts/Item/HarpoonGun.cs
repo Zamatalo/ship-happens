@@ -79,12 +79,12 @@ namespace Item {
 		private void FireHarpoon() {
 			var inst = Instantiate(
 				harpoonPrefab,
-				notActualOrigin.position,
+				_origin.position,
 				Quaternion.LookRotation(_origin.forward) * Quaternion.Euler(90f, 0f, 0f)
 			);
 
 			_currentHarpoon = inst.GetComponent<Harpoon>();
-			_currentHarpoon.Init(notActualOrigin, _origin.forward, shootForce);
+			_currentHarpoon.Init(notActualOrigin, _origin, shootForce);
 
 			shootSound.Play();
 			harpoonObj.SetActive(false);

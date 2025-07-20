@@ -243,11 +243,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5235055297888234467, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_Name
-      value: RoughOrangePlane (1)
+      value: RoughOrangePlane(Clone)
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -255,7 +255,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1461,7 +1461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1469,7 +1469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1551,11 +1551,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5235055297888234467, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_Name
-      value: RoughOrangePlane (2)
+      value: RoughOrangePlane(Clone)
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1563,7 +1563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1613,11 +1613,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5235055297888234467, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_Name
-      value: RoughOrangePlane (3)
+      value: RoughOrangePlane(Clone)
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1625,7 +1625,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1885,7 +1885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1612357131148437541, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: m_TagString
-      value: Ground
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7828225898324934826, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: m_LocalPosition.x

@@ -3677,7 +3677,7 @@ MonoBehaviour:
   jetpackCollectablePrefab: {fileID: 5205783018273025614, guid: 8518854cf4e281542a5d33d4ce943026, type: 3}
   metalPrefab: {fileID: 4020595950540665146, guid: 334fe159435eec24cbb49000d1e5cfb9, type: 3}
   metalCollectablePrefab: {fileID: 4020595950540665146, guid: 2d1b8be0b2457f348adf2fee64f52707, type: 3}
-  planksPrefab: {fileID: 4020595950540665146, guid: c63b04904441dc04ba73595751b9188f, type: 3}
+  planksPrefab: {fileID: 4020595950540665146, guid: 4f0907e61657b9141b861b28213a4c68, type: 3}
   planksCollectablePrefab: {fileID: 4020595950540665146, guid: c63b04904441dc04ba73595751b9188f, type: 3}
   ediblePrefab: {fileID: 4020595950540665146, guid: 5268018b2823fa347bd2eae80cdb2d5b, type: 3}
   edibleCollectablePrefab: {fileID: 4020595950540665146, guid: bd31f3d836ca30344bfddf9c89d93463, type: 3}
@@ -4539,6 +4539,7 @@ MonoBehaviour:
   planePrefab: {fileID: 5235055297888234467, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
   planePreviewPrefab: {fileID: 5235055297888234467, guid: 9602e140991a7624598d604ae8774f1e, type: 3}
   cameraTransform: {fileID: 3901613659739042740}
+  snapSize: 2
 --- !u!114 &8919941688706895843
 MonoBehaviour:
   m_ObjectHideFlags: 0
