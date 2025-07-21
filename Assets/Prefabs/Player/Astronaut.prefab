@@ -1225,6 +1225,7 @@ RectTransform:
   - {fileID: 1289773196302862936}
   - {fileID: 312902896629173092}
   - {fileID: 6233490589826742213}
+  - {fileID: 1336274402692826226}
   m_Father: {fileID: 8288766347881513404}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3310,7 +3311,7 @@ MonoBehaviour:
   planksSprite: {fileID: 2100000, guid: 6c46b744de069e547b50e6d5f1c5a6d0, type: 2}
   edibleSprite: {fileID: 2100000, guid: 12cca06b816e83a4297ee7be51967f34, type: 2}
   potableSprite: {fileID: 2100000, guid: 578ddd8706022454f876e95d23e88b5c, type: 2}
-  kind: 4
+  kind: 7
   amount: 1
 --- !u!1 &7775060575359214951
 GameObject:
@@ -3367,10 +3368,10 @@ MonoBehaviour:
   metalCollectablePrefab: {fileID: 4020595950540665146, guid: 2d1b8be0b2457f348adf2fee64f52707, type: 3}
   planksPrefab: {fileID: 4020595950540665146, guid: 4f0907e61657b9141b861b28213a4c68, type: 3}
   planksCollectablePrefab: {fileID: 4020595950540665146, guid: c63b04904441dc04ba73595751b9188f, type: 3}
-  ediblePrefab: {fileID: 4020595950540665146, guid: 5268018b2823fa347bd2eae80cdb2d5b, type: 3}
-  edibleCollectablePrefab: {fileID: 4020595950540665146, guid: bd31f3d836ca30344bfddf9c89d93463, type: 3}
-  potablePrefab: {fileID: 4020595950540665146, guid: 555f4cb7750a08045818c0c6f8ee3ae9, type: 3}
-  potableCollectablePrefab: {fileID: 4020595950540665146, guid: 489c18cdfe5150a48ad3acf0fa5038af, type: 3}
+  ediblePrefab: {fileID: 4520857502877082271, guid: 5027b6bbc97281c41a0d3394eee6e88c, type: 3}
+  edibleCollectablePrefab: {fileID: 4520857502877082271, guid: a7c3334d6ddfbc840a3ef81ffa9c0970, type: 3}
+  potablePrefab: {fileID: 8247219286302966322, guid: 580b0571787526c448072ea25abd59a6, type: 3}
+  potableCollectablePrefab: {fileID: 8247219286302966322, guid: 8871dc712624eb944a9dcd7f417878d5, type: 3}
   cameraTransform: {fileID: 3901613659739042740}
   itemDropForwardForce: 20
   itemDropUpForce: 20
@@ -3449,6 +3450,78 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8349787284255575282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1336274402692826226}
+  - component: {fileID: 7664682839594669378}
+  - component: {fileID: 529461815553638213}
+  m_Layer: 5
+  m_Name: Crosshair
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1336274402692826226
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8349787284255575282}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4121532541118790960}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 20, y: 20}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7664682839594669378
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8349787284255575282}
+  m_CullTransparentMesh: 1
+--- !u!114 &529461815553638213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8349787284255575282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 356af0845f4b3f541b23280ae278a3ed, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &8579189306183833477
 GameObject:
   m_ObjectHideFlags: 0
