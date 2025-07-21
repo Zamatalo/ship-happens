@@ -42,7 +42,7 @@ namespace Loot {
 		void SpawnLoot() {
 			Debug.Log("Spawning Loot");
 			
-			foreach (var player in FindObjectsByType<PlayerController_old>(FindObjectsSortMode.None)) {
+			foreach (var player in FindObjectsByType<PlayerController>(FindObjectsSortMode.None)) {
 				var numberOfLootsToSpawn =
 					Random.Range(minLoot, maxLoot);
 

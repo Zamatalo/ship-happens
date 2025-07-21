@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Player;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
@@ -228,6 +229,7 @@ public class InventoryUI : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Debug.Log("Inventory opened");
+            //Camera.current.
         }
         else
         {
@@ -247,7 +249,7 @@ public class InventoryUI : MonoBehaviour
             currentHeldItem = null;
         }
 
-        if (slot == null || !slot.inventoryItem|| slot.inventoryItem.itemName == null)
+        if (slot == null || !slot.inventoryItem || string.IsNullOrEmpty(slot.inventoryItem.itemName))
             return;
 
         currentHeldItem = Instantiate(
@@ -256,6 +258,13 @@ public class InventoryUI : MonoBehaviour
             handTransform.rotation,
             handTransform
         );
+
+        // Initialize the item if it's usable
+        var usableItem = currentHeldItem.GetComponent<IUsableItem>();
+        if (usableItem != null)
+        {
+            usableItem.Init(handTransform);
+        }
     }
 
 }
