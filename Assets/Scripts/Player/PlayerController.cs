@@ -36,22 +36,23 @@ namespace Player {
 			}
 		}
 
-		private void FixedUpdate() {
-			if (IsOwner) {
-				isGrounded = Physics.Raycast(foot.position, transform.up * -1f, 0.1f);
+		private void FixedUpdate()
+		{
+			if (!IsOwner) return;
+			
+			isGrounded = Physics.Raycast(foot.position, transform.up * -1f, 0.1f);
 
-				var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
+			var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
 
-				var movement = transform.rotation * inputDir;
-				movement *= moveSpeed * Time.fixedDeltaTime;
-				_rb.MovePosition(_rb.position + movement);
+			var movement = transform.rotation * inputDir;
+			movement *= moveSpeed * Time.fixedDeltaTime;
+			_rb.MovePosition(_rb.position + movement);
 
-				_isMoving = _moveInput.sqrMagnitude > 0.01f;
-				animator.SetFloat("moveX", _moveInput.x);
-				animator.SetFloat("moveZ", _moveInput.y);
-				animator.SetBool("isGrounded", isGrounded);
-				animator.SetBool("isMoving", _isMoving);
-			}
+			_isMoving = _moveInput.sqrMagnitude > 0.01f;
+			animator.SetFloat("moveX", _moveInput.x);
+			animator.SetFloat("moveZ", _moveInput.y);
+			animator.SetBool("isGrounded", isGrounded);
+			animator.SetBool("isMoving", _isMoving);
 		}
 
 		private void OnEnable() {

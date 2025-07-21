@@ -47,7 +47,6 @@ namespace StarterAssets
 				enableInput.Enable();
 #endif
 				
-				
 				m_FocusActionsSetUp = true;
 			}
 		}
@@ -112,10 +111,10 @@ namespace StarterAssets
 			JumpInput(value.isPressed);
 		}
 
-		// public void OnSprint(InputValue value)
-		// {
-		// 	SprintInput(value.isPressed);
-		// }
+		public void OnSprint(InputValue value)
+		{
+			SprintInput(value.isPressed);
+		}
 #endif
 
 
@@ -147,7 +146,6 @@ namespace StarterAssets
 
 		private void SetCursorState(bool newState)
 		{
-		
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}

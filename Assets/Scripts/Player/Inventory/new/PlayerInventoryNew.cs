@@ -8,8 +8,8 @@ using UnityEngine;
 public class PlayerInventoryNew : NetworkBehaviour
 {
     public List<InventoryItem> inventory = new();
-   // public event Action<InventoryItem> OnItemAdded;
-  //  public event Action<InventoryItem> OnItemRemoved;
+    // public event Action<InventoryItem> OnItemAdded;
+    // public event Action<InventoryItem> OnItemRemoved;
     public NetworkVariable<FixedString512Bytes> inventoryJson = new();
 
     [ServerRpc]
