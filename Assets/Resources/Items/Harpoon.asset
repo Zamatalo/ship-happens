@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc1b93a1beb6ad34596164a77f5664b2, type: 3}
+  m_Name: Harpoon
+  m_EditorClassIdentifier: 
+  itemName: Harpoon
+  icon: {fileID: 21300000, guid: 9aed4109c300d724db07e84ddad54cb8, type: 3}
+  maxStack: 1
+  itemPrefab: {fileID: 5066644381653921950, guid: 2d8862ad04aa0470faa5e41152ddd7b7, type: 3}

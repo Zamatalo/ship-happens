@@ -7,7 +7,6 @@ namespace Player {
 	public class PlayerController : NetworkBehaviour {
 		public float moveSpeed = 5f;
 		public float jumpForce = 5f;
-		public float maxMag = 10f;
 		public GameObject characterObj;
 		public GameObject handsObj;
 		public bool isGrounded;
@@ -27,6 +26,7 @@ namespace Player {
 		private void Start() {
 			_rb = GetComponent<Rigidbody>();
 			animator = GetComponent<Animator>();
+			
 			if (IsLocalPlayer) {
 				characterObj.SetActive(false);
 				handsObj.SetActive(true);
@@ -36,25 +36,23 @@ namespace Player {
 			}
 		}
 
-		private void FixedUpdate() {
-			if (IsOwner) {
-				ClampVel();
+		private void FixedUpdate()
+		{
+			if (!IsOwner) return;
+			
+			isGrounded = Physics.Raycast(foot.position, transform.up * -1f, 0.1f);
 
-				isGrounded = Physics.Raycast(foot.position, transform.up * -1f, 0.5f);
+			var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
 
-				var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
+			var movement = transform.rotation * inputDir;
+			movement *= moveSpeed * Time.fixedDeltaTime;
+			_rb.MovePosition(_rb.position + movement);
 
-				var movement = transform.rotation * inputDir;
-				movement *= moveSpeed * Time.fixedDeltaTime;
-				_rb.MovePosition(_rb.position + movement);
-
-				_isMoving = _moveInput.sqrMagnitude > 0.01f;
-				animator.SetFloat("moveX", _moveInput.x);
-				animator.SetFloat("moveZ", _moveInput.y);
-				animator.SetFloat("verticalSpeed", _rb.linearVelocity.y);
-				animator.SetBool("isGrounded", isGrounded);
-				animator.SetBool("isMoving", _isMoving);
-			}
+			_isMoving = _moveInput.sqrMagnitude > 0.01f;
+			animator.SetFloat("moveX", _moveInput.x);
+			animator.SetFloat("moveZ", _moveInput.y);
+			animator.SetBool("isGrounded", isGrounded);
+			animator.SetBool("isMoving", _isMoving);
 		}
 
 		private void OnEnable() {
@@ -84,11 +82,6 @@ namespace Player {
 		private void Jump() {
 			_rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 			animator.SetTrigger("Jump");
-		}
-
-		private void ClampVel() {
-			if (_rb.linearVelocity.magnitude > maxMag)
-				_rb.linearVelocity = _rb.linearVelocity.normalized * maxMag;
 		}
 	}
 }
