@@ -2,10 +2,11 @@ using System;
 using Item;
 using Item.Collectable;
 using Player.Inventory;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Player {
-	public class PlayerItem : MonoBehaviour {
+	public class PlayerItem : NetworkBehaviour {
 		public GameObject playerObject;
 		public GameObject magnetPrefab;
 		public GameObject magnetCollectablePrefab;
@@ -28,6 +29,8 @@ namespace Player {
 		private PlayerInventory _inventory;
 
 		private void Start() {
+			if (!IsOwner) return;
+
 			_current = Instantiate(magnetPrefab);
 			_inventory = playerObject.GetComponent<PlayerInventory>();
 			_inventory.AddSlotChangeListener(OnSlotChange);
@@ -35,6 +38,8 @@ namespace Player {
 		}
 
 		private void OnSlotChange(Slot slot) {
+			if (!IsOwner) return;
+
 			Destroy(_current);
 			switch (slot.kind) {
 				case Slot.SlotKind.None:
@@ -81,6 +86,8 @@ namespace Player {
 		}
 
 		private void OnDropItem(Slot slot) {
+			if (!IsOwner) return;
+
 			var item = slot.kind switch {
 				Slot.SlotKind.None => throw new Exception("Unexpected slot kind"),
 				Slot.SlotKind.Magnet => Instantiate(magnetCollectablePrefab, transform.position,
