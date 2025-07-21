@@ -5,9 +5,11 @@ using UnityEngine.InputSystem;
 
 namespace Player {
 	public class PlayerController : NetworkBehaviour {
-
-		private PlayerInput _playerInputActions;
+		[Header("Items")]
 		private PlayerInventoryNew _playerInventory;
+		public Transform ItemHolder;
+		private IUsableItem currentItemScript;
+		
 		[Header("Movement")]
 		public float moveSpeed = 5f;
 		private Vector2 _moveInput;
@@ -36,11 +38,6 @@ namespace Player {
 
 		private Vector3 m_lookInput; 
 		private float rotationVelocity;
-
-		private void Awake() {
-			_playerInputActions = GetComponent<PlayerInput>();
-		}
-
 		public override void OnNetworkSpawn()
 		{
 			if (mainCamera == null)
@@ -103,7 +100,12 @@ namespace Player {
 			var spherePosition = transform.position + Vector3.down * GroundedOffset;
 			isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
 		}
-
+		
+		public void Jump() {
+			_rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+			animator.SetTrigger("Jump");
+		}
+		
 		public void OnMove(InputAction.CallbackContext context) {
 			if (!IsOwner) return;
 			_moveInput = context.ReadValue<Vector2>();
@@ -133,10 +135,31 @@ namespace Player {
 			_playerInventory.AddItemServerRpc("Magnet", 1);
 		}
 
-		public void Jump() {
-			_rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-			animator.SetTrigger("Jump");
+		public void UpdateEquippedItem()
+		{
+			if (ItemHolder.childCount > 0)
+			{
+				currentItemScript = ItemHolder.GetChild(0).GetComponent<IUsableItem>();
+				currentItemScript?.Init(ItemHolder);
+			}
+			else
+			{
+				currentItemScript = null;
+			}
 		}
-		
+
+
+		public void OnUseItem(InputAction.CallbackContext context) {
+			if (!IsOwner) return;
+
+			if (context.started) {
+				UpdateEquippedItem();
+				currentItemScript?.Use();
+			}
+			else if (context.canceled)
+			{
+				currentItemScript?.Unuse();
+			}
+		}
 	}
 }

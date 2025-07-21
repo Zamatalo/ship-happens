@@ -1,58 +1,81 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Item {
-	public class Magnet : MonoBehaviour {
-		public float pullSpeed = 10f;
-		public float maxDist = 100f;
-		public AudioSource magnetSound;
-		private InputSystem_Actions _ia;
-		private Transform _origin;
-		private bool _pulling;
+    public class Magnet : MonoBehaviour, IUsableItem 
+    {
+        [SerializeField] private float pullSpeed = 25f;
+        [SerializeField] private float maxDistance = 100;
+        [SerializeField] private float grabDistance = 2f;
+        
+        [SerializeField] private AudioSource magnetSound;
+        
+        private Transform _origin;
+        private Loot.Loot _currentLoot;
+        private bool _isActive;
 
-		private void Awake() {
-			_ia = new InputSystem_Actions();
-		}
+        public void Init(Transform origin) 
+        {
+            _origin = origin;
+        }
 
-		private void FixedUpdate() {
-			if (_pulling && !ReferenceEquals(_origin, null)) Pull();
-		}
+        public void Use()
+        {
+            if (_isActive) return;
+            _isActive = true;
+            magnetSound?.Play();
+        }
 
-		private void OnEnable() {
-			_ia.Enable();
-			_ia.Magnet.Pull.performed += OnPullStart;
-			_ia.Magnet.Pull.canceled += OnPullEnd;
-		}
+        public void Unuse()
+        {
+            if (!_isActive) return;
+            _isActive = false;
+            magnetSound?.Stop();
+        }
 
-		private void OnDisable() {
-			_ia.Magnet.Pull.performed -= OnPullStart;
-			_ia.Magnet.Pull.canceled -= OnPullEnd;
-			_ia.Disable();
-		}
+        private void FixedUpdate() 
+        {
+            if (!_isActive || !_origin) return;
 
-		public void Init(Transform origin) {
-			_origin = origin;
-		}
+            if (_currentLoot)
+            {
+                float distance = Vector3.Distance(_currentLoot.transform.position, _origin.position);
+                
+                if (distance <= grabDistance)
+                {
+                    _currentLoot = null;
+                    return;
+                }
 
-		private void OnPullStart(InputAction.CallbackContext _) {
-			_pulling = true;
-			magnetSound.Play();
-		}
+                _currentLoot.transform.position = Vector3.MoveTowards(
+                    _currentLoot.transform.position,
+                    _origin.position,
+                    pullSpeed * Time.fixedDeltaTime
+                );
+                return;
+            }
 
-		private void OnPullEnd(InputAction.CallbackContext _) {
-			magnetSound.Stop();
-			_pulling = false;
-		}
+            // Find new loot to pull
+            if (Physics.Raycast(_origin.position, _origin.forward, out var hit, maxDistance))
+            {
+                if (hit.collider.TryGetComponent(out _currentLoot))
+                {
+                    Debug.Log($"Pulling loot: {_currentLoot.name}");
+                }
+            }
+        }
 
-		private void Pull() {
-			if (!Physics.Raycast(_origin.position, _origin.forward, out var hit, maxDist)) return;
-			if (!hit.collider.TryGetComponent(out Loot.Loot loot)) return;
+        private void OnDisable() 
+        {
+            Unuse(); 
+        }
 
-			loot.transform.position = Vector3.MoveTowards(
-				loot.transform.position,
-				_origin.position,
-				pullSpeed * Time.fixedDeltaTime
-			);
-		}
-	}
+        private void OnDrawGizmosSelected()
+        {
+            if (_origin != null)
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(_origin.position, _origin.position + _origin.forward * maxDistance);
+            }
+        }
+    }
 }

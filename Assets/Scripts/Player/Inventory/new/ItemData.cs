@@ -9,3 +9,13 @@ public class ItemData : ScriptableObject
     
     public GameObject itemPrefab;
 }
+
+
+//shows that item is usable
+
+public interface IUsableItem
+{
+    void Init(Transform origin);
+    void Use();
+    void Unuse();
+}
