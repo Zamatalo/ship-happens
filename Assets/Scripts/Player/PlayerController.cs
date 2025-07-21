@@ -88,7 +88,7 @@ namespace Player {
 			rotationVelocity = m_lookInput.x * RotationSpeed * deltaTimeMultiplier;
 
 			cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, BottomClamp, TopClamp);
-			CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(cinemachineTargetPitch, 0.0f, 0.0f);
+				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(cinemachineTargetPitch, 0.0f, 0.0f);
 			transform.Rotate(Vector3.up * rotationVelocity);
 		}
     
