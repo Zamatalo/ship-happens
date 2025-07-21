@@ -19,7 +19,6 @@ namespace Env {
 			var gravity = closest.GetGravity(transform.position);
 			rb.AddForce(gravity);
 
-			// Вращаем объект, чтобы "низ" смотрел на центр астероида
 			var gravityUp = -closest.GetGravityDirection(transform.position);
 			var targetRotation =
 				Quaternion.FromToRotation(transform.up, gravityUp) * transform.rotation;

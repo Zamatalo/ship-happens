@@ -59,8 +59,16 @@ public class PlayerInventoryNew : NetworkBehaviour
     public void SyncInventory()
     {
         var itemsList = inventory.ToArray().Where(item => !item.IsEmpty).ToList();
-        InventoryUI.Instance.RefreshInventory(itemsList);
+
+        var wrapper = new InventoryWrapper { slots = itemsList };
+        string jsonString = JsonUtility.ToJson(wrapper);
+
+        if (IsServer)
+        {
+            inventoryJson.Value = new FixedString512Bytes(jsonString);
+        }
     }
+
 
     public override void OnNetworkSpawn()
     {
@@ -81,12 +89,13 @@ public class PlayerInventoryNew : NetworkBehaviour
         string jsonString = newVal.ToString(); 
         var wrapper = JsonUtility.FromJson<InventoryWrapper>(jsonString);
         inventory = wrapper.slots;
-        
+
         if (InventoryUI.Instance != null)
         {
             InventoryUI.Instance.RefreshInventory(inventory);
         }
     }
+
 
     [Serializable]
     public class InventoryWrapper

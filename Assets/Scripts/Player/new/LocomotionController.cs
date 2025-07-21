@@ -26,7 +26,6 @@ public class LocomotionController : MonoBehaviour, ICharacterController
 {
     public KinematicCharacterMotor Motor;
     
-    
     [Header("Stable Movement")]
     [SerializeField] private float MaxStableMoveSpeed = 10f;
     [SerializeField] private float StableMovementSharpness = 15f;
