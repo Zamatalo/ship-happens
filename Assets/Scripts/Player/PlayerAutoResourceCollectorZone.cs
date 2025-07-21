@@ -1,3 +1,4 @@
+using Notifications;
 using Player.Inventory;
 using UnityEngine;
 
@@ -13,7 +14,10 @@ namespace Player {
 		private void OnTriggerEnter(Collider other) {
 			if (!other.gameObject.TryGetComponent(out Loot.Loot loot)) return;
 
-			if (_inventory.Collect(loot.kind, loot.amount, null)) Destroy(loot.gameObject);
+			if (_inventory.Collect(loot.kind, loot.amount, null)) {
+				Destroy(loot.gameObject);
+				FindAnyObjectByType<NotificationManager>().ShowNotification("First steps!");
+			}
 		}
 	}
 }
