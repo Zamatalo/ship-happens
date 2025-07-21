@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Harpoon
   m_EditorClassIdentifier: 
   itemName: Harpoon
-  icon: {fileID: 21300000, guid: 9aed4109c300d724db07e84ddad54cb8, type: 3}
+  icon: {fileID: 21300000, guid: d932a0bcd20307d418aa46bedecb44ae, type: 3}
   maxStack: 1
   itemPrefab: {fileID: 5066644381653921950, guid: 2d8862ad04aa0470faa5e41152ddd7b7, type: 3}

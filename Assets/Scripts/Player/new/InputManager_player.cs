@@ -9,7 +9,7 @@ using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
 
-public class InputManager : MonoBehaviour
+public class InputManager_player : MonoBehaviour
 {
     [SerializeField] private CharacterCamera _characterCamera;
     [SerializeField] private LocomotionController _locomotionController;
