@@ -3362,11 +3362,11 @@ MonoBehaviour:
   magnetCollectablePrefab: {fileID: 5446213650436569997, guid: b41ff37f22a0f214a9c2eec2706a4e96, type: 3}
   harpoonGunPrefab: {fileID: 5066644381653921950, guid: 2d8862ad04aa0470faa5e41152ddd7b7, type: 3}
   harpoonGunCollectablePrefab: {fileID: 5066644381653921950, guid: 9dd9bae9e1b23444693719b2dcff2693, type: 3}
-  jetpackPrefab: {fileID: 5205783018273025614, guid: 3bc56c8bae2a94f4183dc996a50e33a3, type: 3}
+  jetpackPrefab: {fileID: 4225946091603122071, guid: 3bc56c8bae2a94f4183dc996a50e33a3, type: 3}
   jetpackCollectablePrefab: {fileID: 5205783018273025614, guid: 8518854cf4e281542a5d33d4ce943026, type: 3}
   metalPrefab: {fileID: 4020595950540665146, guid: 334fe159435eec24cbb49000d1e5cfb9, type: 3}
   metalCollectablePrefab: {fileID: 4020595950540665146, guid: 2d1b8be0b2457f348adf2fee64f52707, type: 3}
-  planksPrefab: {fileID: 4020595950540665146, guid: 4f0907e61657b9141b861b28213a4c68, type: 3}
+  planksPrefab: {fileID: 8248052006776745587, guid: 4f0907e61657b9141b861b28213a4c68, type: 3}
   planksCollectablePrefab: {fileID: 4020595950540665146, guid: c63b04904441dc04ba73595751b9188f, type: 3}
   ediblePrefab: {fileID: 4520857502877082271, guid: 5027b6bbc97281c41a0d3394eee6e88c, type: 3}
   edibleCollectablePrefab: {fileID: 4520857502877082271, guid: a7c3334d6ddfbc840a3ef81ffa9c0970, type: 3}
@@ -4510,7 +4510,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6d55ae8d99786374393be261d62d694e, type: 3}
   - {fileID: 8300000, guid: 01fc8d4fe8daac14788186b454fd5330, type: 3}
   jumpSounds:
-  - {fileID: 8300000, guid: 6c1c8d748030d5f48a663c7ba9a55b95, type: 3}
+  - {fileID: 8300000, guid: 3259e7515509929478a30a262b61a1d7, type: 3}
 --- !u!114 &2220893835001215256
 MonoBehaviour:
   m_ObjectHideFlags: 0
