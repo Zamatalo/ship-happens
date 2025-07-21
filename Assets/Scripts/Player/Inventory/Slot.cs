@@ -1,10 +1,12 @@
 using System;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Player.Inventory {
-	public class Slot : MonoBehaviour {
+	[Serializable]
+	public class Slot : MonoBehaviour, INetworkSerializable {
 		public enum SlotKind {
 			None,
 			Magnet,
@@ -27,7 +29,7 @@ namespace Player.Inventory {
 		public Material potableSprite;
 		public SlotKind kind;
 		public int amount;
-		public float? JetpackFuel;
+		public float jetpackFuel = -1;
 
 		private void Update() {
 			switch (kind) {
@@ -67,6 +69,12 @@ namespace Player.Inventory {
 					throw new ArgumentOutOfRangeException();
 			}
 			amountText.text = $"{amount}";
+		}
+
+		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
+			serializer.SerializeValue(ref kind);
+			serializer.SerializeValue(ref amount);
+			serializer.SerializeValue(ref jetpackFuel);
 		}
 
 		public bool Stackable() {

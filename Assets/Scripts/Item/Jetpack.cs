@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Debug = System.Diagnostics.Debug;
 
 namespace Item {
 	public class Jetpack : MonoBehaviour {
@@ -23,7 +22,8 @@ namespace Item {
 
 		private void Start() {
 			fuelSlider.maxValue = cap;
-			fuelSlider.value = _slot.JetpackFuel ?? cap;
+			fuelSlider.value =
+				!Mathf.Approximately(_slot.jetpackFuel, -1) ? _slot.jetpackFuel : cap;
 		}
 
 		private void FixedUpdate() {
@@ -52,35 +52,30 @@ namespace Item {
 			_cameraTransform = cameraTransform;
 			_slot = slot;
 
-			_slot.JetpackFuel ??= cap;
+			_slot.jetpackFuel =
+				!Mathf.Approximately(_slot.jetpackFuel, -1) ? _slot.jetpackFuel : cap;
 		}
 
 		private void OnToggleBurnForward(InputAction.CallbackContext _) {
-			Debug.Assert(_slot.JetpackFuel != null);
-
-			if (_slot.JetpackFuel.Value == 0f) return;
+			if (_slot.jetpackFuel == 0f) return;
 			_burningForward = !_burningForward;
 		}
 
 		private void OnToggleBurnUp(InputAction.CallbackContext _) {
-			Debug.Assert(_slot.JetpackFuel != null);
-
-			if (_slot.JetpackFuel.Value == 0f) return;
+			if (_slot.jetpackFuel == 0f) return;
 			_burningUp = !_burningUp;
 		}
 
 		private void Burn(Vector3 force) {
-			Debug.Assert(_slot.JetpackFuel != null);
-
 			_playerRb.AddForce(force, ForceMode.Acceleration);
-			_slot.JetpackFuel = Mathf.Max(0, _slot.JetpackFuel.Value - Time.fixedDeltaTime);
+			_slot.jetpackFuel = Mathf.Max(0, _slot.jetpackFuel - Time.fixedDeltaTime);
 
-			if (_slot.JetpackFuel.Value == 0f) {
+			if (_slot.jetpackFuel == 0f) {
 				_burningForward = false;
 				_burningUp = false;
 			}
 
-			fuelSlider.value = _slot.JetpackFuel.Value;
+			fuelSlider.value = _slot.jetpackFuel;
 		}
 	}
 }

@@ -14,7 +14,7 @@ namespace Player {
 		private void OnTriggerEnter(Collider other) {
 			if (!other.gameObject.TryGetComponent(out Loot.Loot loot)) return;
 
-			if (_inventory.Collect(loot.kind, loot.amount, null)) {
+			if (_inventory.Collect(loot.kind, loot.amount, -1)) {
 				Destroy(loot.gameObject);
 				FindAnyObjectByType<NotificationManager>().ShowNotification("First steps!");
 			}

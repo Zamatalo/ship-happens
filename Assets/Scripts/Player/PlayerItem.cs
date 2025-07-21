@@ -31,16 +31,14 @@ namespace Player {
 		private void Start() {
 			if (!IsOwner) return;
 
-			_current = Instantiate(magnetPrefab);
 			_inventory = playerObject.GetComponent<PlayerInventory>();
 			_inventory.AddSlotChangeListener(OnSlotChange);
-			_inventory.AddDropItemListener(OnDropItem);
+			_inventory.AddDropItemListener(OnDropItemServerRpc);
 		}
 
 		private void OnSlotChange(Slot slot) {
-			if (!IsOwner) return;
+			if (!ReferenceEquals(_current, null)) Destroy(_current);
 
-			Destroy(_current);
 			switch (slot.kind) {
 				case Slot.SlotKind.None:
 					break;
@@ -85,9 +83,8 @@ namespace Player {
 			}
 		}
 
-		private void OnDropItem(Slot slot) {
-			if (!IsOwner) return;
-
+		[ServerRpc]
+		private void OnDropItemServerRpc(Slot slot) {
 			var item = slot.kind switch {
 				Slot.SlotKind.None => throw new Exception("Unexpected slot kind"),
 				Slot.SlotKind.Magnet => Instantiate(magnetCollectablePrefab, transform.position,
@@ -109,7 +106,9 @@ namespace Player {
 
 			var force = cameraTransform.forward * itemDropForwardForce +
 			            cameraTransform.up * itemDropUpForce;
-			item.GetComponent<CollectableItem>().Init(slot.kind, slot.amount, slot.JetpackFuel);
+
+			item.GetComponent<NetworkObject>().Spawn();
+			item.GetComponent<CollectableItem>().Init(slot.kind, slot.amount, slot.jetpackFuel);
 			item.GetComponent<Rigidbody>().AddForce(force);
 		}
 	}
