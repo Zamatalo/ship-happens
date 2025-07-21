@@ -3366,7 +3366,7 @@ MonoBehaviour:
   jetpackCollectablePrefab: {fileID: 5205783018273025614, guid: 8518854cf4e281542a5d33d4ce943026, type: 3}
   metalPrefab: {fileID: 4020595950540665146, guid: 334fe159435eec24cbb49000d1e5cfb9, type: 3}
   metalCollectablePrefab: {fileID: 4020595950540665146, guid: 2d1b8be0b2457f348adf2fee64f52707, type: 3}
-  planksPrefab: {fileID: 4020595950540665146, guid: 4f0907e61657b9141b861b28213a4c68, type: 3}
+  planksPrefab: {fileID: 8248052006776745587, guid: 4f0907e61657b9141b861b28213a4c68, type: 3}
   planksCollectablePrefab: {fileID: 4020595950540665146, guid: c63b04904441dc04ba73595751b9188f, type: 3}
   ediblePrefab: {fileID: 4520857502877082271, guid: 5027b6bbc97281c41a0d3394eee6e88c, type: 3}
   edibleCollectablePrefab: {fileID: 4520857502877082271, guid: a7c3334d6ddfbc840a3ef81ffa9c0970, type: 3}
