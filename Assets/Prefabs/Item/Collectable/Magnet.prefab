@@ -130,9 +130,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model
       objectReference: {fileID: 0}
+    - target: {fileID: -5151492872390713093, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3189575019860089800, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2922055740350355839, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2408725232146278308, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_Name
       value: Magnet
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4436805663696350335, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_LocalScale.x
@@ -199,7 +219,36 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       insertIndex: -1
       addedObject: {fileID: -184435134281834726}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6702675576873041974}
+    - targetCorrespondingSourceObject: {fileID: -2408725232146278308, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7625069273753513511}
   m_SourcePrefab: {fileID: 100100000, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
+--- !u!1 &1857667284329045632 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2408725232146278308, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
+  m_PrefabInstance: {fileID: 5140225262170572508}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7625069273753513511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857667284329045632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.9386786, g: 1, b: 0, a: 1}
+  outlineWidth: 9.6
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &4674462468110016823 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
@@ -348,3 +397,21 @@ MonoBehaviour:
   UseRigidBodyForMotion: 1
   AutoUpdateKinematicState: 0
   AutoSetKinematicOnDespawn: 0
+--- !u!114 &6702675576873041974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446213650436569997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.9469855, g: 1, b: 0, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

@@ -4535,6 +4535,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jetpack
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6a061623208a5f44e81ade76776c26c1, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8880587725423901178, guid: 6a061623208a5f44e81ade76776c26c1, type: 3}
@@ -4576,6 +4580,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6a061623208a5f44e81ade76776c26c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2744212375840586276}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6a061623208a5f44e81ade76776c26c1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5619875983776383950}
   m_SourcePrefab: {fileID: 100100000, guid: 6a061623208a5f44e81ade76776c26c1, type: 3}
 --- !u!4 &4860924131452712180 stripped
 Transform:
@@ -4725,3 +4732,21 @@ MonoBehaviour:
   UseRigidBodyForMotion: 1
   AutoUpdateKinematicState: 0
   AutoSetKinematicOnDespawn: 0
+--- !u!114 &-5619875983776383950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5205783018273025614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.9469855, g: 1, b: 0, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
