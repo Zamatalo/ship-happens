@@ -108,6 +108,10 @@ public partial class InventoryElement : VisualElement
         Quantity.text = "";
         Quantity.style.display = DisplayStyle.None;
     }
+    public bool IsEmpty()
+    {
+        return inventoryItem == null;
+    }
 }
 
 public enum InventoryElementType

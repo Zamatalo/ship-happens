@@ -354,7 +354,7 @@ MonoBehaviour:
   notActualOrigin: {fileID: 9084105664515899985}
   harpoonPrefab: {fileID: 5442275444050204734, guid: 567f15d54ba0f4bdcbb0d2466894dc5d, type: 3}
   nakonechnik: {fileID: 459897691785594447}
-  shootForce: 1000
+  shootForce: 150
   pullSpeed: 50
   ugolNakonechnik: {x: 0, y: 0, z: -110}
   animator: {fileID: 8332045128865033839}

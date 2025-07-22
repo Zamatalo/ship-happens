@@ -1,15 +1,12 @@
 using System;
 using Unity.Netcode;
 using UnityEngine;
-/*
- 
- */
+
 [Serializable]
 public struct InventoryItem : INetworkSerializable, IEquatable<InventoryItem>
 {
     public string itemName;
     public int quantity;
-    
     public bool IsEmpty => string.IsNullOrEmpty(itemName) || quantity <= 0;
     
     public InventoryItem(string itemName, int quantity)

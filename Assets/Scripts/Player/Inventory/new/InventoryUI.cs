@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
@@ -19,14 +20,10 @@ public class InventoryUI : MonoBehaviour {
 	private InventoryElement selectedHotbarSlot;
 
 	private List<InventoryElement> slots = new();
-	private VisualElement slotsContainer;
-	/*TEMP VALUES*/
-	// private string tempItemName;
-	// private int tempItemQuantity;
-	// private Sprite tempItemSprite;
-	// private Image tempItemImage;
-	private InventoryElement tempTarget;
+	private List<InventoryElement> hotbarSlots = new();
 
+	private VisualElement slotsContainer;
+	private InventoryElement tempTarget;
 	/**/
 	private void Awake() {
 		if (Instance != null && Instance != this) {
@@ -62,13 +59,12 @@ public class InventoryUI : MonoBehaviour {
 	}
 
 	private void SelectHotbarSlot(int hotbarIndex) {
-		var hotbarSlots = slots
-			.Where(s => s.ElementType == InventoryElementType.Hotbar)
-			.ToList();
+		// var hotbarSlots = slots
+		// 	.Where(s => s.ElementType == InventoryElementType.Hotbar)
+		// 	.ToList();
 
 		if (hotbarIndex < 0 || hotbarIndex >= hotbarSlots.Count)
 			return;
-
 		selectedHotbarSlot?.RemoveFromClassList("selected");
 
 		selectedHotbarSlot = hotbarSlots[hotbarIndex];
@@ -80,12 +76,17 @@ public class InventoryUI : MonoBehaviour {
 	private void InitializeSlots() {
 		slots.Clear();
 		slots = slotsContainer.Query<InventoryElement>().ToList();
-		slots.AddRange(hotbarContainer.Query<InventoryElement>().ToList());
+		hotbarSlots.AddRange(hotbarContainer.Query<InventoryElement>().ToList());
 
 		Debug.Log($"Total slots initialized: {slots.Count}");
 		for (var i = 0; i < slots.Count; i++) {
 			Debug.Log($"Slot {i}: {slots[i].name}");
 			slots[i].RegisterCallback<PointerDownEvent>(OnPointerDown);
+		}
+		Debug.Log($"Total HotbarSlots initialized: {slots.Count}");
+		for (var i = 0; i < hotbarSlots.Count; i++) {
+			Debug.Log($"Slot {i}: {hotbarSlots[i].name}");
+			hotbarSlots[i].RegisterCallback<PointerDownEvent>(OnPointerDown);
 		}
 	}
 
@@ -135,10 +136,15 @@ public class InventoryUI : MonoBehaviour {
 
 	private void OnPointerUp(PointerUpEvent evt) {
 		if (!isDragging) return;
-
-		var slotUnderCursor = slots
-			.FirstOrDefault(s => s.worldBound.Contains(evt.position));
-
+		List<InventoryElement> allSlots = new List<InventoryElement>();
+		allSlots.AddRange(slots);
+		allSlots.AddRange(hotbarSlots);
+		var slotUnderCursor = allSlots.FirstOrDefault(s => s.worldBound.Contains(evt.position));
+		// var slotUnderCursor =
+		// 	slots.FirstOrDefault(s => s.worldBound.Contains(evt.position))!=null
+		// 	?slots.FirstOrDefault(s => s.worldBound.Contains(evt.position))
+		// 	:hotbarSlots.FirstOrDefault(e => e.worldBound.Contains(evt.position));
+		
 		//out ot bounds
 		if (slotUnderCursor == null || dragSource == null) {
 			tempTarget.Icon.style.display = DisplayStyle.Flex;
@@ -159,9 +165,14 @@ public class InventoryUI : MonoBehaviour {
 				? 0
 				: int.Parse(slotUnderCursor.Quantity.text);
 
+			// int slotType = slotUnderCursor.ElementType == InventoryElementType.Hotbar
+			// 	? hotbarSlots.FindIndex(slot => slot.ItemName == targetName) //if hotbar
+			// 	: 0; // if inventory
+			
+						
 			slotUnderCursor.SetItem(
 				new InventoryItem(dragSource.ItemName, int.Parse(dragSource.Quantity.text))
-			);
+				);
 
 			dragSource.SetItem(new InventoryItem(targetName, targetQty));
 		}
@@ -170,19 +181,30 @@ public class InventoryUI : MonoBehaviour {
 		dragSource = null;
 	}
 
-	public void RefreshInventory(List<InventoryItem> items) {
+	public void RefreshInventory(List<InventoryItem> items)
+	{
 		if (slots == null || slots.Count == 0 || items == null) return;
 
 		foreach (var t in slots) t.ClearItem();
 
-		for (var i = 0; i < items.Count && i < slots.Count; i++)
-			if (!items[i].IsEmpty) {
-				slots[i].SetItem(items[i]);
-				Debug.Log($"Added {items[i].itemName} to slot {i}");
-			} else {
-				Debug.LogWarning($"Skipping empty item at index {i}");
+		foreach (var item in items)
+		{
+			if (item.IsEmpty) continue;
+
+			var item1 = item;
+			var existingHotbarSlot = hotbarSlots.FirstOrDefault(e => e.ItemName == item1.itemName);
+			if (existingHotbarSlot != null)
+			{
+				existingHotbarSlot.Quantity.text = item.quantity.ToString();
 			}
+			else
+			{
+				var emptySlot = slots.FirstOrDefault(s => s.IsEmpty());
+				emptySlot?.SetItem(item);
+			}
+		}
 	}
+
 
 	private void ToggleInventory() {
 		if (inventoryRoot == null) return;

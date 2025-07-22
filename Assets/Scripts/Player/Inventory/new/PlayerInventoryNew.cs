@@ -23,9 +23,10 @@ public class PlayerInventoryNew : NetworkBehaviour
         var index = inventory.FindIndex(s => s.itemName == itemName);
         if (index >= 0){
             var slot = inventory[index];
-            if (slot.quantity >= maxStack) return;
             
             slot.quantity += amount;
+            if (slot.quantity > maxStack) return;
+            
             inventory[index] = slot;
         }
         else{
