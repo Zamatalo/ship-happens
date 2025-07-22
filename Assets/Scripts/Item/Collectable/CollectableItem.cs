@@ -1,13 +1,14 @@
 using System.Collections;
 using Player.Inventory;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Item.Collectable {
 	[RequireComponent(typeof(Rigidbody))]
-	public class CollectableItem : MonoBehaviour {
+	public class CollectableItem : NetworkBehaviour {
 		public GameObject collectZoneObject;
 		private int _amount;
-		private float? _jetpackFuel;
+		private float _jetpackFuel;
 		private Slot.SlotKind _kind;
 		private Rigidbody _rb;
 		private CollectableItemZone _zone;
@@ -18,7 +19,7 @@ namespace Item.Collectable {
 			StartCoroutine(AfterStart());
 		}
 
-		public void Init(Slot.SlotKind kind, int amount, float? jetpackFuel) {
+		public void Init(Slot.SlotKind kind, int amount, float jetpackFuel) {
 			_kind = kind;
 			_amount = amount;
 			_jetpackFuel = jetpackFuel;
@@ -32,7 +33,15 @@ namespace Item.Collectable {
 		}
 
 		private void OnZoneEnter(PlayerInventory inventory) {
-			if (inventory.Collect(_kind, _amount, _jetpackFuel)) Destroy(gameObject);
+			if (!IsOwner) return;
+
+			if (inventory.Collect(_kind, _amount, _jetpackFuel)) CollectServerRpc();
+		}
+
+		[ServerRpc]
+		private void CollectServerRpc() {
+			GetComponent<NetworkObject>().Despawn();
+			Destroy(gameObject);
 		}
 	}
 }

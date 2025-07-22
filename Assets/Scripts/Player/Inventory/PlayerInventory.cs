@@ -121,12 +121,12 @@ namespace Player.Inventory {
 			foreach (var fn in _slotChangeListeners) fn.Invoke(_slots[_i]);
 		}
 
-		public bool Collect(Slot.SlotKind slotKind, int amount, float? jetpackFuel) {
+		public bool Collect(Slot.SlotKind slotKind, int amount, float jetpackFuel) {
 			foreach (var slot in _slots) {
 				if (slot.kind == Slot.SlotKind.None) {
 					slot.kind = slotKind;
 					slot.amount = amount;
-					slot.JetpackFuel = jetpackFuel;
+					slot.jetpackFuel = jetpackFuel;
 					return true;
 				}
 
