@@ -1,0 +1,95 @@
+﻿using System.Collections.Generic;
+using Notifications;
+using UnityEngine;
+
+namespace Item {
+	public class GravityGun : MonoBehaviour, IUsableItem {
+		[SerializeField] private float pullSpeed = 25f;
+		[SerializeField] private float maxDistance = 1000000f;
+		[SerializeField] private float grabDistance = 2f;
+		[SerializeField] private List<LineRenderer> beamLines;
+		[SerializeField] private AudioSource magnetSound;
+		private Loot.Loot _currentLoot;
+		private bool _isActive;
+		private NotificationManager _notificationManager;
+		private Transform _origin;
+
+		private void Update() {
+			if (!_isActive || !_origin) {
+				foreach (var beamLine in beamLines) beamLine.enabled = false;
+				return;
+			}
+
+			var hitSomething = Physics.Raycast(_origin.position, _origin.forward,
+				out var laserHit, maxDistance);
+
+			if (_currentLoot) {
+				var distance =
+					Vector3.Distance(_currentLoot.transform.position, _origin.position);
+
+				if (distance <= grabDistance) {
+					_currentLoot = null;
+					foreach (var beamLine in beamLines) beamLine.enabled = false;
+					return;
+				}
+
+				_currentLoot.transform.position = Vector3.MoveTowards(
+					_currentLoot.transform.position,
+					_origin.position,
+					pullSpeed * Time.fixedDeltaTime
+				);
+			} else if (hitSomething) {
+				if (laserHit.collider.TryGetComponent(out _currentLoot))
+					Debug.Log($"Pulling loot: {_currentLoot.name}");
+				else
+					return;
+			}
+
+			// === ЛАЗЕР ===
+			if (_currentLoot || hitSomething)
+				for (var i = 0; i < beamLines.Count; i++) {
+					beamLines[i].enabled = true;
+					beamLines[i].SetPosition(0, beamLines[i].transform.position);
+					beamLines[i].SetPosition(1,
+						_currentLoot ? _currentLoot.transform.position : laserHit.point);
+				}
+			else
+				foreach (var beamLine in beamLines)
+					beamLine.enabled = false;
+		}
+
+		private void OnDisable() {
+			Unuse();
+		}
+
+		private void OnDrawGizmosSelected() {
+			if (_origin != null) {
+				Gizmos.color = Color.blue;
+				Gizmos.DrawLine(_origin.position, _origin.position + _origin.forward * maxDistance);
+			}
+		}
+
+		public void Init(Transform origin) {
+			_origin = origin;
+			transform.rotation = _origin.rotation * Quaternion.Euler(-11f, -90f, 96f);
+			foreach (var beamLine in beamLines) beamLine.enabled = false; // Скрыть лазер при старте
+			_notificationManager = FindObjectOfType<NotificationManager>();
+		}
+
+		public void Use() {
+			if (_isActive) return;
+			_isActive = true;
+			magnetSound?.Play();
+			_notificationManager?.ShowNotification(
+				" Aim at loot and hold the button to pull it toward you!");
+		}
+
+		public void Unuse() {
+			if (!_isActive) return;
+			_isActive = false;
+			_currentLoot = null;
+			magnetSound?.Stop();
+			foreach (var beamLine in beamLines) beamLine.enabled = false;
+		}
+	}
+}
