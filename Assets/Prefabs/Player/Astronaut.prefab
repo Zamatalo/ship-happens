@@ -4558,8 +4558,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 5
   jumpForce: 5
-  characterObj: {fileID: 469696503118072618}
-  handsObj: {fileID: 2141693620793550440}
+  characterObj: {fileID: 0}
+  handsObj: {fileID: 0}
   isGrounded: 0
-  animator: {fileID: 6680453813875344315}
-  foot: {fileID: 2562146087934654659}
+  animator: {fileID: 0}
+  foot: {fileID: 0}

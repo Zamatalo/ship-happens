@@ -720,6 +720,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf1eae0b793bfd4c9adb0e67c978732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lootPrefabs: []
+  spawnInterval: 5
+  minX: 0
+  maxX: 0
+  minY: 0
+  maxY: 0
+  minZ: 0
+  maxZ: 0
+  minVelX: 0
+  maxVelX: 0
+  minVelZ: 0
+  maxVelZ: 0
+  rotSpeed: 0
+  minLoot: 0
+  maxLoot: 0
 --- !u!4 &621890720 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3678391110528622984, guid: 1c0b6f59419390e40962469ffef297df, type: 3}
@@ -3357,7 +3372,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b65c99348f068b49bef5db0bb76a6e4, type: 2}
   m_sharedMaterial: {fileID: 21809785584020342, guid: 0b65c99348f068b49bef5db0bb76a6e4, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 21809785584020342, guid: 0b65c99348f068b49bef5db0bb76a6e4, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
