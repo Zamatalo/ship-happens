@@ -16,16 +16,19 @@ public class PlayerInventoryNew : NetworkBehaviour
     public void AddItemServerRpc(string itemName, int amount)
     {
         if (string.IsNullOrEmpty(itemName) || amount <= 0) return;
+        var maxStack = InventoryDatabase.Instance.GetItemByName(itemName).maxStack;
+        
+        
         
         var index = inventory.FindIndex(s => s.itemName == itemName);
-        if (index >= 0)
-        {
+        if (index >= 0){
             var slot = inventory[index];
+            if (slot.quantity >= maxStack) return;
+            
             slot.quantity += amount;
             inventory[index] = slot;
         }
-        else
-        {
+        else{
             var a = new InventoryItem { itemName = itemName, quantity = amount};
             inventory.Add(a);
         }
@@ -33,28 +36,27 @@ public class PlayerInventoryNew : NetworkBehaviour
         SyncInventory();
     }
         
-    // [ServerRpc]
-    // public void RemoveItemServerRpc(string itemName, int amount)
-    // {
-    //     var index = inventory.FindIndex(s => s.itemName == itemName);
-    //     if (index >= 0)
-    //     {
-    //         var slot = inventory[index];
-    //         slot.quantity -= amount;
-    //         
-    //         if (slot.quantity <= 0)
-    //         {
-    //             inventory.RemoveAt(index);
-    //             OnItemRemoved?.Invoke(slot);
-    //         }
-    //         else
-    //         {
-    //             inventory[index] = slot;
-    //         }
-    //         
-    //         SyncInventory();
-    //     }
-    // }
+    [ServerRpc]
+    public void RemoveItemServerRpc(string itemName, int amount)
+    {
+        var index = inventory.FindIndex(s => s.itemName == itemName);
+        if (index >= 0)
+        {
+            var slot = inventory[index];
+            slot.quantity -= amount;
+            
+            if (slot.quantity <= 0)
+            {
+                inventory.RemoveAt(index);
+            }
+            else
+            {
+                inventory[index] = slot;
+            }
+            
+            SyncInventory();
+        }
+    }
     
     public void SyncInventory()
     {
@@ -81,8 +83,6 @@ public class PlayerInventoryNew : NetworkBehaviour
         if (IsOwner)
             inventoryJson.OnValueChanged -= OnInventoryUpdated;
     }
-
-    
 
     private void OnInventoryUpdated(FixedString512Bytes oldVal, FixedString512Bytes newVal)
     {

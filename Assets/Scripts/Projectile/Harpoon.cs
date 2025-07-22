@@ -70,18 +70,13 @@ namespace Projectile
                     _lr.SetPosition(0, _notActualOrigin.position);
                     _lr.SetPosition(1, transform.position);
                 }
+
             }
             else{
                 UpdateRopeVisual();
             }
             
             if (_isPulling && hit) Pull();
-        }
-
-        private void FixedUpdate()
-        {
-            if (!hit || !_notActualOrigin) return;
-            
             SimulateRope();
         }
 

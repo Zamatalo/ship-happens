@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6386785495194939345}
   - component: {fileID: 6667480384756446396}
   - component: {fileID: 5599512407357545081}
-  - component: {fileID: 7829235837468448289}
+  - component: {fileID: -4001875467680617889}
   m_Layer: 0
   m_Name: Harpoon
   m_TagString: Untagged
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0655ac47384466b7720d860a2d5124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7829235837468448289
+--- !u!114 &-4001875467680617889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,7 +273,7 @@ MonoBehaviour:
   pullSpeed: 5
   ropeWidth: 0.02
   ropeMaterial: {fileID: 2100000, guid: f5a24d99e7f323040a5c671823a57fdc, type: 2}
-  ropeSegments: 10
+  ropeSegments: 6
   ropeSag: 0.2
   ropeSpring: 20
   ropeDamping: 5

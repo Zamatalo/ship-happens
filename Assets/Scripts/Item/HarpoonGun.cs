@@ -6,7 +6,6 @@ namespace Item
     public class HarpoonGun : MonoBehaviour, IUsableItem
     {
         [Header("References")]
-        [SerializeField] private AudioSource shootSound;
         [SerializeField] private GameObject harpoonObj;
         [SerializeField] private Transform notActualOrigin;
         [SerializeField] private GameObject harpoonPrefab;
@@ -20,7 +19,7 @@ namespace Item
         [Header("Animator")]
         [SerializeField] private Animator animator;
 
-        private bool _isBusy;
+        private bool _isBusy = true;
         private Harpoon _currentHarpoon;
         private Transform _origin;
 
@@ -70,10 +69,9 @@ namespace Item
 
         private void FireHarpoon() 
         {
+            if (_isBusy) return;
             if (harpoonPrefab == null) return;
-
             if (harpoonPrefab.GetComponent<Harpoon>() == null) return;
-            
             if (notActualOrigin == null || _origin == null)  return;
             
             
@@ -89,7 +87,6 @@ namespace Item
             _currentHarpoon.Init(notActualOrigin, _origin, shootForce);
             _currentHarpoon.pullSpeed = pullSpeed;
 
-            if (shootSound != null) shootSound.Play();
         }
         public void Reload()
         {

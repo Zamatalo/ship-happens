@@ -63,15 +63,12 @@ public class InventoryUI : MonoBehaviour
             ToggleInventory();
         }
         
-        if (isDragging)
-        {
+        if (isDragging){
             UpdateGhostIconPosition(Input.mousePosition);
         }
 
-        for (int i = 1; i <= 5; i++)
-        {
-            if (Input.GetKeyDown(i.ToString()))
-            {
+        for (int i = 1; i <= 5; i++){
+            if (Input.GetKeyDown(i.ToString())){
                 SelectHotbarSlot(i - 1);
             }
         }
