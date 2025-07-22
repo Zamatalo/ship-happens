@@ -350,13 +350,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff53764a84a3d403aa7ffadae77b448c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootSound: {fileID: 6886059451642430148}
   harpoonObj: {fileID: 5066644381653921950}
   notActualOrigin: {fileID: 9084105664515899985}
   harpoonPrefab: {fileID: 5442275444050204734, guid: 567f15d54ba0f4bdcbb0d2466894dc5d, type: 3}
   nakonechnik: {fileID: 459897691785594447}
-  shootForce: 20
-  pullSpeed: 5
+  shootForce: 1000
+  pullSpeed: 50
   ugolNakonechnik: {x: 0, y: 0, z: -110}
   animator: {fileID: 8332045128865033839}
 --- !u!82 &6886059451642430148

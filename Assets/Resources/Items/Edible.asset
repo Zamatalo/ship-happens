@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc1b93a1beb6ad34596164a77f5664b2, type: 3}
-  m_Name: Magnet
+  m_Name: Edible
   m_EditorClassIdentifier: 
-  itemName: Magnet
-  icon: {fileID: 21300000, guid: 5fa3c31133b8c6b48a0f8d648aa38c29, type: 3}
-  maxStack: 1
-  itemPrefab: {fileID: 5446213650436569997, guid: 152097b62ad44425a8a9752c293b1e31, type: 3}
+  itemName: Edible
+  icon: {fileID: 21300000, guid: 5e97abd63cea97c479718d19c81e0cdb, type: 3}
+  maxStack: 20
+  itemPrefab: {fileID: 4520857502877082271, guid: 5027b6bbc97281c41a0d3394eee6e88c, type: 3}
