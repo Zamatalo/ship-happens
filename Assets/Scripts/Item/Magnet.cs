@@ -3,8 +3,9 @@
 namespace Item {
     public class Magnet : MonoBehaviour, IUsableItem 
     {
+        public Transform notActualOrigin;
         [SerializeField] private float pullSpeed = 25f;
-        [SerializeField] private float maxDistance = 100;
+        [SerializeField] private float maxDistance = 1000000f;
         [SerializeField] private float grabDistance = 2f;
         [SerializeField] private LineRenderer beamLine;
         [SerializeField] private AudioSource magnetSound;
@@ -73,7 +74,7 @@ namespace Item {
             if (_currentLoot || hitSomething)
             {
                 beamLine.enabled = true;
-                beamLine.SetPosition(0, _origin.position);
+                beamLine.SetPosition(0, notActualOrigin.position);
                 beamLine.SetPosition(1, _currentLoot ? _currentLoot.transform.position : laserHit.point);
             }
             else
