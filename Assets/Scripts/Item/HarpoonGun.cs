@@ -35,6 +35,7 @@ namespace Item
 
         public void Use()
         {
+            if (_isBusy) return;
             if (_currentHarpoon != null && _currentHarpoon.hit)
             {
                 nakonechnik.SetActive(false);
@@ -51,7 +52,7 @@ namespace Item
 
         public void Unuse()
         {   
-            
+            if (_isBusy) return;
             if (_currentHarpoon != null)
             {
                 _currentHarpoon.StopPull();
