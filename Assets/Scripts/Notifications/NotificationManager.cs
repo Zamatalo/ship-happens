@@ -20,6 +20,21 @@ namespace Notifications {
 
         private static IEnumerator FadeAndDestroy(GameObject notif, float delay) {
             yield return new WaitForSeconds(delay);
+
+            CanvasGroup canvasGroup = notif.GetComponent<CanvasGroup>();
+            if (canvasGroup == null) {
+                canvasGroup = notif.AddComponent<CanvasGroup>();
+            }
+
+            float fadeDuration = 0.5f;
+            float elapsed = 0f;
+
+            while (elapsed < fadeDuration) {
+                elapsed += Time.deltaTime;
+                canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+                yield return null;
+            }
+
             Destroy(notif);
         }
     }
