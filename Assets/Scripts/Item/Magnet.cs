@@ -6,7 +6,7 @@ namespace Item {
         [SerializeField] private float pullSpeed = 25f;
         [SerializeField] private float maxDistance = 100;
         [SerializeField] private float grabDistance = 2f;
-        
+        [SerializeField] private LineRenderer beamLine;
         [SerializeField] private AudioSource magnetSound;
         
         private Transform _origin;
@@ -16,6 +16,8 @@ namespace Item {
         public void Init(Transform origin) 
         {
             _origin = origin;
+            transform.rotation = _origin.rotation * Quaternion.Euler(-11f, -90f, 96f);
+            beamLine.enabled = false; // Скрыть лазер при старте
         }
 
         public void Use()
@@ -30,11 +32,17 @@ namespace Item {
             if (!_isActive) return;
             _isActive = false;
             magnetSound?.Stop();
+            beamLine.enabled = false;
         }
 
         private void FixedUpdate() 
         {
-            if (!_isActive || !_origin) return;
+            if (!_isActive || !_origin) {
+                beamLine.enabled = false;
+                return;
+            }
+
+            bool hitSomething = Physics.Raycast(_origin.position, _origin.forward, out RaycastHit laserHit, maxDistance);
 
             if (_currentLoot)
             {
@@ -43,6 +51,7 @@ namespace Item {
                 if (distance <= grabDistance)
                 {
                     _currentLoot = null;
+                    beamLine.enabled = false;
                     return;
                 }
 
@@ -51,16 +60,25 @@ namespace Item {
                     _origin.position,
                     pullSpeed * Time.fixedDeltaTime
                 );
-                return;
             }
-
-            // Find new loot to pull
-            if (Physics.Raycast(_origin.position, _origin.forward, out var hit, maxDistance))
+            else if (hitSomething)
             {
-                if (hit.collider.TryGetComponent(out _currentLoot))
+                if (laserHit.collider.TryGetComponent(out _currentLoot))
                 {
                     Debug.Log($"Pulling loot: {_currentLoot.name}");
                 }
+            }
+
+            // === ЛАЗЕР ===
+            if (_currentLoot || hitSomething)
+            {
+                beamLine.enabled = true;
+                beamLine.SetPosition(0, _origin.position);
+                beamLine.SetPosition(1, _currentLoot ? _currentLoot.transform.position : laserHit.point);
+            }
+            else
+            {
+                beamLine.enabled = false;
             }
         }
 
