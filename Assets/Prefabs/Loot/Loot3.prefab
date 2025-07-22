@@ -48,9 +48,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1911774557121017599, guid: 49c0d9764a9b8814ea263e2f9729c5ee, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 49c0d9764a9b8814ea263e2f9729c5ee, type: 3}
       propertyPath: m_Name
       value: Loot3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 49c0d9764a9b8814ea263e2f9729c5ee, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 49c0d9764a9b8814ea263e2f9729c5ee, type: 3}
+      propertyPath: m_TagString
+      value: Loot
       objectReference: {fileID: 0}
     - target: {fileID: 5054734415202140727, guid: 49c0d9764a9b8814ea263e2f9729c5ee, type: 3}
       propertyPath: m_LocalScale.x

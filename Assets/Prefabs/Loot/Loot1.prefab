@@ -17,9 +17,9 @@ GameObject:
   - component: {fileID: 8290677473871958822}
   - component: {fileID: 3510885322605063576}
   - component: {fileID: 1834468557539897779}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Loot1
-  m_TagString: Untagged
+  m_TagString: Loot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

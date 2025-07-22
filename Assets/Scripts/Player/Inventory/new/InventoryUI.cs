@@ -229,7 +229,6 @@ public class InventoryUI : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Debug.Log("Inventory opened");
-            //Camera.current.
         }
         else
         {
