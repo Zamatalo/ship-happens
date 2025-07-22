@@ -19,10 +19,14 @@ namespace Enemy {
 		private State _state = State.MovingToOrbit;
 		private Building _target;
 		private Vector3 _void;
+		private Notifications.NotificationManager _notificationManager;
+
 
 		private void Start() {
 			StartCoroutine(PollTarget());
 			_patrolTimer = patrolDuration;
+			_notificationManager = FindObjectOfType<Notifications.NotificationManager>();
+
 		}
 
 		private void FixedUpdate() {
@@ -88,7 +92,13 @@ namespace Enemy {
 
 			LookAtTarget();
 
-			if (_patrolTimer <= 0f) _state = State.MovingToTarget;
+			if (_patrolTimer <= 0f) {
+				if (_notificationManager != null) {
+					_notificationManager.ShowNotification(" Dinner time for the shark... and you're the menu!", 5f);
+				}
+				_state = State.MovingToTarget;
+			}
+
 		}
 
 		private void MoveToTarget() {

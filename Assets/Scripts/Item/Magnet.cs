@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using Notifications;
+using UnityEngine;
 
 namespace Item {
     public class Magnet : MonoBehaviour, IUsableItem 
     {
+        public Transform notActualOrigin;
         [SerializeField] private float pullSpeed = 25f;
-        [SerializeField] private float maxDistance = 100;
+        [SerializeField] private float maxDistance = 1000000f;
         [SerializeField] private float grabDistance = 2f;
         [SerializeField] private LineRenderer beamLine;
         [SerializeField] private AudioSource magnetSound;
@@ -12,12 +14,14 @@ namespace Item {
         private Transform _origin;
         private Loot.Loot _currentLoot;
         private bool _isActive;
+        private NotificationManager _notificationManager;
 
         public void Init(Transform origin) 
         {
             _origin = origin;
             transform.rotation = _origin.rotation * Quaternion.Euler(-11f, -90f, 96f);
             beamLine.enabled = false; // Скрыть лазер при старте
+            _notificationManager = FindObjectOfType<NotificationManager>();
         }
 
         public void Use()
@@ -25,6 +29,7 @@ namespace Item {
             if (_isActive) return;
             _isActive = true;
             magnetSound?.Play();
+            _notificationManager?.ShowNotification(" Aim at loot and hold the button to pull it toward you!", 5f);
         }
 
         public void Unuse()
@@ -73,7 +78,7 @@ namespace Item {
             if (_currentLoot || hitSomething)
             {
                 beamLine.enabled = true;
-                beamLine.SetPosition(0, _origin.position);
+                beamLine.SetPosition(0, notActualOrigin.position);
                 beamLine.SetPosition(1, _currentLoot ? _currentLoot.transform.position : laserHit.point);
             }
             else

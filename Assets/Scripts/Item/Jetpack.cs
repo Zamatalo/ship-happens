@@ -1,4 +1,5 @@
-﻿using Player.Inventory;
+﻿using Notifications;
+using Player.Inventory;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ namespace Item {
 		private InputSystem_Actions _ia;
 		private Rigidbody _playerRb;
 		private Slot _slot;
+		private NotificationManager _notificationManager;
 
 		private void Awake() {
 			_ia = new InputSystem_Actions();
@@ -24,6 +26,7 @@ namespace Item {
 			fuelSlider.maxValue = cap;
 			fuelSlider.value =
 				!Mathf.Approximately(_slot.jetpackFuel, -1) ? _slot.jetpackFuel : cap;
+			_notificationManager ??= FindObjectOfType<NotificationManager>();
 		}
 
 		private void FixedUpdate() {
@@ -54,6 +57,8 @@ namespace Item {
 
 			_slot.jetpackFuel =
 				!Mathf.Approximately(_slot.jetpackFuel, -1) ? _slot.jetpackFuel : cap;
+			_notificationManager ??= FindObjectOfType<NotificationManager>();
+			_notificationManager?.ShowNotification("Left click to fly forward, Right click to fly up!", 5f);
 		}
 
 		private void OnToggleBurnForward(InputAction.CallbackContext _) {

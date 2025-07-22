@@ -1,3 +1,4 @@
+using Notifications;
 using UnityEngine;
 
 namespace Projectile 
@@ -24,6 +25,7 @@ namespace Projectile
         private Vector3[] _ropePositions;
         private Vector3[] _ropeVelocities;
         private Vector3 _attachmentPoint;
+        
         public void Init(Transform notActualOrigin, Transform origin, float force) 
         {
             _notActualOrigin = notActualOrigin;
@@ -33,7 +35,9 @@ namespace Projectile
             {
                 _rb.AddForce(_origin.forward * force, ForceMode.Impulse);
             }
+
         }
+
         private void Awake() 
         {
             _rb = GetComponent<Rigidbody>();
@@ -154,8 +158,7 @@ namespace Projectile
                     _ropePositions[i] = Vector3.Lerp(_notActualOrigin.position, transform.position, t);
                     _ropeVelocities[i] = Vector3.zero;
                 }
-            }
-            _attachmentPoint = transform.position;
+            } 
         }
 
 
