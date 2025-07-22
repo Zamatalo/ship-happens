@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Notifications;
 using Unity.Netcode;
 using UnityEngine;
@@ -17,7 +18,11 @@ namespace Player {
 		private void OnTriggerEnter(Collider other) {
 			if (!other.gameObject.TryGetComponent(out Loot.Loot loot)) return;
 
-			_inventory.AddItemServerRpc(loot.kind.itemName, loot.kind.quantity);
+			_inventory.AddItemServerRpc(
+				loot.kind.itemName,
+				loot.kind.quantity,
+				null
+				);
 			Destroy(loot.gameObject);
 			_collectedCount++;
 			ShowMilestoneNotification();

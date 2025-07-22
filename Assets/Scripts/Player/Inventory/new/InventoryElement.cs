@@ -24,7 +24,7 @@ public partial class InventoryElement : VisualElement
     
     public Image Icon;
     public Label Quantity;
-    public ItemData inventoryItem;
+    public InventoryItem InventoryItem;
     public string ItemName { get; private set; }
     
 
@@ -36,7 +36,7 @@ public partial class InventoryElement : VisualElement
 
     private void ApplyElementType()
     {
-        ClearClassList();  // очищаем все предыдущие классы
+        ClearClassList();
 
         switch (ElementType)
         {
@@ -88,7 +88,7 @@ public partial class InventoryElement : VisualElement
             return;
         }
 
-        inventoryItem = itemData;
+        InventoryItem = item;
         Icon.image = itemData.icon.texture;
         ItemName = item.itemName;
         Icon.style.display = DisplayStyle.Flex;
@@ -100,17 +100,13 @@ public partial class InventoryElement : VisualElement
     }
 
     public void ClearItem()
-    {
+    {   
+        InventoryItem=new InventoryItem();
         Icon.image = null;
         ItemName = null;
-        inventoryItem=null;
         Icon.style.display = DisplayStyle.None;
         Quantity.text = "";
         Quantity.style.display = DisplayStyle.None;
-    }
-    public bool IsEmpty()
-    {
-        return inventoryItem == null;
     }
 }
 

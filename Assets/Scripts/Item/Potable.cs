@@ -7,8 +7,8 @@ namespace Item {
 		private InputSystem_Actions _ia;
 		private PlayerInventoryNew _inventory;
 		private PlayerNeeds _needs;
-		private int amount;
-		private string kind;
+		private int _amount;
+		private string _kind;
 
 		private void Awake() {
 			_ia = new InputSystem_Actions();
@@ -24,12 +24,12 @@ namespace Item {
 			_ia.Disable();
 		}
 
-		public void Init(PlayerNeeds needs, PlayerInventoryNew inventory, string kind, int amount) {
-			_needs = needs;
-			_inventory = inventory;
-			kind = kind;
-			amount = amount;
-		}
+		// public void Init(PlayerNeeds needs, PlayerInventoryNew inventory, string kind, int amount) {
+		// 	_needs = needs;
+		// 	_inventory = inventory;
+		// 	_kind = kind;
+		// 	_amount = amount;
+		// }
 
 		private void OnDrink(InputAction.CallbackContext _) {
 			//_inventory.Consume(1);

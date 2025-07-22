@@ -10,14 +10,13 @@ public class PlayerInventoryNew : NetworkBehaviour
     public List<InventoryItem> inventory = new();
     // public event Action<InventoryItem> OnItemAdded;
     // public event Action<InventoryItem> OnItemRemoved;
-    public NetworkVariable<FixedString512Bytes> inventoryJson = new();
+    public NetworkVariable<FixedString4096Bytes> inventoryJson = new();
 
     [ServerRpc]
-    public void AddItemServerRpc(string itemName, int amount)
+    public void AddItemServerRpc(string itemName, int amount, ItemParameter[] parameter)
     {
         if (string.IsNullOrEmpty(itemName) || amount <= 0) return;
         var maxStack = InventoryDatabase.Instance.GetItemByName(itemName).maxStack;
-        
         
         
         var index = inventory.FindIndex(s => s.itemName == itemName);
@@ -30,13 +29,23 @@ public class PlayerInventoryNew : NetworkBehaviour
             inventory[index] = slot;
         }
         else{
-            var a = new InventoryItem { itemName = itemName, quantity = amount};
+            var a = new InventoryItem
+            {   
+                id = Guid.NewGuid().ToString(),
+                itemName = itemName,
+                quantity = amount,
+                parameters = new List<ItemParameter>(parameter ?? Array.Empty<ItemParameter>())
+            };
             inventory.Add(a);
         }
-
         SyncInventory();
     }
-        
+    
+    public InventoryItem FindItemByID(string id)
+    {
+        return inventory.FirstOrDefault(s => s.id == id);
+
+    }
     [ServerRpc]
     public void RemoveItemServerRpc(string itemName, int amount)
     {
@@ -68,10 +77,9 @@ public class PlayerInventoryNew : NetworkBehaviour
 
         if (IsServer)
         {
-            inventoryJson.Value = new FixedString512Bytes(jsonString);
+            inventoryJson.Value = new FixedString4096Bytes(jsonString);
         }
     }
-
 
     public override void OnNetworkSpawn()
     {
@@ -85,7 +93,7 @@ public class PlayerInventoryNew : NetworkBehaviour
             inventoryJson.OnValueChanged -= OnInventoryUpdated;
     }
 
-    private void OnInventoryUpdated(FixedString512Bytes oldVal, FixedString512Bytes newVal)
+    private void OnInventoryUpdated(FixedString4096Bytes oldVal, FixedString4096Bytes newVal)
     {
         string jsonString = newVal.ToString(); 
         var wrapper = JsonUtility.FromJson<InventoryWrapper>(jsonString);

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ namespace Item.Collectable {
 		private void OnZoneEnter(PlayerInventoryNew inventory) {
 			if (!IsOwner) return;
 
-			inventory.AddItemServerRpc(_kind, _amount);
+			inventory.AddItemServerRpc(_kind, _amount, null);
 			CollectServerRpc();
 		}
 

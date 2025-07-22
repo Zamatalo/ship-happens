@@ -111,12 +111,13 @@ public class InventoryUI : MonoBehaviour {
 		dragSource = slot;
 		isDragging = true;
 
-		ghostIcon.style.backgroundImage = new StyleBackground(slot.inventoryItem.icon);
+		var icon = InventoryDatabase.Instance.GetItemByName(slot.ItemName).icon;
+		ghostIcon.style.backgroundImage = new StyleBackground(icon);
 		ghostIcon.style.display = DisplayStyle.Flex;
 		UpdateGhostIconPosition(evt.position);
 		evt.StopPropagation();
 	}
-
+	
 	private void UpdateGhostIconPosition(Vector2 screenPosition) {
 		if (root.panel == null)
 			return;
@@ -129,7 +130,6 @@ public class InventoryUI : MonoBehaviour {
 		var panelPosition = RuntimePanelUtils.ScreenToPanel(root.panel, screenPositionFlipped);
 
 		Debug.Log($"ScreenPos: {screenPosition}, PanelPos: {panelPosition}");
-
 		ghostIcon.style.left = panelPosition.x - 32f;
 		ghostIcon.style.top = panelPosition.y - 32f;
 	}
@@ -140,10 +140,7 @@ public class InventoryUI : MonoBehaviour {
 		allSlots.AddRange(slots);
 		allSlots.AddRange(hotbarSlots);
 		var slotUnderCursor = allSlots.FirstOrDefault(s => s.worldBound.Contains(evt.position));
-		// var slotUnderCursor =
-		// 	slots.FirstOrDefault(s => s.worldBound.Contains(evt.position))!=null
-		// 	?slots.FirstOrDefault(s => s.worldBound.Contains(evt.position))
-		// 	:hotbarSlots.FirstOrDefault(e => e.worldBound.Contains(evt.position));
+
 		
 		//out ot bounds
 		if (slotUnderCursor == null || dragSource == null) {
@@ -164,17 +161,13 @@ public class InventoryUI : MonoBehaviour {
 			var targetQty = string.IsNullOrEmpty(slotUnderCursor.Quantity.text)
 				? 0
 				: int.Parse(slotUnderCursor.Quantity.text);
-
-			// int slotType = slotUnderCursor.ElementType == InventoryElementType.Hotbar
-			// 	? hotbarSlots.FindIndex(slot => slot.ItemName == targetName) //if hotbar
-			// 	: 0; // if inventory
 			
 						
 			slotUnderCursor.SetItem(
-				new InventoryItem(dragSource.ItemName, int.Parse(dragSource.Quantity.text))
+				new InventoryItem(dragSource.ItemName, int.Parse(dragSource.Quantity.text),new List<ItemParameter>())
 				);
 
-			dragSource.SetItem(new InventoryItem(targetName, targetQty));
+			dragSource.SetItem(new InventoryItem(targetName, targetQty,new List<ItemParameter>()));
 		}
 		ghostIcon.style.display = DisplayStyle.None;
 		isDragging = false;
@@ -185,23 +178,41 @@ public class InventoryUI : MonoBehaviour {
 	{
 		if (slots == null || slots.Count == 0 || items == null) return;
 
-		foreach (var t in slots) t.ClearItem();
+		foreach (var slot in slots)
+		{
+			if (!hotbarSlots.Contains(slot))
+			{
+				slot.ClearItem();
+			}
+		}
 
 		foreach (var item in items)
 		{
 			if (item.IsEmpty) continue;
 
-			var item1 = item;
-			var existingHotbarSlot = hotbarSlots.FirstOrDefault(e => e.ItemName == item1.itemName);
+			var existingHotbarSlot = hotbarSlots.FirstOrDefault(s => s.ItemName == item.itemName);
+        
 			if (existingHotbarSlot != null)
 			{
 				existingHotbarSlot.Quantity.text = item.quantity.ToString();
+            
+				if (item.quantity <= 0)
+				{
+					existingHotbarSlot.ClearItem();
+				}
 			}
-			else
-			{
-				var emptySlot = slots.FirstOrDefault(s => s.IsEmpty());
-				emptySlot?.SetItem(item);
-			}
+		}
+
+		foreach (var item in items)
+		{
+			if (item.IsEmpty) continue;
+
+			if (hotbarSlots.Any(s => s.ItemName == item.itemName)) continue;
+
+			var emptySlot = slots.FirstOrDefault(s => 
+				s.InventoryItem.IsEmpty && !hotbarSlots.Contains(s));
+
+			emptySlot?.SetItem(item);
 		}
 	}
 
@@ -213,13 +224,11 @@ public class InventoryUI : MonoBehaviour {
 			inventoryRoot.style.display = DisplayStyle.Flex;
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
-			Debug.Log("Inventory opened");
 		} else {
 			inventoryRoot.style.display = DisplayStyle.None;
 			Cursor.lockState = CursorLockMode.Locked;
 			ghostIcon.style.display = DisplayStyle.None;
 			Cursor.visible = false;
-			Debug.Log("Inventory closed");
 		}
 	}
 
@@ -228,20 +237,17 @@ public class InventoryUI : MonoBehaviour {
 			Destroy(currentHeldItem);
 			currentHeldItem = null;
 		}
-
-		if (slot == null || !slot.inventoryItem ||
-		    string.IsNullOrEmpty(slot.inventoryItem.itemName))
+		if (slot == null || slot.InventoryItem.IsEmpty || string.IsNullOrEmpty(slot.InventoryItem.itemName))
 			return;
-
+		
+		var prejab =InventoryDatabase.Instance.GetItemByName(slot.InventoryItem.itemName).itemPrefab;
 		currentHeldItem = Instantiate(
-			slot.inventoryItem.itemPrefab,
+			prejab,
 			handTransform.position,
 			handTransform.rotation,
 			handTransform
 		);
-
-		// Initialize the item if it's usable
 		var usableItem = currentHeldItem.GetComponent<IUsableItem>();
-		if (usableItem != null) usableItem.Init(handTransform);
+		if (usableItem != null) usableItem.Init(handTransform,null);
 	}
 }

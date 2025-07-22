@@ -69,12 +69,19 @@ namespace Item {
 			}
 		}
 
-		public void Init(Transform origin) {
+		public void Init(Transform origin, List<ItemParameter> itemParameters)
+		{
 			_origin = origin;
+    
 			transform.rotation = _origin.rotation * Quaternion.Euler(-11f, -90f, 96f);
-			foreach (var beamLine in beamLines) beamLine.enabled = false; // Скрыть лазер при старте
+
+			foreach (var beamLine in beamLines)
+				beamLine.enabled = false;
+
 			_notificationManager = FindObjectOfType<NotificationManager>();
+
 		}
+
 
 		public void Use() {
 			if (_isActive) return;

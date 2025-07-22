@@ -1,84 +1,110 @@
-﻿using Notifications;
+﻿using System.Collections.Generic;
+using Notifications;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Item {
-	public class Jetpack : MonoBehaviour {
-		public Slider fuelSlider;
-		public float forceForward = 10f;
-		public float forceUp = 10f;
-		public float cap = 5f;
-		private bool _burningForward;
-		private bool _burningUp;
-		private Transform _cameraTransform;
-		private InputSystem_Actions _ia;
-		private NotificationManager _notificationManager;
-		private Rigidbody _playerRb;
+    public class Jetpack : MonoBehaviour, IUsableItem {
+        public Slider fuelSlider;
+        public float forceForward = 10f;
+        public float forceUp = 10f;
+        public float maxFuel = 5f;
 
-		private void Awake() {
-			_ia = new InputSystem_Actions();
-		}
+        private float _currentFuel;
+        private bool _burningForward;
+        private bool _burningUp;
+        private Transform _cameraTransform;
+        private InputSystem_Actions _ia;
+        private NotificationManager _notificationManager;
+        private Rigidbody _playerRb;
 
-		private void Start() {
-			fuelSlider.maxValue = cap;
-//			fuelSlider.value =
-			//!Mathf.Approximately(_slot.jetpackFuel, -1) ? _slot.jetpackFuel : cap;
-			_notificationManager ??= FindObjectOfType<NotificationManager>();
-		}
+        private void Awake() {
+            _ia = new InputSystem_Actions();
+        }
 
-		private void FixedUpdate() {
-			if (_burningForward) Burn(_cameraTransform.forward * forceForward);
-			if (_burningUp) Burn(_cameraTransform.up * forceUp);
-		}
+        private void Start() {
+            fuelSlider.maxValue = maxFuel;
+            _notificationManager ??= FindObjectOfType<NotificationManager>();
+        }
 
-		private void OnEnable() {
-			_ia.Enable();
-			_ia.Jetpack.BurnForward.performed += OnToggleBurnForward;
-			_ia.Jetpack.BurnForward.canceled += OnToggleBurnForward;
-			_ia.Jetpack.BurnUp.performed += OnToggleBurnUp;
-			_ia.Jetpack.BurnUp.canceled += OnToggleBurnUp;
-		}
+        private void OnEnable() {
+            _ia.Enable();
+            _ia.Jetpack.BurnForward.performed += OnToggleBurnForward;
+            _ia.Jetpack.BurnForward.canceled += OnToggleBurnForward;
+            _ia.Jetpack.BurnUp.performed += OnToggleBurnUp;
+            _ia.Jetpack.BurnUp.canceled += OnToggleBurnUp;
+        }
 
-		private void OnDisable() {
-			_ia.Jetpack.BurnForward.performed -= OnToggleBurnForward;
-			_ia.Jetpack.BurnForward.canceled -= OnToggleBurnForward;
-			_ia.Jetpack.BurnUp.performed -= OnToggleBurnUp;
-			_ia.Jetpack.BurnUp.canceled -= OnToggleBurnUp;
-			_ia.Disable();
-		}
+        private void OnDisable() {
+            _ia.Jetpack.BurnForward.performed -= OnToggleBurnForward;
+            _ia.Jetpack.BurnForward.canceled -= OnToggleBurnForward;
+            _ia.Jetpack.BurnUp.performed -= OnToggleBurnUp;
+            _ia.Jetpack.BurnUp.canceled -= OnToggleBurnUp;
+            _ia.Disable();
+        }
 
-		public void Init(Rigidbody playerRb, Transform cameraTransform) {
-			_playerRb = playerRb;
-			_cameraTransform = cameraTransform;
+        private void FixedUpdate() {
+            if (_currentFuel <= 0f) {
+                _burningForward = false;
+                _burningUp = false;
+                return;
+            }
 
-			//_slot.jetpackFuel =
-			//	!Mathf.Approximately(_slot.jetpackFuel, -1) ? _slot.jetpackFuel : cap;
-			_notificationManager ??= FindObjectOfType<NotificationManager>();
-			_notificationManager?.ShowNotification(
-				"Left click to fly forward, Right click to fly up!");
-		}
+            if (_burningForward) Burn(_cameraTransform.forward * forceForward);
+            if (_burningUp) Burn(_cameraTransform.up * forceUp);
+        }
 
-		private void OnToggleBurnForward(InputAction.CallbackContext _) {
-			//	if (_slot.jetpackFuel == 0f) return;
-			_burningForward = !_burningForward;
-		}
+        private void Burn(Vector3 force) {
+            _playerRb.AddForce(force, ForceMode.Acceleration);
+            _currentFuel = Mathf.Max(0f, _currentFuel - Time.fixedDeltaTime);
+            fuelSlider.value = _currentFuel;
+        }
 
-		private void OnToggleBurnUp(InputAction.CallbackContext _) {
-//			if (_slot.jetpackFuel == 0f) return;
-			_burningUp = !_burningUp;
-		}
+        private void OnToggleBurnForward(InputAction.CallbackContext _) {
+            if (_currentFuel > 0f)
+                _burningForward = !_burningForward;
+        }
 
-		private void Burn(Vector3 force) {
-			_playerRb.AddForce(force, ForceMode.Acceleration);
-			//_slot.jetpackFuel = Mathf.Max(0, _slot.jetpackFuel - Time.fixedDeltaTime);
+        private void OnToggleBurnUp(InputAction.CallbackContext _) {
+            if (_currentFuel > 0f)
+                _burningUp = !_burningUp;
+        }
 
-			//if (_slot.jetpackFuel == 0f) {
-			_burningForward = false;
-			_burningUp = false;
-			//}
+        // public void Init(Rigidbody playerRb, Transform cameraTransform) {
+        //     _playerRb = playerRb;
+        //     _cameraTransform = cameraTransform;
+        //     _notificationManager ??= FindObjectOfType<NotificationManager>();
+        //
+        //     _currentFuel = maxFuel;
+        //     fuelSlider.value = _currentFuel;
+        //
+        //     _notificationManager?.ShowNotification("Left click to fly forward, Right click to fly up!");
+        // }
 
-			//fuelSlider.value = _slot.jetpackFuel;
-		}
-	}
+
+        public void Init(Transform origin, List<ItemParameter> itemParameters)
+        {
+            _playerRb = origin.GetComponent<Rigidbody>();
+            _cameraTransform = Camera.main.transform; // fallback
+            _notificationManager ??= FindObjectOfType<NotificationManager>();
+         
+            _currentFuel = maxFuel;
+            fuelSlider.value = _currentFuel;
+         
+            _notificationManager?.ShowNotification("Jetpack initialized with Transform origin.");
+        }
+
+        public void Use() {
+            _notificationManager?.ShowNotification("Jetpack activated.");
+            _currentFuel = maxFuel;
+            fuelSlider.value = _currentFuel;
+        }
+
+        public void Unuse() {
+            _notificationManager?.ShowNotification("Jetpack deactivated.");
+            _burningForward = false;
+            _burningUp = false;
+        }
+    }
 }

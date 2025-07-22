@@ -1,4 +1,5 @@
-﻿using Projectile;
+﻿using System.Collections.Generic;
+using Projectile;
 using UnityEngine;
 
 namespace Item 
@@ -23,9 +24,9 @@ namespace Item
         private Harpoon _currentHarpoon;
         private Transform _origin;
 
-        public void Init(Transform origin)
+        public void Init(Transform origin, List<ItemParameter> itemParameters)
         {
-            if (origin == null)
+            if (!origin)
             {
                 return;
             }
@@ -78,7 +79,7 @@ namespace Item
             var inst = Instantiate(
                 harpoonPrefab,
                 notActualOrigin.position,
-                Quaternion.LookRotation(notActualOrigin.forward) * Quaternion.Euler(ugolNakonechnik)
+                Quaternion.LookRotation(_origin.forward) * Quaternion.Euler(ugolNakonechnik)
             );
             nakonechnik.SetActive(false);
             animator.SetTrigger("Shoot");

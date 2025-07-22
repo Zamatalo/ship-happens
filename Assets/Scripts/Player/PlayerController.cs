@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,6 +22,8 @@ namespace Player {
 		public float RotationSpeed = 1.0f;
 		private bool _isMoving;
 		private Vector2 _moveInput;
+		
+		
 		[Header("Items")] private PlayerInventoryNew _playerInventory;
 		private Rigidbody _rb;
 
@@ -126,22 +130,21 @@ namespace Player {
 				Debug.LogWarning("PlayerInventoryNew not initialized");
 				return;
 			}
-			_playerInventory.AddItemServerRpc("BuildingTool", 1);
-			_playerInventory.AddItemServerRpc("Jetpack", 1);
-			_playerInventory.AddItemServerRpc("Edible", 1);
-			_playerInventory.AddItemServerRpc("GravityGun", 1);
-			_playerInventory.AddItemServerRpc("HarpoonGun", 1);
-			_playerInventory.AddItemServerRpc("Jetpack", 1);
-			_playerInventory.AddItemServerRpc("Metal", 1);
-			_playerInventory.AddItemServerRpc("Planks", 1);
-			_playerInventory.AddItemServerRpc("Poison", 1);
-			_playerInventory.AddItemServerRpc("Potable", 1);
+			_playerInventory.AddItemServerRpc("BuildingTool", 1,null);
+			_playerInventory.AddItemServerRpc("Jetpack", 1,null);
+			_playerInventory.AddItemServerRpc("Edible", 1,null);
+			_playerInventory.AddItemServerRpc("GravityGun", 1,null);
+			_playerInventory.AddItemServerRpc("HarpoonGun", 1,null);
+			_playerInventory.AddItemServerRpc("Jetpack", 1,null);
+			_playerInventory.AddItemServerRpc("Metal", 1,null);
+			_playerInventory.AddItemServerRpc("Planks", 1,null);
+			_playerInventory.AddItemServerRpc("Poison", 1,null);
+			_playerInventory.AddItemServerRpc("Potable", 1,null);
 		}
 
 		public void UpdateEquippedItem() {
 			if (ItemHolder.childCount > 0) {
 				currentItemScript = ItemHolder.GetChild(0).GetComponent<IUsableItem>();
-				currentItemScript?.Init(CinemachineCameraTarget.transform);
 			} else {
 				currentItemScript = null;
 			}
