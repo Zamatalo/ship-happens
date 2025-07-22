@@ -211,7 +211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80519c56fb4c1f841b62dd442a8566d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kind: 6
+  kind:
+    itemName: Edible
+    quantity: 3
   amount: 3
 --- !u!114 &1085953588679689029
 MonoBehaviour:

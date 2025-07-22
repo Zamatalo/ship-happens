@@ -1,14 +1,14 @@
 using Player;
-using Player.Inventory;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Item {
 	public class Potable : MonoBehaviour {
 		private InputSystem_Actions _ia;
-		private PlayerInventory _inventory;
+		private PlayerInventoryNew _inventory;
 		private PlayerNeeds _needs;
-		private Slot _slot;
+		private int amount;
+		private string kind;
 
 		private void Awake() {
 			_ia = new InputSystem_Actions();
@@ -24,14 +24,15 @@ namespace Item {
 			_ia.Disable();
 		}
 
-		public void Init(PlayerNeeds needs, PlayerInventory inventory, Slot slot) {
+		public void Init(PlayerNeeds needs, PlayerInventoryNew inventory, string kind, int amount) {
 			_needs = needs;
 			_inventory = inventory;
-			_slot = slot;
+			kind = kind;
+			amount = amount;
 		}
 
 		private void OnDrink(InputAction.CallbackContext _) {
-			_inventory.Consume(1);
+			//_inventory.Consume(1);
 
 			_needs.thirst = Mathf.Min(_needs.maxThirst, _needs.thirst + 70);
 		}

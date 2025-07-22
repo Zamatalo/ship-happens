@@ -1006,22 +1006,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "IterMouse",
+                    "name": "Toggle",
+                    "type": "Button",
+                    "id": "20ca9df0-f6d2-4375-b6d6-8bae23c51074",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Iter",
                     "type": "Value",
                     "id": "3949a077-4089-47ce-a3e0-d2cf80dd23b7",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "IterKeyboard",
-                    "type": "Button",
-                    "id": "2bc29710-3fa3-4baf-b53f-705621d5f8eb",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
                 {
                     "name": "DropItem",
@@ -1031,6 +1031,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Drag",
+                    "type": "Value",
+                    "id": "8439a4ca-6d11-4640-b79f-2cba1b5cc53e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1096,18 +1105,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "IterMouse",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a6e00d76-8d6e-47d3-8715-84e0e6823557",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "IterKeyboard",
+                    "action": "Iter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1119,6 +1117,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "DropItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e49963bf-0d8c-47fe-8922-5a755d680fa2",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1faf42e4-23a2-4f88-94bd-cde0fe9a521b",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drag",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

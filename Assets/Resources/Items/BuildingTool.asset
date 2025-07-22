@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BuildingTool
   m_EditorClassIdentifier: 
   itemName: BuildingTool
-  icon: {fileID: 21300000, guid: 3d42b5ef33689af43a3e6dccb8b02805, type: 3}
+  icon: {fileID: 21300000, guid: b2ea52c1cfc723f4db0730df7e20d3c2, type: 3}
   maxStack: 1
   itemPrefab: {fileID: 0}

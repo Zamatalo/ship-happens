@@ -1092,22 +1092,22 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""IterMouse"",
+                    ""name"": ""Toggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""20ca9df0-f6d2-4375-b6d6-8bae23c51074"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Iter"",
                     ""type"": ""Value"",
                     ""id"": ""3949a077-4089-47ce-a3e0-d2cf80dd23b7"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""IterKeyboard"",
-                    ""type"": ""Button"",
-                    ""id"": ""2bc29710-3fa3-4baf-b53f-705621d5f8eb"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""DropItem"",
@@ -1117,6 +1117,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Drag"",
+                    ""type"": ""Value"",
+                    ""id"": ""8439a4ca-6d11-4640-b79f-2cba1b5cc53e"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -1182,18 +1191,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""IterMouse"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a6e00d76-8d6e-47d3-8715-84e0e6823557"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""IterKeyboard"",
+                    ""action"": ""Iter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1205,6 +1203,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DropItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e49963bf-0d8c-47fe-8922-5a755d680fa2"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1faf42e4-23a2-4f88-94bd-cde0fe9a521b"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drag"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1613,9 +1633,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Inventory__3 = m_Inventory.FindAction("3", throwIfNotFound: true);
         m_Inventory__4 = m_Inventory.FindAction("4", throwIfNotFound: true);
         m_Inventory__5 = m_Inventory.FindAction("5", throwIfNotFound: true);
-        m_Inventory_IterMouse = m_Inventory.FindAction("IterMouse", throwIfNotFound: true);
-        m_Inventory_IterKeyboard = m_Inventory.FindAction("IterKeyboard", throwIfNotFound: true);
+        m_Inventory_Toggle = m_Inventory.FindAction("Toggle", throwIfNotFound: true);
+        m_Inventory_Iter = m_Inventory.FindAction("Iter", throwIfNotFound: true);
         m_Inventory_DropItem = m_Inventory.FindAction("DropItem", throwIfNotFound: true);
+        m_Inventory_Drag = m_Inventory.FindAction("Drag", throwIfNotFound: true);
         // Magnet
         m_Magnet = asset.FindActionMap("Magnet", throwIfNotFound: true);
         m_Magnet_Pull = m_Magnet.FindAction("Pull", throwIfNotFound: true);
@@ -2124,9 +2145,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Inventory__3;
     private readonly InputAction m_Inventory__4;
     private readonly InputAction m_Inventory__5;
-    private readonly InputAction m_Inventory_IterMouse;
-    private readonly InputAction m_Inventory_IterKeyboard;
+    private readonly InputAction m_Inventory_Toggle;
+    private readonly InputAction m_Inventory_Iter;
     private readonly InputAction m_Inventory_DropItem;
+    private readonly InputAction m_Inventory_Drag;
     /// <summary>
     /// Provides access to input actions defined in input action map "Inventory".
     /// </summary>
@@ -2159,17 +2181,21 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @_5 => m_Wrapper.m_Inventory__5;
         /// <summary>
-        /// Provides access to the underlying input action "Inventory/IterMouse".
+        /// Provides access to the underlying input action "Inventory/Toggle".
         /// </summary>
-        public InputAction @IterMouse => m_Wrapper.m_Inventory_IterMouse;
+        public InputAction @Toggle => m_Wrapper.m_Inventory_Toggle;
         /// <summary>
-        /// Provides access to the underlying input action "Inventory/IterKeyboard".
+        /// Provides access to the underlying input action "Inventory/Iter".
         /// </summary>
-        public InputAction @IterKeyboard => m_Wrapper.m_Inventory_IterKeyboard;
+        public InputAction @Iter => m_Wrapper.m_Inventory_Iter;
         /// <summary>
         /// Provides access to the underlying input action "Inventory/DropItem".
         /// </summary>
         public InputAction @DropItem => m_Wrapper.m_Inventory_DropItem;
+        /// <summary>
+        /// Provides access to the underlying input action "Inventory/Drag".
+        /// </summary>
+        public InputAction @Drag => m_Wrapper.m_Inventory_Drag;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -2211,15 +2237,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @_5.started += instance.On_5;
             @_5.performed += instance.On_5;
             @_5.canceled += instance.On_5;
-            @IterMouse.started += instance.OnIterMouse;
-            @IterMouse.performed += instance.OnIterMouse;
-            @IterMouse.canceled += instance.OnIterMouse;
-            @IterKeyboard.started += instance.OnIterKeyboard;
-            @IterKeyboard.performed += instance.OnIterKeyboard;
-            @IterKeyboard.canceled += instance.OnIterKeyboard;
+            @Toggle.started += instance.OnToggle;
+            @Toggle.performed += instance.OnToggle;
+            @Toggle.canceled += instance.OnToggle;
+            @Iter.started += instance.OnIter;
+            @Iter.performed += instance.OnIter;
+            @Iter.canceled += instance.OnIter;
             @DropItem.started += instance.OnDropItem;
             @DropItem.performed += instance.OnDropItem;
             @DropItem.canceled += instance.OnDropItem;
+            @Drag.started += instance.OnDrag;
+            @Drag.performed += instance.OnDrag;
+            @Drag.canceled += instance.OnDrag;
         }
 
         /// <summary>
@@ -2246,15 +2275,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @_5.started -= instance.On_5;
             @_5.performed -= instance.On_5;
             @_5.canceled -= instance.On_5;
-            @IterMouse.started -= instance.OnIterMouse;
-            @IterMouse.performed -= instance.OnIterMouse;
-            @IterMouse.canceled -= instance.OnIterMouse;
-            @IterKeyboard.started -= instance.OnIterKeyboard;
-            @IterKeyboard.performed -= instance.OnIterKeyboard;
-            @IterKeyboard.canceled -= instance.OnIterKeyboard;
+            @Toggle.started -= instance.OnToggle;
+            @Toggle.performed -= instance.OnToggle;
+            @Toggle.canceled -= instance.OnToggle;
+            @Iter.started -= instance.OnIter;
+            @Iter.performed -= instance.OnIter;
+            @Iter.canceled -= instance.OnIter;
             @DropItem.started -= instance.OnDropItem;
             @DropItem.performed -= instance.OnDropItem;
             @DropItem.canceled -= instance.OnDropItem;
+            @Drag.started -= instance.OnDrag;
+            @Drag.performed -= instance.OnDrag;
+            @Drag.canceled -= instance.OnDrag;
         }
 
         /// <summary>
@@ -3205,19 +3237,19 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void On_5(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "IterMouse" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Toggle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnIterMouse(InputAction.CallbackContext context);
+        void OnToggle(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "IterKeyboard" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Iter" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnIterKeyboard(InputAction.CallbackContext context);
+        void OnIter(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "DropItem" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -3225,6 +3257,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDropItem(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Drag" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDrag(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Magnet" which allows adding and removing callbacks.

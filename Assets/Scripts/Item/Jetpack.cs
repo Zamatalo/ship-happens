@@ -1,5 +1,4 @@
 ﻿using Notifications;
-using Player.Inventory;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -14,9 +13,8 @@ namespace Item {
 		private bool _burningUp;
 		private Transform _cameraTransform;
 		private InputSystem_Actions _ia;
-		private Rigidbody _playerRb;
-		private Slot _slot;
 		private NotificationManager _notificationManager;
+		private Rigidbody _playerRb;
 
 		private void Awake() {
 			_ia = new InputSystem_Actions();
@@ -24,8 +22,8 @@ namespace Item {
 
 		private void Start() {
 			fuelSlider.maxValue = cap;
-			fuelSlider.value =
-				!Mathf.Approximately(_slot.jetpackFuel, -1) ? _slot.jetpackFuel : cap;
+//			fuelSlider.value =
+			//!Mathf.Approximately(_slot.jetpackFuel, -1) ? _slot.jetpackFuel : cap;
 			_notificationManager ??= FindObjectOfType<NotificationManager>();
 		}
 
@@ -50,37 +48,37 @@ namespace Item {
 			_ia.Disable();
 		}
 
-		public void Init(Rigidbody playerRb, Transform cameraTransform, Slot slot) {
+		public void Init(Rigidbody playerRb, Transform cameraTransform) {
 			_playerRb = playerRb;
 			_cameraTransform = cameraTransform;
-			_slot = slot;
 
-			_slot.jetpackFuel =
-				!Mathf.Approximately(_slot.jetpackFuel, -1) ? _slot.jetpackFuel : cap;
+			//_slot.jetpackFuel =
+			//	!Mathf.Approximately(_slot.jetpackFuel, -1) ? _slot.jetpackFuel : cap;
 			_notificationManager ??= FindObjectOfType<NotificationManager>();
-			_notificationManager?.ShowNotification("Left click to fly forward, Right click to fly up!", 5f);
+			_notificationManager?.ShowNotification(
+				"Left click to fly forward, Right click to fly up!");
 		}
 
 		private void OnToggleBurnForward(InputAction.CallbackContext _) {
-			if (_slot.jetpackFuel == 0f) return;
+			//	if (_slot.jetpackFuel == 0f) return;
 			_burningForward = !_burningForward;
 		}
 
 		private void OnToggleBurnUp(InputAction.CallbackContext _) {
-			if (_slot.jetpackFuel == 0f) return;
+//			if (_slot.jetpackFuel == 0f) return;
 			_burningUp = !_burningUp;
 		}
 
 		private void Burn(Vector3 force) {
 			_playerRb.AddForce(force, ForceMode.Acceleration);
-			_slot.jetpackFuel = Mathf.Max(0, _slot.jetpackFuel - Time.fixedDeltaTime);
+			//_slot.jetpackFuel = Mathf.Max(0, _slot.jetpackFuel - Time.fixedDeltaTime);
 
-			if (_slot.jetpackFuel == 0f) {
-				_burningForward = false;
-				_burningUp = false;
-			}
+			//if (_slot.jetpackFuel == 0f) {
+			_burningForward = false;
+			_burningUp = false;
+			//}
 
-			fuelSlider.value = _slot.jetpackFuel;
+			//fuelSlider.value = _slot.jetpackFuel;
 		}
 	}
 }

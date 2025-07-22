@@ -1,10 +1,9 @@
-using Player.Inventory;
 using UnityEngine;
 
 namespace Item.Collectable {
 	[RequireComponent(typeof(SphereCollider))]
 	public class CollectableItemZone : MonoBehaviour {
-		public delegate void OnZoneEnter(PlayerInventory inventory);
+		public delegate void OnZoneEnter(PlayerInventoryNew inventory);
 		private OnZoneEnter _onZoneEnter;
 
 		private void Start() {
@@ -14,7 +13,7 @@ namespace Item.Collectable {
 		private void OnTriggerEnter(Collider other) {
 			if (_onZoneEnter == null) return;
 
-			if (!other.gameObject.TryGetComponent(out PlayerInventory inventory)) return;
+			if (!other.gameObject.TryGetComponent(out PlayerInventoryNew inventory)) return;
 			_onZoneEnter.Invoke(inventory);
 		}
 

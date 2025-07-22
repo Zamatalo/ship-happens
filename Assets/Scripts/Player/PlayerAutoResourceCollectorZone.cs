@@ -1,23 +1,22 @@
 using Notifications;
-using Player.Inventory;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Player {
-	public class PlayerAutoResourceCollectorZone : MonoBehaviour {
-		public GameObject player;
-		private PlayerInventory _inventory;
-
-		private void Start() {
-			_inventory = player.GetComponent<PlayerInventory>();
-		}
+	public class PlayerAutoResourceCollectorZone : NetworkBehaviour {
+		private PlayerInventoryNew _inventory;
 
 		private void OnTriggerEnter(Collider other) {
 			if (!other.gameObject.TryGetComponent(out Loot.Loot loot)) return;
 
-			if (_inventory.Collect(loot.kind, loot.amount, -1)) {
-				Destroy(loot.gameObject);
-				FindAnyObjectByType<NotificationManager>().ShowNotification("First steps!");
-			}
+			_inventory.AddItemServerRpc(loot.kind.itemName, loot.kind.quantity);
+			Destroy(loot.gameObject);
+			FindAnyObjectByType<NotificationManager>().ShowNotification("First steps!");
+		}
+
+		protected override void OnNetworkPostSpawn() {
+			_inventory = NetworkManager.Singleton.LocalClient.PlayerObject
+				.GetComponent<PlayerInventoryNew>();
 		}
 	}
 }

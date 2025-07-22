@@ -1,5 +1,4 @@
 using System.Collections;
-using Player.Inventory;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ namespace Item.Collectable {
 		public GameObject collectZoneObject;
 		private int _amount;
 		private float _jetpackFuel;
-		private Slot.SlotKind _kind;
+		private string _kind;
 		private Rigidbody _rb;
 		private CollectableItemZone _zone;
 
@@ -19,7 +18,7 @@ namespace Item.Collectable {
 			StartCoroutine(AfterStart());
 		}
 
-		public void Init(Slot.SlotKind kind, int amount, float jetpackFuel) {
+		public void Init(string kind, int amount, float jetpackFuel) {
 			_kind = kind;
 			_amount = amount;
 			_jetpackFuel = jetpackFuel;
@@ -32,10 +31,11 @@ namespace Item.Collectable {
 			_zone.Init(OnZoneEnter);
 		}
 
-		private void OnZoneEnter(PlayerInventory inventory) {
+		private void OnZoneEnter(PlayerInventoryNew inventory) {
 			if (!IsOwner) return;
 
-			if (inventory.Collect(_kind, _amount, _jetpackFuel)) CollectServerRpc();
+			inventory.AddItemServerRpc(_kind, _amount);
+			CollectServerRpc();
 		}
 
 		[ServerRpc]
