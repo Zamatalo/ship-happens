@@ -1,40 +1,26 @@
+using System.Collections.Generic;
 using Player;
+using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Item {
-	public class Potable : MonoBehaviour {
-		private InputSystem_Actions _ia;
+	public class Potable : MonoBehaviour, IUsableItem {
 		private PlayerInventoryNew _inventory;
 		private PlayerNeeds _needs;
-		private int _amount;
-		private string _kind;
 
-		private void Awake() {
-			_ia = new InputSystem_Actions();
+		public void Init(Transform origin, List<ItemParameter> parameters) {
+			_inventory = NetworkManager.Singleton.LocalClient.PlayerObject
+				.GetComponent<PlayerInventoryNew>();
+			_needs = NetworkManager.Singleton.LocalClient.PlayerObject
+				.GetComponent<PlayerNeeds>();
 		}
 
-		private void OnEnable() {
-			_ia.Enable();
-			_ia.Potable.Drink.performed += OnDrink;
+		public void Use() {
+			_needs.thirst = Mathf.Min(_needs.maxThirst, _needs.thirst + _needs.maxThirst / 3f);
+			_inventory.RemoveItemServerRpc("Potable", 1);
 		}
 
-		private void OnDisable() {
-			_ia.Potable.Drink.performed -= OnDrink;
-			_ia.Disable();
-		}
-
-		// public void Init(PlayerNeeds needs, PlayerInventoryNew inventory, string kind, int amount) {
-		// 	_needs = needs;
-		// 	_inventory = inventory;
-		// 	_kind = kind;
-		// 	_amount = amount;
-		// }
-
-		private void OnDrink(InputAction.CallbackContext _) {
-			//_inventory.Consume(1);
-
-			_needs.thirst = Mathf.Min(_needs.maxThirst, _needs.thirst + 70);
+		public void Unuse() {
 		}
 	}
 }
