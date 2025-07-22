@@ -1,93 +1,128 @@
 ﻿using Projectile;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-namespace Item {
-	public class HarpoonGun : MonoBehaviour {
-		public AudioSource shootSound;
-		public GameObject harpoonObj;
-		public Transform notActualOrigin;
-		public GameObject harpoonPrefab;
-		public float shootForce = 50f;
-		private Harpoon _currentHarpoon;
-		private InputSystem_Actions _ia;
-		private Transform _origin;
-		private bool _pulling;
+namespace Item 
+{
+    public class HarpoonGun : MonoBehaviour, IUsableItem
+    {
+        [Header("References")]
+        [SerializeField] private AudioSource shootSound;
+        [SerializeField] private GameObject harpoonObj;
+        [SerializeField] private Transform notActualOrigin;
+        [SerializeField] private GameObject harpoonPrefab;
+        [SerializeField] private GameObject nakonechnik;
+        
+        [Header("Settings")]
+        [SerializeField] private float shootForce = 50f;
+        [SerializeField] private float pullSpeed = 5f;
+        [SerializeField] private Vector3 ugolNakonechnik;
 
-		private void Awake() {
-			_ia = new InputSystem_Actions();
-		}
+        [Header("Animator")]
+        [SerializeField] private Animator animator;
 
-		private void FixedUpdate() {
-			if (ReferenceEquals(_currentHarpoon, null) || _currentHarpoon.IsDestroyed()) {
-				harpoonObj.SetActive(true);
-				_pulling = false;
-				return;
-			}
+        private bool _isBusy;
+        private Harpoon _currentHarpoon;
+        private Transform _origin;
 
-			if (_pulling) _currentHarpoon.Pull();
-		}
+        public void Init(Transform origin)
+        {
+            if (origin == null)
+            {
+                return;
+            }
+            _origin = origin;
+        }
 
-		private void OnEnable() {
-			_ia.Enable();
-			_ia.Harpoon.Shoot.performed += OnShoot;
-			_ia.Harpoon.Pull.performed += OnPullStart;
-			_ia.Harpoon.Pull.canceled += OnPullEnd;
-			_ia.Harpoon.Cancel.performed += OnCancel;
-		}
+        public void Use()
+        {
+            if (_currentHarpoon != null && _currentHarpoon.hit)
+            {
+                nakonechnik.SetActive(false);
+                _currentHarpoon.StartPull();
+                return;
+            }
 
-		private void OnDisable() {
-			_ia.Harpoon.Shoot.performed -= OnShoot;
-			_ia.Harpoon.Pull.performed -= OnPullStart;
-			_ia.Harpoon.Pull.canceled -= OnPullEnd;
-			_ia.Harpoon.Cancel.performed -= OnCancel;
-			_ia.Disable();
-		}
+            if (_currentHarpoon == null)
+            {
+                nakonechnik.SetActive(true);
+                FireHarpoon();
+            }
+        }
 
-		private void OnDestroy() {
-			if (_currentHarpoon != null) Destroy(_currentHarpoon.gameObject);
-		}
+        public void Unuse()
+        {   
+            
+            if (_currentHarpoon != null)
+            {
+                _currentHarpoon.StopPull();
+                
+                if (!_currentHarpoon.hit)
+                {
+                    nakonechnik.SetActive(true);
+                    Destroy(_currentHarpoon.gameObject);
+                    _currentHarpoon = null;
+                    if (harpoonObj != null) harpoonObj.SetActive(true);
+                    Reload();
+                } 
+            }
+        }
 
-		public void Init(Transform origin) {
-			_origin = origin;
-		}
+        private void FireHarpoon() 
+        {
+            if (harpoonPrefab == null) return;
 
-		private void OnShoot(InputAction.CallbackContext _) {
-			if (_currentHarpoon != null) return;
-			FireHarpoon();
-		}
+            if (harpoonPrefab.GetComponent<Harpoon>() == null) return;
+            
+            if (notActualOrigin == null || _origin == null)  return;
+            
+            
+            var inst = Instantiate(
+                harpoonPrefab,
+                notActualOrigin.position,
+                Quaternion.LookRotation(notActualOrigin.forward) * Quaternion.Euler(ugolNakonechnik)
+            );
+            nakonechnik.SetActive(false);
+            animator.SetTrigger("Shoot");
+            
+            _currentHarpoon = inst.GetComponent<Harpoon>();
+            _currentHarpoon.Init(notActualOrigin, _origin, shootForce);
+            _currentHarpoon.pullSpeed = pullSpeed;
 
-		private void OnPullStart(InputAction.CallbackContext _) {
-			if (_currentHarpoon == null || !_currentHarpoon.hit) return;
-			_pulling = true;
-		}
+            if (shootSound != null) shootSound.Play();
+        }
+        public void Reload()
+        {
+            if (_isBusy) return;
+            _isBusy = true;
+            
+            if (_currentHarpoon != null)
+            {
+                Destroy(_currentHarpoon.gameObject);
+                _currentHarpoon = null;
+            }
 
-		private void OnPullEnd(InputAction.CallbackContext _) {
-			if (_currentHarpoon == null || !_currentHarpoon.hit) return;
-			_pulling = false;
-		}
+            if (harpoonObj != null)
+            {
+                harpoonObj.SetActive(true);
+            }
 
-		private void OnCancel(InputAction.CallbackContext _) {
-			if (_currentHarpoon != null) {
-				Destroy(_currentHarpoon.gameObject);
-				_currentHarpoon = null;
-				harpoonObj.SetActive(true);
-			}
-		}
+            if (nakonechnik != null)
+            {
+                nakonechnik.SetActive(true);
+            }
 
-		private void FireHarpoon() {
-			var inst = Instantiate(
-				harpoonPrefab,
-				_origin.position,
-				Quaternion.LookRotation(_origin.forward) * Quaternion.Euler(90f, 0f, 0f)
-			);
-
-			_currentHarpoon = inst.GetComponent<Harpoon>();
-			_currentHarpoon.Init(notActualOrigin, _origin, shootForce);
-
-			shootSound.Play();
-			harpoonObj.SetActive(false);
-		}
-	}
+            animator.SetTrigger("Reload");
+        }
+        public void OnAnimationEnd()
+        {
+            _isBusy = false;
+        }
+        private void OnDestroy()
+        {
+            if (_currentHarpoon != null)
+            {
+                Destroy(_currentHarpoon.gameObject);
+            }
+        }
+    }
 }

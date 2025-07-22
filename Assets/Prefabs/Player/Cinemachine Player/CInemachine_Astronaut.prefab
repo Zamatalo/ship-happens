@@ -338,7 +338,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6d55ae8d99786374393be261d62d694e, type: 3}
   - {fileID: 8300000, guid: 01fc8d4fe8daac14788186b454fd5330, type: 3}
   jumpSounds:
-  - {fileID: 8300000, guid: 6c1c8d748030d5f48a663c7ba9a55b95, type: 3}
+  - {fileID: 8300000, guid: 3259e7515509929478a30a262b61a1d7, type: 3}
 --- !u!114 &7926268256569563795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2090,7 +2090,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 220
+  Priority: 128
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

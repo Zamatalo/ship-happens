@@ -140,7 +140,7 @@ namespace Player {
 			if (ItemHolder.childCount > 0)
 			{
 				currentItemScript = ItemHolder.GetChild(0).GetComponent<IUsableItem>();
-				currentItemScript?.Init(ItemHolder);
+				currentItemScript?.Init(CinemachineCameraTarget.transform);
 			}
 			else
 			{
