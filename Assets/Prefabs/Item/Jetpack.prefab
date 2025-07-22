@@ -255,15 +255,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2310295924037869884}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.90861446, y: -0.092755154, z: -0.4069283, w: -0.015027367}
-  m_LocalPosition: {x: 0.017209081, y: -0.029095976, z: 0.035912175}
+  m_LocalRotation: {x: -0.053381402, y: -0.5551555, z: -0.21809375, w: -0.8008669}
+  m_LocalPosition: {x: -0.02444, y: -0.00347, z: -0.0254}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1181291854648416940}
   - {fileID: 4130536831812219177}
   m_Father: {fileID: 3597887060503170349}
-  m_LocalEulerAnglesHint: {x: -5.9, y: 227.784, z: 189.042}
+  m_LocalEulerAnglesHint: {x: -9.012, y: 67.503, z: 384.438}
 --- !u!1 &4299445891959710703
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,7 +860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f432df51bcee27a4cb6932d86d4cc604, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f432df51bcee27a4cb6932d86d4cc604, type: 3}
       propertyPath: m_Name
@@ -918,7 +918,7 @@ MonoBehaviour:
   fuelSlider: {fileID: 2474726186580642330}
   forceForward: 15
   forceUp: 15
-  cap: 60
+  maxFuel: 5
 --- !u!114 &-996132923413227848
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4857,7 +4857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84caf582b7fc46819d45e4f41dacba88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notificationPanelPrefab: {fileID: 698035184176509792, guid: 4693bfff3900fa24e8c99c0ba39f6a95, type: 3}
+  notificationPanelPrefab: {fileID: 2742376895055533753, guid: 289167653a879e74cb641e0e5971e6c9, type: 3}
 --- !u!1001 &1423455107
 PrefabInstance:
   m_ObjectHideFlags: 0
