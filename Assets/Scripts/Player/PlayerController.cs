@@ -120,6 +120,7 @@ namespace Player {
 			_playerInventory.AddItemServerRpc("Edible", 1);
 			_playerInventory.AddItemServerRpc("GravityGun", 1);
 			_playerInventory.AddItemServerRpc("HarpoonGun", 1);
+			_playerInventory.AddItemServerRpc("Jetpack", 1);
 			_playerInventory.AddItemServerRpc("Metal", 1);
 			_playerInventory.AddItemServerRpc("Planks", 1);
 			_playerInventory.AddItemServerRpc("Poison", 1);
