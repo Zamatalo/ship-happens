@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2133527956737785627}
   - component: {fileID: 2970776267841698723}
   - component: {fileID: 6090933982016283907}
-  - component: {fileID: 3924115992589581196}
   m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
@@ -87,27 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3924115992589581196
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4007829601822496436}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 0.017297894}
-  m_Center: {x: -0.0000021755695, y: 0, z: 0.007213101}
 --- !u!1 &5235055297888234467
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6467678343246293758}
+  - component: {fileID: 5985629639952296279}
   - component: {fileID: -4779155946984825414}
   m_Layer: 3
   m_Name: RoughOrangePlane
@@ -141,6 +120,27 @@ Transform:
   - {fileID: 2133527956737785627}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5985629639952296279
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5235055297888234467}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 0.1, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-4779155946984825414
 MonoBehaviour:
   m_ObjectHideFlags: 0

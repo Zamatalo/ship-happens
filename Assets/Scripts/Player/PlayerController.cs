@@ -31,30 +31,8 @@ namespace Player {
 		private Vector3 m_lookInput;
 		private GameObject mainCamera;
 		private float rotationVelocity;
-		public override void OnNetworkSpawn()
-		{
-			_rb = GetComponent<Rigidbody>();
-			animator = GetComponent<Animator>();
-    
-			GameObject spawnObj = GameObject.FindGameObjectWithTag("SpawnBlock");
-			if (spawnObj != null)
-			{
-				transform.position = spawnObj.transform.position;
-			}
-			else
-			{
-				Debug.LogWarning("SpawnBlock not found! Spawning at default position.");
-			}
-		}
 
-
-		protected override void OnNetworkPostSpawn()
-		{
-			_playerInventory= NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventoryNew>();
-		}
-
-		private void FixedUpdate()
-		{
+		private void FixedUpdate() {
 			if (!IsOwner) return;
 
 			GroundedCheck();
@@ -75,7 +53,28 @@ namespace Player {
 		private void LateUpdate() {
 			CameraRotation();
 		}
-		
+
+		private void OnDrawGizmos() {
+			Gizmos.DrawSphere(transform.position + Vector3.down * GroundedOffset, GroundedRadius);
+		}
+
+		public override void OnNetworkSpawn() {
+			_rb = GetComponent<Rigidbody>();
+			animator = GetComponent<Animator>();
+
+			var spawnObj = GameObject.FindGameObjectWithTag("SpawnBlock");
+			if (spawnObj != null)
+				transform.position = spawnObj.transform.position;
+			else
+				Debug.LogWarning("SpawnBlock not found! Spawning at default position.");
+		}
+
+
+		protected override void OnNetworkPostSpawn() {
+			_playerInventory = NetworkManager.Singleton.LocalClient.PlayerObject
+				.GetComponent<PlayerInventoryNew>();
+		}
+
 		private void CameraRotation() {
 			var deltaTimeMultiplier = Time.deltaTime;
 

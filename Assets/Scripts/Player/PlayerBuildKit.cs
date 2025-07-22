@@ -51,15 +51,20 @@ namespace Player {
 				Mathf.Round(snapped.z / snapSize) * snapSize
 			);
 
-			if (_rot.y != 0f) {
-			}
+			var rot = _rot;
 			if (_rot.x != 0f) {
-				snapped.z -= forward.z * snapSize / 2;
+				var halfSnapSize = snapSize / 2;
+				snapped -= forward * snapSize / 2;
 				snapped.y += snapSize / 2;
+				snapped.x = Mathf.Round(snapped.x / halfSnapSize) * halfSnapSize;
+				snapped.z = Mathf.Round(snapped.z / halfSnapSize) * halfSnapSize;
+
+				var rot2 = Quaternion.LookRotation(forward, Vector3.forward).eulerAngles;
+				rot.y = Mathf.Round(rot2.y / 90f) * 90f;
 			}
 
 			_preview.transform.position = snapped;
-			_preview.transform.rotation = Quaternion.Euler(_rot);
+			_preview.transform.rotation = Quaternion.Euler(rot);
 		}
 
 		private void OnEnable() {
@@ -67,7 +72,6 @@ namespace Player {
 			_ia.BuildKit.Start.performed += OnStart;
 			_ia.BuildKit.Place.performed += OnPlace;
 			_ia.BuildKit.Cancel.performed += OnCancel;
-			_ia.BuildKit.RotateLeft.performed += OnRotateLeft;
 			_ia.BuildKit.RotateForward.performed += OnRotateForward;
 		}
 
@@ -75,7 +79,6 @@ namespace Player {
 			_ia.BuildKit.Start.performed -= OnStart;
 			_ia.BuildKit.Place.performed -= OnPlace;
 			_ia.BuildKit.Cancel.performed -= OnCancel;
-			_ia.BuildKit.RotateLeft.performed -= OnRotateLeft;
 			_ia.BuildKit.RotateForward.performed -= OnRotateForward;
 			_ia.Disable();
 		}
@@ -108,11 +111,6 @@ namespace Player {
 			Destroy(_preview);
 			_building = false;
 			_rot = Vector3.zero;
-		}
-
-		private void OnRotateLeft(InputAction.CallbackContext _) {
-			if (!_building || !_preview.activeSelf) return;
-			_rot.y = _rot.y == 0f ? 90f : 0f;
 		}
 
 		private void OnRotateForward(InputAction.CallbackContext _) {
