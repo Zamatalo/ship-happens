@@ -11,6 +11,8 @@ namespace Player {
 		private bool _shown5 = false;
 		private bool _shown10 = false;
 		private bool _shown30 = false;
+		private bool _shown100 = false;
+
 
 		private void OnTriggerEnter(Collider other) {
 			if (!other.gameObject.TryGetComponent(out Loot.Loot loot)) return;
@@ -42,6 +44,10 @@ namespace Player {
 			else if (_collectedCount >= 30 && !_shown30) {
 				notifier.ShowNotification("Master Gatherer!");
 				_shown30 = true;
+			}
+			else if (_collectedCount >= 100 && !_shown100) {
+				notifier.ShowNotification("Legendary Hoarder!");
+				_shown100 = true;
 			}
 		}
 
