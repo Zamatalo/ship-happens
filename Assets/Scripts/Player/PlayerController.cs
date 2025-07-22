@@ -31,8 +31,30 @@ namespace Player {
 		private Vector3 m_lookInput;
 		private GameObject mainCamera;
 		private float rotationVelocity;
+		public override void OnNetworkSpawn()
+		{
+			_rb = GetComponent<Rigidbody>();
+			animator = GetComponent<Animator>();
+    
+			GameObject spawnObj = GameObject.FindGameObjectWithTag("SpawnBlock");
+			if (spawnObj != null)
+			{
+				transform.position = spawnObj.transform.position;
+			}
+			else
+			{
+				Debug.LogWarning("SpawnBlock not found! Spawning at default position.");
+			}
+		}
 
-		private void FixedUpdate() {
+
+		protected override void OnNetworkPostSpawn()
+		{
+			_playerInventory= NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventoryNew>();
+		}
+
+		private void FixedUpdate()
+		{
 			if (!IsOwner) return;
 
 			GroundedCheck();
@@ -53,18 +75,7 @@ namespace Player {
 		private void LateUpdate() {
 			CameraRotation();
 		}
-
-		public override void OnNetworkSpawn() {
-			if (mainCamera == null) mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-			_rb = GetComponent<Rigidbody>();
-			animator = GetComponent<Animator>();
-		}
-
-		protected override void OnNetworkPostSpawn() {
-			_playerInventory = NetworkManager.Singleton.LocalClient.PlayerObject
-				.GetComponent<PlayerInventoryNew>();
-		}
-
+		
 		private void CameraRotation() {
 			var deltaTimeMultiplier = Time.deltaTime;
 
