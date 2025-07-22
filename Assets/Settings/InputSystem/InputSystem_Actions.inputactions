@@ -1272,16 +1272,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RotateLeft",
-                    "type": "Button",
-                    "id": "c8d5b01c-d935-43c5-9bdb-0076ea6947eb",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RotateForward",
+                    "name": "Rotate",
                     "type": "Button",
                     "id": "c11eff78-8f93-4819-b3c4-a395ca1ef34a",
                     "expectedControlType": "",
@@ -1326,23 +1317,12 @@
                 },
                 {
                     "name": "",
-                    "id": "e124d773-60d5-4db9-8f30-a349744a69be",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RotateLeft",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7e902df9-950a-4139-947a-1fa51390afe5",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RotateForward",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

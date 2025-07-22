@@ -1358,16 +1358,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RotateLeft"",
-                    ""type"": ""Button"",
-                    ""id"": ""c8d5b01c-d935-43c5-9bdb-0076ea6947eb"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RotateForward"",
+                    ""name"": ""Rotate"",
                     ""type"": ""Button"",
                     ""id"": ""c11eff78-8f93-4819-b3c4-a395ca1ef34a"",
                     ""expectedControlType"": """",
@@ -1412,23 +1403,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e124d773-60d5-4db9-8f30-a349744a69be"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateLeft"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""7e902df9-950a-4139-947a-1fa51390afe5"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RotateForward"",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1650,8 +1630,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_BuildKit_Start = m_BuildKit.FindAction("Start", throwIfNotFound: true);
         m_BuildKit_Place = m_BuildKit.FindAction("Place", throwIfNotFound: true);
         m_BuildKit_Cancel = m_BuildKit.FindAction("Cancel", throwIfNotFound: true);
-        m_BuildKit_RotateLeft = m_BuildKit.FindAction("RotateLeft", throwIfNotFound: true);
-        m_BuildKit_RotateForward = m_BuildKit.FindAction("RotateForward", throwIfNotFound: true);
+        m_BuildKit_Rotate = m_BuildKit.FindAction("Rotate", throwIfNotFound: true);
         // Jetpack
         m_Jetpack = asset.FindActionMap("Jetpack", throwIfNotFound: true);
         m_Jetpack_BurnForward = m_Jetpack.FindAction("BurnForward", throwIfNotFound: true);
@@ -2541,8 +2520,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_BuildKit_Start;
     private readonly InputAction m_BuildKit_Place;
     private readonly InputAction m_BuildKit_Cancel;
-    private readonly InputAction m_BuildKit_RotateLeft;
-    private readonly InputAction m_BuildKit_RotateForward;
+    private readonly InputAction m_BuildKit_Rotate;
     /// <summary>
     /// Provides access to input actions defined in input action map "BuildKit".
     /// </summary>
@@ -2567,13 +2545,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Cancel => m_Wrapper.m_BuildKit_Cancel;
         /// <summary>
-        /// Provides access to the underlying input action "BuildKit/RotateLeft".
+        /// Provides access to the underlying input action "BuildKit/Rotate".
         /// </summary>
-        public InputAction @RotateLeft => m_Wrapper.m_BuildKit_RotateLeft;
-        /// <summary>
-        /// Provides access to the underlying input action "BuildKit/RotateForward".
-        /// </summary>
-        public InputAction @RotateForward => m_Wrapper.m_BuildKit_RotateForward;
+        public InputAction @Rotate => m_Wrapper.m_BuildKit_Rotate;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -2609,12 +2583,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
-            @RotateLeft.started += instance.OnRotateLeft;
-            @RotateLeft.performed += instance.OnRotateLeft;
-            @RotateLeft.canceled += instance.OnRotateLeft;
-            @RotateForward.started += instance.OnRotateForward;
-            @RotateForward.performed += instance.OnRotateForward;
-            @RotateForward.canceled += instance.OnRotateForward;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
         }
 
         /// <summary>
@@ -2635,12 +2606,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
-            @RotateLeft.started -= instance.OnRotateLeft;
-            @RotateLeft.performed -= instance.OnRotateLeft;
-            @RotateLeft.canceled -= instance.OnRotateLeft;
-            @RotateForward.started -= instance.OnRotateForward;
-            @RotateForward.performed -= instance.OnRotateForward;
-            @RotateForward.canceled -= instance.OnRotateForward;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
         }
 
         /// <summary>
@@ -3338,19 +3306,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCancel(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "RotateLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Rotate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotateLeft(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "RotateForward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotateForward(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Jetpack" which allows adding and removing callbacks.

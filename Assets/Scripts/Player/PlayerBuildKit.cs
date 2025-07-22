@@ -72,14 +72,14 @@ namespace Player {
 			_ia.BuildKit.Start.performed += OnStart;
 			_ia.BuildKit.Place.performed += OnPlace;
 			_ia.BuildKit.Cancel.performed += OnCancel;
-			_ia.BuildKit.RotateForward.performed += OnRotateForward;
+			_ia.BuildKit.Rotate.performed += OnRotate;
 		}
 
 		private void OnDisable() {
 			_ia.BuildKit.Start.performed -= OnStart;
 			_ia.BuildKit.Place.performed -= OnPlace;
 			_ia.BuildKit.Cancel.performed -= OnCancel;
-			_ia.BuildKit.RotateForward.performed -= OnRotateForward;
+			_ia.BuildKit.Rotate.performed -= OnRotate;
 			_ia.Disable();
 		}
 
@@ -113,7 +113,7 @@ namespace Player {
 			_rot = Vector3.zero;
 		}
 
-		private void OnRotateForward(InputAction.CallbackContext _) {
+		private void OnRotate(InputAction.CallbackContext _) {
 			if (!_building || !_preview.activeSelf) return;
 			_rot.x = _rot.x == 0f ? 90f : 0f;
 		}
