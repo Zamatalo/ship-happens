@@ -523,6 +523,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 01fc8d4fe8daac14788186b454fd5330, type: 3}
   jumpSounds:
   - {fileID: 8300000, guid: 3259e7515509929478a30a262b61a1d7, type: 3}
+  shootSounds_Harpoon: []
+  reloadSounds_Harpoon: []
 --- !u!114 &7926268256569563795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4970,7 +4972,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0

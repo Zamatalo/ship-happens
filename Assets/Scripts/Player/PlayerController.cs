@@ -117,6 +117,7 @@ namespace Player {
 				return;
 			}
 			_playerInventory.AddItemServerRpc("BuildingTool", 1);
+			_playerInventory.AddItemServerRpc("Jetpack", 1);
 			_playerInventory.AddItemServerRpc("Edible", 1);
 			_playerInventory.AddItemServerRpc("GravityGun", 1);
 			_playerInventory.AddItemServerRpc("HarpoonGun", 1);
