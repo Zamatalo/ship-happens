@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Notifications;
+using UnityEngine;
 
 namespace Item {
     public class Magnet : MonoBehaviour, IUsableItem 
@@ -13,12 +14,14 @@ namespace Item {
         private Transform _origin;
         private Loot.Loot _currentLoot;
         private bool _isActive;
+        private NotificationManager _notificationManager;
 
         public void Init(Transform origin) 
         {
             _origin = origin;
             transform.rotation = _origin.rotation * Quaternion.Euler(-11f, -90f, 96f);
             beamLine.enabled = false; // Скрыть лазер при старте
+            _notificationManager = FindObjectOfType<NotificationManager>();
         }
 
         public void Use()
@@ -26,6 +29,7 @@ namespace Item {
             if (_isActive) return;
             _isActive = true;
             magnetSound?.Play();
+            _notificationManager?.ShowNotification(" Aim at loot and hold the button to pull it toward you!", 5f);
         }
 
         public void Unuse()

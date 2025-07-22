@@ -6,7 +6,11 @@ using UnityEngine.UI;
 namespace Notifications {
     public class NotificationManager : MonoBehaviour {
         public GameObject notificationPanelPrefab;
-
+        
+        private void Start() {
+            ShowNotification("Welcome to Ship happens!", 5f);
+        }
+        
         public void ShowNotification(string message, float duration = 5f) {
             var notif = Instantiate(notificationPanelPrefab);
             notif.GetComponentInChildren<TMP_Text>().text = message;

@@ -1,5 +1,6 @@
 ﻿using Projectile;
 using UnityEngine;
+using Notifications;
 
 namespace Item 
 {
@@ -23,6 +24,7 @@ namespace Item
         private bool _isBusy;
         private Harpoon _currentHarpoon;
         private Transform _origin;
+        private NotificationManager _notificationManager;
 
         public void Init(Transform origin)
         {
@@ -31,6 +33,8 @@ namespace Item
                 return;
             }
             _origin = origin;
+            _notificationManager = FindObjectOfType<NotificationManager>();
+
         }
 
         public void Use()
@@ -90,6 +94,7 @@ namespace Item
             _currentHarpoon.pullSpeed = pullSpeed;
 
             if (shootSound != null) shootSound.Play();
+            _notificationManager?.ShowNotification(" Tip: Aim and shoot the harpoon to hook loot!", 5f);
         }
         public void Reload()
         {
