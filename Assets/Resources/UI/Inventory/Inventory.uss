@@ -12,53 +12,55 @@
 
 .hotbar-slot {
     flex-grow: 1;
-    width: 64px;
-    height: 64px;
+    width: 96px;
+    height: 96px;
     max-width: 64px;
     max-height: 64px;
     margin: 0 1% 1% 0;
     background-image: resource('UI/Inventory/ItemDisable');
-    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
+    cursor: resource('UI/Assets/Cursors/Cursor 2 64px');
+    margin-top: 3px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    margin-left: 3px;
 }
 
 .hotbar-slot.selected {
     background-image: resource('UI/Inventory/ItemEnable');
-    height: 100px;
-    width: 100px;
-    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
-
+    cursor: resource('UI/Assets/Cursors/Cursor 2 64px');
 }
 
 .slotIcon {
     flex-shrink: 0;
     flex-grow: 1;
-    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
-
+    cursor: resource('UI/Assets/Cursors/Cursor 2 64px');
 }
 
 .inventoryElement {
-    width: 64px;
-    height: 64px;
+    width: 96px;
+    height: 96px;
     margin: 2px;
     border-left-color: rgb(48, 48, 48);
     border-right-color: rgb(48, 48, 48);
     border-top-color: rgb(48, 48, 48);
     border-bottom-color: rgb(48, 48, 48);
     background-color: rgb(9, 19, 21);
-    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
-
+    cursor: resource('UI/Assets/Cursors/Cursor 2 64px');
+    margin-top: 6px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    margin-left: 6px;
 }
 
 .slotBackground {
     background-image: resource('UI/Assets/UIDifferentFree03Wenrexa/PNG/Cell01');
-    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
-
+    cursor: resource('UI/Assets/Cursors/Cursor 2 64px');
 }
 
 .slotBackground2 {
-    background-image: resource('Assets/Resources/UI/Inventory/frame.png');
-    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
-
+    background-image: resource('UI/Assets/1. Free Hologram Interface Wenrexa(1)/1. Free Hologram Interface Wenrexa/Card X3/Card X5');
+    cursor: resource('UI/Assets/Cursors/Cursor 2 64px');
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.62);
 }
 
 .slotQuantity {
@@ -71,5 +73,4 @@
     padding: 2px 4px;
     border-radius: 3px;
     cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
-
 }

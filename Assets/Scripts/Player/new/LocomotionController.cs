@@ -104,6 +104,8 @@
 //             {
 //                 m_jumpStatus = JumpStatus.Requested;
 //             }
+//             else if (doubleJumpIsAvailable) m_jumpStatus = JumpStatus.Requested;
+//             else if (wallJumpIsAvailable) m_jumpStatus = JumpStatus.Requested;
 //         }
 //     }
 //     public void UpdateRotation(ref Quaternion currentRotation, float deltaTime)
@@ -173,6 +175,7 @@
 //         }
 //         //jumping
 //         {
+//             m_timeSinceJumpRequested += deltaTime;
 //             if (m_jumpStatus == JumpStatus.Requested)
 //             { 
 //                 if (AllowWallJump&&m_canWallJump)
@@ -183,6 +186,7 @@
 //                     currentVelocity += (m_moveInputVector * JumpScalableForwardSpeed);
 //                     m_jumpStatus = JumpStatus.Executed;
 //                     m_hasWallJumped = true;
+//                     m_hasJumped = true;
 //                 }
 //                 else if (
 //                     (AllowJumpingWhenSliding
@@ -205,10 +209,9 @@
 //                     m_hasDoubleJumped = true;
 //                 }
 //             }
-//
 //             m_canWallJump = false;
 //         }    
-// }
+//     }
 //
 //     public void BeforeCharacterUpdate(float deltaTime)
 //     {
@@ -216,8 +219,29 @@
 //
 //     public void PostGroundingUpdate(float deltaTime)
 //     {
+//         if (Motor.GroundingStatus.IsStableOnGround && !Motor.LastGroundingStatus.IsStableOnGround)
+//         {
+//             OnLanded();
+//         }else if (!Motor.GroundingStatus.IsStableOnGround && Motor.LastGroundingStatus.IsStableOnGround)
+//         {
+//             OnLeaveStableGround();
+//         }
 //     }
 //
+//     protected void OnLanded()
+//     {
+//         m_hasJumped = false;
+//         m_hasDoubleJumped = false;
+//         m_hasWallJumped = false;
+//         m_jumpStatus= JumpStatus.None;
+//         m_timeSinceJumpRequested = 0f;
+//
+//     }
+//
+//     protected void OnLeaveStableGround()
+//     {
+//         
+//     }
 //     public void AfterCharacterUpdate(float deltaTime)
 //     {//reseting flags for jump
 //         m_timeSinceJumpRequested += deltaTime;

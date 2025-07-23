@@ -191,9 +191,9 @@ MonoBehaviour:
   SyncRotAngleX: 1
   SyncRotAngleY: 1
   SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
@@ -234,9 +234,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kind:
+    id: 
     itemName: Metal
     quantity: 2
-  amount: 2
+    parameters: []
 --- !u!114 &373880273540251251
 MonoBehaviour:
   m_ObjectHideFlags: 0
