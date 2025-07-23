@@ -22,7 +22,7 @@ namespace Player {
 		private InputSystem_Actions _ia;
 		private bool _isMoving;
 		private Vector2 _moveInput;
-
+		public bool attackedByShark;
 
 		[Header("Items")] private PlayerInventoryNew _playerInventory;
 		private Rigidbody _rb;
@@ -45,11 +45,15 @@ namespace Player {
 
 			GroundedCheck();
 
-			var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
+			if (!attackedByShark)
+			{
+				
+				var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
 
-			var movement = transform.rotation * inputDir;
-			movement *= moveSpeed * Time.fixedDeltaTime;
-			_rb.MovePosition(_rb.position + movement);
+				var movement = transform.rotation * inputDir;
+				movement *= moveSpeed * Time.fixedDeltaTime;
+				_rb.MovePosition(_rb.position + movement);
+			}
 
 			_isMoving = _moveInput.sqrMagnitude > 0.01f;
 			animator.SetFloat("moveX", _moveInput.x);
@@ -128,7 +132,7 @@ namespace Player {
 
 		public void OnJump(InputAction.CallbackContext context) {
 			if (!IsOwner) return;
-			if (isGrounded) Jump();
+			if (isGrounded && !attackedByShark) Jump();
 		}
 
 		public void OnLook(InputAction.CallbackContext context) {

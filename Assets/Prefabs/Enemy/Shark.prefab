@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 0
+  GlobalObjectIdHash: 1942125811
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -174,10 +174,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6fbe94523549ada2a82112e26a801a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orbitDistance: 15
-  orbitSpeed: 20
-  attackSpeed: 7
-  attackCooldown: 60
+  attackDmg: 8
+  maxAttackPerTime: 4
+  normalSpeed: 20
+  aggressiveSpeed: 20
+  patrolOff: 25
+  voidOff: 400
+  patrolDuration: 20
+  attackCooldown: 2
 --- !u!1 &4848409454904512432
 GameObject:
   m_ObjectHideFlags: 0
