@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +8,7 @@ namespace Player {
 
 		[Header("Movement")] public float moveSpeed = 5f;
 
+		public float maxMag = 10f;
 		[Header("Jump")] public float jumpForce = 5f;
 
 		[Header("Ground")] public bool isGrounded = true;
@@ -22,8 +21,8 @@ namespace Player {
 		public float RotationSpeed = 1.0f;
 		private bool _isMoving;
 		private Vector2 _moveInput;
-		
-		
+
+
 		[Header("Items")] private PlayerInventoryNew _playerInventory;
 		private Rigidbody _rb;
 
@@ -39,6 +38,7 @@ namespace Player {
 		private void FixedUpdate() {
 			if (!IsOwner) return;
 
+			ClampVel();
 			GroundedCheck();
 
 			var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
@@ -130,16 +130,16 @@ namespace Player {
 				Debug.LogWarning("PlayerInventoryNew not initialized");
 				return;
 			}
-			_playerInventory.AddItemServerRpc("BuildingTool", 1,null);
-			_playerInventory.AddItemServerRpc("Jetpack", 1,null);
-			_playerInventory.AddItemServerRpc("Edible", 1,null);
-			_playerInventory.AddItemServerRpc("GravityGun", 1,null);
-			_playerInventory.AddItemServerRpc("HarpoonGun", 1,null);
-			_playerInventory.AddItemServerRpc("Jetpack", 1,null);
-			_playerInventory.AddItemServerRpc("Metal", 1,null);
-			_playerInventory.AddItemServerRpc("Planks", 1,null);
-			_playerInventory.AddItemServerRpc("Poison", 1,null);
-			_playerInventory.AddItemServerRpc("Potable", 1,null);
+			_playerInventory.AddItemServerRpc("BuildingTool", 1, null);
+			_playerInventory.AddItemServerRpc("Jetpack", 1, null);
+			_playerInventory.AddItemServerRpc("Edible", 1, null);
+			_playerInventory.AddItemServerRpc("GravityGun", 1, null);
+			_playerInventory.AddItemServerRpc("HarpoonGun", 1, null);
+			_playerInventory.AddItemServerRpc("Jetpack", 1, null);
+			_playerInventory.AddItemServerRpc("Metal", 1, null);
+			_playerInventory.AddItemServerRpc("Planks", 1, null);
+			_playerInventory.AddItemServerRpc("Poison", 1, null);
+			_playerInventory.AddItemServerRpc("Potable", 1, null);
 		}
 
 		public void UpdateEquippedItem() {
@@ -160,6 +160,11 @@ namespace Player {
 			} else if (context.canceled) {
 				currentItemScript?.Unuse();
 			}
+		}
+
+		private void ClampVel() {
+			if (_rb.linearVelocity.magnitude > maxMag)
+				_rb.linearVelocity = _rb.linearVelocity.normalized * maxMag;
 		}
 	}
 }
