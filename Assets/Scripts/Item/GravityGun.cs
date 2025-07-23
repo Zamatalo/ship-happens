@@ -9,6 +9,7 @@ namespace Item {
 		[SerializeField] private float grabDistance = 2f;
 		[SerializeField] private List<LineRenderer> beamLines;
 		[SerializeField] private AudioSource magnetSound;
+		[SerializeField] private Animator animator;
 		private Loot.Loot _currentLoot;
 		private bool _isActive;
 		private NotificationManager _notificationManager;
@@ -40,9 +41,12 @@ namespace Item {
 				);
 			} else if (hitSomething) {
 				if (laserHit.collider.TryGetComponent(out _currentLoot))
+				{
+					animator.SetBool("isPulling",true);
+					magnetSound.Play();
 					Debug.Log($"Pulling loot: {_currentLoot.name}");
-				else
-					return;
+				}
+				else  return;
 			}
 
 			if (_currentLoot || hitSomething)
@@ -53,11 +57,16 @@ namespace Item {
 						_currentLoot ? _currentLoot.transform.position : laserHit.point);
 				}
 			else
+			{
 				foreach (var beamLine in beamLines)
-					beamLine.enabled = false;
+                					beamLine.enabled = false;
+				
+			}
+
 		}
 
 		private void OnDisable() {
+			
 			Unuse();
 		}
 
@@ -85,17 +94,18 @@ namespace Item {
 		public void Use() {
 			if (_isActive) return;
 			_isActive = true;
-			magnetSound?.Play();
 			_notificationManager?.ShowNotification(
 				" Aim at loot and hold the button to pull it toward you!");
 		}
 
 		public void Unuse() {
 			if (!_isActive) return;
+			animator.SetBool("isPulling",false);
+			magnetSound.Stop();
 			_isActive = false;
 			_currentLoot = null;
-			magnetSound?.Stop();
 			foreach (var beamLine in beamLines) beamLine.enabled = false;
 		}
+
 	}
 }

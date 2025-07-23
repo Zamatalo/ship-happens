@@ -350,7 +350,8 @@ MonoBehaviour:
   - {fileID: 6108260192570334054}
   - {fileID: 5452814684431173112}
   - {fileID: 9209425868780694779}
-  magnetSound: {fileID: 8539258975003100946, guid: 152097b62ad44425a8a9752c293b1e31, type: 3}
+  magnetSound: {fileID: -3883051290524056677}
+  animator: {fileID: 1595469837029713774}
 --- !u!82 &-3883051290524056677
 AudioSource:
   m_ObjectHideFlags: 0
@@ -880,7 +881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4812510436751410961, guid: 5247a4f3fba614d429724232d58ab685, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4812510436751410961, guid: 5247a4f3fba614d429724232d58ab685, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
