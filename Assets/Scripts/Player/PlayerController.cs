@@ -140,6 +140,7 @@ namespace Player {
 			_playerInventory.AddItemServerRpc("Planks", 1,null);
 			_playerInventory.AddItemServerRpc("Poison", 1,null);
 			_playerInventory.AddItemServerRpc("Potable", 1,null);
+			_playerInventory.AddItemServerRpc("Tablet", 1,null);
 		}
 
 		public void UpdateEquippedItem() {
