@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
@@ -8,6 +7,8 @@ using Cursor = UnityEngine.Cursor;
 public class InventoryUI : MonoBehaviour {
 	public static InventoryUI Instance;
 	public Transform handTransform;
+	public Transform cameraTransform;
+	private readonly List<InventoryElement> hotbarSlots = new();
 
 	private GameObject currentHeldItem;
 	private InventoryElement dragSource;
@@ -20,10 +21,10 @@ public class InventoryUI : MonoBehaviour {
 	private InventoryElement selectedHotbarSlot;
 
 	private List<InventoryElement> slots = new();
-	private List<InventoryElement> hotbarSlots = new();
 
 	private VisualElement slotsContainer;
 	private InventoryElement tempTarget;
+
 	/**/
 	private void Awake() {
 		if (Instance != null && Instance != this) {
@@ -117,7 +118,7 @@ public class InventoryUI : MonoBehaviour {
 		UpdateGhostIconPosition(evt.position);
 		evt.StopPropagation();
 	}
-	
+
 	private void UpdateGhostIconPosition(Vector2 screenPosition) {
 		if (root.panel == null)
 			return;
@@ -141,7 +142,6 @@ public class InventoryUI : MonoBehaviour {
 		allSlots.AddRange(hotbarSlots);
 		var slotUnderCursor = allSlots.FirstOrDefault(s => s.worldBound.Contains(evt.position));
 
-		
 		//out ot bounds
 		if (slotUnderCursor == null || dragSource == null) {
 			tempTarget.Icon.style.display = DisplayStyle.Flex;
@@ -161,55 +161,48 @@ public class InventoryUI : MonoBehaviour {
 			var targetQty = string.IsNullOrEmpty(slotUnderCursor.Quantity.text)
 				? 0
 				: int.Parse(slotUnderCursor.Quantity.text);
-			
-						
-			slotUnderCursor.SetItem(
-				new InventoryItem(dragSource.ItemName, int.Parse(dragSource.Quantity.text),new List<ItemParameter>())
-				);
 
-			dragSource.SetItem(new InventoryItem(targetName, targetQty,new List<ItemParameter>()));
+			slotUnderCursor.SetItem(
+				new InventoryItem(dragSource.ItemName, int.Parse(dragSource.Quantity.text),
+					new List<ItemParameter>())
+			);
+
+			dragSource.SetItem(new InventoryItem(targetName, targetQty, new List<ItemParameter>()));
 		}
 		ghostIcon.style.display = DisplayStyle.None;
 		isDragging = false;
 		dragSource = null;
 	}
 
-	public void RefreshInventory(List<InventoryItem> items)
-	{
+	public void RefreshInventory(List<InventoryItem> items) {
 		if (slots == null || slots.Count == 0 || items == null) return;
 
-		foreach (var slot in slots)
-		{
-			if (!hotbarSlots.Contains(slot))
-			{
+		foreach (var slot in slots) {
+			if (!hotbarSlots.Contains(slot)) {
 				slot.ClearItem();
 			}
 		}
 
-		foreach (var item in items)
-		{
+		foreach (var item in items) {
 			if (item.IsEmpty) continue;
 
 			var existingHotbarSlot = hotbarSlots.FirstOrDefault(s => s.ItemName == item.itemName);
-        
-			if (existingHotbarSlot != null)
-			{
+
+			if (existingHotbarSlot != null) {
 				existingHotbarSlot.Quantity.text = item.quantity.ToString();
-            
-				if (item.quantity <= 0)
-				{
+
+				if (item.quantity <= 0) {
 					existingHotbarSlot.ClearItem();
 				}
 			}
 		}
 
-		foreach (var item in items)
-		{
+		foreach (var item in items) {
 			if (item.IsEmpty) continue;
 
 			if (hotbarSlots.Any(s => s.ItemName == item.itemName)) continue;
 
-			var emptySlot = slots.FirstOrDefault(s => 
+			var emptySlot = slots.FirstOrDefault(s =>
 				s.InventoryItem.IsEmpty && !hotbarSlots.Contains(s));
 
 			emptySlot?.SetItem(item);
@@ -237,10 +230,12 @@ public class InventoryUI : MonoBehaviour {
 			Destroy(currentHeldItem);
 			currentHeldItem = null;
 		}
-		if (slot == null || slot.InventoryItem.IsEmpty || string.IsNullOrEmpty(slot.InventoryItem.itemName))
+		if (slot == null || slot.InventoryItem.IsEmpty ||
+		    string.IsNullOrEmpty(slot.InventoryItem.itemName))
 			return;
-		
-		var prejab =InventoryDatabase.Instance.GetItemByName(slot.InventoryItem.itemName).itemPrefab;
+
+		var prejab = InventoryDatabase.Instance.GetItemByName(slot.InventoryItem.itemName)
+			.itemPrefab;
 		currentHeldItem = Instantiate(
 			prejab,
 			handTransform.position,
@@ -248,6 +243,6 @@ public class InventoryUI : MonoBehaviour {
 			handTransform
 		);
 		var usableItem = currentHeldItem.GetComponent<IUsableItem>();
-		if (usableItem != null) usableItem.Init(handTransform,null);
+		if (usableItem != null) usableItem.Init(cameraTransform, null);
 	}
 }
