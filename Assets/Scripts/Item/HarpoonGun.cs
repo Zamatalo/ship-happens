@@ -26,6 +26,10 @@ namespace Item {
 			}
 		}
 
+		public string Name() {
+			return "Name";
+		}
+
 		public void Init(Transform origin, List<ItemParameter> itemParameters) {
 			_origin = origin;
 		}

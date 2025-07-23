@@ -472,7 +472,19 @@ MonoBehaviour:
     m_ActionId: 3949a077-4089-47ce-a3e0-d2cf80dd23b7
     m_ActionName: 'Inventory/IterMouse[/Mouse/scroll]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7926268256569563795}
+        m_TargetAssemblyTypeName: Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnDropItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 99fc8fc5-77c8-435c-9170-45523a583275
     m_ActionName: 'Inventory/DropItem[/Keyboard/g]'
   - m_PersistentCalls:
@@ -8941,8 +8953,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7810045263584533964}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.25642374, y: 0.6819279, z: -0.62248015, w: 0.28590164}
-  m_LocalPosition: {x: -4.9018755, y: 25.283283, z: 1166.2201}
+  m_LocalRotation: {x: 0.00000004097819, y: 0.000000029802319, z: -0.000000005587935, w: 1}
+  m_LocalPosition: {x: 0, y: 3.6699998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

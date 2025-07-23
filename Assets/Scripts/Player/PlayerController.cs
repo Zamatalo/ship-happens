@@ -19,6 +19,7 @@ namespace Player {
 		public float BottomClamp = -90.0f;
 		public float TopClamp = 90.0f;
 		public float RotationSpeed = 1.0f;
+		private InputSystem_Actions _ia;
 		private bool _isMoving;
 		private Vector2 _moveInput;
 
@@ -34,6 +35,10 @@ namespace Player {
 		private Vector3 m_lookInput;
 		private GameObject mainCamera;
 		private float rotationVelocity;
+
+		private void Awake() {
+			_ia = new InputSystem_Actions();
+		}
 
 		private void FixedUpdate() {
 			if (!IsOwner) return;
@@ -57,6 +62,16 @@ namespace Player {
 			CameraRotation();
 		}
 
+		private void OnEnable() {
+			_ia.Enable();
+			_ia.Inventory.DropItem.performed += OnDropItem;
+		}
+
+		private void OnDisable() {
+			_ia.Inventory.DropItem.performed -= OnDropItem;
+			_ia.Disable();
+		}
+
 		private void OnDrawGizmos() {
 			Gizmos.DrawSphere(transform.position + Vector3.down * GroundedOffset, GroundedRadius);
 		}
@@ -71,7 +86,6 @@ namespace Player {
 			else
 				Debug.LogWarning("SpawnBlock not found! Spawning at default position.");
 		}
-
 
 		protected override void OnNetworkPostSpawn() {
 			_playerInventory = NetworkManager.Singleton.LocalClient.PlayerObject
@@ -129,17 +143,17 @@ namespace Player {
 				Debug.LogWarning("PlayerInventoryNew not initialized");
 				return;
 			}
-			_playerInventory.AddItemServerRpc("BuildingTool", 1,null);
-			_playerInventory.AddItemServerRpc("Jetpack", 1,null);
-			_playerInventory.AddItemServerRpc("Edible", 1,null);
-			_playerInventory.AddItemServerRpc("GravityGun", 1,null);
-			_playerInventory.AddItemServerRpc("HarpoonGun", 1,null);
-			_playerInventory.AddItemServerRpc("Jetpack", 1,null);
-			_playerInventory.AddItemServerRpc("Metal", 1,null);
-			_playerInventory.AddItemServerRpc("Planks", 1,null);
-			_playerInventory.AddItemServerRpc("Poison", 1,null);
-			_playerInventory.AddItemServerRpc("Potable", 1,null);
-			_playerInventory.AddItemServerRpc("Tablet", 1,null);
+			_playerInventory.AddItemServerRpc("BuildingTool", 1, null);
+			_playerInventory.AddItemServerRpc("Jetpack", 1, null);
+			_playerInventory.AddItemServerRpc("Edible", 1, null);
+			_playerInventory.AddItemServerRpc("GravityGun", 1, null);
+			_playerInventory.AddItemServerRpc("HarpoonGun", 1, null);
+			_playerInventory.AddItemServerRpc("Jetpack", 1, null);
+			_playerInventory.AddItemServerRpc("Metal", 1, null);
+			_playerInventory.AddItemServerRpc("Planks", 1, null);
+			_playerInventory.AddItemServerRpc("Poison", 1, null);
+			_playerInventory.AddItemServerRpc("Potable", 1, null);
+			_playerInventory.AddItemServerRpc("Tablet", 1, null);
 		}
 
 		public void UpdateEquippedItem() {
@@ -160,6 +174,25 @@ namespace Player {
 			} else if (context.canceled) {
 				currentItemScript?.Unuse();
 			}
+		}
+
+		public void OnDropItem(InputAction.CallbackContext _) {
+			if (!IsOwner) return;
+
+			UpdateEquippedItem();
+
+			var currentItemData =
+				InventoryDatabase.Instance.GetItemByName(currentItemScript.Name());
+
+			var inst = Instantiate(
+				currentItemData.collectableItemPrefab,
+				transform.position + transform.forward * 5f,
+				transform.rotation
+			);
+			inst.GetComponent<Rigidbody>().AddForce(transform.forward * 20f + transform.up * 20f,
+				ForceMode.Impulse);
+
+			_playerInventory.RemoveItemServerRpc(currentItemData.itemName, 1);
 		}
 
 		private void ClampVel() {

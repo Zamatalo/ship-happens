@@ -16,3 +16,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 04c2cfeb059f95d46acecd306d4d3cd5, type: 3}
   maxStack: 1
   itemPrefab: {fileID: 4225946091603122071, guid: 3bc56c8bae2a94f4183dc996a50e33a3, type: 3}
+  collectableItemPrefab: {fileID: 5205783018273025614, guid: 8518854cf4e281542a5d33d4ce943026, type: 3}

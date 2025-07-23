@@ -54,6 +54,10 @@ namespace Item {
 			_ia.Disable();
 		}
 
+		public string Name() {
+			return "Jetpack";
+		}
+
 		public void Init(Transform origin, List<ItemParameter> itemParameters) {
 			_playerRb = NetworkManager.Singleton.LocalClient.PlayerObject
 				.GetComponentInChildren<Rigidbody>();

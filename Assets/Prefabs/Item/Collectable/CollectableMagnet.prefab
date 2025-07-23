@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_Name
-      value: Magnet
+      value: CollectableMagnet
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_Layer
@@ -156,15 +156,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4436805663696350335, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4436805663696350335, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4436805663696350335, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4436805663696350335, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -209,13 +209,13 @@ PrefabInstance:
       addedObject: {fileID: 4350319425758664851}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 7421327639279088083}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 452758094898614512}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9060206407632264505}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7421327639279088083}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       insertIndex: -1
       addedObject: {fileID: -7272447974554720126}
@@ -312,31 +312,6 @@ CapsuleCollider:
   m_Height: 0.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &452758094898614512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5446213650436569997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938e07116ba6b7f42b5d0cff8bfc37b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collectZoneObject: {fileID: 7838363916271079067}
---- !u!114 &9060206407632264505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5446213650436569997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f0655ac47384466b7720d860a2d5124, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7421327639279088083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,6 +337,32 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &452758094898614512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446213650436569997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938e07116ba6b7f42b5d0cff8bfc37b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  collectZoneObject: {fileID: 7838363916271079067}
+--- !u!114 &9060206407632264505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446213650436569997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0655ac47384466b7720d860a2d5124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-7272447974554720126
 MonoBehaviour:
   m_ObjectHideFlags: 0
