@@ -305,7 +305,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 6afd93f605654e348bd5a37df7a1e486, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 1
@@ -7705,6 +7705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handTransform: {fileID: 6827606694610016973}
+  cameraTransform: {fileID: 2532149372630677537}
 --- !u!1 &5912390496010966746
 GameObject:
   m_ObjectHideFlags: 0
