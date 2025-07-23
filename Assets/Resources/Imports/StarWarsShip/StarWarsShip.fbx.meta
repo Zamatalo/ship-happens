@@ -1,9 +1,49 @@
 fileFormatVersion: 2
-guid: 7b524167d9dce4f0aa8df049e327c42e
+guid: 9b2aaf8e27e104a7e92da5d3414f00af
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Emission1
+    second: {fileID: 2100000, guid: c5277d30454524c618521cd88e1b17d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Emission2
+    second: {fileID: 2100000, guid: 685f5871d78cd436d8425c7f6bcd7634, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HullPlating
+    second: {fileID: 2100000, guid: cede0f167b67e47a2b7e71ecb00f4fc9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Regular
+    second: {fileID: 2100000, guid: 829c866998cd64671909e16ef3849563, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_0
+    second: {fileID: 2100000, guid: b41bfb4c015874beb89adf10e832e0c9, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Emission2_emissive
+    second: {fileID: 2800000, guid: e7c3bdd922c3d40f187b630165971949, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: HullPlating_baseColor
+    second: {fileID: 2800000, guid: 104fde41308ad42579469f8f907571be, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Regular_baseColor
+    second: {fileID: 2800000, guid: f5c6ea3bff69b417b98fbc9010e7eead, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
