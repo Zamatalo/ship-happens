@@ -38,7 +38,6 @@ namespace Player {
 		private void FixedUpdate() {
 			if (!IsOwner) return;
 
-			ClampVel();
 			GroundedCheck();
 
 			var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
@@ -130,16 +129,17 @@ namespace Player {
 				Debug.LogWarning("PlayerInventoryNew not initialized");
 				return;
 			}
-			_playerInventory.AddItemServerRpc("BuildingTool", 1, null);
-			_playerInventory.AddItemServerRpc("Jetpack", 1, null);
-			_playerInventory.AddItemServerRpc("Edible", 1, null);
-			_playerInventory.AddItemServerRpc("GravityGun", 1, null);
-			_playerInventory.AddItemServerRpc("HarpoonGun", 1, null);
-			_playerInventory.AddItemServerRpc("Jetpack", 1, null);
-			_playerInventory.AddItemServerRpc("Metal", 1, null);
-			_playerInventory.AddItemServerRpc("Planks", 1, null);
-			_playerInventory.AddItemServerRpc("Poison", 1, null);
-			_playerInventory.AddItemServerRpc("Potable", 1, null);
+			_playerInventory.AddItemServerRpc("BuildingTool", 1,null);
+			_playerInventory.AddItemServerRpc("Jetpack", 1,null);
+			_playerInventory.AddItemServerRpc("Edible", 1,null);
+			_playerInventory.AddItemServerRpc("GravityGun", 1,null);
+			_playerInventory.AddItemServerRpc("HarpoonGun", 1,null);
+			_playerInventory.AddItemServerRpc("Jetpack", 1,null);
+			_playerInventory.AddItemServerRpc("Metal", 1,null);
+			_playerInventory.AddItemServerRpc("Planks", 1,null);
+			_playerInventory.AddItemServerRpc("Poison", 1,null);
+			_playerInventory.AddItemServerRpc("Potable", 1,null);
+			_playerInventory.AddItemServerRpc("Tablet", 1,null);
 		}
 
 		public void UpdateEquippedItem() {
