@@ -11,6 +11,7 @@ namespace Item {
 		public float forceForward = 1000f;
 		public float forceUp = 20f;
 		public float maxFuel = 10f;
+		public float maxMag = 20f;
 		private bool _burningForward;
 		private bool _burningUp;
 		private Transform _cameraTransform;
@@ -33,6 +34,8 @@ namespace Item {
 			if (!_burningForward && !_burningUp) Restore();
 			if (_burningForward) Burn(_cameraTransform.forward * forceForward);
 			if (_burningUp) Burn(_cameraTransform.up * forceUp);
+
+			ClampMag();
 		}
 
 		private void OnEnable() {
@@ -95,6 +98,13 @@ namespace Item {
 
 		private void EndBurnUp(InputAction.CallbackContext _) {
 			_burningUp = false;
+		}
+
+		private void ClampMag() {
+			var vel = _playerRb.linearVelocity;
+			var mag = vel.magnitude;
+
+			if (mag > maxMag) _playerRb.linearVelocity = vel * (maxMag / mag);
 		}
 	}
 }

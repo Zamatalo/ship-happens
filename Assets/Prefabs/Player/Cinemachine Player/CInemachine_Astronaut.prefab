@@ -605,8 +605,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   ItemHolder: {fileID: 6827606694610016973}
   moveSpeed: 7
-  maxMag: 1
-  jumpForce: 10
+  maxMag: 5
+  jumpForce: 2
   isGrounded: 1
   GroundedOffset: -0.11
   GroundedRadius: 0.5
@@ -642,7 +642,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!114 &1820780140375056112
 MonoBehaviour:
@@ -8941,8 +8941,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7810045263584533964}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000004097819, y: 0.000000029802319, z: -0.000000005587935, w: 1}
-  m_LocalPosition: {x: 0, y: 3.6699998, z: 0}
+  m_LocalRotation: {x: -0.25642374, y: 0.6819279, z: -0.62248015, w: 0.28590164}
+  m_LocalPosition: {x: -4.9018755, y: 25.283283, z: 1166.2201}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
