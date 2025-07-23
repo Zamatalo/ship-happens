@@ -51,8 +51,6 @@ public class InventoryUI : MonoBehaviour
 	}
 
 	private void Update() {
-		if (Input.GetKeyDown(KeyCode.Tab)) ToggleInventory();
-
 		if (isDragging) UpdateGhostIconPosition(Input.mousePosition);
 
 		for (var i = 1; i <= 5; i++)
@@ -211,22 +209,7 @@ public class InventoryUI : MonoBehaviour
 			slot.ClearItem();
 		}
 	}
-
-
-	private void ToggleInventory() {
-		if (inventoryRoot == null) return;
-
-		if (inventoryRoot.style.display == DisplayStyle.None) {
-			inventoryRoot.style.display = DisplayStyle.Flex;
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
-		} else {
-			inventoryRoot.style.display = DisplayStyle.None;
-			Cursor.lockState = CursorLockMode.Locked;
-			ghostIcon.style.display = DisplayStyle.None;
-			Cursor.visible = false;
-		}
-	}
+	
 
 	private void EquipItemFromSlot(InventoryElement slot) {
 		if (!inventory) return;
