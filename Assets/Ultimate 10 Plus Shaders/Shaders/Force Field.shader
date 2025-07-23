@@ -1,42 +1,4 @@
-﻿/*
-               ███████╗░█████╗░██████╗░░█████╗░███████╗  ███████╗██╗███████╗██╗░░░░░██████╗░
-               ██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝  ██╔════╝██║██╔════╝██║░░░░░██╔══██╗
-               █████╗░░██║░░██║██████╔╝██║░░╚═╝█████╗░░  █████╗░░██║█████╗░░██║░░░░░██║░░██║
-               ██╔══╝░░██║░░██║██╔══██╗██║░░██╗██╔══╝░░  ██╔══╝░░██║██╔══╝░░██║░░░░░██║░░██║
-               ██║░░░░░╚█████╔╝██║░░██║╚█████╔╝███████╗  ██║░░░░░██║███████╗███████╗██████╔╝
-               ╚═╝░░░░░░╚════╝░╚═╝░░╚═╝░╚════╝░╚══════╝  ╚═╝░░░░░╚═╝╚══════╝╚══════╝╚═════╝░
-
-                           ░██████╗██╗░░██╗░█████╗░██████╗░███████╗██████╗░
-                           ██╔════╝██║░░██║██╔══██╗██╔══██╗██╔════╝██╔══██╗
-                           ╚█████╗░███████║███████║██║░░██║█████╗░░██████╔╝
-                           ░╚═══██╗██╔══██║██╔══██║██║░░██║██╔══╝░░██╔══██╗
-                           ██████╔╝██║░░██║██║░░██║██████╔╝███████╗██║░░██║
-                           ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═════╝░╚══════╝╚═╝░░╚═╝
-
-                █▀▀▄ █──█ 　 ▀▀█▀▀ █──█ █▀▀ 　 ░█▀▀▄ █▀▀ ▀█─█▀ █▀▀ █── █▀▀█ █▀▀█ █▀▀ █▀▀█ 
-                █▀▀▄ █▄▄█ 　 ─░█── █▀▀█ █▀▀ 　 ░█─░█ █▀▀ ─█▄█─ █▀▀ █── █──█ █──█ █▀▀ █▄▄▀ 
-                ▀▀▀─ ▄▄▄█ 　 ─░█── ▀──▀ ▀▀▀ 　 ░█▄▄▀ ▀▀▀ ──▀── ▀▀▀ ▀▀▀ ▀▀▀▀ █▀▀▀ ▀▀▀ ▀─▀▀
-____________________________________________________________________________________________________________________________________________
-
-        ▄▀█ █▀ █▀ █▀▀ ▀█▀ ▀   █░█ █░░ ▀█▀ █ █▀▄▀█ ▄▀█ ▀█▀ █▀▀   ▄█ █▀█ ▄█▄   █▀ █░█ ▄▀█ █▀▄ █▀▀ █▀█ █▀
-        █▀█ ▄█ ▄█ ██▄ ░█░ ▄   █▄█ █▄▄ ░█░ █ █░▀░█ █▀█ ░█░ ██▄   ░█ █▄█ ░▀░   ▄█ █▀█ █▀█ █▄▀ ██▄ █▀▄ ▄█
-____________________________________________________________________________________________________________________________________________
-License:
-    The license is ATTRIBUTION 3.0
-
-    More license info here:
-        https://creativecommons.org/licenses/by/3.0/
-____________________________________________________________________________________________________________________________________________
-This shader has NOT been tested on any other PC configuration except the following:
-    CPU: Intel Core i5-6400
-    GPU: NVidia GTX 750Ti
-    RAM: 16GB
-    Windows: 10 x64
-    DirectX: 11
-____________________________________________________________________________________________________________________________________________
-*/
-
-Shader "Ultimate 10+ Shaders/Force Field"
+﻿Shader "Ultimate 10+ Shaders/Force Field Pulsating"
 {
     Properties
     {
@@ -45,6 +7,11 @@ Shader "Ultimate 10+ Shaders/Force Field"
 
         _FresnelPower("Fresnel Power", Range(0, 10)) = 3
         _ScrollDirection ("Scroll Direction", float) = (0, 0, 0, 0)
+        
+        // Параметры пульсации
+        _PulseSpeed ("Pulse Speed", Range(0, 5)) = 1.0
+        _PulseIntensity ("Pulse Intensity", Range(0, 1)) = 0.3
+        _PulseMinBrightness ("Min Brightness", Range(0, 1)) = 0.3
     }
     SubShader
     {
@@ -89,16 +56,12 @@ Shader "Ultimate 10+ Shaders/Force Field"
             fixed4 _Color;
             half _FresnelPower;
             half2 _ScrollDirection;
-
             
-            // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
-            // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
-            // #pragma instancing_options assumeuniformscaling
-            UNITY_INSTANCING_BUFFER_START(Props)
-                // put more per-instance properties here
-            UNITY_INSTANCING_BUFFER_END(Props)
+            // Параметры пульсации
+            float _PulseSpeed;
+            float _PulseIntensity;
+            float _PulseMinBrightness;
 
-            fixed3 viewDir;
             v2f vert (appdata vert)
             {
                 v2f output;
@@ -106,21 +69,31 @@ Shader "Ultimate 10+ Shaders/Force Field"
                 output.position = UnityObjectToClipPos(vert.vertex);
                 output.uv = TRANSFORM_TEX(vert.uv, _MainTex);
 
-                viewDir = normalize(ObjSpaceViewDir(vert.vertex));
-                output.rim = 1.0 - saturate(dot(viewDir, vert.normal));
+                float3 worldNormal = UnityObjectToWorldNormal(vert.normal);
+                float3 worldPos = mul(unity_ObjectToWorld, vert.vertex).xyz;
+                float3 viewDirWorld = normalize(_WorldSpaceCameraPos - worldPos);
+
+                output.rim = 1.0 - saturate(dot(viewDirWorld, worldNormal));
+                output.rim = saturate(output.rim + _PulseMinBrightness); // Гарантированная минимальная видимость
 
                 output.uv += _ScrollDirection * _Time.y;
 
                 return output;
             }
 
-            fixed4 pixel;
             fixed4 frag (v2f input) : SV_Target
             {
-                pixel = tex2D(_MainTex, input.uv) * _Color * pow(_FresnelPower, input.rim);
-                pixel = lerp(0, pixel, input.rim);
+                // Эффект пульсации (синусоидальная волна)
+                float pulse = sin(_Time.y * _PulseSpeed) * _PulseIntensity + 1.0;
                 
-                return clamp(pixel, 0, _Color);
+                // Комбинируем текстуру, цвет и эффект Френеля
+                fixed4 pixel = tex2D(_MainTex, input.uv) * _Color;
+                
+                // Применяем пульсацию к цвету и альфа-каналу
+                pixel.rgb *= pulse;
+                pixel.a *= input.rim * pow(_FresnelPower, input.rim);
+                
+                return pixel;
             }
             ENDCG
         }

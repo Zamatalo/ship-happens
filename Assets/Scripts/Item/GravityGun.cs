@@ -45,7 +45,6 @@ namespace Item {
 					return;
 			}
 
-			// === ЛАЗЕР ===
 			if (_currentLoot || hitSomething)
 				for (var i = 0; i < beamLines.Count; i++) {
 					beamLines[i].enabled = true;
