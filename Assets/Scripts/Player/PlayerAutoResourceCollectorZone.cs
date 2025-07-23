@@ -1,12 +1,10 @@
-using System.Collections.Generic;
 using Achievements;
-using Notifications;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Player {
 	public class PlayerAutoResourceCollectorZone : NetworkBehaviour {
-		private PlayerInventoryNew _inventory;
+		private PlayerInventoryNew _playerInventory;
 		private int _collectedCount = 0;
 		private bool _shown1 = false;
 		private bool _shown3 = false;
@@ -15,15 +13,25 @@ namespace Player {
 		private bool _shown30 = false;
 		private bool _shown100 = false;
 
-
 		private void OnTriggerEnter(Collider other) {
-			if (!other.gameObject.TryGetComponent(out Loot.Loot loot)) return;
+			if (other.gameObject.TryGetComponent(out Loot.Loot loot)) AddLoot(loot);
 
-			_inventory.AddItemServerRpc(
+			if (other.TryGetComponent(out CollectableItem collectable)) CollectItem(collectable);
+
+		}
+		private void CollectItem(CollectableItem collectable)
+		{
+			if (_playerInventory == null) return;
+		
+		}
+
+		private void AddLoot(Loot.Loot loot)
+		{
+			_playerInventory.AddItemServerRpc(
 				loot.kind.itemName,
 				loot.kind.quantity,
 				null
-				);
+			);
 			Destroy(loot.gameObject);
 			_collectedCount++;
 			ShowMilestoneAchievement();
@@ -56,10 +64,27 @@ namespace Player {
 				_shown100 = true;
 			}
 		}
+		
+		public override void OnNetworkSpawn()
+		{
+			if (!IsOwner) return;
+        
+			_playerInventory = GetComponentInParent<PlayerInventoryNew>();
+        
+			if (_playerInventory == null)
+			{
+				Transform playerTransform = transform.parent;
+				if (playerTransform != null)
+				{
+					_playerInventory = playerTransform.Find("Inventory")?.GetComponent<PlayerInventoryNew>();
+				}
+			}
 
-		protected override void OnNetworkPostSpawn() {
-			_inventory = NetworkManager.Singleton.LocalClient.PlayerObject
-				.GetComponent<PlayerInventoryNew>();
+			if (_playerInventory == null)
+			{
+				Debug.LogError("Inventory reference not found!", this);
+			}
 		}
+
 	}
 }

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Notifications;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Item {
 	public class GravityGun : MonoBehaviour, IUsableItem {
@@ -14,6 +16,12 @@ namespace Item {
 		private bool _isActive;
 		private NotificationManager _notificationManager;
 		private Transform _origin;
+
+		private InputSystem_Actions _ia;
+		private void Awake()
+		{
+			_ia = new InputSystem_Actions();
+		}
 
 		private void Update() {
 			if (!_isActive || !_origin) {
@@ -60,19 +68,11 @@ namespace Item {
 			}
 		}
 
-		private void OnDisable() {
-			Unuse();
-		}
-
 		private void OnDrawGizmosSelected() {
 			if (_origin != null) {
 				Gizmos.color = Color.blue;
 				Gizmos.DrawLine(_origin.position, _origin.position + _origin.forward * maxDistance);
 			}
-		}
-
-		public string Name() {
-			return "GravityGun";
 		}
 
 		public void Init(Transform origin, List<ItemParameter> itemParameters) {
@@ -83,24 +83,42 @@ namespace Item {
 			foreach (var beamLine in beamLines)
 				beamLine.enabled = false;
 
-			_notificationManager = FindObjectOfType<NotificationManager>();
+			_notificationManager = FindFirstObjectByType<NotificationManager>();
 		}
 
-
-		public void Use() {
+		private void Use(InputAction.CallbackContext context) {
 			if (_isActive) return;
 			_isActive = true;
 			_notificationManager?.ShowNotification(
 				" Aim at loot and hold the button to pull it toward you!");
 		}
 
-		public void Unuse() {
+		private void Unuse(InputAction.CallbackContext context) {
 			if (!_isActive) return;
 			animator.SetBool("isPulling", false);
 			magnetSound.Stop();
 			_isActive = false;
 			_currentLoot = null;
 			foreach (var beamLine in beamLines) beamLine.enabled = false;
+		}
+
+		private void OnDestroy()
+		{
+			OnDisable();
+		}
+
+		public void OnEnable()
+		{
+			_ia.Player.Enable();
+			_ia.Player.UseItem.started += Use;
+			_ia.Player.UseItem.canceled += Unuse;
+		}
+
+		public void OnDisable()
+		{
+			_ia.Player.UseItem.started -= Use;
+			_ia.Player.UseItem.canceled -= Unuse;
+			_ia.Player.Disable();
 		}
 	}
 }

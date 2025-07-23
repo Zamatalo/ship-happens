@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
-
+/*
+ * TODO: add array of notifications, because if notifications trigger often, they will interrupt each other
+ */
 namespace Notifications {
 	public class NotificationManager : MonoBehaviour {
 		public GameObject notificationPanelPrefab;

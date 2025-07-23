@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
+using Player;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
 
-public class InventoryUI : MonoBehaviour {
+public class InventoryUI : MonoBehaviour
+{
 	public static InventoryUI Instance;
-	public Transform handTransform;
-	public Transform cameraTransform;
 	private readonly List<InventoryElement> hotbarSlots = new();
-
+	private PlayerInventoryNew inventory;
+	
 	private GameObject currentHeldItem;
 	private InventoryElement dragSource;
 	private VisualElement ghostIcon;
@@ -32,7 +33,7 @@ public class InventoryUI : MonoBehaviour {
 			return;
 		}
 		Instance = this;
-
+		inventory = FindFirstObjectByType<PlayerInventoryNew>();
 		var uiDocument = GetComponent<UIDocument>();
 		root = uiDocument.rootVisualElement;
 
@@ -40,7 +41,7 @@ public class InventoryUI : MonoBehaviour {
 		hotbarContainer = root.Q<VisualElement>("hotbarContainer");
 		inventoryRoot = root.Q<VisualElement>("inventory-root");
 		ghostIcon = root.Q<VisualElement>("GhostIcon");
-
+	
 		inventoryRoot.style.display = DisplayStyle.None;
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
@@ -60,10 +61,6 @@ public class InventoryUI : MonoBehaviour {
 	}
 
 	private void SelectHotbarSlot(int hotbarIndex) {
-		// var hotbarSlots = slots
-		// 	.Where(s => s.ElementType == InventoryElementType.Hotbar)
-		// 	.ToList();
-
 		if (hotbarIndex < 0 || hotbarIndex >= hotbarSlots.Count)
 			return;
 		selectedHotbarSlot?.RemoveFromClassList("selected");
@@ -76,20 +73,24 @@ public class InventoryUI : MonoBehaviour {
 
 	private void InitializeSlots() {
 		slots.Clear();
+		hotbarSlots.Clear();
+
 		slots = slotsContainer.Query<InventoryElement>().ToList();
 		hotbarSlots.AddRange(hotbarContainer.Query<InventoryElement>().ToList());
 
-		Debug.Log($"Total slots initialized: {slots.Count}");
+		Debug.Log($"Total Inventory Slots initialized: {slots.Count}");
 		for (var i = 0; i < slots.Count; i++) {
-			Debug.Log($"Slot {i}: {slots[i].name}");
+			Debug.Log($"Inventory Slot {i}: {slots[i].name}");
 			slots[i].RegisterCallback<PointerDownEvent>(OnPointerDown);
 		}
-		Debug.Log($"Total HotbarSlots initialized: {slots.Count}");
+
+		Debug.Log($"Total Hotbar Slots initialized: {hotbarSlots.Count}");
 		for (var i = 0; i < hotbarSlots.Count; i++) {
-			Debug.Log($"Slot {i}: {hotbarSlots[i].name}");
+			Debug.Log($"Hotbar Slot {i}: {hotbarSlots[i].name}");
 			hotbarSlots[i].RegisterCallback<PointerDownEvent>(OnPointerDown);
 		}
 	}
+
 
 	private void OnPointerDown(PointerDownEvent evt) {
 		if (isDragging)
@@ -176,36 +177,38 @@ public class InventoryUI : MonoBehaviour {
 
 	public void RefreshInventory(List<InventoryItem> items) {
 		if (slots == null || slots.Count == 0 || items == null) return;
+		var allSlots =  new List<InventoryElement>();
+		allSlots.AddRange(slots);
+		allSlots.AddRange(hotbarSlots);
+		
+		var currentItemNames = items
+			.Where(i => !i.IsEmpty)
+			.Select(i => i.itemName)
+			.ToHashSet();
 
-		foreach (var slot in slots) {
-			if (!hotbarSlots.Contains(slot)) {
-				slot.ClearItem();
-			}
+
+
+		foreach (var item in items) {
+			if (item.IsEmpty) continue;
+
+			var existingSlot = allSlots.FirstOrDefault(s => s.ItemName == item.itemName);
+			existingSlot?.SetItem(item);
 		}
 
 		foreach (var item in items) {
 			if (item.IsEmpty) continue;
 
-			var existingHotbarSlot = hotbarSlots.FirstOrDefault(s => s.ItemName == item.itemName);
+			if (allSlots.Any(s => s.ItemName == item.itemName)) continue;
 
-			if (existingHotbarSlot != null) {
-				existingHotbarSlot.Quantity.text = item.quantity.ToString();
-
-				if (item.quantity <= 0) {
-					existingHotbarSlot.ClearItem();
-				}
-			}
-		}
-
-		foreach (var item in items) {
-			if (item.IsEmpty) continue;
-
-			if (hotbarSlots.Any(s => s.ItemName == item.itemName)) continue;
-
-			var emptySlot = slots.FirstOrDefault(s =>
-				s.InventoryItem.IsEmpty && !hotbarSlots.Contains(s));
+			var emptySlot = allSlots.FirstOrDefault(s =>
+				s.InventoryItem.IsEmpty && s.ElementType == InventoryElementType.Inventory);
 
 			emptySlot?.SetItem(item);
+		}
+		foreach (var slot in allSlots
+			         .Where(slot => !currentItemNames.Contains(slot.ItemName)))
+		{
+			slot.ClearItem();
 		}
 	}
 
@@ -226,23 +229,8 @@ public class InventoryUI : MonoBehaviour {
 	}
 
 	private void EquipItemFromSlot(InventoryElement slot) {
-		if (currentHeldItem) {
-			Destroy(currentHeldItem);
-			currentHeldItem = null;
-		}
-		if (slot == null || slot.InventoryItem.IsEmpty ||
-		    string.IsNullOrEmpty(slot.InventoryItem.itemName))
-			return;
-
-		var prejab = InventoryDatabase.Instance.GetItemByName(slot.InventoryItem.itemName)
-			.itemPrefab;
-		currentHeldItem = Instantiate(
-			prejab,
-			handTransform.position,
-			handTransform.rotation,
-			handTransform
-		);
-		var usableItem = currentHeldItem.GetComponent<IUsableItem>();
-		if (usableItem != null) usableItem.Init(cameraTransform, null);
+		if (!inventory) return;
+        
+		inventory.EquipItem(slot.ItemName);
 	}
 }

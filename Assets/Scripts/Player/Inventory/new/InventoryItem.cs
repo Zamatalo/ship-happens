@@ -45,7 +45,6 @@ public struct InventoryItem : INetworkSerializable, IEquatable<InventoryItem> {
 		}
 	}
 
-
 	public bool Equals(InventoryItem other) {
 		return itemName == other.itemName && quantity == other.quantity;
 	}
@@ -63,6 +62,11 @@ public struct ItemParameter : INetworkSerializable {
 	public string key;
 	public string value;
 
+	public ItemParameter(string key, string value)
+	{
+		this.key = key;
+		this.value = value;
+	}
 	public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
 		serializer.SerializeValue(ref key);
 		serializer.SerializeValue(ref value);

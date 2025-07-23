@@ -7,10 +7,7 @@ namespace Item {
 	public class Edible : MonoBehaviour, IUsableItem {
 		private PlayerInventoryNew _inventory;
 		private PlayerNeeds _needs;
-
-		public string Name() {
-			return "Edible";
-		}
+		
 
 		public void Init(Transform origin, List<ItemParameter> parameters) {
 			_inventory = NetworkManager.Singleton.LocalClient.PlayerObject

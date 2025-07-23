@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Projectile;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Item {
 	public class HarpoonGun : MonoBehaviour, IUsableItem {
@@ -16,25 +17,25 @@ namespace Item {
 
 		[Header("Animator")] [SerializeField] private Animator animator;
 		private Harpoon _currentHarpoon;
-
-		private bool _isBusy = true;
+		
+		private InputSystem_Actions _ia;
+		
+		private bool _isBusy;
 		private Transform _origin;
-
+		private void Awake() {
+			_ia = new InputSystem_Actions();
+		}
 		private void OnDestroy() {
 			if (_currentHarpoon != null) {
 				Destroy(_currentHarpoon.gameObject);
 			}
 		}
 
-		public string Name() {
-			return "Name";
-		}
-
 		public void Init(Transform origin, List<ItemParameter> itemParameters) {
 			_origin = origin;
 		}
 
-		public void Use() {
+		public void Use(InputAction.CallbackContext context) {
 			if (_isBusy) return;
 			if (_currentHarpoon != null && _currentHarpoon.hit) {
 				nakonechnik.SetActive(false);
@@ -48,7 +49,7 @@ namespace Item {
 			}
 		}
 
-		public void Unuse() {
+		public void Unuse(InputAction.CallbackContext context) {
 			if (_isBusy) return;
 			if (_currentHarpoon != null) {
 				_currentHarpoon.StopPull();
@@ -105,5 +106,19 @@ namespace Item {
 		public void OnAnimationEnd() {
 			_isBusy = false;
 		}
+
+		public void OnEnable()
+		{
+			_ia.Player.Enable();
+			_ia.Player.UseItem.started += Use;
+		}
+
+		public void OnDisable()
+		{
+			_ia.Player.UseItem.canceled -= Unuse;
+			_ia.Player.Disable();
+		}
+
+
 	}
 }

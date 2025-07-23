@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Item {
-	public class Jetpack : MonoBehaviour, IUsableItem {
+	public class Jetpack : MonoBehaviour,IUsableItem {
 		public Slider fuelSlider;
 		public float forceForward = 1000f;
 		public float forceUp = 20f;
@@ -31,7 +31,7 @@ namespace Item {
 				return;
 			}
 
-			if (!_burningForward && !_burningUp) Restore();
+			//if (!_burningForward && !_burningUp) Restore();
 			if (_burningForward) Burn(_cameraTransform.forward * forceForward);
 			if (_burningUp) Burn(_cameraTransform.up * forceUp);
 
@@ -53,10 +53,7 @@ namespace Item {
 			_ia.Jetpack.BurnUp.canceled -= EndBurnUp;
 			_ia.Disable();
 		}
-
-		public string Name() {
-			return "Jetpack";
-		}
+		
 
 		public void Init(Transform origin, List<ItemParameter> itemParameters) {
 			_playerRb = NetworkManager.Singleton.LocalClient.PlayerObject
@@ -68,13 +65,8 @@ namespace Item {
 			fuelSlider.maxValue = maxFuel;
 			fuelSlider.value = _currentFuel;
 		}
-
-		public void Use() {
-		}
-
-		public void Unuse() {
-		}
-
+		
+		
 		private void Burn(Vector3 force) {
 			_playerRb.AddForce(force, ForceMode.Acceleration);
 			_currentFuel = Mathf.Max(0f, _currentFuel - Time.fixedDeltaTime);
@@ -109,6 +101,10 @@ namespace Item {
 			var mag = vel.magnitude;
 
 			if (mag > maxMag) _playerRb.linearVelocity = vel * (maxMag / mag);
+		}
+		private void OnDestroy()
+		{
+			OnDisable();
 		}
 	}
 }
