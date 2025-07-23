@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Cinemachine;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -53,14 +52,12 @@ public class PlayerInventoryNew : NetworkBehaviour
         _playerInputActions.Player.Enable();
         _playerInputActions.Inventory.DropItem.performed += OnDropItem;
         _playerInputActions.Player.AddAllItems.performed += OnAddAllItems;
-    //    _playerInputActions.Player.UseItem.performed += OnUseItem;
     }
 
     private void DisableInput()
     {
         _playerInputActions.Inventory.DropItem.performed -= OnDropItem;
         _playerInputActions.Player.AddAllItems.performed -= OnAddAllItems;
-        //_playerInputActions.Player.UseItem.performed -= OnUseItem;
         _playerInputActions.Player.Disable();
         _playerInputActions.Inventory.Disable();
     }
@@ -99,17 +96,22 @@ public class PlayerInventoryNew : NetworkBehaviour
     [ServerRpc]
     public void RemoveItemServerRpc(string itemName, int amount)
     {
-        var item = inventory.FirstOrDefault(i => i.itemName == itemName);
-        if (item.IsEmpty) return;
-
-        item.quantity -= amount;
-        if (item.quantity <= 0)
+        for (var i = 0; i < inventory.Count; i++)
         {
-            inventory.Remove(item);
+            var item = inventory[i];
+            if (item.itemName != itemName) continue;
+            item.quantity -= amount;
+
+            if (item.quantity <= 0)
+            {
+                inventory.RemoveAt(i);
+            }
+
+            SyncInventory();
+            return;
         }
-        
-        SyncInventory();
     }
+
 
     private void SyncInventory()
     {
@@ -157,11 +159,10 @@ public class PlayerInventoryNew : NetworkBehaviour
         var itemData = InventoryDatabase.Instance.GetItemByName(_currentItemName);
         if (itemData?.collectableItemPrefab == null) return;
 
-        // Create dropped item
         var droppedItem = Instantiate(
             itemData.collectableItemPrefab,
-            transform.position + transform.forward * 2f,
-            transform.rotation
+            currentHeldBox.position,
+            currentHeldBox.rotation
         );
 
         if (droppedItem.TryGetComponent(out CollectableItem collectable))
@@ -175,13 +176,10 @@ public class PlayerInventoryNew : NetworkBehaviour
                 netObj.SpawnWithOwnership(OwnerClientId);
             }
         }
-        if (droppedItem.TryGetComponent(out Rigidbody rb))
-        {
-            rb.AddForce(transform.forward * 10f + transform.up * 5f, ForceMode.Impulse);
-        }
 
 
-        RemoveItemServerRpc(_currentItemName, 1);
+        RemoveItemServerRpc(_currentItemName,1);
+        _currentItemName = null;
         Destroy(currentHeldItem);
         currentHeldItem = null;
     }

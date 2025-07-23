@@ -20,7 +20,7 @@ namespace Item {
 		
 		private InputSystem_Actions _ia;
 		
-		private bool _isBusy;
+		private bool _isBusy = true;
 		private Transform _origin;
 		private void Awake() {
 			_ia = new InputSystem_Actions();
@@ -28,6 +28,7 @@ namespace Item {
 		private void OnDestroy() {
 			if (_currentHarpoon != null) {
 				Destroy(_currentHarpoon.gameObject);
+				OnDisable();
 			}
 		}
 
@@ -106,19 +107,21 @@ namespace Item {
 		public void OnAnimationEnd() {
 			_isBusy = false;
 		}
+		
 
 		public void OnEnable()
 		{
 			_ia.Player.Enable();
 			_ia.Player.UseItem.started += Use;
+			_ia.Player.UseItem.canceled += Unuse;
 		}
 
 		public void OnDisable()
 		{
+			_ia.Player.UseItem.started -= Use;
 			_ia.Player.UseItem.canceled -= Unuse;
 			_ia.Player.Disable();
 		}
-
 
 	}
 }

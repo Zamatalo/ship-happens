@@ -1,10 +1,12 @@
+using System.Collections.Generic;
 using Achievements;
+using Notifications;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Player {
 	public class PlayerAutoResourceCollectorZone : NetworkBehaviour {
-		private PlayerInventoryNew _playerInventory;
+		private PlayerInventoryNew _inventory;
 		private int _collectedCount = 0;
 		private bool _shown1 = false;
 		private bool _shown3 = false;
@@ -12,22 +14,64 @@ namespace Player {
 		private bool _shown10 = false;
 		private bool _shown30 = false;
 		private bool _shown100 = false;
+		[SerializeField] private float collectRadius = 2f;
+		private Collider[] _overlapResults = new Collider[20]; 
 
-		private void OnTriggerEnter(Collider other) {
-			if (other.gameObject.TryGetComponent(out Loot.Loot loot)) AddLoot(loot);
+		private void Update()
+		{
+			if (!IsOwner || !_inventory) return;
 
-			if (other.TryGetComponent(out CollectableItem collectable)) CollectItem(collectable);
+			int count = Physics.OverlapSphereNonAlloc(transform.position, collectRadius, _overlapResults);
 
+			for (int i = 0; i < count; i++)
+			{
+				var hit = _overlapResults[i];
+
+				if (!hit) continue;
+
+				if (hit.gameObject.TryGetComponent(out Loot.Loot loot))
+				{
+					AddLoot(loot);
+					continue;
+				}
+
+				if (hit.TryGetComponent(out CollectableItem collectable))
+				{
+					if (collectable.GetParameters() != null) 
+					{
+						CollectItem(collectable);
+					}
+				}
+			}
 		}
+
+
 		private void CollectItem(CollectableItem collectable)
 		{
-			if (_playerInventory == null) return;
-		
-		}
+			if (!_inventory) return;
+			var parms = collectable.GetParameters();
+			if (parms == null) return;
+			
+			var arrparms = parms.ToArray();
 
+			_inventory.AddItemServerRpc(collectable.GetItemName(), 1, arrparms);
+
+			if (collectable.TryGetComponent(out NetworkObject netObj))
+			{
+				if (IsServer)
+					netObj.Despawn(true);
+			}
+			else
+			{
+				Destroy(collectable.gameObject);
+			}
+
+			_collectedCount++;
+			ShowMilestoneAchievement();
+		}
 		private void AddLoot(Loot.Loot loot)
 		{
-			_playerInventory.AddItemServerRpc(
+			_inventory.AddItemServerRpc(
 				loot.kind.itemName,
 				loot.kind.quantity,
 				null
@@ -64,27 +108,26 @@ namespace Player {
 				_shown100 = true;
 			}
 		}
-		
+
 		public override void OnNetworkSpawn()
 		{
 			if (!IsOwner) return;
         
-			_playerInventory = GetComponentInParent<PlayerInventoryNew>();
+			_inventory = GetComponentInParent<PlayerInventoryNew>();
         
-			if (_playerInventory == null)
+			if (_inventory == null)
 			{
 				Transform playerTransform = transform.parent;
 				if (playerTransform != null)
 				{
-					_playerInventory = playerTransform.Find("Inventory")?.GetComponent<PlayerInventoryNew>();
+					_inventory = playerTransform.Find("Inventory")?.GetComponent<PlayerInventoryNew>();
 				}
 			}
 
-			if (_playerInventory == null)
+			if (_inventory == null)
 			{
 				Debug.LogError("Inventory reference not found!", this);
 			}
 		}
-
 	}
 }
