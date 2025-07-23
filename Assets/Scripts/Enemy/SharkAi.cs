@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
-using BuildKit;
+using Notifications;
 using Player;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Enemy {
-	public class SharkAi : MonoBehaviour
-	{
+	public class SharkAi : MonoBehaviour {
 		public int attackDmg;
 		public int maxAttackPerTime = 5;
 		[Header("Speed")] public float normalSpeed = 20f;
@@ -16,6 +16,7 @@ namespace Enemy {
 		[Header("Timing")] public float patrolDuration = 20f;
 		public float attackCooldown = 2f;
 		private float _attackTimer;
+		private NotificationManager _notificationManager;
 		private Vector3 _orbit;
 		private Vector3 _patrolDist;
 		private float _patrolTimer;
@@ -24,18 +25,16 @@ namespace Enemy {
 		private Transform _target;
 		private PlayerNeeds _targetNeeds;
 		private Vector3 _void;
-		private Notifications.NotificationManager _notificationManager;
 		private int attackCounter;
-		
+
 		private void Start() {
 			StartCoroutine(PollTarget());
 			_patrolTimer = patrolDuration;
-			_notificationManager = FindAnyObjectByType<Notifications.NotificationManager>();
-
+			_notificationManager = FindAnyObjectByType<NotificationManager>();
 		}
 
 		private void FixedUpdate() {
-			if (ReferenceEquals(_target, null)) {
+			if (ReferenceEquals(_target, null) || _target.IsDestroyed()) {
 				if (!_pollingTarget) StartCoroutine(PollTarget());
 				return;
 			}
@@ -72,12 +71,12 @@ namespace Enemy {
 				}
 				break;
 			}
-			
+
 			_target = _targetNeeds.GetComponentInChildren<Rigidbody>().transform;
 
 			var dist = (transform.position - _target.transform.position).normalized;
 			_patrolDist = dist * patrolOff;
-			
+
 			_orbit = _target.transform.position + _patrolDist;
 			_pollingTarget = false;
 		}
@@ -103,17 +102,17 @@ namespace Enemy {
 
 			if (_patrolTimer <= 0f) {
 				if (_notificationManager != null) {
-					_notificationManager.ShowNotification(" Dinner time for the shark... and you're the menu!", 5f);
+					_notificationManager.ShowNotification(
+						" Dinner time for the shark... and you're the menu!");
 				}
 				_state = State.MovingToTarget;
 			}
-
 		}
 
 		private void MoveToTarget() {
 			transform.position = Vector3.MoveTowards(
-				transform.position, 
-				_target.transform.position, 
+				transform.position,
+				_target.transform.position,
 				aggressiveSpeed * Time.fixedDeltaTime
 			);
 
@@ -134,7 +133,7 @@ namespace Enemy {
 
 			_targetNeeds.health -= attackDmg;
 			attackCounter += 1;
-			
+
 			if (attackCounter == maxAttackPerTime) {
 				_void = (_orbit - _target.transform.position).normalized * voidOff;
 				_state = State.MovingToVoid;
