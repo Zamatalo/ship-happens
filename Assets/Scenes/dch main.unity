@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 9.8
-  gravityRadius: 80
+  gravityRadius: 100
 --- !u!54 &60205742
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2570,7 +2570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 9.8
-  gravityRadius: 80
+  gravityRadius: 150
 --- !u!1 &638020858 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1782946112351218, guid: ab152f61198d54532ae39108e616ff59, type: 3}
@@ -2841,7 +2841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 9.8
-  gravityRadius: 80
+  gravityRadius: 100
 --- !u!54 &670697832
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4482,7 +4482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2543448671676271, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: gravityRadius
-      value: 52.9
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 301282223363765429, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: m_Layer
@@ -4737,7 +4737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 9.8
-  gravityRadius: 50
+  gravityRadius: 100
 --- !u!54 &1272921298
 Rigidbody:
   m_ObjectHideFlags: 0
