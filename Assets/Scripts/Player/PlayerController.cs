@@ -1,170 +1,231 @@
+using Env;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player {
-	public class PlayerController : NetworkBehaviour {
-		public Transform ItemHolder;
+namespace Player 
+{
+    public class PlayerController : NetworkBehaviour 
+    {
+        [Header("Movement Settings")]
+        public float moveSpeed = 5f;
+        public float airControl = 0.5f;
+        public float rotationSmoothness = 5f;
+        public float groundDrag = 5f;
+        public float airDrag = 0.5f;
 
-		[Header("Movement")] public float moveSpeed = 5f;
+        [Header("Jump Settings")]
+        public float jumpForce = 5f;
+        public float jumpCooldown = 0.3f;
 
-		public float maxMag = 10f;
-		[Header("Jump")] public float jumpForce = 5f;
+        [Header("Ground Check")]
+        public float GroundedOffset = -0.14f;
+        public float GroundedRadius = 0.5f;
+        public LayerMask GroundLayers;
+        public bool isGrounded;
+        
+        [Header("Camera Settings")]
+        public GameObject CinemachineCameraTarget;
+        public float BottomClamp = -90.0f;
+        public float TopClamp = 90.0f;
+        public float RotationSpeed = 1.0f;
 
-		[Header("Ground")] public bool isGrounded = true;
-		public float GroundedOffset = -0.14f;
-		public float GroundedRadius = 0.5f;
-		public LayerMask GroundLayers;
-		public GameObject CinemachineCameraTarget;
-		public float BottomClamp = -90.0f;
-		public float TopClamp = 90.0f;
-		public float RotationSpeed = 1.0f;
-		private bool _isMoving;
-		private Vector2 _moveInput;
+        [Header("References")]
+        public Transform ItemHolder;
+        public Animator animator;
+      //  public GameObject handsObj;
 
+        private Asteroid currentAsteroid;
+        private Rigidbody _rb;
+        private PlayerInventoryNew _playerInventory;
+        private InputSystem_Actions _playerInputActions;
+        private bool _isMoving;
+        private Vector2 _moveInput;
+        private Vector2 _lookInput;
+        private float _cinemachineTargetPitch;
+        private float _lastJumpTime;
+        private Vector3 _gravityDirection = Vector3.down;
+        private float _gravityStrength = 9.81f;
+        protected override void OnNetworkPostSpawn() {
+            _playerInventory = NetworkManager.Singleton.LocalClient.PlayerObject
+                .GetComponent<PlayerInventoryNew>();
+        }
+        private void Awake() 
+        {
+            _playerInputActions = new InputSystem_Actions();
+            _rb = GetComponent<Rigidbody>();
+        }
 
-		[Header("Items")] private PlayerInventoryNew _playerInventory;
-		private Rigidbody _rb;
+        private void Start() 
+        {
+            if (!IsOwner) return;
+            
+            animator = GetComponent<Animator>();
+            _rb.freezeRotation = true;
+        }
 
-		[Header("Animation")] private Animator animator;
+        private void FixedUpdate()
+        {
+            if (!IsOwner) return;
+            
+            UpdateAsteroidGravity();
+            HandleGravity();
+            GroundedCheck();
+            HandleMovement();
+            HandleRotation();
+            UpdateAnimations();
+        }
 
-		[Header("Camera")] private float cinemachineTargetPitch;
-		private IUsableItem currentItemScript;
+        private void UpdateAsteroidGravity()
+        {
+            currentAsteroid = GetClosestAsteroid();
+            
+            if (currentAsteroid && currentAsteroid.IsWithinGravityField(transform.position))
+            {
+                _gravityDirection = currentAsteroid.GetGravityDirection(transform.position);
+                _gravityStrength = currentAsteroid.GetGravity(transform.position).magnitude;
+                
+                AlignToGravity();
+            }
+            else
+            {
+                _gravityDirection = Vector3.down;
+                _gravityStrength = 9.81f;
+            }
+        }
 
-		private Vector3 m_lookInput;
-		private GameObject mainCamera;
-		private float rotationVelocity;
+        private void AlignToGravity()
+        {
+            var gravityUp = -_gravityDirection;
+            var targetRotation = Quaternion.FromToRotation(transform.up, gravityUp) * transform.rotation;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSmoothness * Time.deltaTime);
+        }
 
-		private void FixedUpdate() {
-			if (!IsOwner) return;
+        private void HandleGravity()
+        {
+            _rb.AddForce(_gravityDirection * _gravityStrength, ForceMode.Acceleration);
+        }
 
-			GroundedCheck();
+        private void HandleMovement()
+        {
+            Vector3 moveDirection = transform.forward * _moveInput.y + transform.right * _moveInput.x;
+            
+            float forceMultiplier = isGrounded ? moveSpeed : moveSpeed * airControl;
+            _rb.AddForce(moveDirection.normalized * (forceMultiplier * 10f), ForceMode.Force);
 
-			var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
+            _rb.linearDamping = isGrounded ? groundDrag : airDrag;
+        }
 
-			var movement = transform.rotation * inputDir;
-			movement *= moveSpeed * Time.fixedDeltaTime;
-			_rb.MovePosition(_rb.position + movement);
+        private void HandleRotation()
+        {
+            if (_lookInput.sqrMagnitude >= 0.01f)
+            {
+                _cinemachineTargetPitch += _lookInput.y * RotationSpeed * Time.deltaTime;
+                _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+                
+                CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0f, 0f);
+                transform.Rotate(Vector3.up * (_lookInput.x * RotationSpeed * Time.deltaTime));
+            }
+        }
 
-			_isMoving = _moveInput.sqrMagnitude > 0.01f;
-			animator.SetFloat("moveX", _moveInput.x);
-			animator.SetFloat("moveZ", _moveInput.y);
-			animator.SetBool("isGrounded", isGrounded);
-			animator.SetBool("isMoving", _isMoving);
-		}
+        private void GroundedCheck()
+        {
+            Vector3 spherePosition = transform.position - transform.up * GroundedOffset;
+            isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+        }
 
-		private void LateUpdate() {
-			CameraRotation();
-		}
+        private void UpdateAnimations()
+        {
+            _isMoving = _moveInput.sqrMagnitude > 0.01f;
+            animator.SetFloat("moveX", _moveInput.x);
+            animator.SetFloat("moveZ", _moveInput.y);
+            animator.SetBool("isGrounded", isGrounded);
+            animator.SetBool("isMoving", _isMoving);
+        }
 
-		private void OnDrawGizmos() {
-			Gizmos.DrawSphere(transform.position + Vector3.down * GroundedOffset, GroundedRadius);
-		}
+        private Asteroid GetClosestAsteroid()
+        {
+            Asteroid closest = null;
+            float minDist = float.MaxValue;
 
-		public override void OnNetworkSpawn() {
-			_rb = GetComponent<Rigidbody>();
-			animator = GetComponent<Animator>();
+            foreach (var a in Asteroid.All)
+            {
+                float dist = Vector3.Distance(transform.position, a.transform.position);
+                if (dist < minDist)
+                {
+                    closest = a;
+                    minDist = dist;
+                }
+            }
 
-			var spawnObj = GameObject.FindGameObjectWithTag("SpawnBlock");
-			if (spawnObj != null)
-				transform.position = spawnObj.transform.position;
-			else
-				Debug.LogWarning("SpawnBlock not found! Spawning at default position.");
-		}
+            return closest;
+        }
 
+        private void Jump()
+        {
+            if (Time.time - _lastJumpTime < jumpCooldown || !isGrounded) return;
+            
+            _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
+            
+            Vector3 jumpDirection = currentAsteroid != null ? 
+                -currentAsteroid.GetGravityDirection(transform.position) : 
+                Vector3.up;
+                
+            _rb.AddForce(jumpDirection * jumpForce, ForceMode.Impulse);
+            animator.SetTrigger("Jump");
+            _lastJumpTime = Time.time;
+        }
+    
+        private void OnEnable() 
+        {
+            _playerInputActions.Player.Enable();
+            _playerInputActions.Player.Move.performed += OnMove;
+            _playerInputActions.Player.Move.canceled += OnMove;
+            _playerInputActions.Player.Jump.performed += OnJump;
+            _playerInputActions.Player.Look.performed += OnLook;
+            _playerInputActions.Player.AddAllItems.performed += OnAddAllItems;
+        }
 
-		protected override void OnNetworkPostSpawn() {
-			_playerInventory = NetworkManager.Singleton.LocalClient.PlayerObject
-				.GetComponent<PlayerInventoryNew>();
-		}
+        private void OnDisable() 
+        {
+            _playerInputActions.Player.Jump.performed -= OnJump;
+            _playerInputActions.Player.Move.canceled -= OnMove;
+            _playerInputActions.Player.Move.performed -= OnMove;
+            _playerInputActions.Player.Look.performed -= OnLook;
+            _playerInputActions.Player.AddAllItems.performed -= OnAddAllItems;
+            _playerInputActions.Player.Disable();
+        }
 
-		private void CameraRotation() {
-			var deltaTimeMultiplier = Time.deltaTime;
+        private void OnMove(InputAction.CallbackContext context) => _moveInput = context.ReadValue<Vector2>();
+        private void OnJump(InputAction.CallbackContext context) { if (IsOwner && context.performed && isGrounded) Jump(); }
+        private void OnLook(InputAction.CallbackContext context) => _lookInput = context.ReadValue<Vector2>();
 
-			cinemachineTargetPitch += m_lookInput.y * RotationSpeed * deltaTimeMultiplier;
-			rotationVelocity = m_lookInput.x * RotationSpeed * deltaTimeMultiplier;
-
-			cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, BottomClamp, TopClamp);
-			CinemachineCameraTarget.transform.localRotation =
-				Quaternion.Euler(cinemachineTargetPitch, 0.0f, 0.0f);
-			transform.Rotate(Vector3.up * rotationVelocity);
-		}
-
-		private static float ClampAngle(float lfAngle, float lfMin, float lfMax) {
-			if (lfAngle < -360f) lfAngle += 360f;
-			if (lfAngle > 360f) lfAngle -= 360f;
-			return Mathf.Clamp(lfAngle, lfMin, lfMax);
-		}
-
-		private void GroundedCheck() {
-			var spherePosition = transform.position + Vector3.down * GroundedOffset;
-			isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
-				QueryTriggerInteraction.Ignore);
-		}
-
-		public void Jump() {
-			_rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-			animator.SetTrigger("Jump");
-		}
-
-		public void OnMove(InputAction.CallbackContext context) {
-			if (!IsOwner) return;
-			_moveInput = context.ReadValue<Vector2>();
-		}
-
-		public void OnJump(InputAction.CallbackContext context) {
-			if (!IsOwner) return;
-			if (isGrounded) Jump();
-		}
-
-		public void OnLook(InputAction.CallbackContext context) {
-			if (!IsOwner) return;
-			m_lookInput = context.ReadValue<Vector2>();
-		}
-
-		public void OnAddAllItems(InputAction.CallbackContext context) {
-			if (!IsOwner) return;
-
-			if (_playerInventory == null) {
-				Debug.LogWarning("PlayerInventoryNew not initialized");
-				return;
-			}
-			_playerInventory.AddItemServerRpc("BuildingTool", 1,null);
-			_playerInventory.AddItemServerRpc("Jetpack", 1,null);
-			_playerInventory.AddItemServerRpc("Edible", 1,null);
-			_playerInventory.AddItemServerRpc("GravityGun", 1,null);
-			_playerInventory.AddItemServerRpc("HarpoonGun", 1,null);
-			_playerInventory.AddItemServerRpc("Jetpack", 1,null);
-			_playerInventory.AddItemServerRpc("Metal", 1,null);
-			_playerInventory.AddItemServerRpc("Planks", 1,null);
-			_playerInventory.AddItemServerRpc("Poison", 1,null);
-			_playerInventory.AddItemServerRpc("Potable", 1,null);
-			_playerInventory.AddItemServerRpc("Tablet", 1,null);
-		}
-
-		public void UpdateEquippedItem() {
-			if (ItemHolder.childCount > 0) {
-				currentItemScript = ItemHolder.GetChild(0).GetComponent<IUsableItem>();
-			} else {
-				currentItemScript = null;
-			}
-		}
-
-
-		public void OnUseItem(InputAction.CallbackContext context) {
-			if (!IsOwner) return;
-
-			if (context.started) {
-				UpdateEquippedItem();
-				currentItemScript?.Use();
-			} else if (context.canceled) {
-				currentItemScript?.Unuse();
-			}
-		}
-
-		private void ClampVel() {
-			if (_rb.linearVelocity.magnitude > maxMag)
-				_rb.linearVelocity = _rb.linearVelocity.normalized * maxMag;
-		}
-	}
+        private void OnAddAllItems(InputAction.CallbackContext context)
+        {
+            Debug.Log("ASdasd");
+            if (!IsOwner) return;
+            if (_playerInventory == null) {
+                Debug.LogWarning("PlayerInventoryNew not initialized");
+                return;
+            }
+            _playerInventory.AddItemServerRpc("BuildingTool", 1,null);
+            _playerInventory.AddItemServerRpc("Jetpack", 1,null);
+            _playerInventory.AddItemServerRpc("Edible", 1,null);
+            _playerInventory.AddItemServerRpc("GravityGun", 1,null);
+            _playerInventory.AddItemServerRpc("HarpoonGun", 1,null);
+            _playerInventory.AddItemServerRpc("Jetpack", 1,null);
+            _playerInventory.AddItemServerRpc("Metal", 1,null);
+            _playerInventory.AddItemServerRpc("Planks", 1,null);
+            _playerInventory.AddItemServerRpc("Poison", 1,null);
+            _playerInventory.AddItemServerRpc("Potable", 1,null);
+            _playerInventory.AddItemServerRpc("Tablet", 1,null);
+        }
+        
+        private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+        {
+            if (lfAngle < -360f) lfAngle += 360f;
+            if (lfAngle > 360f) lfAngle -= 360f;
+            return Mathf.Clamp(lfAngle, lfMin, lfMax);
+        }
+    }
 }

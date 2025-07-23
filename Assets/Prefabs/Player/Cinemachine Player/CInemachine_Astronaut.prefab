@@ -567,7 +567,7 @@ MonoBehaviour:
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 5500620635511359208}
+  m_Camera: {fileID: 0}
 --- !u!114 &5782841876610792672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,20 +603,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  ItemHolder: {fileID: 6827606694610016973}
   moveSpeed: 7
-  maxMag: 1
+  airControl: 0.5
+  rotationSmoothness: 5
+  groundDrag: 5
+  airDrag: 0.5
   jumpForce: 10
-  isGrounded: 1
-  GroundedOffset: -0.11
+  jumpCooldown: 0.3
+  GroundedOffset: -0.14
   GroundedRadius: 0.5
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 73
+    m_Bits: 65
+  isGrounded: 1
   CinemachineCameraTarget: {fileID: 6714570424845817739}
   BottomClamp: -90
   TopClamp: 90
   RotationSpeed: 1
+  ItemHolder: {fileID: 6827606694610016973}
+  animator: {fileID: 6394151213922376107}
+  handsObj: {fileID: 1024784481050015755}
 --- !u!54 &4003265089954994780
 Rigidbody:
   m_ObjectHideFlags: 0
