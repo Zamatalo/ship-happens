@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5505484068122400}
   - component: {fileID: 7005425634777101413}
   - component: {fileID: 3308844087807323208}
+  - component: {fileID: -8834565511505333853}
   - component: {fileID: 8714384802559412557}
   - component: {fileID: -114365587970286739}
-  - component: {fileID: -8834565511505333853}
   - component: {fileID: 8637321909508421866}
   - component: {fileID: 768496030905677610}
   - component: {fileID: -115314028373899466}
@@ -91,31 +91,6 @@ CapsuleCollider:
   m_Height: 0.3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8714384802559412557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4020595950540665146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938e07116ba6b7f42b5d0cff8bfc37b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collectZoneObject: {fileID: 5022087040498864935}
---- !u!114 &-114365587970286739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4020595950540665146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f0655ac47384466b7720d860a2d5124, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-8834565511505333853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,6 +116,32 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &8714384802559412557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020595950540665146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938e07116ba6b7f42b5d0cff8bfc37b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  collectZoneObject: {fileID: 5022087040498864935}
+--- !u!114 &-114365587970286739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020595950540665146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0655ac47384466b7720d860a2d5124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8637321909508421866
 MonoBehaviour:
   m_ObjectHideFlags: 0

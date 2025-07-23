@@ -913,6 +913,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuelSlider: {fileID: 2474726186580642330}
-  forceForward: 20
-  forceUp: 20
+  forceForward: 15
+  forceUp: 15
   maxFuel: 10

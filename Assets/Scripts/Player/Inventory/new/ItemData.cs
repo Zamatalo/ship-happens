@@ -7,12 +7,15 @@ public class ItemData : ScriptableObject {
 	public Sprite icon;
 	public int maxStack;
 	public GameObject itemPrefab;
+	public GameObject collectableItemPrefab;
 }
 
 
 //shows that item is usable
 
 public interface IUsableItem {
+	string Name();
+
 	void Init(Transform cameraTransform, List<ItemParameter> itemParameters);
 	void Use();
 	void Unuse();

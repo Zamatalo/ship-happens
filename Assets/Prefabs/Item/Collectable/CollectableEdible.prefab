@@ -694,7 +694,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.121, z: -0.06}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1957406416374696263}
@@ -772,7 +772,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 9720bcdf2164da74f9c76c8f5f575fa2, type: 2}
     - target: {fileID: 919132149155446097, guid: 19f91755d703a9a4a88f9e0d6622c966, type: 3}
       propertyPath: m_Name
-      value: Edible
+      value: CollectableEdible
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 19f91755d703a9a4a88f9e0d6622c966, type: 3}
       propertyPath: m_Layer
@@ -815,10 +815,10 @@ PrefabInstance:
       addedObject: {fileID: 3281649641456767587}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 19f91755d703a9a4a88f9e0d6622c966, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8458563684491007126}
+      addedObject: {fileID: 3862833336930024197}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 19f91755d703a9a4a88f9e0d6622c966, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3862833336930024197}
+      addedObject: {fileID: 8458563684491007126}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 19f91755d703a9a4a88f9e0d6622c966, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4157150827495984840}
@@ -884,19 +884,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8458563684491007126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4520857502877082271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938e07116ba6b7f42b5d0cff8bfc37b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collectZoneObject: {fileID: 4523066017816661694}
 --- !u!114 &3862833336930024197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -922,6 +909,20 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &8458563684491007126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4520857502877082271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938e07116ba6b7f42b5d0cff8bfc37b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  collectZoneObject: {fileID: 4523066017816661694}
 --- !u!114 &4157150827495984840
 MonoBehaviour:
   m_ObjectHideFlags: 0

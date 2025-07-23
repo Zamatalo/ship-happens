@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5505484068122400}
   - component: {fileID: 4962633071429627132}
   - component: {fileID: 5907148904057497779}
+  - component: {fileID: 4475962021500502579}
   - component: {fileID: 5370181664420553239}
   - component: {fileID: 1791447652013417697}
-  - component: {fileID: 4475962021500502579}
   - component: {fileID: 3557205253812686832}
   - component: {fileID: -4826926141625125264}
   - component: {fileID: -1035177951974937007}
@@ -91,31 +91,6 @@ CapsuleCollider:
   m_Height: 0.6790812
   m_Direction: 1
   m_Center: {x: -0.098255225, y: -0.043124974, z: 0.058037788}
---- !u!114 &5370181664420553239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4020595950540665146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938e07116ba6b7f42b5d0cff8bfc37b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collectZoneObject: {fileID: 7340822672765787579}
---- !u!114 &1791447652013417697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4020595950540665146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f0655ac47384466b7720d860a2d5124, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4475962021500502579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,6 +116,32 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &5370181664420553239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020595950540665146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938e07116ba6b7f42b5d0cff8bfc37b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  collectZoneObject: {fileID: 7340822672765787579}
+--- !u!114 &1791447652013417697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020595950540665146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0655ac47384466b7720d860a2d5124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3557205253812686832
 MonoBehaviour:
   m_ObjectHideFlags: 0

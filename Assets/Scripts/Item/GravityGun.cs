@@ -40,13 +40,11 @@ namespace Item {
 					pullSpeed * Time.fixedDeltaTime
 				);
 			} else if (hitSomething) {
-				if (laserHit.collider.TryGetComponent(out _currentLoot))
-				{
-					animator.SetBool("isPulling",true);
+				if (laserHit.collider.TryGetComponent(out _currentLoot)) {
+					animator.SetBool("isPulling", true);
 					magnetSound.Play();
 					Debug.Log($"Pulling loot: {_currentLoot.name}");
-				}
-				else  return;
+				} else return;
 			}
 
 			if (_currentLoot || hitSomething)
@@ -56,17 +54,13 @@ namespace Item {
 					beamLines[i].SetPosition(1,
 						_currentLoot ? _currentLoot.transform.position : laserHit.point);
 				}
-			else
-			{
+			else {
 				foreach (var beamLine in beamLines)
-                					beamLine.enabled = false;
-				
+					beamLine.enabled = false;
 			}
-
 		}
 
 		private void OnDisable() {
-			
 			Unuse();
 		}
 
@@ -77,17 +71,19 @@ namespace Item {
 			}
 		}
 
-		public void Init(Transform origin, List<ItemParameter> itemParameters)
-		{
+		public string Name() {
+			return "GravityGun";
+		}
+
+		public void Init(Transform origin, List<ItemParameter> itemParameters) {
 			_origin = origin;
-    
+
 			transform.rotation = _origin.rotation * Quaternion.Euler(-11f, -90f, 96f);
 
 			foreach (var beamLine in beamLines)
 				beamLine.enabled = false;
 
 			_notificationManager = FindObjectOfType<NotificationManager>();
-
 		}
 
 
@@ -100,12 +96,11 @@ namespace Item {
 
 		public void Unuse() {
 			if (!_isActive) return;
-			animator.SetBool("isPulling",false);
+			animator.SetBool("isPulling", false);
 			magnetSound.Stop();
 			_isActive = false;
 			_currentLoot = null;
 			foreach (var beamLine in beamLines) beamLine.enabled = false;
 		}
-
 	}
 }

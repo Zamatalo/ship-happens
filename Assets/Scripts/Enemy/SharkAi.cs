@@ -1,10 +1,14 @@
 using System;
 using System.Collections;
 using BuildKit;
+using Player;
 using UnityEngine;
 
 namespace Enemy {
-	public class SharkAi : MonoBehaviour {
+	public class SharkAi : MonoBehaviour
+	{
+		public int attackDmg;
+		public int maxAttackPerTime = 5;
 		[Header("Speed")] public float normalSpeed = 20f;
 		public float aggressiveSpeed = 20f;
 		[Header("Distance")] public float patrolOff = 25f;
@@ -16,16 +20,17 @@ namespace Enemy {
 		private Vector3 _patrolDist;
 		private float _patrolTimer;
 		private bool _pollingTarget;
-		private State _state = State.MovingToOrbit;
-		private Building _target;
+		private State _state;
+		private Transform _target;
+		private PlayerNeeds _targetNeeds;
 		private Vector3 _void;
 		private Notifications.NotificationManager _notificationManager;
-
-
+		private int attackCounter;
+		
 		private void Start() {
 			StartCoroutine(PollTarget());
 			_patrolTimer = patrolDuration;
-			_notificationManager = FindObjectOfType<Notifications.NotificationManager>();
+			_notificationManager = FindAnyObjectByType<Notifications.NotificationManager>();
 
 		}
 
@@ -60,16 +65,20 @@ namespace Enemy {
 			_pollingTarget = true;
 
 			while (true) {
-				_target = FindAnyObjectByType<Building>();
-				if (ReferenceEquals(_target, null)) {
+				_targetNeeds = FindAnyObjectByType<PlayerNeeds>();
+				if (ReferenceEquals(_targetNeeds, null)) {
 					yield return new WaitForSeconds(2f);
 					continue;
 				}
 				break;
 			}
+			
+			_target = _targetNeeds.GetComponentInChildren<Rigidbody>().transform;
 
 			var dist = (transform.position - _target.transform.position).normalized;
 			_patrolDist = dist * patrolOff;
+			
+			_orbit = _target.transform.position + _patrolDist;
 			_pollingTarget = false;
 		}
 
@@ -102,8 +111,11 @@ namespace Enemy {
 		}
 
 		private void MoveToTarget() {
-			var dir = (_target.transform.position - transform.position).normalized;
-			transform.position += aggressiveSpeed * Time.fixedDeltaTime * dir;
+			transform.position = Vector3.MoveTowards(
+				transform.position, 
+				_target.transform.position, 
+				aggressiveSpeed * Time.fixedDeltaTime
+			);
 
 			LookAtTarget();
 
@@ -111,6 +123,7 @@ namespace Enemy {
 				_orbit = _target.transform.position + _patrolDist.normalized * patrolOff;
 				_state = State.AttackingTarget;
 				_attackTimer = attackCooldown;
+				_target.GetComponent<PlayerController>().attackedByShark = true;
 			}
 		}
 
@@ -119,9 +132,13 @@ namespace Enemy {
 
 			if (_attackTimer > 0f) return;
 
-			if (_target.TakeDamage(1)) {
+			_targetNeeds.health -= attackDmg;
+			attackCounter += 1;
+			
+			if (attackCounter == maxAttackPerTime) {
 				_void = (_orbit - _target.transform.position).normalized * voidOff;
 				_state = State.MovingToVoid;
+				_target.GetComponent<PlayerController>().attackedByShark = false;
 			}
 			_attackTimer = attackCooldown;
 		}
