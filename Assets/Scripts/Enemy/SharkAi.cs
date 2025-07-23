@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using Notifications;
 using Player;
+using Projectile;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Enemy {
 	public class SharkAi : MonoBehaviour {
+		public GameObject bloodParticlePrefab;
+		public int shotsRequiredToBeScared = 3;
 		public int attackDmg;
 		public int maxAttackPerTime = 5;
 		[Header("Speed")] public float normalSpeed = 20f;
@@ -15,17 +18,18 @@ namespace Enemy {
 		public float voidOff = 400f;
 		[Header("Timing")] public float patrolDuration = 20f;
 		public float attackCooldown = 2f;
+		private int _attackCounter;
 		private float _attackTimer;
 		private NotificationManager _notificationManager;
 		private Vector3 _orbit;
 		private Vector3 _patrolDist;
 		private float _patrolTimer;
 		private bool _pollingTarget;
+		private int _shotsGotCounter;
 		private State _state;
 		private Transform _target;
 		private PlayerNeeds _targetNeeds;
 		private Vector3 _void;
-		private int attackCounter;
 
 		private void Start() {
 			StartCoroutine(PollTarget());
@@ -57,6 +61,19 @@ namespace Enemy {
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		private void OnTriggerEnter(Collider other) {
+			if (!other.TryGetComponent(out Harpoon harpoon)) return;
+
+			Instantiate(bloodParticlePrefab, harpoon.transform.position, Quaternion.identity);
+
+			_shotsGotCounter += 1;
+			if (_shotsGotCounter == shotsRequiredToBeScared) {
+				_void = (_orbit - _target.transform.position).normalized * voidOff;
+				_state = State.MovingToVoid;
+				_target.GetComponent<PlayerController>().attackedByShark = false;
 			}
 		}
 
@@ -132,9 +149,9 @@ namespace Enemy {
 			if (_attackTimer > 0f) return;
 
 			_targetNeeds.health -= attackDmg;
-			attackCounter += 1;
+			_attackCounter += 1;
 
-			if (attackCounter == maxAttackPerTime) {
+			if (_attackCounter == maxAttackPerTime) {
 				_void = (_orbit - _target.transform.position).normalized * voidOff;
 				_state = State.MovingToVoid;
 				_target.GetComponent<PlayerController>().attackedByShark = false;

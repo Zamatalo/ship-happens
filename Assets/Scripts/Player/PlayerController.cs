@@ -19,10 +19,10 @@ namespace Player {
 		public float BottomClamp = -90.0f;
 		public float TopClamp = 90.0f;
 		public float RotationSpeed = 1.0f;
+		public bool attackedByShark;
 		private InputSystem_Actions _ia;
 		private bool _isMoving;
 		private Vector2 _moveInput;
-		public bool attackedByShark;
 
 		[Header("Items")] private PlayerInventoryNew _playerInventory;
 		private Rigidbody _rb;
@@ -45,15 +45,16 @@ namespace Player {
 
 			GroundedCheck();
 
-			if (!attackedByShark)
-			{
-				
-				var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
+			if (attackedByShark)
+				_rb.constraints = RigidbodyConstraints.FreezeAll;
+			else
+				_rb.constraints = RigidbodyConstraints.FreezeRotation;
 
-				var movement = transform.rotation * inputDir;
-				movement *= moveSpeed * Time.fixedDeltaTime;
-				_rb.MovePosition(_rb.position + movement);
-			}
+			var inputDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
+
+			var movement = transform.rotation * inputDir;
+			movement *= moveSpeed * Time.fixedDeltaTime;
+			_rb.MovePosition(_rb.position + movement);
 
 			_isMoving = _moveInput.sqrMagnitude > 0.01f;
 			animator.SetFloat("moveX", _moveInput.x);
