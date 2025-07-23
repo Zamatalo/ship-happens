@@ -290,7 +290,6 @@ Transform:
   - {fileID: 287106471286049525}
   - {fileID: 4759434813248267077}
   - {fileID: 910549989864749256}
-  - {fileID: 2038718068482219670}
   m_Father: {fileID: 183499442207275208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6394151213922376107
@@ -7668,11 +7667,11 @@ Transform:
   m_GameObject: {fileID: 5763624252348000543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.000000029802315, z: -0, w: 1}
-  m_LocalPosition: {x: 960.00024, y: 540, z: -0.000033995697}
+  m_LocalPosition: {x: 0.00024414062, y: 0, z: -0.000033995697}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1034907014326911953}
+  m_Father: {fileID: 669296129019597891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3951677562871608730
 MonoBehaviour:
@@ -8252,7 +8251,7 @@ GameObject:
   - component: {fileID: 3519442324599421872}
   - component: {fileID: 4852481737094938476}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8275,6 +8274,7 @@ RectTransform:
   - {fileID: 4737654930757769888}
   - {fileID: 3011397771155914250}
   - {fileID: 3386722852872424750}
+  - {fileID: 2038718068482219670}
   m_Father: {fileID: 183499442207275208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
