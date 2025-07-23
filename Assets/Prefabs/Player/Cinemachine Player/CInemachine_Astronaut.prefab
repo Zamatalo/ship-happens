@@ -605,7 +605,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   ItemHolder: {fileID: 6827606694610016973}
   moveSpeed: 7
-  jumpForce: 3
+  maxMag: 1
+  jumpForce: 10
   isGrounded: 1
   GroundedOffset: -0.11
   GroundedRadius: 0.5

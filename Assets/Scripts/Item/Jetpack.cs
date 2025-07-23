@@ -69,7 +69,7 @@ namespace Item {
 		}
 
 		private void Burn(Vector3 force) {
-			_playerRb.AddForce(force, ForceMode.Force);
+			_playerRb.AddForce(force, ForceMode.Acceleration);
 			_currentFuel = Mathf.Max(0f, _currentFuel - Time.fixedDeltaTime);
 			fuelSlider.value = _currentFuel;
 		}

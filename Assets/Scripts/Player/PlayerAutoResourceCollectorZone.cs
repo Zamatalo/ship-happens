@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Achievements;
 using Notifications;
 using Unity.Netcode;
 using UnityEngine;
@@ -25,33 +26,33 @@ namespace Player {
 				);
 			Destroy(loot.gameObject);
 			_collectedCount++;
-			ShowMilestoneNotification();
+			ShowMilestoneAchievement();
 		}
-		private void ShowMilestoneNotification() {
-			var notifier = FindAnyObjectByType<NotificationManager>();
+		private void ShowMilestoneAchievement() {
+			var notifier = FindAnyObjectByType<AchievementManager>();
 
 			if (_collectedCount >= 1 && !_shown1) {
-				notifier.ShowNotification("First steps!");
+				notifier.ShowAchievement("First steps!");
 				_shown1 = true;
 			}
 			else if (_collectedCount >= 3 && !_shown3) {
-				notifier.ShowNotification("Nice work, keep going!");
+				notifier.ShowAchievement("Nice work, keep going!");
 				_shown3 = true;
 			}
 			else if (_collectedCount >= 5 && !_shown5) {
-				notifier.ShowNotification("You're on a roll!");
+				notifier.ShowAchievement("You're on a roll!");
 				_shown5 = true;
 			}
 			else if (_collectedCount >= 10 && !_shown10) {
-				notifier.ShowNotification("Serious collector!");
+				notifier.ShowAchievement("Serious collector!");
 				_shown10 = true;
 			}
 			else if (_collectedCount >= 30 && !_shown30) {
-				notifier.ShowNotification("Master Gatherer!");
+				notifier.ShowAchievement("Master Gatherer!");
 				_shown30 = true;
 			}
 			else if (_collectedCount >= 100 && !_shown100) {
-				notifier.ShowNotification("Legendary Hoarder!");
+				notifier.ShowAchievement("Legendary Hoarder!");
 				_shown100 = true;
 			}
 		}
