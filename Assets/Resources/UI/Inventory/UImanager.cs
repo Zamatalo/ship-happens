@@ -6,11 +6,11 @@ using Cursor = UnityEngine.Cursor;
 public class UIManager : MonoBehaviour
 {
     private VisualElement inventoryRoot;
-    private VisualElement craftingContainer;
+    private VisualElement recipesCraftingContainer;
     private VisualElement ghostIcon;
     private ListView list;
     private Button craftingButton;
-    
+    private VisualElement craftingContainer;
     private bool isCraftingVisible;
     private PlayerInventoryNew inventory;
     private bool wasCraftingVisibleBeforeClose;
@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
         ghostIcon = root.Q<VisualElement>("GhostIcon");
         craftingButton = root.Q<Button>("crafting-button");
         list = root.Q<ListView>("recipesList");
+        recipesCraftingContainer = root.Q<VisualElement>("recipesCraftingContainer");
         inventory = FindFirstObjectByType<PlayerInventoryNew>();
 
         inventoryRoot.style.display = DisplayStyle.None;
@@ -35,10 +36,7 @@ public class UIManager : MonoBehaviour
         isCraftingVisible = false;
         wasCraftingVisibleBeforeClose = false;
 
-        if (craftingButton != null)
-        {
-            craftingButton.RegisterCallback<ClickEvent>(OnCraftingButtonClicked);
-        }
+        craftingButton?.RegisterCallback<ClickEvent>(OnCraftingButtonClicked);
         FillRecipeList();
     }
 
@@ -96,49 +94,80 @@ public class UIManager : MonoBehaviour
 
     void FillRecipeList()
     {
+        
         list.itemsSource = recipeList;
-
         list.makeItem = () =>
         {
-            var container = new VisualElement
-            {
-                style =
-                {
-                    minHeight = 96,
-                    minWidth = 96,
-                    flexDirection = FlexDirection.Row
-                }
-            };
-
+            var container = new VisualElement();
+            container.AddToClassList("crafting-icon");
+        
             var icon = new Image
             {
                 name = "icon",
                 style =
                 {
                     width = 96,
-                    height = 96
+                    height = 96,
                 }
             };
-            var label = new Label();
-            label.name = "label";
+            icon.AddToClassList("recipeIcon");
+        
             container.Add(icon);
-            container.Add(label);
-
             return container;
         };
 
         list.bindItem = (element, i) =>
-        {
+        {   
             var recipe = recipeList[i];
-            var label = element.Q<Label>("label");
             var icon = element.Q<Image>("icon");
-
-            label.text = recipe.outputItem.itemName;
-            icon.image = recipe.outputItem.icon?.texture;
+        
+            if (recipe != null && recipe.outputItem != null && recipe.outputItem.icon != null)
+            {
+                icon.image = recipe.outputItem.icon.texture;
+            }
+            else
+            {
+                Debug.LogWarning($"Missing recipe data at index {i}");
+                icon.image = null;
+            }
         };
-
-        // list.selectionType = SelectionType.Single;
-        // list.fixedItemHeight = 96; // Optional optimization
+        list.selectionChanged += (selectedItems) =>
+        {
+            recipesCraftingContainer.Clear();
+        
+            foreach (RecipeData selectedRecipe in selectedItems)
+            {
+                if (selectedRecipe == null || selectedRecipe.requiredItems == null) continue;
+                
+                foreach (var requiredItem in selectedRecipe.requiredItems)
+                {
+                    if (requiredItem.item == null) continue;
+                        
+                    var itemContainer = new VisualElement();
+                    itemContainer.AddToClassList("recipesCraftingContainer");
+                        
+                    var icon = new Image
+                    {
+                        image = requiredItem.item.icon?.texture,
+                        style =
+                        {
+                            width = 96,
+                            height = 96
+                        }
+                    };
+                        
+                    var label = new Label($"{requiredItem.quantity}x {requiredItem.item.itemName}");
+                   // var hasItem = inventory.HasItem(requiredItem.item, requiredItem.quantity);
+                   
+                 //   label.AddToClassList(hasItem ? "ingredient-available" : "ingredient-missing");
+                    label.AddToClassList("ingredient-label");
+                        
+                    itemContainer.Add(icon);
+                    itemContainer.Add(label);
+                    recipesCraftingContainer.Add(itemContainer);
+                }
+            }
+        };
         list.Rebuild();
     }
 
