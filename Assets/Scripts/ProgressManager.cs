@@ -1,8 +1,19 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ProgressManager : MonoBehaviour {
+	public enum State {
+		Prologue,
+		Mars,
+		Moon,
+		Venus,
+		Mercury,
+		Epilogue
+	}
+
 	public List<GameObject> milestoneObjects;
+	[HideInInspector] public State state;
 	private int _i = 1;
 	private LineRenderer _lr;
 	private List<Milestone> _milestones;
@@ -25,6 +36,15 @@ public class ProgressManager : MonoBehaviour {
 		if (milestone != _milestones[_i]) return;
 
 		_i += 1;
+
+		state = state switch {
+			State.Prologue => State.Mars,
+			State.Mars => State.Moon,
+			State.Moon => State.Venus,
+			State.Venus => State.Mercury,
+			State.Mercury => State.Epilogue,
+			_ => throw new ArgumentOutOfRangeException()
+		};
 
 		_lr.SetPosition(0, milestone.transform.position);
 		_lr.SetPosition(1, _milestones[_i].transform.position);
