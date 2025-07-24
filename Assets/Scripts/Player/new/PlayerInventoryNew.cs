@@ -159,20 +159,20 @@ public class PlayerInventoryNew : NetworkBehaviour {
 
 		AddItemServerRpc("BuildKit", 1, null);
 		AddItemServerRpc("Edible", 4, null);
-		AddItemServerRpc("Fabric", 4, null);
-		AddItemServerRpc("Glass", 4, null);
+		//AddItemServerRpc("Fabric", 4, null);
+		//AddItemServerRpc("Glass", 4, null);
 		AddItemServerRpc("GravityGun", 1, null);
 		AddItemServerRpc("HarpoonGun", 1, null);
 		AddItemServerRpc("Jetpack", 1, null);
 		AddItemServerRpc("Magnet", 1, null);
-		AddItemServerRpc("Metal", 4, null);
-		/*AddItemServerRpc("Microchip", 4, null);
-		AddItemServerRpc("Planks", 4, null);
-		AddItemServerRpc("Plastic", 4, null);
+		//AddItemServerRpc("Metal", 4, null);
+		//AddItemServerRpc("Microchip", 4, null);
+		//AddItemServerRpc("Planks", 4, null);
+		//AddItemServerRpc("Plastic", 4, null);
 		AddItemServerRpc("Platform", 4, null);
 		AddItemServerRpc("Potable", 4, null);
 		AddItemServerRpc("Spear", 1, null);
-		AddItemServerRpc("Stone", 1, null);*/
+		//AddItemServerRpc("Stone", 1, null);
 		AddItemServerRpc("Tablet", 1, null);
 	}
 
