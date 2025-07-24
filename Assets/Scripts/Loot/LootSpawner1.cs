@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Loot {
 	public class LootSpawner2 : MonoBehaviour {
-		public List<GameObject> lootPrefabs; 
+		public List<GameObject> lootPrefabs;
 		// Assign multiple loot prefabs in the Inspector
 		// Assign your loot prefab in the Inspector
 		public float spawnInterval = 5f; // Time in seconds between spawns
@@ -24,22 +24,21 @@ namespace Loot {
 		public int minLoot;
 		public int maxLoot;
 
-		void Start() {
+		private void Start() {
 			StartCoroutine(SpawnLootCoroutine());
 		}
 
-		IEnumerator SpawnLootCoroutine() {
-			while (true) {
+		private IEnumerator SpawnLootCoroutine() {
+			while (true)
 				if (NetworkManager.Singleton.IsListening) {
 					SpawnLoot();
 					yield return new WaitForSeconds(spawnInterval);
 				} else {
 					yield return new WaitForSeconds(1);
 				}
-			}
 		}
 
-		void SpawnLoot() {
+		private void SpawnLoot() {
 			foreach (var player in
 			         FindObjectsByType<PlayerController>(FindObjectsSortMode.None)) {
 				var numberOfLootsToSpawn =
