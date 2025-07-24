@@ -112,7 +112,9 @@ namespace Player {
 		public override void OnNetworkSpawn()
 		{
 			if (!IsOwner) return;
-
+        
+			_inventory = GetComponentInParent<PlayerInventoryNew>();
+        
 			if (_inventory == null)
 			{
 				Transform playerTransform = transform.parent;
@@ -121,7 +123,7 @@ namespace Player {
 					_inventory = playerTransform.Find("Inventory")?.GetComponent<PlayerInventoryNew>();
 				}
 			}
-			
+
 			if (_inventory == null)
 			{
 				Debug.LogError("Inventory reference not found!", this);
