@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Metal
   m_EditorClassIdentifier: 
   itemName: Metal
-  icon: {fileID: 21300000, guid: 343c1024660006144bad2dce911439e8, type: 3}
+  icon: {fileID: 21300000, guid: b0b304c2d89cd1d4e8fafe2eacdf49a4, type: 3}
   maxStack: 20
   itemPrefab: {fileID: 4020595950540665146, guid: 334fe159435eec24cbb49000d1e5cfb9, type: 3}
   collectableItemPrefab: {fileID: 4020595950540665146, guid: 2d1b8be0b2457f348adf2fee64f52707, type: 3}
