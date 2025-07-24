@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1001 &1759794652188129359
 PrefabInstance:
@@ -217,8 +217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kind:
     id: 
-    itemName: 
-    quantity: 0
+    itemName: Fabric
+    quantity: 3
     parameters: []
 --- !u!114 &6703885393258864184
 MonoBehaviour:
