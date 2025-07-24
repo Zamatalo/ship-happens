@@ -165,13 +165,13 @@ public class PlayerInventoryNew : NetworkBehaviour {
 		AddItemServerRpc("HarpoonGun", 1, null);
 		AddItemServerRpc("Jetpack", 1, null);
 		AddItemServerRpc("Metal", 4, null);
-		AddItemServerRpc("Microchip", 4, null);
+		/*AddItemServerRpc("Microchip", 4, null);
 		AddItemServerRpc("Planks", 4, null);
 		AddItemServerRpc("Plastic", 4, null);
 		AddItemServerRpc("Platform", 4, null);
 		AddItemServerRpc("Potable", 4, null);
 		AddItemServerRpc("Spear", 1, null);
-		AddItemServerRpc("Stone", 1, null);
+		AddItemServerRpc("Stone", 1, null);*/
 		AddItemServerRpc("Tablet", 1, null);
 	}
 
