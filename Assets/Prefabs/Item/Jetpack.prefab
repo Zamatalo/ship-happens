@@ -916,8 +916,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuelSlider: {fileID: 2474726186580642330}
-  forceForward: 25
-  forceUp: 25
+  forceForward: 75
+  forceUp: 75
   maxFuel: 10
   maxMag: 20
 --- !u!114 &8026963791449157841

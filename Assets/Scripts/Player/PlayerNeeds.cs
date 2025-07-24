@@ -1,10 +1,10 @@
 using Notifications;
 using UnityEngine;
 
-// Make sure this namespace is accessible
-
 namespace Player {
 	public class PlayerNeeds : MonoBehaviour {
+		public float minHungerPercentForHealthRestore = 85f;
+		public float minThirstPercentForHealthRestore = 85f;
 		public float maxHealth = 100f;
 		[HideInInspector] public float health;
 		public float maxHunger = 100f;
@@ -37,6 +37,11 @@ namespace Player {
 			hunger = Mathf.Max(0, hunger - Time.fixedDeltaTime);
 			thirst = Mathf.Max(0, thirst - Time.fixedDeltaTime);
 			oxygen = Mathf.Max(0, oxygen - Time.fixedDeltaTime);
+
+			if (maxHunger / hunger < minHungerPercentForHealthRestore / 100f) return;
+			if (maxThirst / thirst < minThirstPercentForHealthRestore / 100f) return;
+
+			health = Mathf.Min(maxHealth, health + Time.fixedDeltaTime);
 		}
 
 		private void CheckNeeds() {

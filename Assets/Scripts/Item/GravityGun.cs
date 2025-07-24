@@ -18,10 +18,6 @@ namespace Item {
 		private Transform _origin;
 
 		private InputSystem_Actions _ia;
-		private void Awake()
-		{
-			_ia = new InputSystem_Actions();
-		}
 
 		private void Update() {
 			if (!_isActive || !_origin) {
@@ -65,6 +61,8 @@ namespace Item {
 			else {
 				foreach (var beamLine in beamLines)
 					beamLine.enabled = false;
+				animator.SetBool("isPulling", false);
+				magnetSound.Stop();
 			}
 		}
 
@@ -109,6 +107,8 @@ namespace Item {
 
 		public void OnEnable()
 		{
+			_ia = new InputSystem_Actions();
+
 			_ia.Player.Enable();
 			_ia.Player.UseItem.started += Use;
 			_ia.Player.UseItem.canceled += Unuse;

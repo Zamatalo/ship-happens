@@ -307,7 +307,6 @@ GameObject:
   - component: {fileID: 6505893910340881489}
   - component: {fileID: -3191024413541609413}
   - component: {fileID: -3883051290524056677}
-  - component: {fileID: 1595469837029713774}
   m_Layer: 0
   m_Name: GravityGun
   m_TagString: Untagged
@@ -351,7 +350,7 @@ MonoBehaviour:
   - {fileID: 5452814684431173112}
   - {fileID: 9209425868780694779}
   magnetSound: {fileID: -3883051290524056677}
-  animator: {fileID: 1595469837029713774}
+  animator: {fileID: 4079268618731772628}
 --- !u!82 &-3883051290524056677
 AudioSource:
   m_ObjectHideFlags: 0
@@ -449,28 +448,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &1595469837029713774
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5837303547494831851}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 05bb15dfcfb8e6e4e9e6b89a4e044829, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8834569550320141438
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,7 +876,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -4182704042614093021, guid: 5247a4f3fba614d429724232d58ab685, type: 3}
       insertIndex: -1
       addedObject: {fileID: 414709899439261445}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5247a4f3fba614d429724232d58ab685, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4079268618731772628}
   m_SourcePrefab: {fileID: 100100000, guid: 5247a4f3fba614d429724232d58ab685, type: 3}
 --- !u!4 &994913606015076420 stripped
 Transform:
@@ -916,6 +896,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -4182704042614093021, guid: 5247a4f3fba614d429724232d58ab685, type: 3}
   m_PrefabInstance: {fileID: 8964485830671382273}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8118065485108316752 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5247a4f3fba614d429724232d58ab685, type: 3}
+  m_PrefabInstance: {fileID: 8964485830671382273}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4079268618731772628
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8118065485108316752}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 05bb15dfcfb8e6e4e9e6b89a4e044829, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &8926971329476677866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5247a4f3fba614d429724232d58ab685, type: 3}

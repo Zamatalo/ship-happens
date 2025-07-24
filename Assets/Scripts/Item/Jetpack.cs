@@ -19,10 +19,7 @@ namespace Item {
 		private InputSystem_Actions _ia;
 		private NotificationManager _notificationManager;
 		private Rigidbody _playerRb;
-
-		private void Awake() {
-			_ia = new InputSystem_Actions();
-		}
+		
 
 		private void FixedUpdate() {
 			if (_currentFuel <= 0f) {
@@ -39,6 +36,8 @@ namespace Item {
 		}
 
 		private void OnEnable() {
+			_ia = new InputSystem_Actions();
+
 			_ia.Enable();
 			_ia.Jetpack.BurnForward.performed += StartBurnForward;
 			_ia.Jetpack.BurnForward.canceled += EndBurnForward;
