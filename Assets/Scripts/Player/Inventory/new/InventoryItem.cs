@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 
 [Serializable]
-public struct InventoryItem : INetworkSerializable, IEquatable<InventoryItem> {
+public class InventoryItem : INetworkSerializable, IEquatable<InventoryItem> {
 	public string id;
 	public string itemName;
 	public int quantity;

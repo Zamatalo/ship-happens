@@ -26,7 +26,6 @@ public class InventoryUI : MonoBehaviour
 	private VisualElement slotsContainer;
 	private InventoryElement tempTarget;
 
-	/**/
 	private void Awake() {
 		if (Instance != null && Instance != this) {
 			Destroy(gameObject);
@@ -66,7 +65,6 @@ public class InventoryUI : MonoBehaviour
 		selectedHotbarSlot = hotbarSlots[hotbarIndex];
 		selectedHotbarSlot.AddToClassList("selected");
 		EquipItemFromSlot(selectedHotbarSlot);
-		Debug.Log($"Selected hotbar slot {hotbarIndex + 1}: {selectedHotbarSlot.ItemName}");
 	}
 
 	private void InitializeSlots() {
@@ -76,16 +74,14 @@ public class InventoryUI : MonoBehaviour
 		slots = slotsContainer.Query<InventoryElement>().ToList();
 		hotbarSlots.AddRange(hotbarContainer.Query<InventoryElement>().ToList());
 
-		Debug.Log($"Total Inventory Slots initialized: {slots.Count}");
-		for (var i = 0; i < slots.Count; i++) {
-			Debug.Log($"Inventory Slot {i}: {slots[i].name}");
-			slots[i].RegisterCallback<PointerDownEvent>(OnPointerDown);
+		foreach (var t in slots)
+		{
+			t.RegisterCallback<PointerDownEvent>(OnPointerDown);
 		}
 
-		Debug.Log($"Total Hotbar Slots initialized: {hotbarSlots.Count}");
-		for (var i = 0; i < hotbarSlots.Count; i++) {
-			Debug.Log($"Hotbar Slot {i}: {hotbarSlots[i].name}");
-			hotbarSlots[i].RegisterCallback<PointerDownEvent>(OnPointerDown);
+		foreach (var t in hotbarSlots)
+		{
+			t.RegisterCallback<PointerDownEvent>(OnPointerDown);
 		}
 	}
 
@@ -129,7 +125,6 @@ public class InventoryUI : MonoBehaviour
 
 		var panelPosition = RuntimePanelUtils.ScreenToPanel(root.panel, screenPositionFlipped);
 
-		Debug.Log($"ScreenPos: {screenPosition}, PanelPos: {panelPosition}");
 		ghostIcon.style.left = panelPosition.x - 32f;
 		ghostIcon.style.top = panelPosition.y - 32f;
 	}
@@ -172,44 +167,51 @@ public class InventoryUI : MonoBehaviour
 		isDragging = false;
 		dragSource = null;
 	}
-
-	public void RefreshInventory(List<InventoryItem> items) {
-		if (slots == null || slots.Count == 0 || items == null) return;
-		var allSlots =  new List<InventoryElement>();
-		allSlots.AddRange(slots);
-		allSlots.AddRange(hotbarSlots);
-		
+	public void RefreshInventory(List<InventoryItem> items) 
+	{
+		if (slots == null || hotbarSlots == null || items == null) return;
+    
+		var allSlots = new List<InventoryElement>();
+		if (slots != null) allSlots.AddRange(slots.Where(s => s != null));
+		if (hotbarSlots != null) allSlots.AddRange(hotbarSlots.Where(s => s != null));
+    
 		var currentItemNames = items
-			.Where(i => !i.IsEmpty)
+			.Where(i => i != null && !i.IsEmpty)
 			.Select(i => i.itemName)
+			.Where(name => !string.IsNullOrEmpty(name))
 			.ToHashSet();
 
-
-
-		foreach (var item in items) {
-			if (item.IsEmpty) continue;
-
-			var existingSlot = allSlots.FirstOrDefault(s => s.ItemName == item.itemName);
+		foreach (var item in items.Where(i => i != null && !i.IsEmpty))
+		{
+			var existingSlot = allSlots
+				.Where(s => s != null)
+				.FirstOrDefault(s => s.ItemName == item.itemName);
+            
 			existingSlot?.SetItem(item);
 		}
 
-		foreach (var item in items) {
-			if (item.IsEmpty) continue;
+		foreach (var item in items.Where(i => i != null && !i.IsEmpty))
+		{
+			if (allSlots.Any(s => s != null && s.ItemName == item.itemName)) 
+				continue;
 
-			if (allSlots.Any(s => s.ItemName == item.itemName)) continue;
-
-			var emptySlot = allSlots.FirstOrDefault(s =>
-				s.InventoryItem.IsEmpty && s.ElementType == InventoryElementType.Inventory);
-
+			var emptySlot = allSlots
+				.Where(s => s != null)
+				.FirstOrDefault(s => 
+					s.InventoryItem?.IsEmpty != false && 
+					s.ElementType == InventoryElementType.Inventory);
+                
 			emptySlot?.SetItem(item);
 		}
-		foreach (var slot in allSlots
-			         .Where(slot => !currentItemNames.Contains(slot.ItemName)))
+
+		foreach (var slot in allSlots.Where(s => s != null))
 		{
-			slot.ClearItem();
+			if (!currentItemNames.Contains(slot.ItemName))
+			{
+				slot.ClearItem();
+			}
 		}
 	}
-	
 
 	private void EquipItemFromSlot(InventoryElement slot) {
 		if (!inventory) return;

@@ -99,8 +99,8 @@ public partial class InventoryElement : VisualElement
     }
 
     public void ClearItem()
-    {   
-        InventoryItem=new InventoryItem();
+    {
+        InventoryItem = null;
         Icon.image = null;
         ItemName = null;
         Icon.style.display = DisplayStyle.None;

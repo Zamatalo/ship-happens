@@ -46,50 +46,40 @@ public class PlayerInventoryNew : NetworkBehaviour
         }
     }
 
-    private void EnableInput()
-    {
-        _playerInputActions.Inventory.Enable();
-        _playerInputActions.Player.Enable();
-        _playerInputActions.Inventory.DropItem.performed += OnDropItem;
-        _playerInputActions.Player.AddAllItems.performed += OnAddAllItems;
-    }
-
-    private void DisableInput()
-    {
-        _playerInputActions.Inventory.DropItem.performed -= OnDropItem;
-        _playerInputActions.Player.AddAllItems.performed -= OnAddAllItems;
-        _playerInputActions.Player.Disable();
-        _playerInputActions.Inventory.Disable();
-    }
+ 
 
     [ServerRpc]
     public void AddItemServerRpc(string itemName, int amount, ItemParameter[] parameters)
     {
         if (string.IsNullOrEmpty(itemName)) return;
-        
+    
         var itemData = InventoryDatabase.Instance.GetItemByName(itemName);
         if (!itemData) return;
 
-        var existingItem = inventory.FirstOrDefault(i => i.itemName == itemName);
-        
-        if (!existingItem.IsEmpty && !existingItem.IsEmpty)
+        var paramList = parameters != null 
+            ? new List<ItemParameter>(parameters) 
+            : new List<ItemParameter>();
+
+        var existingIndex = inventory.FindIndex(i => i.itemName == itemName);
+    
+        if (existingIndex == -1)
         {
-            // Stack existing item
-            existingItem.quantity += amount;
-            existingItem.quantity = Mathf.Min(existingItem.quantity, itemData.maxStack);
+            inventory.Add(new InventoryItem(
+                itemName, 
+                amount, 
+                paramList
+            ));
         }
         else
         {
-            // Add new item
-            inventory.Add(new InventoryItem
-            {   
-                id = Guid.NewGuid().ToString(),
-                itemName = itemName,
-                quantity = amount,
-                parameters = new List<ItemParameter>(parameters ?? Array.Empty<ItemParameter>())
-            });
+            var existing = inventory[existingIndex];
+            inventory[existingIndex] = new InventoryItem(
+                existing.itemName,
+                existing.quantity + amount,
+                existing.parameters
+            );
         }
-        
+    
         SyncInventory();
     }
 
@@ -119,11 +109,13 @@ public class PlayerInventoryNew : NetworkBehaviour
             slots = inventory.Where(item => !item.IsEmpty).ToList() 
         };
         inventoryJson.Value = new FixedString4096Bytes(JsonUtility.ToJson(wrapper));
+        InventoryUI.Instance?.RefreshInventory(inventory);
     }
 
     private void OnInventoryUpdated(FixedString4096Bytes oldVal, FixedString4096Bytes newVal)
     {
-        var wrapper = JsonUtility.FromJson<InventoryWrapper>(newVal.ToString());
+        var wrapper = JsonUtility
+            .FromJson<InventoryWrapper>(newVal.ToString());
         inventory = wrapper.slots;
         InventoryUI.Instance?.RefreshInventory(inventory);
     }
@@ -190,13 +182,13 @@ public class PlayerInventoryNew : NetworkBehaviour
 
         AddItemServerRpc("BuildingTool", 1, null);
         AddItemServerRpc("Jetpack", 1, null);
-        AddItemServerRpc("Edible", 1, null);
+        AddItemServerRpc("Edible", 3, null);
         AddItemServerRpc("GravityGun", 1, null);
         AddItemServerRpc("HarpoonGun", 1, null);
-        AddItemServerRpc("Metal", 1, null);
-        AddItemServerRpc("Planks", 1, null);
-        AddItemServerRpc("Poison", 1, null);
-        AddItemServerRpc("Potable", 1, null);
+        AddItemServerRpc("Metal", 4, null);
+        AddItemServerRpc("Planks", 5, null);
+        AddItemServerRpc("Poison", 6, null);
+        AddItemServerRpc("Potable", 7, null);
         AddItemServerRpc("Tablet", 1, null);
     }
 
@@ -205,7 +197,21 @@ public class PlayerInventoryNew : NetworkBehaviour
 
     public InventoryItem FindItemByID(string id) => 
         inventory.FirstOrDefault(s => s.id == id);
+    private void EnableInput()
+    {
+        _playerInputActions.Inventory.Enable();
+        _playerInputActions.Player.Enable();
+        _playerInputActions.Inventory.DropItem.performed += OnDropItem;
+        _playerInputActions.Player.AddAllItems.performed += OnAddAllItems;
+    }
 
+    private void DisableInput()
+    {
+        _playerInputActions.Inventory.DropItem.performed -= OnDropItem;
+        _playerInputActions.Player.AddAllItems.performed -= OnAddAllItems;
+        _playerInputActions.Player.Disable();
+        _playerInputActions.Inventory.Disable();
+    }
     [Serializable]
     public class InventoryWrapper
     {
