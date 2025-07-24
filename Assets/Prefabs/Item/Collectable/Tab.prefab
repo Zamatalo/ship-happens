@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 432278e35c9de4b42875133b76c31500, type: 3}
       propertyPath: m_Name
-      value: Tablet
+      value: Tab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -92,6 +92,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 432278e35c9de4b42875133b76c31500, type: 3}
       insertIndex: -1
       addedObject: {fileID: -9039909218543272572}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 432278e35c9de4b42875133b76c31500, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7774202694990768893}
   m_SourcePrefab: {fileID: 100100000, guid: 432278e35c9de4b42875133b76c31500, type: 3}
 --- !u!1 &482774312071655228 stripped
 GameObject:
@@ -158,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 927469677
+  GlobalObjectIdHash: 2298105713
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -247,7 +250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  collectZoneObject: {fileID: 2756743441613051312, guid: 9dd9bae9e1b23444693719b2dcff2693, type: 3}
+  itemName: 
+  parameters: []
 --- !u!114 &-5932224575208004992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,3 +282,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0655ac47384466b7720d860a2d5124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7774202694990768893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482774312071655228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83bd41dbfed33eb4ba4398f0b0536a40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 0}
