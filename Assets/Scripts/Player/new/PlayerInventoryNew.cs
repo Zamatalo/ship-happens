@@ -167,6 +167,7 @@ public class PlayerInventoryNew : NetworkBehaviour {
 		AddItemServerRpc("Poison", 6, null);
 		AddItemServerRpc("Potable", 7, null);
 		AddItemServerRpc("Tablet", 1, null);
+		AddItemServerRpc("Spear", 1, null);
 	}
 
 	public InventoryItem FindItemByName(string name) {
