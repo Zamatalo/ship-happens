@@ -49,3 +49,5 @@
 *.pidb.meta
 *.pdb.meta
 *.mdb.meta
+
+**/*.DS_Store
