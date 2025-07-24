@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc1b93a1beb6ad34596164a77f5664b2, type: 3}
-  m_Name: Tablet
+  m_Name: Tab
   m_EditorClassIdentifier: 
   itemName: Tablet
   icon: {fileID: 21300000, guid: 5e8424ffa5b4750419e32b2a2f3180e8, type: 3}
   maxStack: 20
   itemPrefab: {fileID: 3037215935954486187, guid: 4b4ae876106854157865d7a42786c325, type: 3}
-  collectableItemPrefab: {fileID: 0}
+  collectableItemPrefab: {fileID: 482774312071655228, guid: 141b71a7d0a00be4fa0cabbed987562d, type: 3}
