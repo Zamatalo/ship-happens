@@ -627,7 +627,7 @@ MonoBehaviour:
   GroundedRadius: 0.5
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 73
   isGrounded: 0
   CinemachineCameraTarget: {fileID: 6714570424845817739}
   BottomClamp: -90
@@ -3354,6 +3354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd218ca5f766464b9145cc7d5ba90ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recipeList: []
 --- !u!114 &6475444880134352527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3367,7 +3368,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  inventory: []
+  inventory:
+  - id: 1
+    itemName: Magnet
+    quantity: 1
+    parameters:
+    - key: 
+      value: 
   inventoryJson:
     m_InternalValue:
       utf8LengthInBytes: 0
