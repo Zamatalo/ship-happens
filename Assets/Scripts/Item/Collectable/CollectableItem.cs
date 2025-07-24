@@ -3,46 +3,44 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace Item.Collectable {
-	[RequireComponent(typeof(Rigidbody))]
-	public class CollectableItem : NetworkBehaviour {
-		public GameObject collectZoneObject;
-		private int _amount;
-		private float _jetpackFuel;
-		private string _kind;
-		private Rigidbody _rb;
-		private CollectableItemZone _zone;
+[RequireComponent(typeof(Rigidbody), typeof(NetworkObject))]
+public class CollectableItem : NetworkBehaviour 
+{
+    [Header("Settings")]
+    [SerializeField] private string itemName;
+    [SerializeField] private List<ItemParameter> parameters = new();
 
-		private void Start() {
-			_zone = collectZoneObject.GetComponent<CollectableItemZone>();
-			_rb = GetComponent<Rigidbody>();
-			StartCoroutine(AfterStart());
-		}
+    private Rigidbody _rb;
+    private bool _initialized;
+    private bool _canBeCollected = false;
 
-		public void Init(string kind, int amount, float jetpackFuel) {
-			_kind = kind;
-			_amount = amount;
-			_jetpackFuel = jetpackFuel;
-		}
+    private void Awake()
+    {
+        TryGetComponent(out _rb);
+    }
 
-		private IEnumerator AfterStart() {
-			yield return new WaitForSeconds(1);
+    public void Init(string name, List<ItemParameter> parameters) 
+    {
+        itemName = name;
+        this.parameters = parameters ?? new List<ItemParameter>();
+        _initialized = true;
+        StartCoroutine(EnableCollectionAfterDelay());
+    }
 
-			_rb.constraints = RigidbodyConstraints.FreezeAll;
-			_zone.Init(OnZoneEnter);
-		}
+    private IEnumerator EnableCollectionAfterDelay()
+    {
+        _canBeCollected = false;
+        yield return new WaitForSeconds(3f);
+        _canBeCollected = true;
+    }
 
-		private void OnZoneEnter(PlayerInventoryNew inventory) {
-			if (!IsOwner) return;
+    public List<ItemParameter> GetParameters()
+    {
+        return !_canBeCollected ? null : parameters;
+    }
 
-			inventory.AddItemServerRpc(_kind, _amount, null);
-			CollectServerRpc();
-		}
-
-		[ServerRpc]
-		private void CollectServerRpc() {
-			GetComponent<NetworkObject>().Despawn();
-			Destroy(gameObject);
-		}
-	}
+    public string GetItemName()
+    {
+        return itemName;
+    }
 }

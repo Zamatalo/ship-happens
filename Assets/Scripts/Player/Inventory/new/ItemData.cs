@@ -14,9 +14,9 @@ public class ItemData : ScriptableObject {
 //shows that item is usable
 
 public interface IUsableItem {
-	string Name();
+	//string Name();
 
 	void Init(Transform cameraTransform, List<ItemParameter> itemParameters);
-	void Use();
-	void Unuse();
+	// void Use();
+	// void Unuse();
 }

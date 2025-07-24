@@ -83,14 +83,14 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Height: 6
+  m_Radius: 3.3216493
+  m_Height: 10.903085
   m_Direction: 2
-  m_Center: {x: 0, y: 0.8, z: 0.8}
+  m_Center: {x: 0, y: 0.7050712, z: 1.1832843}
 --- !u!114 &5591516433479544921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,13 +174,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6fbe94523549ada2a82112e26a801a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bloodParticlePrefab: {fileID: 4874131924157328089, guid: 0c85567c0553bfa42bc39a69231b9228, type: 3}
-  shotsRequiredToBeScared: 3
   attackDmg: 8
   maxAttackPerTime: 4
   normalSpeed: 20
   aggressiveSpeed: 20
-  patrolOff: 10
+  patrolOff: 25
   voidOff: 400
   patrolDuration: 20
   attackCooldown: 2

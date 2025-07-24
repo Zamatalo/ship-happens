@@ -1,0 +1,44 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Inventory/Inventory.uss?fileID=7433441132597879392&amp;guid=c8715e41f604c344dab4c9e4819d0327&amp;type=3#Inventory" />
+    
+    <ui:VisualElement name="inventory-root" class="inventory-root" style="background-image: resource(&apos;UI/Assets/1. Free Hologram Interface Wenrexa(1)/1. Free Hologram Interface Wenrexa/Card X3/Card X6&apos;); -unity-background-image-tint-color: rgba(255, 255, 255, 0.4); width: 50%; flex-grow: 2; margin-top: 10%; margin-right: 0%; margin-bottom: 0%; margin-left: 25%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgba(8, 31, 33, 0); cursor: resource(&apos;Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px&apos;); flex-direction: column; flex-wrap: nowrap; min-width: auto; height: 50%; flex-shrink: 1; align-items: flex-end; justify-content: space-around; align-self: stretch; align-content: stretch; max-width: 50%; max-height: 50%; visibility: visible; display: flex; position: relative;"/>
+        <ui:Label text="Inventory" enabled="false" picking-mode="Ignore" class="inventory-title" style="-unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&quot;); -unity-font-style: bold; font-size: 24px; margin-top: 5%; margin-right: 5%; margin-bottom: 5%; margin-left: 5%; align-items: center; justify-content: flex-end; align-self: center; color: rgb(40, 216, 193); -unity-text-align: lower-center; white-space: pre;" />
+        <ui:VisualElement name="slotsContainer" class="slotsContainer" style="flex-direction: row; flex-wrap: wrap; width: 100%; height: 61%; padding-top: 5%; padding-right: 5%; padding-bottom: 5%; padding-left: 5%; align-items: flex-start; justify-content: center; align-self: center; flex-grow: 1; -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&quot;); align-content: center; cursor: resource(&apos;Objects/Modern Menu 1/Graphics/Cursors/Cursor 1 64px&apos;);"/>
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+            <InventoryElement name="InventoryElement" />
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row; flex-wrap: nowrap;"/>
+</ui:UXML>

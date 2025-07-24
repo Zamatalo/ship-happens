@@ -68,7 +68,6 @@ public partial class InventoryElement : VisualElement
     {
         if (item.IsEmpty || string.IsNullOrEmpty(item.itemName) || item.quantity <= 0)
         {
-            Debug.LogWarning($"Trying to set invalid item: {(item.IsEmpty ? "NULL" : item.itemName)}");
             ClearItem();
             return;
         }
@@ -100,8 +99,8 @@ public partial class InventoryElement : VisualElement
     }
 
     public void ClearItem()
-    {   
-        InventoryItem=new InventoryItem();
+    {
+        InventoryItem = null;
         Icon.image = null;
         ItemName = null;
         Icon.style.display = DisplayStyle.None;

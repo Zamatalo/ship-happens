@@ -1,15 +1,12 @@
 using System;
 using System.Collections;
-using Notifications;
+using BuildKit;
 using Player;
-using Projectile;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Enemy {
-	public class SharkAi : MonoBehaviour {
-		public GameObject bloodParticlePrefab;
-		public int shotsRequiredToBeScared = 3;
+	public class SharkAi : MonoBehaviour
+	{
 		public int attackDmg;
 		public int maxAttackPerTime = 5;
 		[Header("Speed")] public float normalSpeed = 20f;
@@ -18,27 +15,27 @@ namespace Enemy {
 		public float voidOff = 400f;
 		[Header("Timing")] public float patrolDuration = 20f;
 		public float attackCooldown = 2f;
-		private int _attackCounter;
 		private float _attackTimer;
-		private NotificationManager _notificationManager;
 		private Vector3 _orbit;
 		private Vector3 _patrolDist;
 		private float _patrolTimer;
 		private bool _pollingTarget;
-		private int _shotsGotCounter;
 		private State _state;
 		private Transform _target;
 		private PlayerNeeds _targetNeeds;
 		private Vector3 _void;
-
+		private Notifications.NotificationManager _notificationManager;
+		private int attackCounter;
+		
 		private void Start() {
 			StartCoroutine(PollTarget());
 			_patrolTimer = patrolDuration;
-			_notificationManager = FindAnyObjectByType<NotificationManager>();
+			_notificationManager = FindAnyObjectByType<Notifications.NotificationManager>();
+
 		}
 
 		private void FixedUpdate() {
-			if (ReferenceEquals(_target, null) || _target.IsDestroyed()) {
+			if (ReferenceEquals(_target, null)) {
 				if (!_pollingTarget) StartCoroutine(PollTarget());
 				return;
 			}
@@ -64,19 +61,6 @@ namespace Enemy {
 			}
 		}
 
-		private void OnTriggerEnter(Collider other) {
-			if (!other.TryGetComponent(out Harpoon harpoon)) return;
-
-			Instantiate(bloodParticlePrefab, harpoon.transform.position, Quaternion.identity);
-
-			_shotsGotCounter += 1;
-			if (_shotsGotCounter == shotsRequiredToBeScared) {
-				_void = (_orbit - _target.transform.position).normalized * voidOff;
-				_state = State.MovingToVoid;
-				_target.GetComponent<PlayerController>().attackedByShark = false;
-			}
-		}
-
 		private IEnumerator PollTarget() {
 			_pollingTarget = true;
 
@@ -88,12 +72,12 @@ namespace Enemy {
 				}
 				break;
 			}
-
+			
 			_target = _targetNeeds.GetComponentInChildren<Rigidbody>().transform;
 
 			var dist = (transform.position - _target.transform.position).normalized;
 			_patrolDist = dist * patrolOff;
-
+			
 			_orbit = _target.transform.position + _patrolDist;
 			_pollingTarget = false;
 		}
@@ -119,17 +103,17 @@ namespace Enemy {
 
 			if (_patrolTimer <= 0f) {
 				if (_notificationManager != null) {
-					_notificationManager.ShowNotification(
-						" Dinner time for the shark... and you're the menu!");
+					_notificationManager.ShowNotification(" Dinner time for the shark... and you're the menu!", 5f);
 				}
 				_state = State.MovingToTarget;
 			}
+
 		}
 
 		private void MoveToTarget() {
 			transform.position = Vector3.MoveTowards(
-				transform.position,
-				_target.transform.position,
+				transform.position, 
+				_target.transform.position, 
 				aggressiveSpeed * Time.fixedDeltaTime
 			);
 
@@ -149,9 +133,9 @@ namespace Enemy {
 			if (_attackTimer > 0f) return;
 
 			_targetNeeds.health -= attackDmg;
-			_attackCounter += 1;
-
-			if (_attackCounter == maxAttackPerTime) {
+			attackCounter += 1;
+			
+			if (attackCounter == maxAttackPerTime) {
 				_void = (_orbit - _target.transform.position).normalized * voidOff;
 				_state = State.MovingToVoid;
 				_target.GetComponent<PlayerController>().attackedByShark = false;

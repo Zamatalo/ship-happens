@@ -579,7 +579,7 @@ MonoBehaviour:
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 5500620635511359208}
+  m_Camera: {fileID: 0}
 --- !u!114 &5782841876610792672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,20 +615,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  ItemHolder: {fileID: 6827606694610016973}
   moveSpeed: 7
-  maxMag: 5
-  jumpForce: 2
-  isGrounded: 0
-  GroundedOffset: -0.11
+  airControl: 0.5
+  rotationSmoothness: 5
+  groundDrag: 7
+  airDrag: 0.5
+  jumpForce: 8
+  jumpCooldown: 0.3
+  GroundedOffset: -0.14
   GroundedRadius: 0.5
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 73
+    m_Bits: 65
+  isGrounded: 0
   CinemachineCameraTarget: {fileID: 6714570424845817739}
   BottomClamp: -90
   TopClamp: 90
   RotationSpeed: 1
+  animator: {fileID: 6394151213922376107}
   attackedByShark: 0
 --- !u!54 &4003265089954994780
 Rigidbody:
@@ -7339,6 +7343,7 @@ MonoBehaviour:
         byte4091: 0
         byte4092: 0
         byte4093: 0
+  currentHeldBox: {fileID: 6827606694610016973}
 --- !u!114 &6767352028133778687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7665,6 +7670,7 @@ GameObject:
   - component: {fileID: 2038718068482219670}
   - component: {fileID: 3951677562871608730}
   - component: {fileID: 5369415416407733601}
+  - component: {fileID: 1423798191254307781}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -7718,8 +7724,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4da5f14a1d87eb44941744b05f6b03d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTransform: {fileID: 6827606694610016973}
-  cameraTransform: {fileID: 2532149372630677537}
+--- !u!114 &1423798191254307781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5763624252348000543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd218ca5f766464b9145cc7d5ba90ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5912390496010966746
 GameObject:
   m_ObjectHideFlags: 0
@@ -8858,6 +8874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  collectRadius: 2
 --- !u!1 &7694190908688130190
 GameObject:
   m_ObjectHideFlags: 0
