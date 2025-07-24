@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spear
   m_EditorClassIdentifier: 
   itemName: Spear
-  icon: {fileID: 21300000, guid: 862be479c225caa47983776bfe6d3406, type: 3}
+  icon: {fileID: 21300000, guid: 749df6881674d664b815e014258636c9, type: 3}
   maxStack: 1
   itemPrefab: {fileID: 9029380177465605083, guid: e530a24ab8de34e7981e770075104d32, type: 3}
   collectableItemPrefab: {fileID: 9029380177465605083, guid: ba4701053f9474544815d1a1fa35aa1c, type: 3}
