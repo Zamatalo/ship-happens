@@ -7356,6 +7356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b10e441bc95e87428f0224518dd7af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minHungerPercentForHealthRestore: 85
+  minThirstPercentForHealthRestore: 85
   maxHealth: 100
   health: 0
   maxHunger: 360
