@@ -87,10 +87,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 0.3
+  m_Radius: 0.4314294
+  m_Height: 0.9378233
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.013135314, z: -0.016855717}
 --- !u!114 &-8834565511505333853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  collectZoneObject: {fileID: 5022087040498864935}
+  itemName: 
+  parameters: []
 --- !u!114 &-114365587970286739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,7 +276,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &208925258010314477
 MonoBehaviour:
@@ -303,15 +304,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4332350022150883348, guid: 4d92d3ceb647dc84197eb077186350d0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4332350022150883348, guid: 4d92d3ceb647dc84197eb077186350d0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4332350022150883348, guid: 4d92d3ceb647dc84197eb077186350d0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4332350022150883348, guid: 4d92d3ceb647dc84197eb077186350d0, type: 3}
       propertyPath: m_LocalPosition.x

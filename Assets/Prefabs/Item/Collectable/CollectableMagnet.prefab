@@ -52,7 +52,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4849263007962002938
 MonoBehaviour:
@@ -156,19 +156,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4436805663696350335, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4436805663696350335, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4436805663696350335, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436805663696350335, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.004
       objectReference: {fileID: 0}
     - target: {fileID: 4436805663696350335, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: -0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436805663696350335, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.044
       objectReference: {fileID: 0}
     - target: {fileID: 4436805663696350335, guid: 5b6e10d0d73dc452494f255d539ae85d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -308,10 +316,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 0.5
+  m_Radius: 0.5128267
+  m_Height: 1.0328095
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.029079184, y: 0.066889286, z: 0.0193398}
 --- !u!114 &7421327639279088083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +358,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  collectZoneObject: {fileID: 7838363916271079067}
+  itemName: 
+  parameters: []
 --- !u!114 &9060206407632264505
 MonoBehaviour:
   m_ObjectHideFlags: 0

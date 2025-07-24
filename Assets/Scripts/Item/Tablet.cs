@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 namespace Item {
-	public class Tablet : MonoBehaviour {
+	public class Tablet : MonoBehaviour, IUsableItem {
 		public TMP_Text text;
 		private ProgressManager.State _lastState;
 
@@ -19,6 +20,9 @@ namespace Item {
 				_lastState = _pm.state;
 				UpdateText(_pm.state);
 			}
+		}
+
+		public void Init(Transform cameraTransform, List<ItemParameter> itemParameters) {
 		}
 
 		private void UpdateText(ProgressManager.State state) {
