@@ -122,7 +122,7 @@ namespace Enemy {
 			if (_patrolTimer <= 0f) {
 				if (_notificationManager != null) {
 					_notificationManager.ShowNotification(
-						" Dinner time for the shark... and you're the menu!");
+						"Dinner time for the shark... and you're the menu!");
 				}
 				_state = State.MovingToTarget;
 			}

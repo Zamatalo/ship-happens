@@ -105,7 +105,7 @@ namespace Item {
 			if (_isActive) return;
 			_isActive = true;
 			_notificationManager?.ShowNotification(
-				" Aim at loot and hold the button to pull it toward you!");
+				"Aim at loot and hold the button to pull it toward you!");
 		}
 
 		private void Unuse(InputAction.CallbackContext context) {
