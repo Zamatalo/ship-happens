@@ -22,8 +22,11 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="VisualElement" enabled="true" style="flex-grow: 1; flex-shrink: 0; width: 583px; align-content: flex-end; justify-content: flex-end; align-self: flex-start; height: 100%; align-items: flex-end; visibility: visible; display: flex;">
-            <ui:VisualElement name="crafting-container" enabled="true" class="craftingContainer">
-                <ui:ListView name="ListView" reorder-mode="Animated" header-title="Crafting" show-add-remove-footer="false" horizontal-scrolling="true" virtualization-method="DynamicHeight" fixed-item-height="28" item-template="project://database/Assets/Resources/UI/Inventory/InventoryElement.uxml?fileID=9197481963319205126&amp;guid=a50dbb1394f32084ba864a724357258d&amp;type=3#InventoryElement" binding-source-selection-mode="AutoAssign" allow-add="false" style="align-items: center; width: 100%; height: 47%; align-self: center;" />
+            <ui:VisualElement name="crafting-container" enabled="true" class="craftingContainer" style="display: flex;">
+                <ui:ListView name="recipesList" reorder-mode="Animated" header-title="Crafting" show-add-remove-footer="false" horizontal-scrolling="true" virtualization-method="DynamicHeight" fixed-item-height="28" binding-source-selection-mode="AutoAssign" allow-add="false" enabled="true" style="align-items: center; width: 328px; height: 266px; align-self: center; display: none;" />
+                <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 96px; height: 96px; max-width: 96px; max-height: 96px;" />
+                <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 96px; height: 96px; max-width: 96px; max-height: 96px;" />
+                <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 96px; height: 96px; max-width: 96px; max-height: 96px;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
