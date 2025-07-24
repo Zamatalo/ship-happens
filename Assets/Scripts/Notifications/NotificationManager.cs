@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+
 /*
  * TODO: add array of notifications, because if notifications trigger often, they will interrupt each other
  */
@@ -25,8 +27,9 @@ namespace Notifications {
 		private IEnumerator FadeAndDestroy(float delay) {
 			yield return new WaitForSeconds(delay);
 
-			var canvasGroup = _notificationPanel.GetComponent<CanvasGroup>();
-			if (canvasGroup == null) canvasGroup = _notificationPanel.AddComponent<CanvasGroup>();
+			if (_notificationPanel.IsDestroyed()) yield break;
+
+			var canvasGroup = _notificationPanel.AddComponent<CanvasGroup>();
 
 			var fadeDuration = 0.5f;
 			var elapsed = 0f;
