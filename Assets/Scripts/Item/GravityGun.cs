@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Notifications;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,13 +12,13 @@ namespace Item {
 		[SerializeField] private AudioSource magnetSound;
 		[SerializeField] private Animator animator;
 		private Loot.Loot _currentLoot;
+
+		private InputSystem_Actions _ia;
 		private bool _isActive;
 		private NotificationManager _notificationManager;
 		private Transform _origin;
 
-		private InputSystem_Actions _ia;
-
-		private void Update() {
+		private void FixedUpdate() {
 			if (!_isActive || !_origin) {
 				foreach (var beamLine in beamLines) beamLine.enabled = false;
 				return;
@@ -66,6 +65,24 @@ namespace Item {
 			}
 		}
 
+		public void OnEnable() {
+			_ia = new InputSystem_Actions();
+
+			_ia.Player.Enable();
+			_ia.Player.UseItem.started += Use;
+			_ia.Player.UseItem.canceled += Unuse;
+		}
+
+		public void OnDisable() {
+			_ia.Player.UseItem.started -= Use;
+			_ia.Player.UseItem.canceled -= Unuse;
+			_ia.Player.Disable();
+		}
+
+		private void OnDestroy() {
+			OnDisable();
+		}
+
 		private void OnDrawGizmosSelected() {
 			if (_origin != null) {
 				Gizmos.color = Color.blue;
@@ -98,27 +115,6 @@ namespace Item {
 			_isActive = false;
 			_currentLoot = null;
 			foreach (var beamLine in beamLines) beamLine.enabled = false;
-		}
-
-		private void OnDestroy()
-		{
-			OnDisable();
-		}
-
-		public void OnEnable()
-		{
-			_ia = new InputSystem_Actions();
-
-			_ia.Player.Enable();
-			_ia.Player.UseItem.started += Use;
-			_ia.Player.UseItem.canceled += Unuse;
-		}
-
-		public void OnDisable()
-		{
-			_ia.Player.UseItem.started -= Use;
-			_ia.Player.UseItem.canceled -= Unuse;
-			_ia.Player.Disable();
 		}
 	}
 }
