@@ -3731,6 +3731,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1101289830063051273, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101289830063051273, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.9
+      objectReference: {fileID: 0}
     - target: {fileID: 1612357131148437541, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: m_Name
       value: Asteroid
@@ -3742,6 +3750,14 @@ PrefabInstance:
     - target: {fileID: 1612357131148437541, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: m_TagString
       value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 2003698875950546613, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2003698875950546613, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.1
       objectReference: {fileID: 0}
     - target: {fileID: 3506243196133355040, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: m_Layer
