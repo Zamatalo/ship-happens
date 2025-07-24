@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using Notifications;
 using Player;
+using Projectile;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Enemy {
 	public class SharkAi : MonoBehaviour {
+		public GameObject bloodParticlePrefab;
+		public int shotsRequiredToBeScared = 3;
 		public int attackDmg;
 		public int maxAttackPerTime = 5;
 		[Header("Speed")] public float normalSpeed = 20f;
@@ -15,17 +18,18 @@ namespace Enemy {
 		public float voidOff = 400f;
 		[Header("Timing")] public float patrolDuration = 20f;
 		public float attackCooldown = 2f;
+		private int _attackCounter;
 		private float _attackTimer;
 		private NotificationManager _notificationManager;
 		private Vector3 _orbit;
 		private Vector3 _patrolDist;
 		private float _patrolTimer;
 		private bool _pollingTarget;
+		private int _shotsGotCounter;
 		private State _state;
 		private Transform _target;
 		private PlayerNeeds _targetNeeds;
 		private Vector3 _void;
-		private int attackCounter;
 
 		private void Start() {
 			StartCoroutine(PollTarget());
@@ -60,12 +64,27 @@ namespace Enemy {
 			}
 		}
 
+		private void OnTriggerEnter(Collider other) {
+			if (!other.TryGetComponent(out Harpoon harpoon)) return;
+			TakeShot(harpoon.transform.position);
+		}
+
+		public void TakeShot(Vector3 pos) {
+			Instantiate(bloodParticlePrefab, pos, Quaternion.identity);
+			_shotsGotCounter += 1;
+			if (_shotsGotCounter == shotsRequiredToBeScared) {
+				_void = (_orbit - _target.transform.position).normalized * voidOff;
+				_state = State.MovingToVoid;
+				_target.GetComponent<PlayerController>().attackedByShark = false;
+			}
+		}
+
 		private IEnumerator PollTarget() {
 			_pollingTarget = true;
 
 			while (true) {
 				_targetNeeds = FindAnyObjectByType<PlayerNeeds>();
-				if (ReferenceEquals(_targetNeeds, null) || _target.IsDestroyed()) {
+				if (ReferenceEquals(_targetNeeds, null)) {
 					yield return new WaitForSeconds(2f);
 					continue;
 				}
@@ -132,9 +151,9 @@ namespace Enemy {
 			if (_attackTimer > 0f) return;
 
 			_targetNeeds.health -= attackDmg;
-			attackCounter += 1;
+			_attackCounter += 1;
 
-			if (attackCounter == maxAttackPerTime) {
+			if (_attackCounter == maxAttackPerTime) {
 				_void = (_orbit - _target.transform.position).normalized * voidOff;
 				_state = State.MovingToVoid;
 				_target.GetComponent<PlayerController>().attackedByShark = false;

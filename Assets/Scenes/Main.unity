@@ -6579,7 +6579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84caf582b7fc46819d45e4f41dacba88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notificationPanelPrefab: {fileID: 2742376895055533753, guid: 289167653a879e74cb641e0e5971e6c9, type: 3}
+  notificationPanelPrefab: {fileID: 2742376895055533753, guid: 63588b1c5a911064695d66057e0fbd62, type: 3}
 --- !u!1 &1297411053
 GameObject:
   m_ObjectHideFlags: 0

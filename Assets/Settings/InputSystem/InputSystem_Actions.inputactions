@@ -1431,6 +1431,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Spear",
+            "id": "c3e69061-3e6b-41a8-8852-83a6708d3146",
+            "actions": [
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "b4f94fe9-111f-4d9f-92cb-2a090b58591a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "728d1a0b-5c0e-4f0d-b22b-f6225d1c43eb",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

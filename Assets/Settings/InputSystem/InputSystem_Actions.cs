@@ -1517,6 +1517,34 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Spear"",
+            ""id"": ""c3e69061-3e6b-41a8-8852-83a6708d3146"",
+            ""actions"": [
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""b4f94fe9-111f-4d9f-92cb-2a090b58591a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""728d1a0b-5c0e-4f0d-b22b-f6225d1c43eb"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1641,6 +1669,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         // Potable
         m_Potable = asset.FindActionMap("Potable", throwIfNotFound: true);
         m_Potable_Drink = m_Potable.FindAction("Drink", throwIfNotFound: true);
+        // Spear
+        m_Spear = asset.FindActionMap("Spear", throwIfNotFound: true);
+        m_Spear_Attack = m_Spear.FindAction("Attack", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1654,6 +1685,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_Jetpack.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Jetpack.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Edible.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Edible.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Potable.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Potable.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Spear.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Spear.Disable() has not been called.");
     }
 
     /// <summary>
@@ -2941,6 +2973,102 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="PotableActions" /> instance referencing this action map.
     /// </summary>
     public PotableActions @Potable => new PotableActions(this);
+
+    // Spear
+    private readonly InputActionMap m_Spear;
+    private List<ISpearActions> m_SpearActionsCallbackInterfaces = new List<ISpearActions>();
+    private readonly InputAction m_Spear_Attack;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Spear".
+    /// </summary>
+    public struct SpearActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public SpearActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Spear/Attack".
+        /// </summary>
+        public InputAction @Attack => m_Wrapper.m_Spear_Attack;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Spear; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="SpearActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(SpearActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="SpearActions" />
+        public void AddCallbacks(ISpearActions instance)
+        {
+            if (instance == null || m_Wrapper.m_SpearActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_SpearActionsCallbackInterfaces.Add(instance);
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="SpearActions" />
+        private void UnregisterCallbacks(ISpearActions instance)
+        {
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="SpearActions.UnregisterCallbacks(ISpearActions)" />.
+        /// </summary>
+        /// <seealso cref="SpearActions.UnregisterCallbacks(ISpearActions)" />
+        public void RemoveCallbacks(ISpearActions instance)
+        {
+            if (m_Wrapper.m_SpearActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="SpearActions.AddCallbacks(ISpearActions)" />
+        /// <seealso cref="SpearActions.RemoveCallbacks(ISpearActions)" />
+        /// <seealso cref="SpearActions.UnregisterCallbacks(ISpearActions)" />
+        public void SetCallbacks(ISpearActions instance)
+        {
+            foreach (var item in m_Wrapper.m_SpearActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_SpearActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="SpearActions" /> instance referencing this action map.
+    /// </summary>
+    public SpearActions @Spear => new SpearActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -3364,5 +3492,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDrink(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Spear" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="SpearActions.AddCallbacks(ISpearActions)" />
+    /// <seealso cref="SpearActions.RemoveCallbacks(ISpearActions)" />
+    public interface ISpearActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAttack(InputAction.CallbackContext context);
     }
 }
