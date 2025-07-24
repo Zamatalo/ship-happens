@@ -5789,7 +5789,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: -2
-      type: {class: , ns: , asm: }
+      type: {class: '', ns: '', asm: ''}
     - rid: 6518314397879238747
       type: {class: NetworkSimulatorPreset, ns: Unity.Multiplayer.Tools.NetworkSimulator.Runtime, asm: Unity.Multiplayer.Tools.NetworkSimulator.Runtime}
       data:
@@ -5948,7 +5948,7 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5389521700824258581, guid: 817319833dd713d45af5c2121e9649c7, type: 3}
-      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      propertyPath: m_ActiveFontFeatures.Array.data[0]
       value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 5429289958580070961, guid: 817319833dd713d45af5c2121e9649c7, type: 3}
@@ -6015,6 +6015,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1101289830063051273, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101289830063051273, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101289830063051273, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1101289830063051273, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
@@ -6032,6 +6040,14 @@ PrefabInstance:
     - target: {fileID: 1612357131148437541, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: m_TagString
       value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 2003698875950546613, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2003698875950546613, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.1
       objectReference: {fileID: 0}
     - target: {fileID: 3506243196133355040, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
       propertyPath: m_Layer
@@ -6095,10 +6111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7828225898324934826, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 401187839}
+    m_AddedGameObjects: [{targetCorrespondingSourceObject: {fileID: 7828225898324934826, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}, insertIndex: -1, addedObject: {fileID: 401187839}}]
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3d1665b92b5f45ee8c39a1a7f0169a9, type: 3}
 --- !u!4 &1217929840 stripped
@@ -7563,7 +7576,7 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5389521700824258581, guid: 817319833dd713d45af5c2121e9649c7, type: 3}
-      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      propertyPath: m_ActiveFontFeatures.Array.data[0]
       value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 5429289958580070961, guid: 817319833dd713d45af5c2121e9649c7, type: 3}
