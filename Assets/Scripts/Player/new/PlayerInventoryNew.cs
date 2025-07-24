@@ -164,6 +164,7 @@ public class PlayerInventoryNew : NetworkBehaviour {
 		AddItemServerRpc("GravityGun", 1, null);
 		AddItemServerRpc("HarpoonGun", 1, null);
 		AddItemServerRpc("Jetpack", 1, null);
+		AddItemServerRpc("Magnet", 1, null);
 		AddItemServerRpc("Metal", 4, null);
 		/*AddItemServerRpc("Microchip", 4, null);
 		AddItemServerRpc("Planks", 4, null);
