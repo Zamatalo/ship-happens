@@ -86,7 +86,7 @@
     display: none;
     width: 59%;
     height: 76%;
-    max-height: 81%;
+    max-height: 81%; 
     max-width: 100%;
     align-items: flex-start;
     justify-content: center;
@@ -100,4 +100,110 @@
     background-size: 110% 71%;
     visibility: visible;
     cursor: resource('UI/Assets/Cursors/Cursor 2 64px');
+    overflow: hidden;
+    position: relative;
+}
+
+.crafting-icon {
+    width: 96px;
+    height: 96px;
+    max-width: 96px;
+    max-height: 96px;
+    background-image: resource('UI/Assets/1. Free Hologram Interface Wenrexa(1)/1. Free Hologram Interface Wenrexa/Card X3/Card X5');
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.59);
+    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
+    margin-top: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+    justify-content: center;
+    align-content: stretch;
+}
+
+.recipeIcon {
+    flex-grow: 1;
+    width: 96px;
+    height: 96px;
+    max-width: 96px;
+    max-height: 96px;
+    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
+}
+
+.recipesCraftingContainer {
+    flex-grow: 1;
+    min-width: auto;
+    min-height: auto;
+    flex-shrink: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 65%;
+    max-height: 100%; 
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10px;
+    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
+
+}
+
+.crafting-ingredient {
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
+
+}
+
+.crafting-ingredient > Image {
+    width: 64px;
+    height: 64px;
+    margin-right: 10px;
+    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
+
+}
+
+.ingredient-label {
+    font-size: 14px;
+    color: white;
+    white-space: nowrap;
+    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
+
+}
+.ingredient-available {
+    color: rgba(0, 255, 0, 0.3);
+}
+
+.ingredient-missing {
+    color: rgba(255, 0, 0, 0.3);
+}
+.unity-base-slider__drag-container {
+    display: none;
+    overflow: hidden;
+}
+
+.unity-low-button {
+    display: none;
+    overflow: hidden;
+}
+
+.unity-high-button {
+    display: none;
+}
+
+.unity-slider {
+    display: none;
+    overflow: hidden;
+
+}
+
+.unity-repeat-button {
+    display: none;
+}
+
+
+/* Hide scrollbars completely (Unity-specific method) */
+#recipesList .unity-scroll-view__vertical-scroller,
+#recipesList .unity-scroll-view__horizontal-scroller {
+    display: none;
 }
