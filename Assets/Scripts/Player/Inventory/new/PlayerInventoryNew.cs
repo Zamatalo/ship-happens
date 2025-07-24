@@ -45,7 +45,6 @@ public class PlayerInventoryNew : NetworkBehaviour
             DisableInput();
         }
     }
-
  
 
     [ServerRpc]
@@ -95,6 +94,9 @@ public class PlayerInventoryNew : NetworkBehaviour
             if (item.quantity <= 0)
             {
                 inventory.RemoveAt(i);
+                _currentItemName = null;
+                Destroy(currentHeldItem);
+                currentHeldItem = null;
             }
 
             SyncInventory();

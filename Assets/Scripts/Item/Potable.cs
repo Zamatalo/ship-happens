@@ -11,15 +11,25 @@ namespace Item {
 		private PlayerNeeds _needs;
 
 		private InputSystem_Actions _ia;
-		// public string Name() {
-		// 	return "Potable";
+		
+		
+		// public override void OnNetworkSpawn()
+		// {
+		// 	if (_inventory == null)
+		// 	{
+		// 		Transform playerTransform = transform.parent;
+		// 		if (playerTransform != null)
+		// 		{
+		// 			_inventory = playerTransform.Find("Inventory")?.GetComponent<PlayerInventoryNew>();
+		// 		}
+		// 	}
+		// 	
+		// 	if (_inventory == null)
+		// 	{
+		// 		Debug.LogError("Inventory reference not found!", this);
+		// 	}
 		// }
-
-		private void Awake()
-		{
-			_ia = new  InputSystem_Actions();
-		}
-
+		
 		public void Init(Transform origin, List<ItemParameter> parameters) {
 			_inventory = NetworkManager.Singleton.LocalClient.PlayerObject
 				.GetComponent<PlayerInventoryNew>();
@@ -31,11 +41,11 @@ namespace Item {
 			_needs.thirst = Mathf.Min(_needs.maxThirst, _needs.thirst + _needs.maxThirst / 3f);
 			_inventory.RemoveItemServerRpc("Potable", 1);
 		}
-
-		public void Unuse() {
-		}
+		
+		
 		public void OnEnable()
 		{
+			_ia = new  InputSystem_Actions();
 			_ia.Player.Enable();
 			_ia.Player.UseItem.performed += OnUsePerformed;
 		}
