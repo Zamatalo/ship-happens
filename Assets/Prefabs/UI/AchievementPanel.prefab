@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7541154880657751050}
   - component: {fileID: 1763046326745284769}
   - component: {fileID: 133255009858392802}
-  - component: {fileID: 7715823684822221282}
+  - component: {fileID: 8893737737600867723}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
---- !u!114 &7715823684822221282
+--- !u!114 &8893737737600867723
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 675513460683839959}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46dce1692f546e240b753c88d397622b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d584f24c2674c1bb14515975a1df389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fadeInDuration: 0.3
