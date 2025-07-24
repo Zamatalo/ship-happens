@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc1b93a1beb6ad34596164a77f5664b2, type: 3}
-  m_Name: BuildingTool
+  m_Name: BuildKit
   m_EditorClassIdentifier: 
-  itemName: BuildingTool
+  itemName: BuildKit
   icon: {fileID: 21300000, guid: b2ea52c1cfc723f4db0730df7e20d3c2, type: 3}
   maxStack: 1
-  itemPrefab: {fileID: 0}
+  itemPrefab: {fileID: 6217249809801783014, guid: f8be34dc127e9bc48afeea4612dcc41c, type: 3}
+  collectableItemPrefab: {fileID: 0}

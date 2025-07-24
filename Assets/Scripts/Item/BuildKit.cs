@@ -1,13 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player {
-	public class PlayerBuildKit : MonoBehaviour {
+namespace Item {
+	public class BuildKit : MonoBehaviour, IUsableItem {
 		public GameObject planePrefab;
 		public GameObject planePreviewPrefab;
-		public Transform cameraTransform;
 		public float snapSize = 2f;
-		private bool _building;
+		private Transform _cameraTransform;
 		private InputSystem_Actions _ia;
 		private GameObject _preview;
 		private Vector3 _rot = Vector3.zero;
@@ -19,12 +19,11 @@ namespace Player {
 
 		private void Start() {
 			_shipTransform = GameObject.Find("Ship").transform;
+			_preview = Instantiate(planePreviewPrefab);
 		}
 
 		private void Update() {
-			if (!_building) return;
-
-			if (!Physics.Raycast(new Ray(cameraTransform.position, cameraTransform.forward),
+			if (!Physics.Raycast(new Ray(_cameraTransform.position, _cameraTransform.forward),
 				    out var hit,
 				    Mathf.Infinity,
 				    LayerMask.GetMask("BuildingBlock")
@@ -41,7 +40,7 @@ namespace Player {
 				Mathf.Round(hit.point.z / snapSize) * snapSize
 			);
 
-			var forward = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z)
+			var forward = new Vector3(_cameraTransform.forward.x, 0, _cameraTransform.forward.z)
 				.normalized;
 			snapped += forward * snapSize;
 
@@ -69,29 +68,22 @@ namespace Player {
 
 		private void OnEnable() {
 			_ia.Enable();
-			_ia.BuildKit.Start.performed += OnStart;
 			_ia.BuildKit.Place.performed += OnPlace;
-			_ia.BuildKit.Cancel.performed += OnCancel;
 			_ia.BuildKit.Rotate.performed += OnRotate;
 		}
 
 		private void OnDisable() {
-			_ia.BuildKit.Start.performed -= OnStart;
 			_ia.BuildKit.Place.performed -= OnPlace;
-			_ia.BuildKit.Cancel.performed -= OnCancel;
 			_ia.BuildKit.Rotate.performed -= OnRotate;
 			_ia.Disable();
 		}
 
-		private void OnStart(InputAction.CallbackContext _) {
-			if (_building) return;
-
-			_building = true;
-			_preview = Instantiate(planePreviewPrefab);
+		public void Init(Transform cameraTransform, List<ItemParameter> itemParameters) {
+			_cameraTransform = cameraTransform;
 		}
 
 		private void OnPlace(InputAction.CallbackContext _) {
-			if (!_building || !_preview.activeSelf) return;
+			if (!_preview.activeSelf) return;
 
 			Instantiate(
 				planePrefab,
@@ -99,22 +91,12 @@ namespace Player {
 				_preview.transform.rotation,
 				_shipTransform
 			);
-			Destroy(_preview);
 
-			_building = false;
-			_rot = Vector3.zero;
-		}
-
-		private void OnCancel(InputAction.CallbackContext _) {
-			if (!_building) return;
-
-			Destroy(_preview);
-			_building = false;
 			_rot = Vector3.zero;
 		}
 
 		private void OnRotate(InputAction.CallbackContext _) {
-			if (!_building || !_preview.activeSelf) return;
+			if (!_preview.activeSelf) return;
 			_rot.x = _rot.x == 0f ? 90f : 0f;
 		}
 	}
