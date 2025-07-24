@@ -8973,8 +8973,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7810045263584533964}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000004097819, y: 0.000000029802319, z: -0.000000005587935, w: 1}
-  m_LocalPosition: {x: 0, y: 3.6699998, z: 0}
+  m_LocalRotation: {x: -0.07491699, y: -0.9966963, z: 0.026033476, w: -0.017500944}
+  m_LocalPosition: {x: 6.9044175, y: -3.4081302, z: 1092.4814}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9700,6 +9700,14 @@ PrefabInstance:
     - target: {fileID: 2585845676317048477, guid: 867bb1cdbe643e642b8e6cae27ae9bb6, type: 3}
       propertyPath: m_Name
       value: MinimapCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6237599254935642985, guid: 867bb1cdbe643e642b8e6cae27ae9bb6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 6237599254935642985, guid: 867bb1cdbe643e642b8e6cae27ae9bb6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 8366041942209990111, guid: 867bb1cdbe643e642b8e6cae27ae9bb6, type: 3}
       propertyPath: m_LocalPosition.x
