@@ -264,7 +264,6 @@ GameObject:
   - component: {fileID: 7926268256569563795}
   - component: {fileID: 4003265089954994780}
   - component: {fileID: 1820780140375056112}
-  - component: {fileID: 625568133488972208}
   - component: {fileID: 886434736520721670}
   m_Layer: 8
   m_Name: Player
@@ -675,22 +674,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0655ac47384466b7720d860a2d5124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &625568133488972208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 366879400097241451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffaac20725ad4cb8bdb1719d54030c67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planePrefab: {fileID: 5235055297888234467, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
-  planePreviewPrefab: {fileID: 5235055297888234467, guid: 9602e140991a7624598d604ae8774f1e, type: 3}
-  cameraTransform: {fileID: 910549989864749256}
-  snapSize: 2
 --- !u!136 &886434736520721670
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8973,8 +8956,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7810045263584533964}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.07491699, y: -0.9966963, z: 0.026033476, w: -0.017500944}
-  m_LocalPosition: {x: 6.9044175, y: -3.4081302, z: 1092.4814}
+  m_LocalRotation: {x: 0.00000004097819, y: 0.000000029802319, z: -0.000000005587935, w: 1}
+  m_LocalPosition: {x: 0, y: 3.6699998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
