@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Notifications;
+using Player;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,6 +22,7 @@ namespace Item {
 		private float _currentFuel;
 		private InputSystem_Actions _ia;
 		private NotificationManager _notificationManager;
+		private PlayerController _playerCtl;
 		private Rigidbody _playerRb;
 
 		private void Awake() {
@@ -38,7 +40,7 @@ namespace Item {
 				return;
 			}
 
-			//if (!_burningForward && !_burningUp) Restore();
+			if (!_burningForward && !_burningUp && _playerCtl.isGrounded) Restore();
 			if (_burningForward) Burn(_cameraTransform.forward * forceForward);
 			if (_burningUp) Burn(_cameraTransform.up * forceUp);
 
@@ -62,6 +64,8 @@ namespace Item {
 		}
 
 		public void Init(Transform origin, List<ItemParameter> itemParameters) {
+			_playerCtl = NetworkManager.Singleton.LocalClient.PlayerObject
+				.GetComponentInChildren<PlayerController>();
 			_playerRb = NetworkManager.Singleton.LocalClient.PlayerObject
 				.GetComponentInChildren<Rigidbody>();
 			_cameraTransform = origin;
