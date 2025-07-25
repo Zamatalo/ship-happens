@@ -35,10 +35,10 @@ namespace Item {
 				out var laserHit, maxDistance);
 
 			if (hitSomething) {
-				if (laserHit.collider.TryGetComponent(out Loot.Loot _currentLoot)) {
-					_anim.SetBool(IsPulling, true);
-					magnetSound.Play();
-				}
+				if (!laserHit.collider.TryGetComponent(out Loot.Loot _currentLoot)) return;
+
+				_anim.SetBool(IsPulling, true);
+				magnetSound.Play();
 
 				var distance =
 					Vector3.Distance(_currentLoot.transform.position, _origin.position);
