@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 6520138409404426567}
   m_Layer: 3
   m_Name: RoughOrangePlane
-  m_TagString: BuildingBlock
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
