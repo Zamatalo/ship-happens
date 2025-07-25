@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Achievements;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -14,11 +15,13 @@ public class ProgressManager : MonoBehaviour {
 
 	public List<GameObject> milestoneObjects;
 	[HideInInspector] public State state;
+	private AchievementManager _achievementManager;
 	private int _i = 1;
 	private LineRenderer _lr;
 	private List<Milestone> _milestones;
 
 	public void Start() {
+		_achievementManager = FindAnyObjectByType<AchievementManager>();
 		_lr = GetComponent<LineRenderer>();
 
 		_milestones = new List<Milestone>();
@@ -45,20 +48,26 @@ public class ProgressManager : MonoBehaviour {
 			_ => throw new ArgumentOutOfRangeException()
 		};
 
-		var inventory = NetworkManager.Singleton.LocalClient.PlayerObject
-			.GetComponentInChildren<PlayerInventoryNew>();
+		var ui = NetworkManager.Singleton.LocalClient.PlayerObject
+			.GetComponentInChildren<UIManager>();
 
 		switch (state) {
 			case State.Mars:
-				inventory.AddItemServerRpc("Spear", 1, null);
-				inventory.AddItemServerRpc("OxygenGenerator", 1, null);
+				_achievementManager.ShowAchievement("Welcome to Mars!");
+				ui.LoadRecipe("Spear");
+				ui.LoadRecipe("OxygenGenerator");
 				break;
 			case State.Venus:
-				inventory.AddItemServerRpc("HarpoonGun", 1, null);
-				inventory.AddItemServerRpc("GravityGun", 1, null);
+				_achievementManager.ShowAchievement("Welcome to Venus!");
+				ui.LoadRecipe("HarpoonGun");
+				ui.LoadRecipe("GravityGun");
 				break;
 			case State.Mercury:
-				inventory.AddItemServerRpc("Jetpack", 1, null);
+				_achievementManager.ShowAchievement("Welcome to Mercury!");
+				ui.LoadRecipe("Jetpack");
+				break;
+			case State.Epilogue:
+				_achievementManager.ShowAchievement("The End");
 				break;
 		}
 

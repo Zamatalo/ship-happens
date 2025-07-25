@@ -3387,6 +3387,10 @@ MonoBehaviour:
     itemName: Magnet
     quantity: 1
     parameters: []
+  - id: 1
+    itemName: BuildKit
+    quantity: 1
+    parameters: []
   inventoryJson:
     m_InternalValue:
       utf8LengthInBytes: 0
