@@ -50,9 +50,8 @@ namespace Player {
 
 			if (!attackedByShark) {
 				HandleMovement();
-				HandleRotation();
 			}
-
+			HandleRotation();
 			UpdateAnimations();
 		}
 

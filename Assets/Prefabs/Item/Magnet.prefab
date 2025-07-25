@@ -217,6 +217,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4153940335373800714}
   - component: {fileID: 2934079400620097564}
+  - component: {fileID: 230341544427344101}
+  - component: {fileID: 6442195127460577543}
   m_Layer: 0
   m_Name: FiringMechanism
   m_TagString: Untagged
@@ -355,6 +357,87 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!2083052967 &230341544427344101
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405427745823923178}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: a3e300a0b34ebc548b7c60ebdd41af69, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array: []
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array: []
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array: []
+--- !u!73398921 &6442195127460577543
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405427745823923178}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &5837303547494831851
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,9 +447,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6505893910340881489}
-  - component: {fileID: 5558400196636444941}
   - component: {fileID: -3883051290524056677}
   - component: {fileID: 6665826113241167245}
+  - component: {fileID: 2868829700131883237}
   m_Layer: 0
   m_Name: Magnet
   m_TagString: Untagged
@@ -390,26 +473,6 @@ Transform:
   - {fileID: 1923453965070443313}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5558400196636444941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5837303547494831851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69936ac9150fb6d47af4dec20a6e318e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pullSpeed: 10
-  maxDistance: 1000
-  grabDistance: 2
-  beamLines:
-  - {fileID: 2934079400620097564}
-  - {fileID: 757704536383942586}
-  magnetSound: {fileID: -3883051290524056677}
-  animator: {fileID: 1340923132227046912}
 --- !u!82 &-3883051290524056677
 AudioSource:
   m_ObjectHideFlags: 0
@@ -431,7 +494,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.30524576
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -529,6 +592,29 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2868829700131883237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5837303547494831851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c4cbee9a1b545d08f312f800f6ecf2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pullSpeed: 25
+  maxDistance: 1000000
+  grabDistance: 2
+  beamVFX:
+  - {fileID: 230341544427344101}
+  beamOrigins:
+  - {fileID: 4153940335373800714}
+  magnetSound: {fileID: -3883051290524056677}
+  animator: {fileID: 6665826113241167245}
+  horizontalCorrection: -11.02
+  showDebugLines: 1
 --- !u!1 &6143434007521221917
 GameObject:
   m_ObjectHideFlags: 0
