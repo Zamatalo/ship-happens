@@ -50,7 +50,7 @@ namespace Item {
 				case ProgressManager.State.Mercury:
 					_audio.PlayOneShot(mercurySound);
 					text.text =
-						@"Mercury\n\nYou have the jetpack now. One final leap stands between you and the ship. No room for error. You're have almost made it.";
+						@"Mercury\n\nYou have the jetpack now. One final leap stands between you and the ship. No room for error. You have almost made it.";
 					break;
 				case ProgressManager.State.Epilogue:
 					_audio.PlayOneShot(epilogueSound);
