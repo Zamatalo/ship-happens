@@ -51,3 +51,4 @@
 *.mdb.meta
 
 **/*.DS_Store
+*.app

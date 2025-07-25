@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 82f72263156479a4c8f8ff2ac1591573, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 82f72263156479a4c8f8ff2ac1591573, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 82f72263156479a4c8f8ff2ac1591573, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 82f72263156479a4c8f8ff2ac1591573, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59,6 +59,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 82f72263156479a4c8f8ff2ac1591573, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 82f72263156479a4c8f8ff2ac1591573, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 82f72263156479a4c8f8ff2ac1591573, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -142,8 +146,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.8813854, y: 1.6878159, z: 2.870066}
-  m_Center: {x: 0.017607987, y: -0.010109574, z: -0.0066860914}
+  m_Size: {x: 0.028874677, y: 0.028830945, z: 0.026853284}
+  m_Center: {x: -0.00060579495, y: -0.010975245, z: 0.00021273804}
 --- !u!114 &535504247537738718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kind:
     id: 
-    itemName: Edible
+    itemName: Fabric
     quantity: 3
     parameters: []
 --- !u!114 &7823788549730720686
@@ -238,7 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 1
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 1
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
