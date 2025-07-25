@@ -68,7 +68,14 @@ namespace Enemy {
 		private void OnTriggerEnter(Collider other) {
 			if (other.TryGetComponent(out Harpoon harpoon))
 				TakeShot(harpoon.transform.position);
-			else if (other.TryGetComponent(out Spear spear)) TakeShot(spear.transform.position);
+		}
+
+		private void OnTriggerStay(Collider other) {
+			if (other.TryGetComponent(out Spear spear) && spear.attacking &&
+			    !spear.hasAttackedShark) {
+				TakeShot(spear.transform.position);
+				spear.hasAttackedShark = true;
+			}
 		}
 
 		public void TakeShot(Vector3 pos) {
