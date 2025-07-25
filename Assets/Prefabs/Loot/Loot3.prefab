@@ -236,7 +236,7 @@ MonoBehaviour:
   kind:
     id: 
     itemName: Metal
-    quantity: 2
+    quantity: 4
     parameters: []
 --- !u!114 &373880273540251251
 MonoBehaviour:

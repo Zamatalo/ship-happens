@@ -1141,7 +1141,7 @@ MonoBehaviour:
   kind:
     id: 
     itemName: Plastic
-    quantity: 4
+    quantity: 6
     parameters: []
 --- !u!114 &9022876826465786005
 MonoBehaviour:
