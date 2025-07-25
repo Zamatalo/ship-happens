@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: Stone
   icon: {fileID: 21300000, guid: 36ffa5e5b29564f74bf015cdca765c4d, type: 3}
   maxStack: 20
-  itemPrefab: {fileID: 0}
-  collectableItemPrefab: {fileID: 0}
+  itemPrefab: {fileID: 7792411931847969203, guid: 0a435b3982de149f8a48d359319d60cb, type: 3}
+  collectableItemPrefab: {fileID: 3714286291059116763, guid: 91fea393394884bb091e86a6b24a1f1d, type: 3}

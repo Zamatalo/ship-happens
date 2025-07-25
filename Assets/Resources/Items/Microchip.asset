@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: Microchip
   icon: {fileID: 21300000, guid: 72c2ee86f1f2849cd93fec92686ff79f, type: 3}
   maxStack: 20
-  itemPrefab: {fileID: 0}
-  collectableItemPrefab: {fileID: 0}
+  itemPrefab: {fileID: 3181506157201500763, guid: 152fbe7ff29534ebcbadb523d2aac5e5, type: 3}
+  collectableItemPrefab: {fileID: 7291947761081310928, guid: 6784514658ade42e6881d0b1c12e50c1, type: 3}
