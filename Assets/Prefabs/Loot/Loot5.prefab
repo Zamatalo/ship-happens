@@ -221,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kind:
     id: 
-    itemName: Edible
+    itemName: Fabric
     quantity: 3
     parameters: []
 --- !u!114 &7823788549730720686
