@@ -7499,15 +7499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5e4dcc5ca19c4e43a9225aff6b6972e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 268c4446a2c67a84c9e615cfba7ff6b1, type: 2}
-  - {fileID: 11400000, guid: 0c74d21af9e28ad489b54a4d674030be, type: 2}
-  - {fileID: 11400000, guid: 06fda304fea28834a961cefc1b8d429b, type: 2}
-  - {fileID: 11400000, guid: 766b207369f9d82468ac7c3cbd07762c, type: 2}
-  - {fileID: 11400000, guid: 30c837575f84b164193a7cd6957eefb2, type: 2}
-  - {fileID: 11400000, guid: bc191f9e35d16794ab46663784d6601f, type: 2}
-  - {fileID: 11400000, guid: f412f402433e269459a8fab7b34f574d, type: 2}
-  - {fileID: 11400000, guid: 49b8aba0107ad644389a2d55e2b2979b, type: 2}
+  items: []
 --- !u!1 &1735479815 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1647581975099426, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
