@@ -10,6 +10,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}
       propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}
+      propertyPath: m_LocalScale.x
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}
@@ -64,16 +76,19 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}
       propertyPath: m_Name
       value: Loot6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: -4538034297046799901, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}
-    - {fileID: -2225105453198533813, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}
-    - {fileID: 2537591668966108258, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}
-    - {fileID: -8191446761488729631, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}
+    m_RemovedGameObjects: [{fileID: -4538034297046799901, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3},
+      {fileID: -2225105453198533813, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3},
+      {fileID: 2537591668966108258, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3},
+      {fileID: -8191446761488729631, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}]
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b0d51a06ccc55cb40b8c5500b3b3c158, type: 3}
