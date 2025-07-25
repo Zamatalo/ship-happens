@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 6505893910340881489}
   - component: {fileID: 5558400196636444941}
   - component: {fileID: -3883051290524056677}
-  - component: {fileID: 1110037813660297201}
+  - component: {fileID: 6665826113241167245}
   m_Layer: 0
   m_Name: Magnet
   m_TagString: Untagged
@@ -507,7 +507,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &1110037813660297201
+--- !u!95 &6665826113241167245
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
