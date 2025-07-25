@@ -7140,6 +7140,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6467678343246293758, guid: d8aed337e3d05b846a57434ac27a52d4, type: 3}
   m_PrefabInstance: {fileID: 1314499314}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1319264999
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1828297257}
+    m_Modifications:
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5671974169129976796, guid: b16f724c5e4f89040938102345705b50, type: 3}
+      propertyPath: m_Name
+      value: LootSpawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b16f724c5e4f89040938102345705b50, type: 3}
+--- !u!4 &1319265000 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
+  m_PrefabInstance: {fileID: 1319264999}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1357972863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8125,68 +8187,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
---- !u!1001 &1733616515
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1828297257}
-    m_Modifications:
-    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5671974169129976796, guid: b16f724c5e4f89040938102345705b50, type: 3}
-      propertyPath: m_Name
-      value: LootSpawner
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b16f724c5e4f89040938102345705b50, type: 3}
---- !u!4 &1733616516 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2178212694176999710, guid: b16f724c5e4f89040938102345705b50, type: 3}
-  m_PrefabInstance: {fileID: 1733616515}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1735479815 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1647581975099426, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
@@ -8386,7 +8386,7 @@ Transform:
   - {fileID: 1224611610}
   - {fileID: 202167408}
   - {fileID: 65795959}
-  - {fileID: 1733616516}
+  - {fileID: 1319265000}
   m_Father: {fileID: 1981665176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1945034903
