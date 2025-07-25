@@ -1,5 +1,7 @@
 ﻿# Ship Happens
 
+![Version](https://img.shields.io/badge/version-v0.001-blue)
+
 Welcome to Ship Happens, an exciting open-world game where you find yourself stranded on an
 asteroid. Your mission is to gather resources, build pathways, and navigate through the cosmos to
 reach your space shuttle. Explore various planets, collect loot, and craft essential items to
