@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2178212694176999710}
-  - component: {fileID: 6941869024163247916}
+  - component: {fileID: 88264836248000824}
   m_Layer: 0
   m_Name: LootSpawner
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6941869024163247916
+--- !u!114 &88264836248000824
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5671974169129976796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daf1eae0b793bfd4c9adb0e67c978732, type: 3}
+  m_Script: {fileID: 11500000, guid: 260d2a0aa154f784a96403c34d848a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lootPrefabs:
@@ -49,6 +49,9 @@ MonoBehaviour:
   - {fileID: 2848843408540317521, guid: 95182647816aae945ac4279c712a0ca5, type: 3}
   - {fileID: 3068957065463863314, guid: 826a6639e77ef2348a9b718581e34cd9, type: 3}
   - {fileID: 1679263441865717247, guid: bcae7393cc8ee644789b9502ff7c46a9, type: 3}
+  - {fileID: 1489955046354519326, guid: af1ff649f8b67984abd71839f1d36238, type: 3}
+  - {fileID: 5430228194363317202, guid: e6fc01207fb745f43be6491fc7385bc2, type: 3}
+  - {fileID: 8735796373859707150, guid: d7b886542f71a1947a28d7869f0d9cb1, type: 3}
   spawnInterval: 5
   minX: -100
   maxX: 100

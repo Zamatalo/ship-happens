@@ -5,7 +5,7 @@ using Unity.Netcode;
 using UnityEngine;
 
 namespace Loot {
-	public class LootSpawner2 : MonoBehaviour {
+	public class LootSpawner : MonoBehaviour {
 		public List<GameObject> lootPrefabs;
 		// Assign multiple loot prefabs in the Inspector
 		// Assign your loot prefab in the Inspector
