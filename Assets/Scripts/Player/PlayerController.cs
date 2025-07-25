@@ -78,7 +78,7 @@ namespace Player {
 				AlignToGravity();
 			} else {
 				_gravityDirection = Vector3.down;
-				_gravityStrength = 0;
+				_gravityStrength = 9.8f;
 			}
 		}
 
