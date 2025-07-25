@@ -4,12 +4,18 @@ using UnityEngine;
 
 namespace Item {
 	public class Tablet : MonoBehaviour, IUsableItem {
+		public AudioClip prologueSound;
+		public AudioClip marsSound;
+		public AudioClip venusSound;
+		public AudioClip mercurySound;
+		public AudioClip epilogueSound;
 		public TMP_Text text;
+		private AudioSource _audio;
 		private ProgressManager.State _lastState;
-
 		private ProgressManager _pm;
 
 		private void Start() {
+			_audio = GetComponent<AudioSource>();
 			_pm = FindAnyObjectByType<ProgressManager>();
 			_lastState = _pm.state;
 			UpdateText(_pm.state);
@@ -28,22 +34,27 @@ namespace Item {
 		private void UpdateText(ProgressManager.State state) {
 			switch (state) {
 				case ProgressManager.State.Prologue:
+					_audio.PlayOneShot(prologueSound);
 					text.text =
 						@"The Drift\n\nYour ship is lost — scattered somewhere across the void. You're stranded on a fragile space raft, drifting between stars — but not helpless.\n\nSpawn and collect loot using your magnet to build new blocks onto your raft. Use this growing platform to survive the drift and reach the next planet.\n\nThere, you’ll find your next critical item — a tool that might bring you one step closer to reclaiming your ship.";
 					break;
 				case ProgressManager.State.Mars:
+					_audio.PlayOneShot(marsSound);
 					text.text =
 						@"Mars\n\nAnchor yourself with the harpoon.\n\nSharks are circling — silent, sudden. One wrong move, and they'll strike.\n\nRecover what you can, and keep moving.";
 					break;
 				case ProgressManager.State.Venus:
+					_audio.PlayOneShot(venusSound);
 					text.text =
 						@"Venus\n\nHeat and pressure are tearing everything apart.\n\nUse the gravity gun to clear the path. Reach the oxygen generator before your suit gives out.\n\nEvery second counts.";
 					break;
 				case ProgressManager.State.Mercury:
+					_audio.PlayOneShot(mercurySound);
 					text.text =
 						@"Mercury\n\nYou have the jetpack now.\nOne last leap stands between you and your ship.\nYou're almost home.";
 					break;
 				case ProgressManager.State.Epilogue:
+					_audio.PlayOneShot(epilogueSound);
 					text.text =
 						@"Epilogue\n\nYou made it back to the ship.\nThe journey is over.\nIt’s time to go home.";
 					break;

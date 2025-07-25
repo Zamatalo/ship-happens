@@ -347,6 +347,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bd41dbfed33eb4ba4398f0b0536a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prologueSound: {fileID: 8300000, guid: 3b299ec234929f04793cd549aa26ea2a, type: 3}
+  marsSound: {fileID: 8300000, guid: edaceadd4dbce994589d1f4974496caa, type: 3}
+  venusSound: {fileID: 8300000, guid: 0eefb3f0aff5cfb458ca7b7b9aca9ae5, type: 3}
+  mercurySound: {fileID: 8300000, guid: 63b4d1525cd6d3a428a58820b2eee9ed, type: 3}
+  epilogueSound: {fileID: 8300000, guid: f2f2207aa3a684941824d36a9c698ff6, type: 3}
   text: {fileID: 3213864276743053411}
 --- !u!82 &2047106413150069641
 AudioSource:
@@ -358,9 +363,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5696617598e03a748a1f398577b14ed3, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 5696617598e03a748a1f398577b14ed3, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
