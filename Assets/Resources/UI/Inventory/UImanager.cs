@@ -8,13 +8,13 @@ using Cursor = UnityEngine.Cursor;
 
 public class UIManager : NetworkBehaviour {
 	public List<RecipeData> recipeList;
+	private readonly Dictionary<string, InventoryItem> inventoryCache = new();
 	private Button craftingButton;
 	private VisualElement craftingContainer;
 	private RecipeData currentlySelectedRecipe;
 	private Button dynamicCraftButton;
 	private VisualElement ghostIcon;
 	private PlayerInventoryNew inventory;
-	private readonly Dictionary<string, InventoryItem> inventoryCache = new();
 	private VisualElement inventoryRoot;
 
 	private bool isCraftingVisible;
@@ -188,7 +188,7 @@ public class UIManager : NetworkBehaviour {
 				inventoryCache[item.itemName] = item;
 	}
 
-	private bool CheckInventory(string itemName, int requiredQuantity) {
+	public bool CheckInventory(string itemName, int requiredQuantity) {
 		return inventoryCache.TryGetValue(itemName, out var item)
 		       && !item.IsEmpty
 		       && item.quantity >= requiredQuantity;
