@@ -41,7 +41,7 @@ namespace Item {
 				if (_burningForward || _burningUp) {
 					_burningForward = false;
 					_burningUp = false;
-					if (_audio.isPlaying) _audio.Stop(); // 👈 Остановка звука
+					if (_audio.isPlaying) _audio.Stop(); 
 				}
 				return;
 			}
