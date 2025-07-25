@@ -35,9 +35,9 @@ namespace Notifications {
 			var elapsed = 0f;
 
 			while (elapsed < fadeDuration) {
-				if (_notificationPanel.IsDestroyed()) yield break;
+				if (_notificationPanel.IsDestroyed() || canvasGroup.IsDestroyed()) yield break;
 
-				elapsed += Time.deltaTime;
+				elapsed += Time.fixedDeltaTime;
 				canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
 				yield return null;
 			}
