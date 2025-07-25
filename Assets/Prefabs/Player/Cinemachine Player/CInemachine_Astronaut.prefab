@@ -3380,11 +3380,13 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   inventory:
   - id: 1
+    itemName: Tablet
+    quantity: 1
+    parameters: []
+  - id: 1
     itemName: Magnet
     quantity: 1
-    parameters:
-    - key: 
-      value: 
+    parameters: []
   inventoryJson:
     m_InternalValue:
       utf8LengthInBytes: 0

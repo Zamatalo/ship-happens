@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class ProgressManager : MonoBehaviour {
 	public enum State {
 		Prologue,
 		Mars,
-		Moon,
 		Venus,
 		Mercury,
 		Epilogue
@@ -18,7 +18,7 @@ public class ProgressManager : MonoBehaviour {
 	private LineRenderer _lr;
 	private List<Milestone> _milestones;
 
-	private void Start() {
+	public void Start() {
 		_lr = GetComponent<LineRenderer>();
 
 		_milestones = new List<Milestone>();
@@ -39,12 +39,28 @@ public class ProgressManager : MonoBehaviour {
 
 		state = state switch {
 			State.Prologue => State.Mars,
-			State.Mars => State.Moon,
-			State.Moon => State.Venus,
+			State.Mars => State.Venus,
 			State.Venus => State.Mercury,
 			State.Mercury => State.Epilogue,
 			_ => throw new ArgumentOutOfRangeException()
 		};
+
+		var inventory = NetworkManager.Singleton.LocalClient.PlayerObject
+			.GetComponentInChildren<PlayerInventoryNew>();
+
+		switch (state) {
+			case State.Mars:
+				inventory.AddItemServerRpc("Spear", 1, null);
+				inventory.AddItemServerRpc("OxygenGenerator", 1, null);
+				break;
+			case State.Venus:
+				inventory.AddItemServerRpc("HarpoonGun", 1, null);
+				inventory.AddItemServerRpc("GravityGun", 1, null);
+				break;
+			case State.Mercury:
+				inventory.AddItemServerRpc("Jetpack", 1, null);
+				break;
+		}
 
 		_lr.SetPosition(0, milestone.transform.position);
 		_lr.SetPosition(1, _milestones[_i].transform.position);

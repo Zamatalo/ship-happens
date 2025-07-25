@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 namespace Item {
-	public class Tablet : MonoBehaviour, IUsableItem {
+	public class Tablet : MonoBehaviour {
 		public AudioClip prologueSound;
 		public AudioClip marsSound;
 		public AudioClip venusSound;
@@ -26,9 +25,6 @@ namespace Item {
 				_lastState = _pm.state;
 				UpdateText(_pm.state);
 			}
-		}
-
-		public void Init(Transform cameraTransform, List<ItemParameter> itemParameters) {
 		}
 
 		private void UpdateText(ProgressManager.State state) {

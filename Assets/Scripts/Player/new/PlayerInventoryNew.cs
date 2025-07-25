@@ -28,6 +28,7 @@ public class PlayerInventoryNew : NetworkBehaviour {
 		if (IsOwner) {
 			inventoryJson.OnValueChanged += OnInventoryUpdated;
 			EnableInput();
+			SyncInventory();
 		}
 	}
 
