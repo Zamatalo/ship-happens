@@ -214,7 +214,7 @@ MonoBehaviour:
   kind:
     id: 
     itemName: Edible
-    quantity: 3
+    quantity: 1
     parameters: []
 --- !u!114 &1085953588679689029
 MonoBehaviour:

@@ -244,7 +244,7 @@ MonoBehaviour:
   kind:
     id: 
     itemName: Potable
-    quantity: 5
+    quantity: 1
     parameters: []
 --- !u!114 &1834468557539897779
 MonoBehaviour:

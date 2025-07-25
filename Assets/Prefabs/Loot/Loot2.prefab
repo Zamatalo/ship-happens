@@ -218,7 +218,7 @@ MonoBehaviour:
   kind:
     id: 
     itemName: Planks
-    quantity: 8
+    quantity: 4
     parameters: []
 --- !u!114 &3428785874084628606
 MonoBehaviour:
