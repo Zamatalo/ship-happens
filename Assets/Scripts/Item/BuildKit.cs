@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,20 +10,31 @@ namespace Item {
 		public float snapSize = 2f;
 		private Transform _cameraTransform;
 		private InputSystem_Actions _ia;
+		private PlayerInventoryNew _inventory;
 		private GameObject _preview;
 		private Vector3 _rot = Vector3.zero;
 		private Transform _shipTransform;
+		private UIManager _ui;
 
 		private void Awake() {
 			_ia = new InputSystem_Actions();
 		}
 
 		private void Start() {
+			_inventory = NetworkManager.Singleton.LocalClient.PlayerObject
+				.GetComponentInChildren<PlayerInventoryNew>();
+			_ui = NetworkManager.Singleton.LocalClient.PlayerObject
+				.GetComponentInChildren<UIManager>();
 			_shipTransform = GameObject.Find("Ship").transform;
 			_preview = Instantiate(planePreviewPrefab);
 		}
 
 		private void Update() {
+			if (!_ui.CheckInventory("Platform", 1)) {
+				_preview.SetActive(false);
+				return;
+			}
+
 			if (!Physics.Raycast(new Ray(_cameraTransform.position, _cameraTransform.forward),
 				    out var hit,
 				    Mathf.Infinity,
@@ -91,8 +103,9 @@ namespace Item {
 				_preview.transform.rotation,
 				_shipTransform
 			);
-
 			_rot = Vector3.zero;
+
+			_inventory.RemoveItemServerRpc("Platform", 1);
 		}
 
 		private void OnRotate(InputAction.CallbackContext _) {

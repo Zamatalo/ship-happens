@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 913145652b958154ca54ebdeb806f96a, type: 3}
-  m_Name: Harpoon
+  m_Name: HarpoonGun
   m_EditorClassIdentifier: 
   requiredItems:
   - item: {fileID: 11400000, guid: 30c837575f84b164193a7cd6957eefb2, type: 2}

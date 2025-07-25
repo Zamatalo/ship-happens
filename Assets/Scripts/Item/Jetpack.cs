@@ -31,21 +31,33 @@ namespace Item {
 
 		private void Start() {
 			_audio = GetComponent<AudioSource>();
+			_audio.clip = burnSound;
+			_audio.loop = true;
 		}
+
 
 		private void FixedUpdate() {
 			if (_currentFuel <= 0f) {
-				_burningForward = false;
-				_burningUp = false;
+				if (_burningForward || _burningUp) {
+					_burningForward = false;
+					_burningUp = false;
+					if (_audio.isPlaying) _audio.Stop(); 
+				}
 				return;
 			}
 
-			if (!_burningForward && !_burningUp && _playerCtl.isGrounded) Restore();
-			if (_burningForward) Burn(_cameraTransform.forward * forceForward);
-			if (_burningUp) Burn(_cameraTransform.up * forceUp);
+			if (!_burningForward && !_burningUp && _playerCtl.isGrounded)
+				Restore();
+
+			if (_burningForward)
+				Burn(_cameraTransform.forward * forceForward);
+
+			if (_burningUp)
+				Burn(_cameraTransform.up * forceUp);
 
 			ClampMag();
 		}
+
 
 		private void OnEnable() {
 			_ia.Enable();
@@ -89,25 +101,31 @@ namespace Item {
 		}
 
 		private void StartBurnForward(InputAction.CallbackContext _) {
-			if (!_burningForward && !_burningUp) _audio.PlayOneShot(burnSound);
+			if (!_burningForward && !_burningUp && _currentFuel > 0f) {
+				_audio.Play();
+			}
 			if (_currentFuel > 0f)
 				_burningForward = true;
 		}
 
 		private void EndBurnForward(InputAction.CallbackContext _) {
-			if (_burningForward && !_burningUp) _audio.Stop();
 			_burningForward = false;
+			if (!_burningForward && !_burningUp)
+				_audio.Stop();
 		}
 
 		private void StartBurnUp(InputAction.CallbackContext _) {
-			if (!_burningForward && !_burningUp) _audio.PlayOneShot(burnSound);
+			if (!_burningForward && !_burningUp && _currentFuel > 0f) {
+				_audio.Play();
+			}
 			if (_currentFuel > 0f)
 				_burningUp = true;
 		}
 
 		private void EndBurnUp(InputAction.CallbackContext _) {
-			if (!_burningForward && _burningUp) _audio.Stop();
 			_burningUp = false;
+			if (!_burningForward && !_burningUp)
+				_audio.Stop();
 		}
 
 		private void ClampMag() {

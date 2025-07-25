@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6fbe94523549ada2a82112e26a801a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bloodParticlePrefab: {fileID: 0}
+  bloodParticlePrefab: {fileID: 4874131924157328089, guid: 0c85567c0553bfa42bc39a69231b9228, type: 3}
   shotsRequiredToBeScared: 3
   attackDmg: 8
   maxAttackPerTime: 4

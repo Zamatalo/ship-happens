@@ -3,9 +3,6 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-/*
- * TODO: add array of notifications, because if notifications trigger often, they will interrupt each other
- */
 namespace Notifications {
 	public class NotificationManager : MonoBehaviour {
 		public GameObject notificationPanelPrefab;
@@ -35,7 +32,8 @@ namespace Notifications {
 			var elapsed = 0f;
 
 			while (elapsed < fadeDuration) {
-				if (_notificationPanel.IsDestroyed() || canvasGroup.IsDestroyed()) yield break;
+				if (_notificationPanel.IsDestroyed() || ReferenceEquals(canvasGroup, null))
+					yield break;
 
 				elapsed += Time.fixedDeltaTime;
 				canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);

@@ -236,7 +236,7 @@ MonoBehaviour:
   kind:
     id: 
     itemName: Metal
-    quantity: 2
+    quantity: 4
     parameters: []
 --- !u!114 &373880273540251251
 MonoBehaviour:
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 1
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 1
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []

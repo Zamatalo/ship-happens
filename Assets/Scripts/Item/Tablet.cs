@@ -28,35 +28,34 @@ namespace Item {
 			}
 		}
 
-		public void Init(Transform cameraTransform, List<ItemParameter> itemParameters) {
-		}
+		public void Init(Transform cameraTransform, List<ItemParameter> itemParameters) { }
 
 		private void UpdateText(ProgressManager.State state) {
 			switch (state) {
 				case ProgressManager.State.Prologue:
 					_audio.PlayOneShot(prologueSound);
 					text.text =
-						@"The Drift\n\nYour ship is lost — scattered somewhere across the void. You're stranded on a fragile space raft, drifting between stars — but not helpless.\n\nSpawn and collect loot using your magnet to build new blocks onto your raft. Use this growing platform to survive the drift and reach the next planet.\n\nThere, you’ll find your next critical item — a tool that might bring you one step closer to reclaiming your ship.";
+						@"The Drift\n\nPilot, you have fallen on a barend asteroid. Weakness will be your undoing. Anchor yourself. The shadows hunt. Failure is not an option. You will return... or be lost in a void forever. Move! Now!";
 					break;
 				case ProgressManager.State.Mars:
 					_audio.PlayOneShot(marsSound);
 					text.text =
-						@"Mars\n\nAnchor yourself with the harpoon.\n\nSharks are circling — silent, sudden. One wrong move, and they'll strike.\n\nRecover what you can, and keep moving.";
+						@"Mars\n\nAnchor yourself with the harpoon. The sharks are circling — silent, sudden and hungry. One wrong move and they'll strike. Recover what you must, and keep moving.";
 					break;
 				case ProgressManager.State.Venus:
 					_audio.PlayOneShot(venusSound);
 					text.text =
-						@"Venus\n\nHeat and pressure are tearing everything apart.\n\nUse the gravity gun to clear the path. Reach the oxygen generator before your suit gives out.\n\nEvery second counts.";
+						@"Venus\n\nHeat and pressure are tearing everything apart. Use the gravity gun to clear the path. Reach the oxygen generator before your suit gives out. Every second counts.";
 					break;
 				case ProgressManager.State.Mercury:
 					_audio.PlayOneShot(mercurySound);
 					text.text =
-						@"Mercury\n\nYou have the jetpack now.\nOne last leap stands between you and your ship.\nYou're almost home.";
+						@"Mercury\n\nYou have the jetpack now. One final leap stands between you and the ship. No room for error. You're have almost made it.";
 					break;
 				case ProgressManager.State.Epilogue:
 					_audio.PlayOneShot(epilogueSound);
 					text.text =
-						@"Epilogue\n\nYou made it back to the ship.\nThe journey is over.\nIt’s time to go home.";
+						@"Epilogue\n\nYou have returned to the ship. The drive has ended. Now... you will face what comes next. Home is no sanctuary. It is your destiny.";
 					break;
 				default:
 					text.text = "";

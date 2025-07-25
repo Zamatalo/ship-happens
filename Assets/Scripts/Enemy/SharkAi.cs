@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Item;
 using Notifications;
 using Player;
 using Projectile;
@@ -65,8 +66,16 @@ namespace Enemy {
 		}
 
 		private void OnTriggerEnter(Collider other) {
-			if (!other.TryGetComponent(out Harpoon harpoon)) return;
-			TakeShot(harpoon.transform.position);
+			if (other.TryGetComponent(out Harpoon harpoon))
+				TakeShot(harpoon.transform.position);
+		}
+
+		private void OnTriggerStay(Collider other) {
+			if (other.TryGetComponent(out Spear spear) && spear.attacking &&
+			    !spear.hasAttackedShark) {
+				TakeShot(spear.transform.position);
+				spear.hasAttackedShark = true;
+			}
 		}
 
 		public void TakeShot(Vector3 pos) {

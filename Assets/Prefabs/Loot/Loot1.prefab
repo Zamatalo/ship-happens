@@ -244,7 +244,7 @@ MonoBehaviour:
   kind:
     id: 
     itemName: Potable
-    quantity: 5
+    quantity: 1
     parameters: []
 --- !u!114 &1834468557539897779
 MonoBehaviour:
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 1
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 1
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
