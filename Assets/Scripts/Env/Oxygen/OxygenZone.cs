@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Player;
 using UnityEngine;
 
-namespace Oxygen {
+namespace Env.Oxygen {
 	public class OxygenZone : MonoBehaviour {
 		public float oxygenGenerationSpeed = 1f;
 		private readonly List<PlayerNeeds> _playerNeedss = new();
@@ -16,12 +16,13 @@ namespace Oxygen {
 		}
 
 		private void OnTriggerEnter(Collider other) {
-			if (other.TryGetComponent(out PlayerNeeds playerNeeds)) _playerNeedss.Add(playerNeeds);
+			if (other.TryGetComponent(out PlayerController player))
+				_playerNeedss.Add(player.parentObj.GetComponent<PlayerNeeds>());
 		}
 
 		private void OnTriggerExit(Collider other) {
-			if (other.TryGetComponent(out PlayerNeeds playerNeeds))
-				_playerNeedss.Remove(playerNeeds);
+			if (other.TryGetComponent(out PlayerController player))
+				_playerNeedss.Remove(player.parentObj.GetComponent<PlayerNeeds>());
 		}
 	}
 }

@@ -576,6 +576,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8439a4ca-6d11-4640-b79f-2cba1b5cc53e
     m_ActionName: 'Inventory/Drag[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b4f94fe9-111f-4d9f-92cb-2a090b58591a
+    m_ActionName: 'Spear/Attack[/Mouse/leftButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -617,6 +621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  parentObj: {fileID: 4684326146177642079}
   moveSpeed: 6
   airControl: 0.5
   rotationSmoothness: 5
@@ -2974,6 +2979,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minHungerPercentForHealthRestore: 85
   minThirstPercentForHealthRestore: 85
+  healthDecreaseWhenHungry: 0.5
+  healthDecreaseWhenThirsty: 0.5
+  healthDecreaseWhenNoOxygen: 2
   maxHealth: 100
   health: 0
   maxHunger: 360
@@ -3355,6 +3363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd218ca5f766464b9145cc7d5ba90ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   recipeList: []
 --- !u!114 &6475444880134352527
 MonoBehaviour:

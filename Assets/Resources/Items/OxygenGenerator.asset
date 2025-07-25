@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: OxygenGenerator
   icon: {fileID: 21300000, guid: e744324258e7a41799b82cce913a05f0, type: 3}
   maxStack: 5
-  itemPrefab: {fileID: 1335793835899281491, guid: 350615f31e33f2a41a95ee6f54ab5b92, type: 3}
+  itemPrefab: {fileID: 1499604311919634740, guid: ea6e3c51a50314b65aa7649faf90a25d, type: 3}
   collectableItemPrefab: {fileID: 7004973854259699408, guid: b3fc3b63e232f47ddb73d55dd884594e, type: 3}
