@@ -4,27 +4,38 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 
+using System.Collections.Generic;
+using Notifications;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.VFX;
+
 namespace Item {
     public class Magnet_smol : MonoBehaviour, IUsableItem {
+        [Header("Magnet Settings")]
         [SerializeField] private float pullSpeed = 25f;
         [SerializeField] private float maxDistance = 1000000f;
         [SerializeField] private float grabDistance = 2f;
+        
+        [Header("Visual Effects")]
         [SerializeField] private List<VisualEffect> beamVFX;
         [SerializeField] private List<Transform> beamOrigins;
+        [SerializeField] private Vector3 fixedAxis = new Vector3(0.577f, 0.577f, 0.577f).normalized;
+        
+        [Header("Audio/Visual")]
         [SerializeField] private AudioSource magnetSound;
         [SerializeField] private Animator animator;
-
-
-        [Header("Beam Correction")]
-        [SerializeField] private float horizontalCorrection;
         [SerializeField] private bool showDebugLines = true;
+
         private InputSystem_Actions _ia;
         private bool _isActive;
         private NotificationManager _notificationManager;
         private Transform _origin;
+        private Loot.Loot _currentLoot;
 
         private void Awake() {
             _ia = new InputSystem_Actions();
+            fixedAxis.Normalize();
         }
 
         private void FixedUpdate() {
@@ -35,65 +46,71 @@ namespace Item {
 
             bool hitSomething = Physics.Raycast(_origin.position, _origin.forward, out var laserHit, maxDistance);
 
-            if (hitSomething && laserHit.collider.TryGetComponent(out Loot.Loot _currentLoot)) 
+            if (hitSomething && laserHit.collider.TryGetComponent(out _currentLoot)) 
             {
-                animator.SetBool("isPulling", true);
-                if (!magnetSound.isPlaying) 
-                {
-                    magnetSound.Play();
-                }
-
-                float distance = Vector3.Distance(_currentLoot.transform.position, _origin.position);
-                if (distance <= grabDistance) 
-                {
-                    DisableBeams();
-                    return;
-                }
-
-                _currentLoot.transform.position = Vector3.MoveTowards(
-                    _currentLoot.transform.position,
-                    _origin.position,
-                    pullSpeed * Time.fixedDeltaTime
-                );
-
-                for (int i = 0; i < beamVFX.Count; i++)
-                {
-                    if (beamVFX[i] == null || beamOrigins[i] == null) continue;
-
-                    var vfx = beamVFX[i];
-                    var origin = beamOrigins[i];
-
-                    Vector3 targetPoint = laserHit.point;
-                    Vector3 direction = targetPoint - origin.position;
-
-                    Quaternion rotationAdjustment = Quaternion.Euler(0, -90, 0); 
-                    Vector3 adjustedDirection = rotationAdjustment * direction;
-
-                    vfx.transform.position = origin.position;
-                    vfx.SetVector3("TargetPosition", targetPoint);
-                    vfx.SetFloat("BeamLength", adjustedDirection.magnitude);
-
-                    // Set fixed axis orientation (normalized vector)
-                    Vector3 fixedAxis = new Vector3(0.577f, 0.577f, 0.577f).normalized;
-                    vfx.SetVector3("Orient: Fixed Axis", fixedAxis);
-
-                    vfx.gameObject.SetActive(true);
-                }
+                HandlePulling(laserHit.point);
             }
             else 
             {
-                animator.SetBool("isPulling", false);
-                magnetSound.Stop();
-                DisableBeams();
+                StopPulling();
             }
+        }
+
+        private void HandlePulling(Vector3 hitPoint) {
+            animator.SetBool("isPulling", true);
+            
+            if (!magnetSound.isPlaying) {
+                magnetSound.Play();
+            }
+
+            float distance = Vector3.Distance(_currentLoot.transform.position, _origin.position);
+            if (distance <= grabDistance) {
+                DisableBeams();
+                return;
+            }
+
+            _currentLoot.transform.position = Vector3.MoveTowards(
+                _currentLoot.transform.position,
+                _origin.position,
+                pullSpeed * Time.fixedDeltaTime
+            );
+
+            UpdateBeams(hitPoint);
+        }
+
+        private void UpdateBeams(Vector3 targetPoint) {
+            for (int i = 0; i < beamVFX.Count; i++)
+            {
+                if (beamVFX[i] == null || beamOrigins[i] == null) continue;
+
+                var vfx = beamVFX[i];
+                var origin = beamOrigins[i];
+
+                Vector3 direction = targetPoint - origin.position;
+
+                vfx.transform.position = origin.position;
+                if (!vfx.gameObject.activeSelf) {
+                    vfx.gameObject.SetActive(true);
+                }
+            }
+        }
+
+        private void StopPulling() {
+            animator.SetBool("isPulling", false);
+            magnetSound.Stop();
+            DisableBeams();
+            _currentLoot = null;
         }
 
         private void DisableBeams() {
             foreach (var vfx in beamVFX) {
-                if (vfx != null)
+                if (vfx != null && vfx.gameObject.activeSelf) {
                     vfx.gameObject.SetActive(false);
+                }
             }
         }
+
+
 
         public void OnEnable() {
             _ia.Player.Enable();

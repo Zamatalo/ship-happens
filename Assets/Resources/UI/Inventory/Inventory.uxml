@@ -29,9 +29,9 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="VisualElement" enabled="true" style="flex-grow: 1; flex-shrink: 0; width: 583px; align-content: flex-end; justify-content: flex-end; align-self: flex-start; height: 100%; align-items: flex-end; visibility: visible; display: flex; max-height: 100%; max-width: 100%;">
-            <ui:VisualElement name="crafting-container" enabled="true" class="craftingContainer" style="align-items: center;">
+            <ui:VisualElement name="crafting-container" enabled="true" class="craftingContainer" style="align-items: center; max-height: 94%;">
                 <ui:ListView name="recipesList" virtualization-method="DynamicHeight" show-border="false" reorder-mode="Simple" fixed-item-height="128" show-bound-collection-size="false" focusable="false" header-title="Crafting" selection-type="Single" show-alternating-row-backgrounds="None" class="recipesList" style="align-items: flex-start;" />
-                <ui:VisualElement name="recipesCraftingContainer" class="recipesCraftingContainer">
+                <ui:VisualElement name="recipesCraftingContainer" class="recipesCraftingContainer" style="min-height: 78%;">
                     <ui:ScrollView name="ScrollView" />
                 </ui:VisualElement>
             </ui:VisualElement>
