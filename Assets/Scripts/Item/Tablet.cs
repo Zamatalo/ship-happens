@@ -40,7 +40,7 @@ namespace Item {
 				case ProgressManager.State.Mars:
 					_audio.PlayOneShot(marsSound);
 					text.text =
-						@"Mars\n\nAnchor yourself with the harpoon. The sharks are circling — silent, sudden and hungry. One wrong move, and they'll strike. Recover what you must, and keep moving.";
+						@"Mars\n\nAnchor yourself with the harpoon. The sharks are circling — silent, sudden and hungry. One wrong move and they'll strike. Recover what you must, and keep moving.";
 					break;
 				case ProgressManager.State.Venus:
 					_audio.PlayOneShot(venusSound);
