@@ -45,7 +45,7 @@ namespace Item {
 					break;
 				case ProgressManager.State.Epilogue:
 					text.text =
-						@"Epilogue\n\nYou made it back to the ship.\nThe journey is over.\nIt’s time to go home.e";
+						@"Epilogue\n\nYou made it back to the ship.\nThe journey is over.\nIt’s time to go home.";
 					break;
 				default:
 					text.text = "";
