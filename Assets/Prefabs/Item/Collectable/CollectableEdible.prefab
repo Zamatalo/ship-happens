@@ -52,7 +52,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &9181967280909118652
 MonoBehaviour:
@@ -693,8 +693,8 @@ Transform:
   m_GameObject: {fileID: 8968583709362383777}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.121, z: -0.06}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: -0.279, z: -0.127}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1957406416374696263}
@@ -922,7 +922,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  collectZoneObject: {fileID: 4523066017816661694}
+  itemName: 
+  parameters: []
 --- !u!114 &4157150827495984840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1017,10 +1018,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.30519333
-  m_Height: 0.75343466
+  m_Radius: 0.3663183
+  m_Height: 1.188972
   m_Direction: 2
-  m_Center: {x: 0, y: -0.00054225326, z: -0.015278995}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8841252914179604783
 MonoBehaviour:
   m_ObjectHideFlags: 0

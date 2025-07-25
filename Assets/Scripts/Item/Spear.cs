@@ -5,11 +5,17 @@ using UnityEngine.InputSystem;
 
 namespace Item {
 	public class Spear : MonoBehaviour, IUsableItem {
+		private static readonly int IsAttacking = Animator.StringToHash("isAttacking");
+		private Animator _anim;
 		private bool _attacking;
 		private InputSystem_Actions _ia;
 
-		private void Start() {
+		private void Awake() {
 			_ia = new InputSystem_Actions();
+		}
+
+		private void Start() {
+			_anim = GetComponent<Animator>();
 		}
 
 		private void OnEnable() {
@@ -31,10 +37,14 @@ namespace Item {
 		}
 
 		public void OnAnimationEnd() {
+			if (!_attacking) return;
+			_anim.SetBool(IsAttacking, false);
 			_attacking = false;
 		}
 
 		private void OnAttack(InputAction.CallbackContext _) {
+			if (_attacking) return;
+			_anim.SetBool(IsAttacking, true);
 			_attacking = true;
 		}
 	}
