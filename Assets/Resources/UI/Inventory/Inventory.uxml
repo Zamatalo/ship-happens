@@ -29,9 +29,9 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="VisualElement" enabled="true" style="flex-grow: 1; flex-shrink: 0; width: 583px; align-content: flex-end; justify-content: flex-end; align-self: flex-start; height: 100%; align-items: flex-end; visibility: visible; display: flex; max-height: 100%; max-width: 100%;">
-            <ui:VisualElement name="crafting-container" enabled="true" class="craftingContainer" style="display: flex; flex-wrap: wrap; align-self: flex-start; justify-content: center; background-size: 115% 115%; max-height: 77%; align-content: auto; flex-direction: row; align-items: stretch; overflow: hidden;">
-                <ui:ListView name="recipesList" virtualization-method="DynamicHeight" show-border="false" reorder-mode="Simple" fixed-item-height="128" show-bound-collection-size="false" focusable="false" header-title="Crafting" style="flex-grow: 1; max-height: 100%; min-height: auto; align-items: flex-start; flex-wrap: wrap; flex-shrink: 1; max-width: 45%; justify-content: space-evenly; align-self: auto; align-content: flex-start; overflow: hidden; cursor: resource(&apos;UI/Assets/Cursors/Cursor 1 64px&apos;);" />
-                <ui:VisualElement name="recipesCraftingContainer" class="recipesCraftingContainer" style="max-height: 100%; cursor: resource(&apos;UI/Assets/Cursors/Cursor 1 64px&apos;);" />
+            <ui:VisualElement name="crafting-container" enabled="true" class="craftingContainer" style="align-items: center;">
+                <ui:ListView name="recipesList" virtualization-method="DynamicHeight" show-border="false" reorder-mode="Simple" fixed-item-height="128" show-bound-collection-size="false" focusable="false" header-title="Crafting" selection-type="Single" show-alternating-row-backgrounds="None" class="recipesList" style="align-items: flex-start;" />
+                <ui:VisualElement name="recipesCraftingContainer" class="recipesCraftingContainer" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
@@ -42,5 +42,5 @@
         <InventoryElement element-type="Hotbar" style="-unity-background-image-tint-color: rgb(7, 72, 67);" />
         <InventoryElement element-type="Hotbar" style="-unity-background-image-tint-color: rgb(7, 72, 67);" />
     </ui:VisualElement>
-    <ui:VisualElement name="GhostIcon" style="flex-grow: 1; overflow: visible; visibility: visible; position: absolute; width: 64px; height: 64px; top: auto; left: auto; min-width: 64px; min-height: 64px; max-height: 64px; max-width: 64px; background-image: none; right: auto; bottom: auto; cursor: resource(&apos;UI/Assets/Cursors/Cursor 2 64px&apos;);" />
+    <ui:VisualElement name="GhostIcon" class="ghostIcon" />
 </ui:UXML>

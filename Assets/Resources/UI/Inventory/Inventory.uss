@@ -1,5 +1,6 @@
 :root {
     visibility: visible;
+    cursor: resource('UI/Assets/Modern Menu 1/Graphics/Cursors/Cursor 2 64px');
 }
 
 .none {
@@ -21,13 +22,9 @@
     height: 96px;
     max-width: 64px;
     max-height: 64px;
-    margin: 0 1% 1% 0;
     background-image: resource('UI/Inventory/ItemDisable');
     cursor: resource('UI/Assets/Cursors/Cursor 2 64px');
-    margin-top: 3px;
-    margin-right: 3px;
-    margin-bottom: 3px;
-    margin-left: 3px;
+    margin: 3px;
 }
 
 .hotbar-slot.selected {
@@ -36,25 +33,26 @@
 }
 
 .slotIcon {
-    flex-shrink: 0;
-    flex-grow: 1;
+    width: 64px;
+    height: 64px;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
     cursor: resource('UI/Assets/Cursors/Cursor 2 64px');
 }
 
 .inventoryElement {
     width: 96px;
     height: 96px;
-    margin: 2px;
+    justify-content: center;
+    align-items: center;
     border-left-color: rgb(48, 48, 48);
     border-right-color: rgb(48, 48, 48);
     border-top-color: rgb(48, 48, 48);
     border-bottom-color: rgb(48, 48, 48);
     background-color: rgb(9, 19, 21);
     cursor: resource('UI/Assets/Cursors/Cursor 2 64px');
-    margin-top: 6px;
-    margin-right: 6px;
-    margin-bottom: 6px;
-    margin-left: 6px;
+    margin: 6px;
 }
 
 .slotBackground {
@@ -72,7 +70,7 @@
     position: absolute;
     bottom: 2px;
     right: 2px;
-    font-size: 12px;
+    font-size: 20px;
     color: white;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 2px 4px;
@@ -83,100 +81,101 @@
 .craftingContainer {
     flex-grow: 1;
     flex-shrink: 1;
-    display: none;
     width: 59%;
     height: 76%;
-    max-height: 81%; 
     max-width: 100%;
-    align-items: flex-start;
-    justify-content: center;
-    align-self: flex-start;
-    align-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
     flex-basis: auto;
     background-image: resource('UI/Assets/1. Free Hologram Interface Wenrexa(1)/1. Free Hologram Interface Wenrexa/Card X1/Card X1');
     -unity-background-image-tint-color: rgba(255, 255, 255, 0.4);
-    background-size: 110% 71%;
     visibility: visible;
-    cursor: resource('UI/Assets/Cursors/Cursor 2 64px');
-    overflow: hidden;
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-self: flex-start;
+    justify-content: center;
+    background-size: 115% 115%;
+    max-height: 77%;
+    align-content: auto;
+    flex-direction: row;
+    align-items: stretch;
+    overflow: hidden;
+    cursor: resource('UI/Assets/Modern Menu 1/Graphics/Cursors/Cursor 2 64px');
 }
 
 .crafting-icon {
     width: 96px;
     height: 96px;
-    max-width: 96px;
-    max-height: 96px;
-    background-image: resource('UI/Assets/1. Free Hologram Interface Wenrexa(1)/1. Free Hologram Interface Wenrexa/Card X3/Card X5');
+    min-width: 96px;
+    min-height: 96px;
+    display: flex;
+    flex-direction: row;
     -unity-background-image-tint-color: rgba(255, 255, 255, 0.59);
     cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
-    margin-top: 15px;
-    margin-bottom: 15px;
-    align-items: center;
-    justify-content: center;
-    align-content: stretch;
+}
+
+.crafting-icon > Image {
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    min-height: 64px;
 }
 
 .recipeIcon {
-    flex-grow: 1;
-    width: 96px;
-    height: 96px;
-    max-width: 96px;
-    max-height: 96px;
+    width: 80px;
+    height: 120px;
+    max-width: 120px;
+    max-height: 80px;
     cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
 }
 
-.recipesCraftingContainer {
-    flex-grow: 1;
-    min-width: auto;
-    min-height: auto;
-    flex-shrink: 1;
-    flex-direction: row;
-    flex-wrap: wrap;
-    max-width: 65%;
-    max-height: 100%; 
-    align-items: flex-start;
+.recipeCont {
+    width: 128px;
+    height: 128px;
+    max-width: 128px;
+    max-height: 128px;
+    align-self: center;
     justify-content: center;
-    padding: 10px;
-    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
-
-}
-
-.crafting-ingredient {
-    flex-direction: row;
     align-items: center;
-    margin: 10px;
-    padding: 5px;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
     cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
-
-}
-
-.crafting-ingredient > Image {
-    width: 64px;
-    height: 64px;
-    margin-right: 10px;
-    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
-
 }
 
 .ingredient-label {
-    font-size: 14px;
+    font-size: 20px;
     color: white;
-    white-space: nowrap;
     cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
-
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.5);
+    white-space: normal;
+    max-height: 40px;
 }
+
 .ingredient-available {
-    color: rgba(0, 255, 0, 0.3);
+    color: rgba(0, 255, 0, 0.7);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
 }
 
 .ingredient-missing {
-    color: rgba(255, 0, 0, 0.3);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+    color: rgba(255, 0, 0, 0.7);
 }
+
+.ConfirmCraft {
+    width: 128px;
+    height: 64px;
+    background-color: rgb(76, 175, 80);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    align-self: center;
+    transition: all 0.2s ease;
+    cursor: resource('UI/Assets/Cursors/Cursor 1 64px');
+}
+
+.ConfirmCraft:hover {
+    background-color: rgb(69, 160, 73);
+}
+
 .unity-base-slider__drag-container {
     display: none;
     overflow: hidden;
@@ -194,16 +193,66 @@
 .unity-slider {
     display: none;
     overflow: hidden;
-
 }
 
 .unity-repeat-button {
     display: none;
 }
 
-
-/* Hide scrollbars completely (Unity-specific method) */
-#recipesList .unity-scroll-view__vertical-scroller,
-#recipesList .unity-scroll-view__horizontal-scroller {
+.recipesList .unity-scroll-view__vertical-scroller {
     display: none;
+    cursor: resource('UI/Assets/Modern Menu 1/Graphics/Cursors/Cursor 2 64px');
+}
+
+.recipesList .unity-scroll-view__horizontal-scroller {
+    display: none;
+    cursor: resource('UI/Assets/Modern Menu 1/Graphics/Cursors/Cursor 2 64px');
+}
+
+.recipesList {
+    align-self: center;
+    cursor: resource('UI/Assets/Modern Menu 1/Graphics/Cursors/Cursor 2 64px');
+    max-width: 33%;
+    min-width: 33%;
+    max-height: 95%;
+    min-height: 95%;
+}
+
+#unity-content-container {
+    cursor: resource('UI/Assets/Modern Menu 1/Graphics/Cursors/Cursor 2 64px');
+}
+
+#1 > #VisualElement > #crafting-container > #recipesList > .unity-collection-view__scroll-view > #unity-content-and-vertical-scroll-container {
+    cursor: resource('UI/Assets/Modern Menu 1/Graphics/Cursors/Cursor 2 64px');
+}
+
+#1 > #VisualElement > #crafting-container > #recipesList > .unity-collection-view__scroll-view {
+    cursor: resource('UI/Assets/Modern Menu 1/Graphics/Cursors/Cursor 2 64px');
+}
+
+.recipesCraftingContainer {
+    max-height: 85%;
+    max-width: 66%;
+    min-height: 85%;
+    min-width: 66%;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-self: center;
+}
+
+.ghostIcon {
+    overflow: visible;
+    visibility: visible;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    top: auto;
+    left: auto;
+    min-width: 64px;
+    min-height: 64px;
+    max-height: 64px;
+    max-width: 64px;
+    background-image: none;
+    cursor: resource('UI/Assets/Cursors/Cursor 2 64px');
 }

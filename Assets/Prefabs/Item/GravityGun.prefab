@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e65bcf4b4d440db39e0b48458f6a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullSpeed: 10
+  pullSpeed: 20
   maxDistance: 1000
   grabDistance: 2
   beamLines:

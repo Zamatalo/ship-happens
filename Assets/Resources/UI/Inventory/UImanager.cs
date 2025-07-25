@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using Player;
+using Unity.Cinemachine;
+using Unity.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
 
-public class UIManager : MonoBehaviour
+public class UIManager : NetworkBehaviour
 {
     private VisualElement inventoryRoot;
     private VisualElement recipesCraftingContainer;
@@ -11,17 +15,27 @@ public class UIManager : MonoBehaviour
     private ListView list;
     private Button craftingButton;
     private VisualElement craftingContainer;
-    private bool isCraftingVisible;
-    private PlayerInventoryNew inventory;
-    private bool wasCraftingVisibleBeforeClose;
-    public List<RecipeData> recipeList;
     
+    private bool isCraftingVisible;
+    private bool wasCraftingVisibleBeforeClose;
+    private PlayerInventoryNew inventory;
+    private RecipeData currentlySelectedRecipe;
+    
+    public List<RecipeData> recipeList;
+    private Dictionary<string, InventoryItem> inventoryCache = new();
+    private Button dynamicCraftButton;
+    
+    private PlayerController playerController;
     private void Awake()
+    {
+        InitializeUI();
+        LoadRecipes();
+    }
+
+    private void InitializeUI()
     {
         var uiDocument = GetComponent<UIDocument>();
         var root = uiDocument.rootVisualElement;
-        
-        recipeList = new List<RecipeData>(Resources.LoadAll<RecipeData>("Items/Recipe"));
         
         inventoryRoot = root.Q<VisualElement>("inventory-root");
         craftingContainer = root.Q<VisualElement>("crafting-container");
@@ -29,15 +43,177 @@ public class UIManager : MonoBehaviour
         craftingButton = root.Q<Button>("crafting-button");
         list = root.Q<ListView>("recipesList");
         recipesCraftingContainer = root.Q<VisualElement>("recipesCraftingContainer");
-        inventory = FindFirstObjectByType<PlayerInventoryNew>();
 
         inventoryRoot.style.display = DisplayStyle.None;
         craftingContainer.style.display = DisplayStyle.None;
-        isCraftingVisible = false;
-        wasCraftingVisibleBeforeClose = false;
-
+        
         craftingButton?.RegisterCallback<ClickEvent>(OnCraftingButtonClicked);
-        FillRecipeList();
+        
+        dynamicCraftButton = new Button { text = "Craft", name = "ConfirmCraft" };
+        dynamicCraftButton.AddToClassList("ConfirmCraft"); 
+        dynamicCraftButton.RegisterCallback<ClickEvent>(OnCraftingButtonConformationClicked);
+    }
+
+    private void LoadRecipes()
+    {
+        recipeList = new List<RecipeData>(Resources.LoadAll<RecipeData>("Items/Recipe"));
+        InitializeRecipeList();
+    }
+
+    protected override void OnNetworkPostSpawn()
+    {
+        if (!IsOwner || NetworkManager.Singleton == null || NetworkManager.Singleton.LocalClient == null)
+        {
+            return;
+        }
+
+        var playerObject = NetworkManager.Singleton.LocalClient.PlayerObject;
+        if (playerObject == null) return;
+        
+        inventory = playerObject.GetComponentInChildren<PlayerInventoryNew>(true);
+        if (inventory == null)
+        {
+            return;
+        }
+        playerController = playerObject.GetComponentInChildren<PlayerController>();
+        if (inventory.inventoryJson != null)
+        {
+            inventory.inventoryJson.OnValueChanged += OnInventoryUpdated;
+        }
+        
+        UpdateInventoryCache();
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        if (inventory != null && inventory.inventoryJson != null)
+        {
+            inventory.inventoryJson.OnValueChanged -= OnInventoryUpdated;
+        }
+    }
+
+    private void InitializeRecipeList()
+    {
+        list.itemsSource = recipeList;
+        list.makeItem = () => 
+        {
+            var cont = new VisualElement();
+            cont.AddToClassList("recipeList");
+            
+            var img = new Image();
+            img.name = "recipeIcon";
+            img.AddToClassList("recipeIcon");
+            cont.Add(img);
+
+            Label label = new Label{name = "recipeLabel"};
+            label.AddToClassList("ingredient-label");
+            cont.Add(label);
+            return cont;
+        };
+        
+        list.bindItem = (element, i) => 
+        {
+            var recipe = recipeList[i];
+            var icon = element.Q<Image>("recipeIcon");
+            icon.image = recipe?.outputItem?.icon?.texture;
+            
+            var label = element.Q<Label>("recipeLabel");
+            label.text = recipe?.outputItem?.name;
+        };
+
+        list.selectionChanged += OnRecipeSelected;
+        list.Rebuild();
+    }
+
+    private void OnRecipeSelected(IEnumerable<object> selectedItems)
+    {
+        recipesCraftingContainer.Clear();
+        
+        if (dynamicCraftButton.parent != null)
+        {
+            dynamicCraftButton.RemoveFromHierarchy();
+        }
+
+        var allIngredientsAvailable = true;
+        UpdateInventoryCache();
+
+        foreach (RecipeData selectedRecipe in selectedItems)
+        {
+            if (selectedRecipe == null) continue;
+            
+            currentlySelectedRecipe = selectedRecipe;
+            allIngredientsAvailable = RenderRecipeIngredients(selectedRecipe);
+        }
+
+        if (allIngredientsAvailable)
+        {
+            recipesCraftingContainer.Add(dynamicCraftButton);
+        }
+    }
+
+    private bool RenderRecipeIngredients(RecipeData recipe)
+    {
+        if (recipe.requiredItems == null) return false;
+        
+        var allAvailable = true;
+        
+        foreach (var requiredItem in recipe.requiredItems)
+        {
+            if (requiredItem.item == null) continue;
+            
+            var itemContainer = new VisualElement();
+            itemContainer.AddToClassList("crafting-icon");
+
+            var icon = new Image
+            {
+                image = requiredItem.item.icon?.texture,
+                
+            };
+           // icon.AddToClassList("crafting-icon");
+            var label = new Label($"{requiredItem.quantity}x {requiredItem.item.itemName}");
+            
+            var hasEnough = CheckInventory(requiredItem.item.itemName, requiredItem.quantity);
+            label.EnableInClassList("ingredient-available", hasEnough);
+            label.EnableInClassList("ingredient-missing", !hasEnough);
+            label.AddToClassList("ingredient-label");
+            
+            if (!hasEnough) allAvailable = false;
+            itemContainer.Add(icon);
+            itemContainer.Add(label);
+            recipesCraftingContainer.Add(itemContainer);
+        }
+        
+        return allAvailable;
+    }
+
+    private void UpdateInventoryCache()
+    {
+        if (!inventory) return;
+        
+        inventoryCache.Clear();
+        foreach (var item in inventory.inventory)
+        {
+            if (!item.IsEmpty)
+            {
+                inventoryCache[item.itemName] = item;
+            }
+        }
+    }
+
+    private bool CheckInventory(string itemName, int requiredQuantity)
+    {
+        return inventoryCache.TryGetValue(itemName, out var item) 
+               && !item.IsEmpty 
+               && item.quantity >= requiredQuantity;
+    }
+
+    private void OnInventoryUpdated(FixedString4096Bytes previousValue, FixedString4096Bytes newValue)
+    {
+        UpdateInventoryCache();
+
+        if (currentlySelectedRecipe == null) return;
+        list.selectedIndex = -1;
+        list.selectedIndex = recipeList.IndexOf(currentlySelectedRecipe);
     }
 
     private void Update()
@@ -52,7 +228,7 @@ public class UIManager : MonoBehaviour
     {
         if (inventoryRoot == null) return;
 
-        bool isInventoryVisible = inventoryRoot.style.display == DisplayStyle.Flex;
+        var isInventoryVisible = inventoryRoot.style.display == DisplayStyle.Flex;
         
         if (isInventoryVisible)
         {
@@ -60,6 +236,7 @@ public class UIManager : MonoBehaviour
             inventoryRoot.style.display = DisplayStyle.None;
             craftingContainer.style.display = DisplayStyle.None; 
             Cursor.lockState = CursorLockMode.Locked;
+            playerController.SetLookEnabled(true);
             ghostIcon.style.display = DisplayStyle.None;
             Cursor.visible = false;
         }
@@ -71,6 +248,8 @@ public class UIManager : MonoBehaviour
                 : DisplayStyle.None;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            playerController.SetLookEnabled(false);
+            UpdateInventoryCache();
         }
     }
 
@@ -88,96 +267,39 @@ public class UIManager : MonoBehaviour
         craftingContainer.style.display = isCraftingVisible 
             ? DisplayStyle.Flex 
             : DisplayStyle.None;
-        
-        Debug.Log($"Crafting panel {(isCraftingVisible ? "shown" : "hidden")}");
     }
 
-    void FillRecipeList()
+    private void OnCraftingButtonConformationClicked(ClickEvent evt)
     {
-        
-        list.itemsSource = recipeList;
-        list.makeItem = () =>
-        {
-            var container = new VisualElement();
-            container.AddToClassList("crafting-icon");
-        
-            var icon = new Image
-            {
-                name = "icon",
-                style =
-                {
-                    width = 96,
-                    height = 96,
-                }
-            };
-            icon.AddToClassList("recipeIcon");
-        
-            container.Add(icon);
-            return container;
-        };
-
-        list.bindItem = (element, i) =>
-        {   
-            var recipe = recipeList[i];
-            var icon = element.Q<Image>("icon");
-        
-            if (recipe != null && recipe.outputItem != null && recipe.outputItem.icon != null)
-            {
-                icon.image = recipe.outputItem.icon.texture;
-            }
-            else
-            {
-                Debug.LogWarning($"Missing recipe data at index {i}");
-                icon.image = null;
-            }
-        };
-        list.selectionChanged += (selectedItems) =>
-        {
-            recipesCraftingContainer.Clear();
-        
-            foreach (RecipeData selectedRecipe in selectedItems)
-            {
-                if (selectedRecipe == null || selectedRecipe.requiredItems == null) continue;
-                
-                foreach (var requiredItem in selectedRecipe.requiredItems)
-                {
-                    if (requiredItem.item == null) continue;
-                        
-                    var itemContainer = new VisualElement();
-                    itemContainer.AddToClassList("recipesCraftingContainer");
-                        
-                    var icon = new Image
-                    {
-                        image = requiredItem.item.icon?.texture,
-                        style =
-                        {
-                            width = 96,
-                            height = 96
-                        }
-                    };
-                        
-                    var label = new Label($"{requiredItem.quantity}x {requiredItem.item.itemName}");
-                   // var hasItem = inventory.HasItem(requiredItem.item, requiredItem.quantity);
-                   
-                 //   label.AddToClassList(hasItem ? "ingredient-available" : "ingredient-missing");
-                    label.AddToClassList("ingredient-label");
-                        
-                    itemContainer.Add(icon);
-                    itemContainer.Add(label);
-                    recipesCraftingContainer.Add(itemContainer);
-                }
-            }
-        };
-        list.Rebuild();
-    }
-
+        if (currentlySelectedRecipe == null || inventory == null) return;
     
+        foreach (var requiredItem in currentlySelectedRecipe.requiredItems)
+        {
+            inventory.RemoveItemServerRpc(requiredItem.item.itemName, requiredItem.quantity);
+        }
+    
+        inventory.AddItemServerRpc(
+            currentlySelectedRecipe.outputItem.itemName, 
+            1,
+            null
+        );
+    }
 
     private void OnDisable()
     {
         if (craftingButton != null)
         {
             craftingButton.UnregisterCallback<ClickEvent>(OnCraftingButtonClicked);
+        }
+        
+        if (dynamicCraftButton != null)
+        {
+            dynamicCraftButton.UnregisterCallback<ClickEvent>(OnCraftingButtonConformationClicked);
+        }
+
+        if (inventory != null && IsOwner)
+        {
+            inventory.inventoryJson.OnValueChanged -= OnInventoryUpdated;
         }
     }
 }

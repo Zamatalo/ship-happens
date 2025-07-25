@@ -44,7 +44,7 @@ namespace Player
         private float _lastJumpTime;
         private Vector3 _gravityDirection = Vector3.down;
         private float _gravityStrength = 9.81f;
-
+        private bool _lookEnabled = true;
         public override void OnNetworkSpawn()
         {
             if (!IsOwner) return;
@@ -120,6 +120,7 @@ namespace Player
 
         private void HandleRotation()
         {
+            if (!_lookEnabled) return; 
             if (_lookInput.sqrMagnitude >= 0.01f)
             {
                 _cinemachineTargetPitch += _lookInput.y * RotationSpeed * Time.deltaTime;
@@ -188,6 +189,11 @@ namespace Player
             if (lfAngle < -360f) lfAngle += 360f;
             if (lfAngle > 360f) lfAngle -= 360f;
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
+        }
+        public void SetLookEnabled(bool enabled)
+        {
+            _lookEnabled = enabled;
+            if (!enabled) _lookInput = Vector2.zero;
         }
     }
 }
