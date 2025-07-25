@@ -5,12 +5,13 @@ using UnityEngine.InputSystem;
 
 namespace Item {
 	public class Magnet : MonoBehaviour, IUsableItem {
+		private static readonly int IsPulling = Animator.StringToHash("isPulling");
 		[SerializeField] private float pullSpeed = 25f;
 		[SerializeField] private float maxDistance = 1000000f;
 		[SerializeField] private float grabDistance = 2f;
 		[SerializeField] private List<LineRenderer> beamLines;
 		[SerializeField] private AudioSource magnetSound;
-		[SerializeField] private Animator animator;
+		private Animator _anim;
 		private InputSystem_Actions _ia;
 		private bool _isActive;
 		private NotificationManager _notificationManager;
@@ -18,6 +19,10 @@ namespace Item {
 
 		private void Awake() {
 			_ia = new InputSystem_Actions();
+		}
+
+		private void Start() {
+			_anim = GetComponent<Animator>();
 		}
 
 		private void FixedUpdate() {
@@ -31,7 +36,7 @@ namespace Item {
 
 			if (hitSomething) {
 				if (laserHit.collider.TryGetComponent(out Loot.Loot _currentLoot)) {
-					animator.SetBool("isPulling", true);
+					_anim.SetBool(IsPulling, true);
 					magnetSound.Play();
 				}
 
@@ -55,7 +60,7 @@ namespace Item {
 				}
 			} else {
 				foreach (var beamLine in beamLines) beamLine.enabled = false;
-				animator.SetBool("isPulling", false);
+				_anim.SetBool(IsPulling, false);
 				magnetSound.Stop();
 			}
 		}
@@ -97,7 +102,7 @@ namespace Item {
 
 		private void Unuse(InputAction.CallbackContext context) {
 			if (!_isActive) return;
-			animator.SetBool("isPulling", false);
+			_anim.SetBool(IsPulling, false);
 			magnetSound.Stop();
 			_isActive = false;
 			foreach (var beamLine in beamLines) beamLine.enabled = false;
