@@ -175,6 +175,7 @@ public class PlayerInventoryNew : NetworkBehaviour {
 		AddItemServerRpc("Stone", 1, null);
 		AddItemServerRpc("Tablet", 1, null);
 		AddItemServerRpc("Platform", 1, null);
+		AddItemServerRpc("OxygenGenerator", 1, null);
 	}
 
 	public InventoryItem FindItemByName(string name) {

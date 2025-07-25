@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 913145652b958154ca54ebdeb806f96a, type: 3}
+  m_Name: Magnet
+  m_EditorClassIdentifier: 
+  requiredItems:
+  - item: {fileID: 11400000, guid: 30c837575f84b164193a7cd6957eefb2, type: 2}
+    quantity: 17
+  - item: {fileID: 11400000, guid: e96e516097e433d4c8a09211f9f16aad, type: 2}
+    quantity: 9
+  - item: {fileID: 11400000, guid: 99526a3162c06214f9c143474447e711, type: 2}
+    quantity: 8
+  - item: {fileID: 11400000, guid: 11baa6af40bd0614fa4c8ac2a0fe2f50, type: 2}
+    quantity: 12
+  outputItem: {fileID: 11400000, guid: c1e9d291958977d44b457295ef1345e1, type: 2}

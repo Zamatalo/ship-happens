@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: Glass
   icon: {fileID: 21300000, guid: 557da9d8c85e746e18bcfaefaa09854f, type: 3}
   maxStack: 1
-  itemPrefab: {fileID: 0}
-  collectableItemPrefab: {fileID: 0}
+  itemPrefab: {fileID: 919132149155446097, guid: 1f7d30132ba124503a397f3be405d55b, type: 3}
+  collectableItemPrefab: {fileID: 4357478172526187096, guid: fead71c56f7f24668a86f265de545770, type: 3}
