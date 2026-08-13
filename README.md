@@ -77,8 +77,3 @@ The game code is licensed under the MIT License - see [LICENSE](LICENSE).
 The art, audio and third-party plugins under `Assets/` are **not** covered by that
 grant; each has its own license and required attribution. See [CREDITS.md](CREDITS.md),
 which also records two known licensing issues.
-
-## Contact
-
-For any inquiries or feedback, please reach out to the project maintainers
-at [ial@ship-happens.dev](mailto://ial@ship-happens.dev).
