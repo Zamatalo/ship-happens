@@ -1,0 +1,64 @@
+# Line endings: let git normalise text, keep Unity's YAML assets diffable.
+* text=auto
+
+*.cs text diff=csharp
+*.shader text
+*.hlsl text
+*.cginc text
+*.json text
+*.md text
+*.txt text
+*.uxml text
+*.uss text
+*.asmdef text
+*.yml text
+*.yaml text
+
+# Unity YAML. `merge=unityyamlmerge` needs UnityYAMLMerge configured as a merge
+# driver locally (Unity ships it with the editor); without it git falls back to
+# the normal text merge, which is why these stay text and not binary.
+*.unity      text merge=unityyamlmerge eol=lf
+*.prefab     text merge=unityyamlmerge eol=lf
+*.asset      text merge=unityyamlmerge eol=lf
+*.mat        text merge=unityyamlmerge eol=lf
+*.anim       text merge=unityyamlmerge eol=lf
+*.controller text merge=unityyamlmerge eol=lf
+*.overrideController text merge=unityyamlmerge eol=lf
+*.physicMaterial text merge=unityyamlmerge eol=lf
+*.lighting   text merge=unityyamlmerge eol=lf
+*.meta       text merge=unityyamlmerge eol=lf
+
+# Binary assets - never diff, never merge, never EOL-convert.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.tif  binary
+*.tiff binary
+*.tga  binary
+*.psd  binary
+*.exr  binary
+*.hdr  binary
+*.dds  binary
+*.fbx  binary
+*.FBX  binary
+*.blend binary
+*.obj  binary
+*.dae  binary
+*.3ds  binary
+*.mp3  binary
+*.wav  binary
+*.ogg  binary
+*.aif  binary
+*.mp4  binary
+*.mov  binary
+*.ttf  binary
+*.otf  binary
+*.pdf  binary
+*.unitypackage binary
+*.dll  binary
+*.so   binary
+*.dylib binary
+*.a    binary
+*.cubemap binary
+*.asset.bin binary

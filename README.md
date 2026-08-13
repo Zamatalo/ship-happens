@@ -1,6 +1,9 @@
 ﻿# Ship Happens
 
 ![Version](https://img.shields.io/badge/version-v0.001-blue)
+[![Play](https://img.shields.io/badge/play-Unity%20Play-black)](https://play.unity.com/en/games/e063b909-f3e3-4f11-9619-0f4bf9d328f3/ship-happens)
+
+**▶ Play in the browser:** https://play.unity.com/en/games/e063b909-f3e3-4f11-9619-0f4bf9d328f3/ship-happens
 
 Welcome to Ship Happens, an exciting open-world game where you find yourself stranded on an
 asteroid. Your mission is to gather resources, build pathways, and navigate through the cosmos to
@@ -19,28 +22,31 @@ Features:
 
 ## Installation
 
-To get started with Ship Happens, follow these steps:
+The game is playable in the browser - no setup needed:
+https://play.unity.com/en/games/e063b909-f3e3-4f11-9619-0f4bf9d328f3/ship-happens
 
-- Clone the Repository:
+To open the project itself:
+
+1. Install **Unity 6000.1.5f1** (the version in `ProjectSettings/ProjectVersion.txt`) via
+   Unity Hub. A different patch release will prompt an upgrade and may rewrite assets.
+2. Clone and open the folder as a project:
 
 ```sh
 $ git clone git@github.com:Zamatalo/ship-happens.git
-```
-
-Navigate to the Project Directory:
-
-```sh
 $ cd ship-happens
 ```
 
-Install Dependencies:
+3. Open it from Unity Hub (*Add project from disk*). Unity restores `Library/` and the
+   packages listed in `Packages/manifest.json` on first import, which takes a while.
 
-- Make sure you have the necessary dependencies installed. You can use a package manager like npm or
-  pip depending on the project requirements.
-
-Run the Game:
-
-- Launch the game using your preferred game engine or development environment.
+> **Heads-up on project settings.** `ProjectSettings/ProjectSettings.asset`,
+> `InputManager.asset`, `TagManager.asset`, `EditorBuildSettings.asset`,
+> `GraphicsSettings.asset`, `QualitySettings.asset`, `TimeManager.asset`,
+> `AudioManager.asset` and `DynamicsManager`'s 2D counterpart were excluded by the old
+> `.gitignore` and were never committed. `.gitignore` no longer excludes them, but the
+> files themselves still have to be added from a machine that has a working copy -
+> otherwise Unity regenerates them with defaults and the scene list, tags/layers and input
+> bindings come up empty.
 
 ## Assets
 
@@ -66,7 +72,11 @@ follow these guidelines:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE file](LICENSE) for more details.
+The game code is licensed under the MIT License - see [LICENSE](LICENSE).
+
+The art, audio and third-party plugins under `Assets/` are **not** covered by that
+grant; each has its own license and required attribution. See [CREDITS.md](CREDITS.md),
+which also records two known licensing issues.
 
 ## Contact
 
