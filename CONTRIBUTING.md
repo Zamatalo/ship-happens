@@ -32,7 +32,7 @@ community looks forward to your contributions. 🎉
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the
-[Ship Happens Code of Conduct](https://github.com/users/mzh/repos/vaadin-boilerplate/browse/CODE_OF_CONDUCT.md).
+[Ship Happens Code of Conduct](https://github.com/Zamatalo/ship-happens/blob/main/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior
 to [ial@ship-happens.dev](mailto:ial@ship-happens.dev).
 
@@ -42,7 +42,7 @@ to [ial@ship-happens.dev](mailto:ial@ship-happens.dev).
 > available [Documentation](https://github.com/Zamatalo/ship-happens#readme).
 
 Before you ask a question, it is best to search for
-existing [Issues](https://github.com/users/mzh/repos/vaadin-boilerplate/issues) that might
+existing [Issues](https://github.com/Zamatalo/ship-happens/issues) that might
 help you. In case you have found a suitable issue and still need clarification, you can write your
 question in this issue. It is also advisable to search the internet for answers first.
 
@@ -78,9 +78,9 @@ possible.
   check [this section](#i-have-a-question)).
 - To see if other users have experienced (and potentially already solved) the same issue you are
   having, check if there is not already a bug report existing for your bug or error in
-  the [bug tracker](https://github.com/users/mzh/repos/vaadin-boilerplate/issues?q=label%3Abug).
+  the [bug tracker](https://github.com/Zamatalo/ship-happens/issues?q=label%3Abug).
 - Also make sure to search the internet (including Stack Overflow) to see if users outside the
-  Bitbucket community have discussed the issue.
+  GitHub community have discussed the issue.
 - Collect information about the bug:
 	- Stack trace (Traceback)
 	- OS, Platform and Version (Windows, Linux, macOS, x86, ARM)
@@ -95,9 +95,9 @@ possible.
 > information to the issue tracker, or elsewhere in public. Instead, sensitive bugs must be sent by
 > email to [ial@ship-happens.dev](mailto:ial@ship-happens.dev).
 
-We use Bitbucket issues to track bugs and errors. If you run into an issue with the project:
+We use GitHub issues to track bugs and errors. If you run into an issue with the project:
 
-- Open an [Issue](https://github.com/users/mzh/repos/vaadin-boilerplate/issues/new). (Since we
+- Open an [Issue](https://github.com/Zamatalo/ship-happens/issues/new). (Since we
   can't be sure at this point whether it is a bug or not, we ask you not to talk about a bug yet and
   not to label the issue.)
 - Explain the behavior you would expect and the actual behavior.
@@ -129,7 +129,7 @@ related suggestions.
 - Make sure that you are using the latest version.
 - Read the [documentation](https://github.com/Zamatalo/ship-happens#readme) carefully and find out if the functionality is
   already covered, maybe by an individual configuration.
-- Perform a [search](https://github.com/users/mzh/repos/vaadin-boilerplate/issues) to see if
+- Perform a [search](https://github.com/Zamatalo/ship-happens/issues) to see if
   the enhancement has already been suggested. If it has, add a comment to the existing issue instead
   of opening a new one.
 - Find out whether your idea fits with the scope and aims of the project. It's up to you to make a
@@ -140,7 +140,7 @@ related suggestions.
 #### How Do I Submit a Good Enhancement Suggestion?
 
 Enhancement suggestions are tracked
-as [Bitbucket issues](https://github.com/users/mzh/repos/vaadin-boilerplate/issues).
+as [GitHub issues](https://github.com/Zamatalo/ship-happens/issues).
 
 - Use a **clear and descriptive title** for the issue to identify the suggestion.
 - Provide a **step-by-step description of the suggested enhancement** in as many details as
@@ -150,8 +150,8 @@ as [Bitbucket issues](https://github.com/users/mzh/repos/vaadin-boilerplate/issu
 - You may want to **include screenshots and animated GIFs** which help you demonstrate the steps or
   point out the part which the suggestion is related to. You can
   use [this tool](https://cockos.com/licecap) to record GIFs on macOS and Windows,
-  and [this tool](https://Bitbucket.com/colinkeenan/silentcast)
-  or [this tool](https://Bitbucket.com/GNOME/byzanz) on Linux.
+  and [this tool](https://github.com/colinkeenan/silentcast)
+  or [this tool](https://github.com/GNOME/byzanz) on Linux.
 - **Explain why this enhancement would be useful** to most Ship Happens users. You may also
   want to point out the other projects that solved it better and which could serve as inspiration.
 
